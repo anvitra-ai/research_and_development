@@ -1,0 +1,160 @@
+{
+  "schema": {
+    "node_label": "Node",
+    "id_property": "id",
+    "name_property": "label",
+    "type_property": "type"
+  },
+  "templates": {
+    "T_StockImpact": {
+      "template_id": "stock_impact_by_shock",
+      "description": "Why a company is impacted by a shock/geography/event — shortest impact path.",
+      "example_query": "Why are ICICI Lombard stocks impacted by Hormuz disruption?",
+      "source_type": "COMPANY",
+      "relationship": "PATH",
+      "target_type": "GEOGRAPHY|EVENT|MACRO_VAR",
+      "parameters": ["source_id", "target_id"],
+      "cypher": "MATCH (source:Node {id: $source_id}), (target:Node {id: $target_id})\nWHERE source <> target\nMATCH p = shortestPath((source)-[*..12]-(target))\nRETURN\n  source.label AS source_name,\n  target.label AS target_name,\n  [n IN nodes(p) | n.label] AS path_names,\n  [n IN nodes(p) | n.type] AS path_types,\n  [r IN relationships(p) | type(r)] AS rel_types,\n  length(p) AS hops"
+    },
+    "T_CausalChain": {
+      "template_id": "causal_chain_path",
+      "description": "Trace causal transmission between two entities through typed edges.",
+      "example_query": "How does Hormuz disruption lead to higher Brent crude price?",
+      "source_type": "GEOGRAPHY|EVENT",
+      "relationship": "CAUSES|TRANSITS|HURT_BY|BENEFITS_FROM|NEEDS|PRODUCES|CONTAINS|PRICE_LINKED_TO",
+      "target_type": "MACRO_VAR|COMPANY|SECTOR",
+      "parameters": ["source_id", "target_id"],
+      "cypher": "MATCH (source:Node {id: $source_id}), (target:Node {id: $target_id})\nMATCH p = (source)-[:CAUSES|TRANSITS|HURT_BY|BENEFITS_FROM|NEEDS|PRODUCES|CONTAINS|PRICE_LINKED_TO|SOURCED_FROM*1..10]->(target)\nRETURN\n  source.label AS source_name,\n  target.label AS target_name,\n  [n IN nodes(p) | n.label] AS path_names,\n  [r IN relationships(p) | type(r)] AS rel_types,\n  length(p) AS hops\nORDER BY hops\nLIMIT 10"
+    },
+    "T_Beneficiary": {
+      "template_id": "companies_benefiting_from_shock",
+      "description": "Companies with positive exposure (BENEFITS_FROM) to a shock or macro variable.",
+      "example_query": "Which companies benefit from higher Brent crude price?",
+      "source_type": "EVENT|MACRO_VAR|GEOGRAPHY",
+      "relationship": "BENEFITS_FROM",
+      "target_type": "COMPANY",
+      "parameters": ["source_id"],
+      "cypher": "MATCH (company:Node {type: 'COMPANY'})-[:BENEFITS_FROM]->(shock:Node {id: $source_id})\nRETURN\n  company.id AS id,\n  company.label AS name,\n  company.type AS node_type,\n  shock.label AS shock_name"
+    },
+    "T_CompareExposure": {
+      "template_id": "compare_entity_exposure",
+      "description": "Compare hop distance / exposure paths of two companies to the same shock.",
+      "example_query": "Compare ONGC and Oil India exposure to oil supply shock.",
+      "source_type": "COMPANY",
+      "relationship": "PATH",
+      "target_type": "COMPANY",
+      "parameters": ["source_id", "target_id", "shock_id"],
+      "cypher": "MATCH (a:Node {id: $source_id}), (b:Node {id: $target_id}), (shock:Node {id: $shock_id})\nOPTIONAL MATCH pa = shortestPath((a)-[*..12]-(shock))\nOPTIONAL MATCH pb = shortestPath((b)-[*..12]-(shock))\nRETURN\n  a.label AS company_a,\n  b.label AS company_b,\n  shock.label AS shock_name,\n  length(pa) AS hops_a,\n  length(pb) AS hops_b,\n  [n IN nodes(pa) | n.label] AS path_a,\n  [n IN nodes(pb) | n.label] AS path_b"
+    },
+    "T_ConstraintRisk": {
+      "template_id": "constraint_risk_for_entity",
+      "description": "Physical or supply bottlenecks constraining an entity or sector.",
+      "example_query": "What constrains NTPC growth in AI infrastructure capex?",
+      "source_type": "COMPANY|EVENT|SECTOR",
+      "relationship": "CONSTRAINED_BY|CONSTRAINS",
+      "target_type": "CONSTRAINT",
+      "parameters": ["source_id"],
+      "cypher": "MATCH (entity:Node {id: $source_id})-[:CONSTRAINED_BY]->(constraint:Node)\nRETURN\n  entity.label AS entity_name,\n  constraint.label AS constraint_name,\n  constraint.type AS constraint_type\nUNION\nMATCH (constraint:Node)-[:CONSTRAINS]->(entity:Node {id: $source_id})\nRETURN\n  entity.label AS entity_name,\n  constraint.label AS constraint_name,\n  constraint.type AS constraint_type"
+    },
+    "T_EventScenario": {
+      "template_id": "event_scenario_impact",
+      "description": "Downstream macro and company impact from an event scenario.",
+      "example_query": "What if Strait of Hormuz closes completely?",
+      "source_type": "EVENT",
+      "relationship": "CAUSES|HURT_BY",
+      "target_type": "MACRO_VAR|COMPANY",
+      "parameters": ["source_id"],
+      "cypher": "MATCH (event:Node {id: $source_id})-[r:CAUSES|HURT_BY]->(impacted:Node)\nRETURN\n  event.label AS event_name,\n  type(r) AS relationship,\n  impacted.label AS impacted_name,\n  impacted.type AS impacted_type\nORDER BY impacted.type, impacted.label"
+    },
+    "T_Hedging": {
+      "template_id": "company_hedging_exposure",
+      "description": "Natural or financial hedges used by a company.",
+      "example_query": "How does Reliance Industries hedge against USD/INR volatility?",
+      "source_type": "COMPANY",
+      "relationship": "HEDGES",
+      "target_type": "MACRO_VAR|EVENT|GEOGRAPHY",
+      "parameters": ["source_id"],
+      "cypher": "MATCH (company:Node {id: $source_id})-[r:HEDGES]->(hedge:Node)\nRETURN\n  company.label AS company_name,\n  type(r) AS relationship,\n  hedge.label AS hedge_target,\n  hedge.type AS hedge_type"
+    },
+    "T_InvestmentFlow": {
+      "template_id": "investment_into_entity",
+      "description": "Investors deploying capital into a company or sector.",
+      "example_query": "Who invests in data centre ecosystem in India?",
+      "source_type": "INVESTOR",
+      "relationship": "INVESTS_IN",
+      "target_type": "COMPANY|PRIVATE_CO|SECTOR",
+      "parameters": ["target_id"],
+      "cypher": "MATCH (investor:Node)-[r:INVESTS_IN]->(target:Node {id: $target_id})\nRETURN\n  investor.label AS investor_name,\n  investor.type AS investor_type,\n  type(r) AS relationship,\n  target.label AS target_name,\n  target.type AS target_type"
+    },
+    "T_MacroTransmission": {
+      "template_id": "macro_transmission_to_company",
+      "description": "How a macro variable transmits to a company through the graph.",
+      "example_query": "How does RBI policy rate affect Bajaj Finance?",
+      "source_type": "MACRO_VAR",
+      "relationship": "CAUSES|HURT_BY|BENEFITS_FROM|PRICE_LINKED_TO",
+      "target_type": "COMPANY",
+      "parameters": ["source_id", "target_id"],
+      "cypher": "MATCH (macro:Node {id: $source_id}), (company:Node {id: $target_id})\nWHERE macro <> company\nMATCH p = shortestPath((macro)-[*..10]-(company))\nRETURN\n  macro.label AS macro_name,\n  company.label AS company_name,\n  [n IN nodes(p) | n.label] AS path_names,\n  [r IN relationships(p) | type(r)] AS rel_types,\n  length(p) AS hops"
+    },
+    "T_OwnershipStructure": {
+      "template_id": "ownership_structure",
+      "description": "Corporate ownership, subsidiaries, and JV structure.",
+      "example_query": "Who owns Hindustan Petroleum?",
+      "source_type": "COMPANY|INVESTOR",
+      "relationship": "OWNS|SUBSIDIARY_OF|JV_WITH",
+      "target_type": "COMPANY|PRIVATE_CO",
+      "parameters": ["source_id"],
+      "cypher": "MATCH (parent:Node)-[r:OWNS|SUBSIDIARY_OF|JV_WITH]->(child:Node)\nWHERE parent.id = $source_id OR child.id = $source_id\nRETURN\n  parent.label AS parent_name,\n  parent.type AS parent_type,\n  type(r) AS relationship,\n  child.label AS child_name,\n  child.type AS child_type"
+    },
+    "T_PriceLinkage": {
+      "template_id": "price_linkage",
+      "description": "Price co-movement between a company/product and a macro or raw material.",
+      "example_query": "How is Asian Paints linked to Brent crude price?",
+      "source_type": "COMPANY|RAW_MATERIAL|PRODUCT",
+      "relationship": "PRICE_LINKED_TO",
+      "target_type": "MACRO_VAR|RAW_MATERIAL",
+      "parameters": ["source_id"],
+      "cypher": "MATCH (entity:Node {id: $source_id})-[r:PRICE_LINKED_TO]->(linked:Node)\nRETURN\n  entity.label AS entity_name,\n  entity.type AS entity_type,\n  type(r) AS relationship,\n  linked.label AS linked_name,\n  linked.type AS linked_type\nUNION\nMATCH (linked:Node)-[r:PRICE_LINKED_TO]->(entity:Node {id: $source_id})\nRETURN\n  entity.label AS entity_name,\n  entity.type AS entity_type,\n  type(r) AS relationship,\n  linked.label AS linked_name,\n  linked.type AS linked_type"
+    },
+    "T_RegulatoryImpact": {
+      "template_id": "regulatory_impact",
+      "description": "Policy, subsidy, or regulatory constraints on a company.",
+      "example_query": "How is Indian Oil affected by LPG subsidy policy?",
+      "source_type": "COMPANY",
+      "relationship": "REGULATED_BY",
+      "target_type": "POLICY|MACRO_VAR",
+      "parameters": ["source_id"],
+      "cypher": "MATCH (company:Node {id: $source_id})-[r:REGULATED_BY]->(policy:Node)\nRETURN\n  company.label AS company_name,\n  type(r) AS relationship,\n  policy.label AS policy_name,\n  policy.type AS policy_type"
+    },
+    "T_SectorExposure": {
+      "template_id": "sector_constituents",
+      "description": "Sector membership and constituent companies exposed to a theme.",
+      "example_query": "Which companies are in Banks & NBFCs sector?",
+      "source_type": "SECTOR",
+      "relationship": "CONTAINS",
+      "target_type": "COMPANY",
+      "parameters": ["source_id"],
+      "cypher": "MATCH (sector:Node {id: $source_id})-[:CONTAINS]->(company:Node {type: 'COMPANY'})\nRETURN\n  sector.label AS sector_name,\n  company.id AS id,\n  company.label AS name,\n  company.type AS node_type\nORDER BY company.label"
+    },
+    "T_SupplyDisruption": {
+      "template_id": "supply_chain_disruption",
+      "description": "Input needs, sourcing geography, and supply-chain exposure.",
+      "example_query": "How does Hormuz disruption disrupt crude oil supply?",
+      "source_type": "COMPANY|RAW_MATERIAL",
+      "relationship": "NEEDS|SOURCED_FROM|SUPPLIES_TO",
+      "target_type": "RAW_MATERIAL|GEOGRAPHY|COMPANY",
+      "parameters": ["source_id"],
+      "cypher": "MATCH (entity:Node {id: $source_id})-[r:NEEDS|SOURCED_FROM|SUPPLIES_TO]->(linked:Node)\nRETURN\n  entity.label AS entity_name,\n  type(r) AS relationship,\n  linked.label AS linked_name,\n  linked.type AS linked_type\nORDER BY relationship, linked_name"
+    },
+    "T_TransitRisk": {
+      "template_id": "transit_risk_via_chokepoint",
+      "description": "Commodities transiting a geography / chokepoint.",
+      "example_query": "How much Indian crude oil transits through Strait of Hormuz?",
+      "source_type": "RAW_MATERIAL",
+      "relationship": "TRANSITS",
+      "target_type": "GEOGRAPHY",
+      "parameters": ["target_id"],
+      "cypher": "MATCH (commodity:Node)-[r:TRANSITS]->(geo:Node {id: $target_id})\nRETURN\n  commodity.label AS commodity_name,\n  commodity.type AS commodity_type,\n  type(r) AS relationship,\n  geo.label AS chokepoint,\n  r.channel AS channel\nORDER BY commodity_name"
+    }
+  }
+}

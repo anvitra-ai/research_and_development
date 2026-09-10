@@ -1,0 +1,1597 @@
+id,text,node_type,node_name
+E_HORMUZ,"Type: EVENT
+Name: Strait of Hormuz disruption
+Relationships:
+CAUSES: Brent crude price CAUSES: Spot LNG / JKM CAUSES: Saudi LPG contract price CAUSES: Gross refining margin CAUSES: Tanker freight rates CAUSES: Marine war-risk premium CAUSES: Global urea/DAP/sulphur price",EVENT,Strait of Hormuz disruption
+E_HORMUZ,"Type: EVENT
+Name: Strait of Hormuz disruption
+Relationships:
+HURT_BY: India AI infrastructure capex cycle",EVENT,Strait of Hormuz disruption
+E_AIBUILD,"Type: EVENT
+Name: India AI infrastructure capex cycle
+Relationships:
+CONSTRAINED_BY: Power availability CONSTRAINED_BY: Transmission evacuation capacity CONSTRAINED_BY: Water availability CONSTRAINED_BY: GPU supply CONSTRAINED_BY: Infra-ready land",EVENT,India AI infrastructure capex cycle
+G_HORMUZ,"Type: GEOGRAPHY
+Name: Strait of Hormuz
+Relationships:
+",GEOGRAPHY,Strait of Hormuz
+G_INDIA,"Type: GEOGRAPHY
+Name: India
+Relationships:
+IMPORTS_VIA: Strait of Hormuz",GEOGRAPHY,India
+G_GCC,"Type: GEOGRAPHY
+Name: Gulf producers
+Relationships:
+",GEOGRAPHY,Gulf producers
+G_QATAR,"Type: GEOGRAPHY
+Name: Qatar
+Relationships:
+",GEOGRAPHY,Qatar
+G_OMAN,"Type: GEOGRAPHY
+Name: Oman
+Relationships:
+",GEOGRAPHY,Oman
+G_RUSSIA,"Type: GEOGRAPHY
+Name: Russia
+Relationships:
+",GEOGRAPHY,Russia
+G_CAPE,"Type: GEOGRAPHY
+Name: Cape of Good Hope reroute
+Relationships:
+SUBSTITUTES_FOR: Strait of Hormuz",GEOGRAPHY,Cape of Good Hope reroute
+G_KERALA,"Type: GEOGRAPHY
+Name: Kerala
+Relationships:
+EXPOSED_TO_ORDERBOOK: Gulf producers",GEOGRAPHY,Kerala
+G_ANDHRA,"Type: GEOGRAPHY
+Name: Andhra Pradesh
+Relationships:
+",GEOGRAPHY,Andhra Pradesh
+G_GUJARAT,"Type: GEOGRAPHY
+Name: Gujarat
+Relationships:
+",GEOGRAPHY,Gujarat
+M_BRENT,"Type: MACRO_VAR
+Name: Brent crude price
+Relationships:
+CAUSES: India CPI CAUSES: Current account deficit",MACRO_VAR,Brent crude price
+M_LNG_SPOT,"Type: MACRO_VAR
+Name: Spot LNG / JKM
+Relationships:
+",MACRO_VAR,Spot LNG / JKM
+M_LPG_SAUDI_CP,"Type: MACRO_VAR
+Name: Saudi LPG contract price
+Relationships:
+CAUSES: Fertiliser and LPG subsidy bill",MACRO_VAR,Saudi LPG contract price
+M_GRM,"Type: MACRO_VAR
+Name: Gross refining margin
+Relationships:
+",MACRO_VAR,Gross refining margin
+M_FREIGHT,"Type: MACRO_VAR
+Name: Tanker freight rates
+Relationships:
+",MACRO_VAR,Tanker freight rates
+M_WARRISK,"Type: MACRO_VAR
+Name: Marine war-risk premium
+Relationships:
+HURT_BY: India AI infrastructure capex cycle",MACRO_VAR,Marine war-risk premium
+M_INR,"Type: MACRO_VAR
+Name: USD/INR
+Relationships:
+CAUSES: India CPI",MACRO_VAR,USD/INR
+M_INR,"Type: MACRO_VAR
+Name: USD/INR
+Relationships:
+HURT_BY: Netweb Technologies",MACRO_VAR,USD/INR
+M_CPI,"Type: MACRO_VAR
+Name: India CPI
+Relationships:
+CAUSES: RBI policy rate",MACRO_VAR,India CPI
+M_CAD,"Type: MACRO_VAR
+Name: Current account deficit
+Relationships:
+CAUSES: USD/INR",MACRO_VAR,Current account deficit
+M_REPO,"Type: MACRO_VAR
+Name: RBI policy rate
+Relationships:
+HURT_BY: Anant Raj HURT_BY: Adani Green Energy",MACRO_VAR,RBI policy rate
+M_UREA,"Type: MACRO_VAR
+Name: Global urea/DAP/sulphur price
+Relationships:
+CAUSES: Fertiliser and LPG subsidy bill",MACRO_VAR,Global urea/DAP/sulphur price
+M_SUBSIDY,"Type: MACRO_VAR
+Name: Fertiliser and LPG subsidy bill
+Relationships:
+",MACRO_VAR,Fertiliser and LPG subsidy bill
+RM_CRUDE,"Type: RAW_MATERIAL
+Name: Crude oil
+Relationships:
+TRANSITS: Strait of Hormuz",RAW_MATERIAL,Crude oil
+RM_LNG,"Type: RAW_MATERIAL
+Name: LNG
+Relationships:
+TRANSITS: Strait of Hormuz",RAW_MATERIAL,LNG
+RM_LNG,"Type: RAW_MATERIAL
+Name: LNG
+Relationships:
+SOURCED_FROM: Qatar",RAW_MATERIAL,LNG
+RM_LPG,"Type: RAW_MATERIAL
+Name: LPG
+Relationships:
+TRANSITS: Strait of Hormuz",RAW_MATERIAL,LPG
+RM_NATGAS,"Type: RAW_MATERIAL
+Name: Natural gas
+Relationships:
+",RAW_MATERIAL,Natural gas
+RM_COAL,"Type: RAW_MATERIAL
+Name: Coal
+Relationships:
+SUBSTITUTES_FOR: LNG",RAW_MATERIAL,Coal
+RM_NAPHTHA,"Type: RAW_MATERIAL
+Name: Naphtha
+Relationships:
+PRICE_LINKED_TO: Brent crude price",RAW_MATERIAL,Naphtha
+RM_PROPYLENE,"Type: RAW_MATERIAL
+Name: Propylene
+Relationships:
+",RAW_MATERIAL,Propylene
+RM_BENZENE,"Type: RAW_MATERIAL
+Name: Benzene
+Relationships:
+",RAW_MATERIAL,Benzene
+RM_CBFS,"Type: RAW_MATERIAL
+Name: Carbon black feedstock
+Relationships:
+PRICE_LINKED_TO: Brent crude price",RAW_MATERIAL,Carbon black feedstock
+RM_CARBONBLACK,"Type: RAW_MATERIAL
+Name: Carbon black
+Relationships:
+NEEDS: Carbon black feedstock",RAW_MATERIAL,Carbon black
+RM_BASEOIL,"Type: RAW_MATERIAL
+Name: Base oil
+Relationships:
+PRICE_LINKED_TO: Brent crude price",RAW_MATERIAL,Base oil
+RM_SYNRUBBER,"Type: RAW_MATERIAL
+Name: Synthetic rubber
+Relationships:
+PRICE_LINKED_TO: Brent crude price",RAW_MATERIAL,Synthetic rubber
+RM_NATRUBBER,"Type: RAW_MATERIAL
+Name: Natural rubber
+Relationships:
+",RAW_MATERIAL,Natural rubber
+RM_TIO2,"Type: RAW_MATERIAL
+Name: Titanium dioxide
+Relationships:
+",RAW_MATERIAL,Titanium dioxide
+RM_SOLVENT,"Type: RAW_MATERIAL
+Name: Solvents
+Relationships:
+",RAW_MATERIAL,Solvents
+RM_MONOMER,"Type: RAW_MATERIAL
+Name: Acrylic monomers
+Relationships:
+",RAW_MATERIAL,Acrylic monomers
+RM_HDPE,"Type: RAW_MATERIAL
+Name: HDPE/LLDPE/PP resin
+Relationships:
+PRICE_LINKED_TO: Naphtha",RAW_MATERIAL,HDPE/LLDPE/PP resin
+RM_PVC,"Type: RAW_MATERIAL
+Name: PVC resin
+Relationships:
+PRICE_LINKED_TO: Brent crude price",RAW_MATERIAL,PVC resin
+RM_PTA_MEG,"Type: RAW_MATERIAL
+Name: PTA/MEG
+Relationships:
+",RAW_MATERIAL,PTA/MEG
+RM_VAM,"Type: RAW_MATERIAL
+Name: Vinyl acetate monomer
+Relationships:
+",RAW_MATERIAL,Vinyl acetate monomer
+RM_LAB,"Type: RAW_MATERIAL
+Name: Linear alkyl benzene
+Relationships:
+",RAW_MATERIAL,Linear alkyl benzene
+RM_PETCOKE,"Type: RAW_MATERIAL
+Name: Petroleum coke
+Relationships:
+PRICE_LINKED_TO: Brent crude price",RAW_MATERIAL,Petroleum coke
+RM_LLP,"Type: RAW_MATERIAL
+Name: Liquid light paraffin
+Relationships:
+PRICE_LINKED_TO: Brent crude price",RAW_MATERIAL,Liquid light paraffin
+RM_UREA,"Type: RAW_MATERIAL
+Name: Urea
+Relationships:
+TRANSITS: Strait of Hormuz",RAW_MATERIAL,Urea
+RM_UREA,"Type: RAW_MATERIAL
+Name: Urea
+Relationships:
+SOURCED_FROM: Oman",RAW_MATERIAL,Urea
+RM_SULPHUR,"Type: RAW_MATERIAL
+Name: Sulphur
+Relationships:
+TRANSITS: Strait of Hormuz",RAW_MATERIAL,Sulphur
+RM_SULPHUR,"Type: RAW_MATERIAL
+Name: Sulphur
+Relationships:
+SOURCED_FROM: Gulf producers",RAW_MATERIAL,Sulphur
+RM_AMMONIA,"Type: RAW_MATERIAL
+Name: Ammonia
+Relationships:
+TRANSITS: Strait of Hormuz",RAW_MATERIAL,Ammonia
+RM_PHOSACID,"Type: RAW_MATERIAL
+Name: Phosphoric acid
+Relationships:
+",RAW_MATERIAL,Phosphoric acid
+RM_COPPER,"Type: RAW_MATERIAL
+Name: Copper
+Relationships:
+",RAW_MATERIAL,Copper
+RM_ALUMINIUM,"Type: RAW_MATERIAL
+Name: Aluminium
+Relationships:
+",RAW_MATERIAL,Aluminium
+RM_CRGO_STEEL,"Type: RAW_MATERIAL
+Name: CRGO electrical steel
+Relationships:
+",RAW_MATERIAL,CRGO electrical steel
+RM_REFRIGERANT,"Type: RAW_MATERIAL
+Name: Refrigerant / dielectric fluid
+Relationships:
+",RAW_MATERIAL,Refrigerant / dielectric fluid
+RM_BATTERY,"Type: RAW_MATERIAL
+Name: Battery cells
+Relationships:
+",RAW_MATERIAL,Battery cells
+RM_GPU,"Type: RAW_MATERIAL
+Name: GPU / AI accelerator
+Relationships:
+",RAW_MATERIAL,GPU / AI accelerator
+P_ATF,"Type: PRODUCT
+Name: Aviation turbine fuel
+Relationships:
+PRICE_LINKED_TO: Brent crude price",PRODUCT,Aviation turbine fuel
+P_DIESEL,"Type: PRODUCT
+Name: Diesel
+Relationships:
+",PRODUCT,Diesel
+P_PETROL,"Type: PRODUCT
+Name: Petrol
+Relationships:
+",PRODUCT,Petrol
+P_ETHANOL,"Type: PRODUCT
+Name: Ethanol
+Relationships:
+SUBSTITUTES_FOR: Petrol",PRODUCT,Ethanol
+P_PAINT,"Type: PRODUCT
+Name: Decorative paint
+Relationships:
+NEEDS: Titanium dioxide NEEDS: Solvents NEEDS: Acrylic monomers",PRODUCT,Decorative paint
+P_TYRE,"Type: PRODUCT
+Name: Tyre
+Relationships:
+NEEDS: Carbon black NEEDS: Synthetic rubber NEEDS: Natural rubber",PRODUCT,Tyre
+P_PVC_PIPE,"Type: PRODUCT
+Name: PVC pipe
+Relationships:
+NEEDS: PVC resin",PRODUCT,PVC pipe
+P_CEMENT,"Type: PRODUCT
+Name: Cement
+Relationships:
+NEEDS: Petroleum coke NEEDS: Diesel",PRODUCT,Cement
+P_UREA,"Type: PRODUCT
+Name: Urea fertiliser
+Relationships:
+NEEDS: Natural gas",PRODUCT,Urea fertiliser
+P_DAP,"Type: PRODUCT
+Name: DAP/NPK fertiliser
+Relationships:
+NEEDS: Sulphur NEEDS: Ammonia NEEDS: Phosphoric acid",PRODUCT,DAP/NPK fertiliser
+P_DATACENTRE,"Type: PRODUCT
+Name: Data centre capacity (MW IT load)
+Relationships:
+NEEDS: Power transformer NEEDS: Switchgear / MV-LV distribution NEEDS: UPS / DC power backup NEEDS: Diesel genset NEEDS: Precision cooling / CDU NEEDS: Power cable NEEDS: Optical fibre / interconnect NEEDS: Firm 24x7 power supply",PRODUCT,Data centre capacity (MW IT load)
+P_TRANSFORMER,"Type: PRODUCT
+Name: Power transformer
+Relationships:
+",PRODUCT,Power transformer
+P_SWITCHGEAR,"Type: PRODUCT
+Name: Switchgear / MV-LV distribution
+Relationships:
+",PRODUCT,Switchgear / MV-LV distribution
+P_UPS,"Type: PRODUCT
+Name: UPS / DC power backup
+Relationships:
+NEEDS: Battery cells",PRODUCT,UPS / DC power backup
+P_GENSET,"Type: PRODUCT
+Name: Diesel genset
+Relationships:
+",PRODUCT,Diesel genset
+P_COOLING,"Type: PRODUCT
+Name: Precision cooling / CDU
+Relationships:
+",PRODUCT,Precision cooling / CDU
+P_CHILLER,"Type: PRODUCT
+Name: Chiller
+Relationships:
+NEEDS: Refrigerant / dielectric fluid",PRODUCT,Chiller
+P_POWERCABLE,"Type: PRODUCT
+Name: Power cable
+Relationships:
+NEEDS: PVC resin NEEDS: Copper",PRODUCT,Power cable
+P_FIBRE,"Type: PRODUCT
+Name: Optical fibre / interconnect
+Relationships:
+",PRODUCT,Optical fibre / interconnect
+P_AISERVER,"Type: PRODUCT
+Name: AI server / GPU system
+Relationships:
+NEEDS: GPU / AI accelerator NEEDS: HBM / advanced packaging",PRODUCT,AI server / GPU system
+P_FIRMPOWER,"Type: PRODUCT
+Name: Firm 24x7 power supply
+Relationships:
+",PRODUCT,Firm 24x7 power supply
+P_GRIDEQUIP,"Type: PRODUCT
+Name: Grid stability equipment (BESS/STATCOM)
+Relationships:
+",PRODUCT,Grid stability equipment (BESS/STATCOM)
+CN_POWER,"Type: CONSTRAINT
+Name: Power availability
+Relationships:
+",CONSTRAINT,Power availability
+CN_TRANSMISSION,"Type: CONSTRAINT
+Name: Transmission evacuation capacity
+Relationships:
+",CONSTRAINT,Transmission evacuation capacity
+CN_GRIDSTAB,"Type: CONSTRAINT
+Name: Grid stability under volatile DC load ramps
+Relationships:
+CAUSES: Grid stability equipment (BESS/STATCOM) CAUSES: Hitachi Energy India CAUSES: Exide Industries CAUSES: Amara Raja Energy & Mobility",CONSTRAINT,Grid stability under volatile DC load ramps
+CN_WATER,"Type: CONSTRAINT
+Name: Water availability
+Relationships:
+CAUSES: VA Tech Wabag",CONSTRAINT,Water availability
+CN_GPU,"Type: CONSTRAINT
+Name: GPU supply
+Relationships:
+",CONSTRAINT,GPU supply
+CN_HBM,"Type: CONSTRAINT
+Name: HBM / advanced packaging
+Relationships:
+",CONSTRAINT,HBM / advanced packaging
+CN_CRGO,"Type: CONSTRAINT
+Name: CRGO electrical steel imports
+Relationships:
+CONSTRAINS: Power transformer CONSTRAINS: Voltamp Transformers",CONSTRAINT,CRGO electrical steel imports
+CN_LAND,"Type: CONSTRAINT
+Name: Infra-ready land
+Relationships:
+",CONSTRAINT,Infra-ready land
+CN_SKILLS,"Type: CONSTRAINT
+Name: Liquid cooling / HV commissioning talent
+Relationships:
+",CONSTRAINT,Liquid cooling / HV commissioning talent
+T_GENAI,"Type: TECHNOLOGY
+Name: Generative AI
+Relationships:
+CAUSES: India AI infrastructure capex cycle",TECHNOLOGY,Generative AI
+T_LIQUIDCOOL,"Type: TECHNOLOGY
+Name: Liquid cooling
+Relationships:
+CAUSES: Refrigerant / dielectric fluid CAUSES: Precision cooling / CDU",TECHNOLOGY,Liquid cooling
+T_HIGHDENSITY,"Type: TECHNOLOGY
+Name: High-density racks
+Relationships:
+CAUSES: Liquid cooling",TECHNOLOGY,High-density racks
+POL_LPG_SUBSIDY,"Type: POLICY
+Name: Administered LPG pricing
+Relationships:
+",POLICY,Administered LPG pricing
+POL_EXCISE_CUT,"Type: POLICY
+Name: Fuel excise duty cuts (2026)
+Relationships:
+",POLICY,Fuel excise duty cuts (2026)
+POL_WINDFALL_TAX,"Type: POLICY
+Name: Windfall tax / SAED on upstream
+Relationships:
+",POLICY,Windfall tax / SAED on upstream
+POL_APM_GAS,"Type: POLICY
+Name: APM gas price ceiling
+Relationships:
+",POLICY,APM gas price ceiling
+POL_GAS_CONTROL_ORDER,"Type: POLICY
+Name: Natural Gas Control Order (rationing)
+Relationships:
+",POLICY,Natural Gas Control Order (rationing)
+POL_NBS_SUBSIDY,"Type: POLICY
+Name: Nutrient Based Subsidy
+Relationships:
+",POLICY,Nutrient Based Subsidy
+POL_DC_TAX,"Type: POLICY
+Name: 21-year DC tax holiday to 2047
+Relationships:
+ENABLES: India AI infrastructure capex cycle",POLICY,21-year DC tax holiday to 2047
+POL_INDIAAI,"Type: POLICY
+Name: IndiaAI Mission
+Relationships:
+ENABLES: India AI infrastructure capex cycle",POLICY,IndiaAI Mission
+POL_PLI_IT,"Type: POLICY
+Name: IT hardware PLI
+Relationships:
+",POLICY,IT hardware PLI
+POL_SEMICON,"Type: POLICY
+Name: India Semiconductor Mission / OSAT
+Relationships:
+",POLICY,India Semiconductor Mission / OSAT
+CU_HYPERSCALER,"Type: CUSTOMER
+Name: Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)
+Relationships:
+CAUSES: India AI infrastructure capex cycle",CUSTOMER,"Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)"
+CU_HYPERSCALER,"Type: CUSTOMER
+Name: Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)
+Relationships:
+CUSTOMER_OF: Reliance Industries",CUSTOMER,"Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)"
+CU_INDIAAI,"Type: CUSTOMER
+Name: IndiaAI sovereign compute
+Relationships:
+",CUSTOMER,IndiaAI sovereign compute
+CU_GCC_ENT,"Type: CUSTOMER
+Name: Global Capability Centres
+Relationships:
+",CUSTOMER,Global Capability Centres
+IN_BLACKSTONE,"Type: INVESTOR
+Name: Blackstone
+Relationships:
+INVESTS_IN: Neysa INVESTS_IN: AirTrunk",INVESTOR,Blackstone
+IN_BROOKFIELD,"Type: INVESTOR
+Name: Brookfield
+Relationships:
+",INVESTOR,Brookfield
+AS_JAMNAGAR_DC,"Type: ASSET
+Name: Reliance Jamnagar AI campus
+Relationships:
+LOCATED_IN: Gujarat",ASSET,Reliance Jamnagar AI campus
+AS_VIZAG_DC,"Type: ASSET
+Name: Google Visakhapatnam AI hub
+Relationships:
+LOCATED_IN: Andhra Pradesh",ASSET,Google Visakhapatnam AI hub
+PC_ADANICONNEX,"Type: PRIVATE_CO
+Name: AdaniConneX
+Relationships:
+",PRIVATE_CO,AdaniConneX
+PC_CTRLS,"Type: PRIVATE_CO
+Name: CtrlS Datacenters
+Relationships:
+JV_WITH: NTPC Green Energy",PRIVATE_CO,CtrlS Datacenters
+PC_YOTTA,"Type: PRIVATE_CO
+Name: Yotta
+Relationships:
+",PRIVATE_CO,Yotta
+PC_NXTRA,"Type: PRIVATE_CO
+Name: Nxtra by Airtel
+Relationships:
+",PRIVATE_CO,Nxtra by Airtel
+PC_NEYSA,"Type: PRIVATE_CO
+Name: Neysa
+Relationships:
+",PRIVATE_CO,Neysa
+PC_AIRTRUNK,"Type: PRIVATE_CO
+Name: AirTrunk
+Relationships:
+",PRIVATE_CO,AirTrunk
+PC_EQUINIX,"Type: PRIVATE_CO
+Name: Equinix India
+Relationships:
+",PRIVATE_CO,Equinix India
+PC_NVIDIA,"Type: PRIVATE_CO
+Name: NVIDIA
+Relationships:
+SUPPLIES_TO: Netweb Technologies",PRIVATE_CO,NVIDIA
+PC_NAYARA,"Type: PRIVATE_CO
+Name: Nayara Energy
+Relationships:
+",PRIVATE_CO,Nayara Energy
+S_OILGAS,"Type: SECTOR
+Name: Oil & Gas
+Relationships:
+CONTAINS: Oil & Natural Gas Corp CONTAINS: Oil India CONTAINS: GAIL (India) CONTAINS: Indian Oil CONTAINS: Bharat Petroleum CONTAINS: Hindustan Petroleum CONTAINS: Mangalore Refinery CONTAINS: Chennai Petroleum CONTAINS: Reliance Industries CONTAINS: Petronet LNG CONTAINS: Gujarat State Petronet CONTAINS: Indraprastha Gas CONTAINS: Mahanagar Gas CONTAINS: Gujarat Gas CONTAINS: Adani Total Gas CONTAINS: Selan Exploration CONTAINS: Castrol India CONTAINS: Gulf Oil Lubricants",SECTOR,Oil & Gas
+S_SHIPPING,"Type: SECTOR
+Name: Shipping & Logistics
+Relationships:
+CONTAINS: Great Eastern Shipping CONTAINS: Shipping Corporation of India CONTAINS: Seamec CONTAINS: Adani Ports & SEZ CONTAINS: JSW Infrastructure CONTAINS: Container Corp of India CONTAINS: Allcargo Logistics CONTAINS: Transport Corp of India",SECTOR,Shipping & Logistics
+S_AVIATION,"Type: SECTOR
+Name: Aviation
+Relationships:
+CONTAINS: InterGlobe Aviation CONTAINS: SpiceJet",SECTOR,Aviation
+S_CHEMICALS,"Type: SECTOR
+Name: Chemicals
+Relationships:
+CONTAINS: PCBL CONTAINS: Himadri Speciality Chemical CONTAINS: Supreme Industries CONTAINS: Astral CONTAINS: Finolex Industries CONTAINS: Prince Pipes CONTAINS: Polyplex CONTAINS: Cosmo First CONTAINS: UFlex CONTAINS: EPL Ltd CONTAINS: Time Technoplast CONTAINS: SRF CONTAINS: Navin Fluorine CONTAINS: Gujarat Fluorochemicals CONTAINS: Aarti Industries CONTAINS: Deepak Nitrite CONTAINS: Atul CONTAINS: Vinati Organics CONTAINS: Tata Chemicals CONTAINS: GHCL CONTAINS: Alkyl Amines",SECTOR,Chemicals
+S_FERTILISER,"Type: SECTOR
+Name: Fertilisers & Agri-inputs
+Relationships:
+CONTAINS: Chambal Fertilisers CONTAINS: Coromandel International CONTAINS: GNFC CONTAINS: GSFC CONTAINS: Rashtriya Chemicals & Fertilizers CONTAINS: National Fertilizers CONTAINS: Deepak Fertilisers CONTAINS: Paradeep Phosphates CONTAINS: FACT CONTAINS: UPL CONTAINS: PI Industries CONTAINS: Rallis India",SECTOR,Fertilisers & Agri-inputs
+S_PAINTS,"Type: SECTOR
+Name: Paints & Adhesives
+Relationships:
+CONTAINS: Asian Paints CONTAINS: Berger Paints CONTAINS: Kansai Nerolac CONTAINS: Indigo Paints CONTAINS: Akzo Nobel India CONTAINS: Pidilite Industries CONTAINS: Grasim Industries",SECTOR,Paints & Adhesives
+S_TYRES,"Type: SECTOR
+Name: Tyres
+Relationships:
+CONTAINS: MRF CONTAINS: Apollo Tyres CONTAINS: CEAT CONTAINS: JK Tyre CONTAINS: Balkrishna Industries",SECTOR,Tyres
+S_CAPGOODS,"Type: SECTOR
+Name: Capital Goods & Electricals
+Relationships:
+CONTAINS: Praj Industries CONTAINS: ABB India CONTAINS: Siemens India CONTAINS: Siemens Energy India CONTAINS: Hitachi Energy India CONTAINS: GE Vernova T&D India CONTAINS: Schneider Electric Infrastructure CONTAINS: CG Power & Industrial Solutions CONTAINS: Voltamp Transformers CONTAINS: Transformers & Rectifiers India CONTAINS: Shilchar Technologies CONTAINS: Cummins India CONTAINS: Kirloskar Oil Engines CONTAINS: HBL Engineering CONTAINS: Apar Industries CONTAINS: HPL Electric & Power CONTAINS: BHEL CONTAINS: Thermax",SECTOR,Capital Goods & Electricals
+S_COOLING,"Type: SECTOR
+Name: HVAC & Thermal Management
+Relationships:
+CONTAINS: Blue Star CONTAINS: Voltas CONTAINS: KRN Heat Exchanger CONTAINS: Amber Enterprises CONTAINS: Johnson Controls-Hitachi AC India CONTAINS: EPACK Durable",SECTOR,HVAC & Thermal Management
+S_CABLES,"Type: SECTOR
+Name: Cables & Wires
+Relationships:
+CONTAINS: Polycab India CONTAINS: KEI Industries CONTAINS: R R Kabel CONTAINS: Finolex Cables CONTAINS: Ram Ratna Wires CONTAINS: Precision Wires India CONTAINS: Skipper",SECTOR,Cables & Wires
+S_EMS,"Type: SECTOR
+Name: EMS & Compute Hardware
+Relationships:
+CONTAINS: Netweb Technologies CONTAINS: Dixon Technologies CONTAINS: Kaynes Technology CONTAINS: Syrma SGS Technology CONTAINS: Cyient DLM CONTAINS: Tata Elxsi CONTAINS: MosChip Technologies",SECTOR,EMS & Compute Hardware
+S_POWER,"Type: SECTOR
+Name: Power & Utilities
+Relationships:
+CONTAINS: Coal India CONTAINS: Adani Enterprises CONTAINS: NTPC CONTAINS: NTPC Green Energy CONTAINS: Power Grid Corporation CONTAINS: Tata Power CONTAINS: Adani Power CONTAINS: Adani Green Energy CONTAINS: JSW Energy CONTAINS: Torrent Power CONTAINS: NHPC CONTAINS: Indian Energy Exchange CONTAINS: Suzlon Energy CONTAINS: Inox Wind CONTAINS: KPI Green Energy CONTAINS: Waaree Energies CONTAINS: Premier Energies CONTAINS: Exide Industries CONTAINS: Amara Raja Energy & Mobility CONTAINS: Servotech Renewable Power",SECTOR,Power & Utilities
+S_TELECOM,"Type: SECTOR
+Name: Telecom & Connectivity
+Relationships:
+CONTAINS: Bharti Airtel CONTAINS: Tata Communications CONTAINS: RailTel Corporation CONTAINS: Sterlite Technologies CONTAINS: HFCL CONTAINS: Tejas Networks CONTAINS: Indus Towers",SECTOR,Telecom & Connectivity
+S_REALESTATE,"Type: SECTOR
+Name: Real Estate & REITs
+Relationships:
+CONTAINS: Anant Raj CONTAINS: Macrotech Developers CONTAINS: DLF CONTAINS: Embassy Office Parks REIT CONTAINS: Mindspace Business Parks REIT CONTAINS: Brigade Enterprises",SECTOR,Real Estate & REITs
+S_BFSI,"Type: SECTOR
+Name: Banks & NBFCs
+Relationships:
+CONTAINS: Bajaj Finance CONTAINS: Cholamandalam Investment CONTAINS: Shriram Finance CONTAINS: Muthoot Finance CONTAINS: Manappuram Finance CONTAINS: HDFC Bank CONTAINS: State Bank of India CONTAINS: AU Small Finance Bank CONTAINS: Federal Bank CONTAINS: South Indian Bank CONTAINS: CSB Bank CONTAINS: Dhanlaxmi Bank CONTAINS: GIC Re CONTAINS: New India Assurance CONTAINS: ICICI Lombard CONTAINS: Power Finance Corporation CONTAINS: REC Ltd CONTAINS: IREDA",SECTOR,Banks & NBFCs
+S_IT,"Type: SECTOR
+Name: IT Services
+Relationships:
+CONTAINS: Tata Consultancy Services CONTAINS: Infosys CONTAINS: HCL Technologies CONTAINS: Wipro CONTAINS: LTIMindtree CONTAINS: Persistent Systems CONTAINS: Coforge CONTAINS: Quick Heal Technologies CONTAINS: TeamLease Services CONTAINS: Quess Corp",SECTOR,IT Services
+S_DEFENCE,"Type: SECTOR
+Name: Defence
+Relationships:
+CONTAINS: Hindustan Aeronautics CONTAINS: Bharat Electronics CONTAINS: Bharat Dynamics CONTAINS: Solar Industries CONTAINS: Cochin Shipyard CONTAINS: Mazagon Dock CONTAINS: Garden Reach Shipbuilders CONTAINS: Data Patterns CONTAINS: Astra Microwave",SECTOR,Defence
+S_METALS,"Type: SECTOR
+Name: Metals & Mining
+Relationships:
+CONTAINS: Hindalco CONTAINS: National Aluminium CONTAINS: Vedanta CONTAINS: JSW Steel CONTAINS: Tata Steel CONTAINS: Hindustan Copper",SECTOR,Metals & Mining
+S_CEMENT,"Type: SECTOR
+Name: Cement
+Relationships:
+CONTAINS: UltraTech Cement CONTAINS: Ambuja Cements CONTAINS: Shree Cement CONTAINS: Dalmia Bharat",SECTOR,Cement
+S_AUTO,"Type: SECTOR
+Name: Automobiles
+Relationships:
+CONTAINS: Maruti Suzuki CONTAINS: Hero MotoCorp CONTAINS: Bajaj Auto CONTAINS: TVS Motor CONTAINS: Tata Motors CONTAINS: Mahindra & Mahindra CONTAINS: Olectra Greentech",SECTOR,Automobiles
+S_FMCG,"Type: SECTOR
+Name: FMCG
+Relationships:
+CONTAINS: Balrampur Chini CONTAINS: Triveni Engineering CONTAINS: Shree Renuka Sugars CONTAINS: Hindustan Unilever CONTAINS: Marico CONTAINS: Godrej Consumer CONTAINS: Dabur India CONTAINS: Jyothy Labs CONTAINS: Sun Pharmaceutical CONTAINS: Dr Reddy's Laboratories CONTAINS: Cipla CONTAINS: Divi's Laboratories",SECTOR,FMCG
+S_EPC,"Type: SECTOR
+Name: EPC & Infrastructure
+Relationships:
+CONTAINS: Larsen & Toubro CONTAINS: Techno Electric & Engineering CONTAINS: Kalpataru Projects CONTAINS: KEC International CONTAINS: Ahluwalia Contracts CONTAINS: PSP Projects CONTAINS: Afcons Infrastructure",SECTOR,EPC & Infrastructure
+S_WATER,"Type: SECTOR
+Name: Water & Environment
+Relationships:
+CONTAINS: VA Tech Wabag CONTAINS: Ion Exchange India",SECTOR,Water & Environment
+C_ONGC,"Type: COMPANY
+Name: Oil & Natural Gas Corp
+Relationships:
+PRODUCES: Crude oil",COMPANY,Oil & Natural Gas Corp
+C_ONGC,"Type: COMPANY
+Name: Oil & Natural Gas Corp
+Relationships:
+BENEFITS_FROM: Brent crude price",COMPANY,Oil & Natural Gas Corp
+C_ONGC,"Type: COMPANY
+Name: Oil & Natural Gas Corp
+Relationships:
+HURT_BY: Windfall tax / SAED on upstream",COMPANY,Oil & Natural Gas Corp
+C_ONGC,"Type: COMPANY
+Name: Oil & Natural Gas Corp
+Relationships:
+OWNS: Hindustan Petroleum OWNS: Mangalore Refinery",COMPANY,Oil & Natural Gas Corp
+C_OIL,"Type: COMPANY
+Name: Oil India
+Relationships:
+BENEFITS_FROM: Brent crude price",COMPANY,Oil India
+C_GAIL,"Type: COMPANY
+Name: GAIL (India)
+Relationships:
+HEDGES: Strait of Hormuz disruption",COMPANY,GAIL (India)
+C_IOC,"Type: COMPANY
+Name: Indian Oil
+Relationships:
+BENEFITS_FROM: Gross refining margin",COMPANY,Indian Oil
+C_IOC,"Type: COMPANY
+Name: Indian Oil
+Relationships:
+HURT_BY: Saudi LPG contract price",COMPANY,Indian Oil
+C_IOC,"Type: COMPANY
+Name: Indian Oil
+Relationships:
+NEEDS: Crude oil",COMPANY,Indian Oil
+C_IOC,"Type: COMPANY
+Name: Indian Oil
+Relationships:
+REGULATED_BY: Administered LPG pricing",COMPANY,Indian Oil
+C_BPCL,"Type: COMPANY
+Name: Bharat Petroleum
+Relationships:
+HURT_BY: Saudi LPG contract price",COMPANY,Bharat Petroleum
+C_HPCL,"Type: COMPANY
+Name: Hindustan Petroleum
+Relationships:
+HURT_BY: Saudi LPG contract price",COMPANY,Hindustan Petroleum
+C_MRPL,"Type: COMPANY
+Name: Mangalore Refinery
+Relationships:
+BENEFITS_FROM: Gross refining margin",COMPANY,Mangalore Refinery
+C_MRPL,"Type: COMPANY
+Name: Mangalore Refinery
+Relationships:
+HURT_BY: Strait of Hormuz disruption",COMPANY,Mangalore Refinery
+C_CPCL,"Type: COMPANY
+Name: Chennai Petroleum
+Relationships:
+BENEFITS_FROM: Gross refining margin",COMPANY,Chennai Petroleum
+C_RIL,"Type: COMPANY
+Name: Reliance Industries
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle",COMPANY,Reliance Industries
+C_RIL,"Type: COMPANY
+Name: Reliance Industries
+Relationships:
+OWNS: Reliance Jamnagar AI campus",COMPANY,Reliance Industries
+C_RIL,"Type: COMPANY
+Name: Reliance Industries
+Relationships:
+HEDGES: Strait of Hormuz disruption",COMPANY,Reliance Industries
+C_PETRONET,"Type: COMPANY
+Name: Petronet LNG
+Relationships:
+HURT_BY: Strait of Hormuz disruption",COMPANY,Petronet LNG
+C_GSPL,"Type: COMPANY
+Name: Gujarat State Petronet
+Relationships:
+",COMPANY,Gujarat State Petronet
+C_IGL,"Type: COMPANY
+Name: Indraprastha Gas
+Relationships:
+BENEFITS_FROM: Brent crude price",COMPANY,Indraprastha Gas
+C_IGL,"Type: COMPANY
+Name: Indraprastha Gas
+Relationships:
+HURT_BY: Spot LNG / JKM",COMPANY,Indraprastha Gas
+C_MGL,"Type: COMPANY
+Name: Mahanagar Gas
+Relationships:
+HURT_BY: Spot LNG / JKM",COMPANY,Mahanagar Gas
+C_GUJGAS,"Type: COMPANY
+Name: Gujarat Gas
+Relationships:
+HURT_BY: Spot LNG / JKM",COMPANY,Gujarat Gas
+C_GUJGAS,"Type: COMPANY
+Name: Gujarat Gas
+Relationships:
+REGULATED_BY: Natural Gas Control Order (rationing)",COMPANY,Gujarat Gas
+C_ATGL,"Type: COMPANY
+Name: Adani Total Gas
+Relationships:
+",COMPANY,Adani Total Gas
+C_SELAN,"Type: COMPANY
+Name: Selan Exploration
+Relationships:
+",COMPANY,Selan Exploration
+C_GESHIP,"Type: COMPANY
+Name: Great Eastern Shipping
+Relationships:
+BENEFITS_FROM: Tanker freight rates",COMPANY,Great Eastern Shipping
+C_GESHIP,"Type: COMPANY
+Name: Great Eastern Shipping
+Relationships:
+HURT_BY: Marine war-risk premium",COMPANY,Great Eastern Shipping
+C_SCI,"Type: COMPANY
+Name: Shipping Corporation of India
+Relationships:
+BENEFITS_FROM: Tanker freight rates",COMPANY,Shipping Corporation of India
+C_SEAMEC,"Type: COMPANY
+Name: Seamec
+Relationships:
+",COMPANY,Seamec
+C_ADANIPORTS,"Type: COMPANY
+Name: Adani Ports & SEZ
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle",COMPANY,Adani Ports & SEZ
+C_ADANIPORTS,"Type: COMPANY
+Name: Adani Ports & SEZ
+Relationships:
+HURT_BY: Strait of Hormuz disruption",COMPANY,Adani Ports & SEZ
+C_JSWINFRA,"Type: COMPANY
+Name: JSW Infrastructure
+Relationships:
+",COMPANY,JSW Infrastructure
+C_CONCOR,"Type: COMPANY
+Name: Container Corp of India
+Relationships:
+HURT_BY: Tanker freight rates",COMPANY,Container Corp of India
+C_ALLCARGO,"Type: COMPANY
+Name: Allcargo Logistics
+Relationships:
+",COMPANY,Allcargo Logistics
+C_TCI,"Type: COMPANY
+Name: Transport Corp of India
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Transport Corp of India
+C_INDIGO,"Type: COMPANY
+Name: InterGlobe Aviation
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle",COMPANY,InterGlobe Aviation
+C_INDIGO,"Type: COMPANY
+Name: InterGlobe Aviation
+Relationships:
+HURT_BY: Brent crude price HURT_BY: USD/INR",COMPANY,InterGlobe Aviation
+C_INDIGO,"Type: COMPANY
+Name: InterGlobe Aviation
+Relationships:
+NEEDS: Aviation turbine fuel",COMPANY,InterGlobe Aviation
+C_SPICEJET,"Type: COMPANY
+Name: SpiceJet
+Relationships:
+HURT_BY: Brent crude price",COMPANY,SpiceJet
+C_ASIANPAINT,"Type: COMPANY
+Name: Asian Paints
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Asian Paints
+C_BERGER,"Type: COMPANY
+Name: Berger Paints
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Berger Paints
+C_KANSAI,"Type: COMPANY
+Name: Kansai Nerolac
+Relationships:
+",COMPANY,Kansai Nerolac
+C_INDIGOPNT,"Type: COMPANY
+Name: Indigo Paints
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Indigo Paints
+C_AKZO,"Type: COMPANY
+Name: Akzo Nobel India
+Relationships:
+",COMPANY,Akzo Nobel India
+C_PIDILITE,"Type: COMPANY
+Name: Pidilite Industries
+Relationships:
+HURT_BY: Vinyl acetate monomer",COMPANY,Pidilite Industries
+C_GRASIM,"Type: COMPANY
+Name: Grasim Industries
+Relationships:
+",COMPANY,Grasim Industries
+C_MRF,"Type: COMPANY
+Name: MRF
+Relationships:
+HURT_BY: Brent crude price",COMPANY,MRF
+C_APOLLOTYRE,"Type: COMPANY
+Name: Apollo Tyres
+Relationships:
+",COMPANY,Apollo Tyres
+C_CEAT,"Type: COMPANY
+Name: CEAT
+Relationships:
+",COMPANY,CEAT
+C_JKTYRE,"Type: COMPANY
+Name: JK Tyre
+Relationships:
+",COMPANY,JK Tyre
+C_BALKRISHNA,"Type: COMPANY
+Name: Balkrishna Industries
+Relationships:
+HEDGES: USD/INR",COMPANY,Balkrishna Industries
+C_PCBL,"Type: COMPANY
+Name: PCBL
+Relationships:
+HURT_BY: Brent crude price",COMPANY,PCBL
+C_HIMADRI,"Type: COMPANY
+Name: Himadri Speciality Chemical
+Relationships:
+",COMPANY,Himadri Speciality Chemical
+C_SUPREME,"Type: COMPANY
+Name: Supreme Industries
+Relationships:
+HURT_BY: PVC resin",COMPANY,Supreme Industries
+C_ASTRAL,"Type: COMPANY
+Name: Astral
+Relationships:
+",COMPANY,Astral
+C_FINOLEXIND,"Type: COMPANY
+Name: Finolex Industries
+Relationships:
+HEDGES: PVC resin",COMPANY,Finolex Industries
+C_PRINCEPIPE,"Type: COMPANY
+Name: Prince Pipes
+Relationships:
+",COMPANY,Prince Pipes
+C_POLYPLEX,"Type: COMPANY
+Name: Polyplex
+Relationships:
+HURT_BY: PTA/MEG",COMPANY,Polyplex
+C_COSMO,"Type: COMPANY
+Name: Cosmo First
+Relationships:
+",COMPANY,Cosmo First
+C_UFLEX,"Type: COMPANY
+Name: UFlex
+Relationships:
+",COMPANY,UFlex
+C_EPL,"Type: COMPANY
+Name: EPL Ltd
+Relationships:
+HURT_BY: HDPE/LLDPE/PP resin",COMPANY,EPL Ltd
+C_TIMETECHNO,"Type: COMPANY
+Name: Time Technoplast
+Relationships:
+",COMPANY,Time Technoplast
+C_SRF,"Type: COMPANY
+Name: SRF
+Relationships:
+HURT_BY: Brent crude price",COMPANY,SRF
+C_SRF,"Type: COMPANY
+Name: SRF
+Relationships:
+SUPPLIES_TO: Chiller",COMPANY,SRF
+C_NAVINFLUOR,"Type: COMPANY
+Name: Navin Fluorine
+Relationships:
+",COMPANY,Navin Fluorine
+C_GFL,"Type: COMPANY
+Name: Gujarat Fluorochemicals
+Relationships:
+SUPPLIES_TO: Chiller",COMPANY,Gujarat Fluorochemicals
+C_AARTIIND,"Type: COMPANY
+Name: Aarti Industries
+Relationships:
+HURT_BY: Benzene",COMPANY,Aarti Industries
+C_DEEPAKNTR,"Type: COMPANY
+Name: Deepak Nitrite
+Relationships:
+HURT_BY: Benzene",COMPANY,Deepak Nitrite
+C_ATUL,"Type: COMPANY
+Name: Atul
+Relationships:
+",COMPANY,Atul
+C_VINATI,"Type: COMPANY
+Name: Vinati Organics
+Relationships:
+",COMPANY,Vinati Organics
+C_TATACHEM,"Type: COMPANY
+Name: Tata Chemicals
+Relationships:
+HURT_BY: Spot LNG / JKM",COMPANY,Tata Chemicals
+C_GHCL,"Type: COMPANY
+Name: GHCL
+Relationships:
+HURT_BY: Spot LNG / JKM",COMPANY,GHCL
+C_ALKYLAMINE,"Type: COMPANY
+Name: Alkyl Amines
+Relationships:
+",COMPANY,Alkyl Amines
+C_CHAMBAL,"Type: COMPANY
+Name: Chambal Fertilisers
+Relationships:
+HURT_BY: Spot LNG / JKM",COMPANY,Chambal Fertilisers
+C_CHAMBAL,"Type: COMPANY
+Name: Chambal Fertilisers
+Relationships:
+REGULATED_BY: Nutrient Based Subsidy",COMPANY,Chambal Fertilisers
+C_COROMANDEL,"Type: COMPANY
+Name: Coromandel International
+Relationships:
+HURT_BY: Strait of Hormuz disruption HURT_BY: Fertiliser and LPG subsidy bill",COMPANY,Coromandel International
+C_GNFC,"Type: COMPANY
+Name: GNFC
+Relationships:
+",COMPANY,GNFC
+C_GSFC,"Type: COMPANY
+Name: GSFC
+Relationships:
+",COMPANY,GSFC
+C_RCF,"Type: COMPANY
+Name: Rashtriya Chemicals & Fertilizers
+Relationships:
+",COMPANY,Rashtriya Chemicals & Fertilizers
+C_NFL,"Type: COMPANY
+Name: National Fertilizers
+Relationships:
+",COMPANY,National Fertilizers
+C_DEEPAKFERT,"Type: COMPANY
+Name: Deepak Fertilisers
+Relationships:
+HEDGES: Ammonia",COMPANY,Deepak Fertilisers
+C_PARADEEP,"Type: COMPANY
+Name: Paradeep Phosphates
+Relationships:
+HURT_BY: Sulphur",COMPANY,Paradeep Phosphates
+C_FACT,"Type: COMPANY
+Name: FACT
+Relationships:
+",COMPANY,FACT
+C_UPL,"Type: COMPANY
+Name: UPL
+Relationships:
+",COMPANY,UPL
+C_PIIND,"Type: COMPANY
+Name: PI Industries
+Relationships:
+",COMPANY,PI Industries
+C_RALLIS,"Type: COMPANY
+Name: Rallis India
+Relationships:
+",COMPANY,Rallis India
+C_COALINDIA,"Type: COMPANY
+Name: Coal India
+Relationships:
+BENEFITS_FROM: Spot LNG / JKM BENEFITS_FROM: Power availability",COMPANY,Coal India
+C_BALRAMPUR,"Type: COMPANY
+Name: Balrampur Chini
+Relationships:
+BENEFITS_FROM: Brent crude price",COMPANY,Balrampur Chini
+C_TRIVENI,"Type: COMPANY
+Name: Triveni Engineering
+Relationships:
+",COMPANY,Triveni Engineering
+C_SHREERENUKA,"Type: COMPANY
+Name: Shree Renuka Sugars
+Relationships:
+",COMPANY,Shree Renuka Sugars
+C_PRAJ,"Type: COMPANY
+Name: Praj Industries
+Relationships:
+BENEFITS_FROM: Strait of Hormuz disruption",COMPANY,Praj Industries
+C_HUL,"Type: COMPANY
+Name: Hindustan Unilever
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Hindustan Unilever
+C_MARICO,"Type: COMPANY
+Name: Marico
+Relationships:
+HURT_BY: Liquid light paraffin",COMPANY,Marico
+C_GODREJCP,"Type: COMPANY
+Name: Godrej Consumer
+Relationships:
+",COMPANY,Godrej Consumer
+C_DABUR,"Type: COMPANY
+Name: Dabur India
+Relationships:
+",COMPANY,Dabur India
+C_JYOTHYLAB,"Type: COMPANY
+Name: Jyothy Labs
+Relationships:
+",COMPANY,Jyothy Labs
+C_CASTROL,"Type: COMPANY
+Name: Castrol India
+Relationships:
+HURT_BY: Base oil",COMPANY,Castrol India
+C_GULFOIL,"Type: COMPANY
+Name: Gulf Oil Lubricants
+Relationships:
+HURT_BY: Base oil",COMPANY,Gulf Oil Lubricants
+C_ULTRACEMCO,"Type: COMPANY
+Name: UltraTech Cement
+Relationships:
+HURT_BY: Brent crude price",COMPANY,UltraTech Cement
+C_ULTRACEMCO,"Type: COMPANY
+Name: UltraTech Cement
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,UltraTech Cement
+C_AMBUJA,"Type: COMPANY
+Name: Ambuja Cements
+Relationships:
+",COMPANY,Ambuja Cements
+C_SHREECEM,"Type: COMPANY
+Name: Shree Cement
+Relationships:
+",COMPANY,Shree Cement
+C_DALMIA,"Type: COMPANY
+Name: Dalmia Bharat
+Relationships:
+",COMPANY,Dalmia Bharat
+C_HINDALCO,"Type: COMPANY
+Name: Hindalco
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Hindalco
+C_HINDALCO,"Type: COMPANY
+Name: Hindalco
+Relationships:
+SUPPLIES_TO: Power transformer",COMPANY,Hindalco
+C_NALCO,"Type: COMPANY
+Name: National Aluminium
+Relationships:
+HEDGES: Brent crude price",COMPANY,National Aluminium
+C_NALCO,"Type: COMPANY
+Name: National Aluminium
+Relationships:
+SUPPLIES_TO: Aluminium",COMPANY,National Aluminium
+C_VEDL,"Type: COMPANY
+Name: Vedanta
+Relationships:
+",COMPANY,Vedanta
+C_JSWSTEEL,"Type: COMPANY
+Name: JSW Steel
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,JSW Steel
+C_TATASTEEL,"Type: COMPANY
+Name: Tata Steel
+Relationships:
+",COMPANY,Tata Steel
+C_HINDCOPPER,"Type: COMPANY
+Name: Hindustan Copper
+Relationships:
+SUPPLIES_TO: Copper",COMPANY,Hindustan Copper
+C_MARUTI,"Type: COMPANY
+Name: Maruti Suzuki
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Maruti Suzuki
+C_HEROMOTOCO,"Type: COMPANY
+Name: Hero MotoCorp
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Hero MotoCorp
+C_BAJAJAUTO,"Type: COMPANY
+Name: Bajaj Auto
+Relationships:
+",COMPANY,Bajaj Auto
+C_TVSMOTOR,"Type: COMPANY
+Name: TVS Motor
+Relationships:
+",COMPANY,TVS Motor
+C_TATAMOTORS,"Type: COMPANY
+Name: Tata Motors
+Relationships:
+BENEFITS_FROM: Brent crude price",COMPANY,Tata Motors
+C_MM,"Type: COMPANY
+Name: Mahindra & Mahindra
+Relationships:
+HURT_BY: Global urea/DAP/sulphur price",COMPANY,Mahindra & Mahindra
+C_OLECTRA,"Type: COMPANY
+Name: Olectra Greentech
+Relationships:
+BENEFITS_FROM: Brent crude price",COMPANY,Olectra Greentech
+C_BAJFINANCE,"Type: COMPANY
+Name: Bajaj Finance
+Relationships:
+HURT_BY: RBI policy rate",COMPANY,Bajaj Finance
+C_CHOLAFIN,"Type: COMPANY
+Name: Cholamandalam Investment
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Cholamandalam Investment
+C_SHRIRAMFIN,"Type: COMPANY
+Name: Shriram Finance
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Shriram Finance
+C_MUTHOOT,"Type: COMPANY
+Name: Muthoot Finance
+Relationships:
+BENEFITS_FROM: Strait of Hormuz disruption",COMPANY,Muthoot Finance
+C_MANAPPURAM,"Type: COMPANY
+Name: Manappuram Finance
+Relationships:
+BENEFITS_FROM: Strait of Hormuz disruption",COMPANY,Manappuram Finance
+C_HDFCBANK,"Type: COMPANY
+Name: HDFC Bank
+Relationships:
+",COMPANY,HDFC Bank
+C_SBIN,"Type: COMPANY
+Name: State Bank of India
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle",COMPANY,State Bank of India
+C_AUBANK,"Type: COMPANY
+Name: AU Small Finance Bank
+Relationships:
+",COMPANY,AU Small Finance Bank
+C_FEDERALBNK,"Type: COMPANY
+Name: Federal Bank
+Relationships:
+BENEFITS_FROM: USD/INR",COMPANY,Federal Bank
+C_FEDERALBNK,"Type: COMPANY
+Name: Federal Bank
+Relationships:
+HEDGES: Strait of Hormuz disruption",COMPANY,Federal Bank
+C_SIB,"Type: COMPANY
+Name: South Indian Bank
+Relationships:
+BENEFITS_FROM: USD/INR",COMPANY,South Indian Bank
+C_CSBBANK,"Type: COMPANY
+Name: CSB Bank
+Relationships:
+HURT_BY: Strait of Hormuz disruption",COMPANY,CSB Bank
+C_DHANBANK,"Type: COMPANY
+Name: Dhanlaxmi Bank
+Relationships:
+",COMPANY,Dhanlaxmi Bank
+C_GICRE,"Type: COMPANY
+Name: GIC Re
+Relationships:
+HEDGES: Marine war-risk premium",COMPANY,GIC Re
+C_NIACL,"Type: COMPANY
+Name: New India Assurance
+Relationships:
+BENEFITS_FROM: Marine war-risk premium",COMPANY,New India Assurance
+C_ICICIGI,"Type: COMPANY
+Name: ICICI Lombard
+Relationships:
+",COMPANY,ICICI Lombard
+C_TCS,"Type: COMPANY
+Name: Tata Consultancy Services
+Relationships:
+BENEFITS_FROM: USD/INR",COMPANY,Tata Consultancy Services
+C_TCS,"Type: COMPANY
+Name: Tata Consultancy Services
+Relationships:
+HEDGES: Generative AI",COMPANY,Tata Consultancy Services
+C_INFY,"Type: COMPANY
+Name: Infosys
+Relationships:
+BENEFITS_FROM: USD/INR",COMPANY,Infosys
+C_INFY,"Type: COMPANY
+Name: Infosys
+Relationships:
+HEDGES: Generative AI",COMPANY,Infosys
+C_HCLTECH,"Type: COMPANY
+Name: HCL Technologies
+Relationships:
+",COMPANY,HCL Technologies
+C_WIPRO,"Type: COMPANY
+Name: Wipro
+Relationships:
+",COMPANY,Wipro
+C_LTIM,"Type: COMPANY
+Name: LTIMindtree
+Relationships:
+",COMPANY,LTIMindtree
+C_PERSISTENT,"Type: COMPANY
+Name: Persistent Systems
+Relationships:
+",COMPANY,Persistent Systems
+C_COFORGE,"Type: COMPANY
+Name: Coforge
+Relationships:
+",COMPANY,Coforge
+C_QUICKHEAL,"Type: COMPANY
+Name: Quick Heal Technologies
+Relationships:
+BENEFITS_FROM: 21-year DC tax holiday to 2047",COMPANY,Quick Heal Technologies
+C_SUNPHARMA,"Type: COMPANY
+Name: Sun Pharmaceutical
+Relationships:
+BENEFITS_FROM: USD/INR",COMPANY,Sun Pharmaceutical
+C_DRREDDY,"Type: COMPANY
+Name: Dr Reddy's Laboratories
+Relationships:
+",COMPANY,Dr Reddy's Laboratories
+C_CIPLA,"Type: COMPANY
+Name: Cipla
+Relationships:
+",COMPANY,Cipla
+C_DIVIS,"Type: COMPANY
+Name: Divi's Laboratories
+Relationships:
+HURT_BY: Brent crude price",COMPANY,Divi's Laboratories
+C_HAL,"Type: COMPANY
+Name: Hindustan Aeronautics
+Relationships:
+",COMPANY,Hindustan Aeronautics
+C_BEL,"Type: COMPANY
+Name: Bharat Electronics
+Relationships:
+BENEFITS_FROM: Strait of Hormuz disruption",COMPANY,Bharat Electronics
+C_BDL,"Type: COMPANY
+Name: Bharat Dynamics
+Relationships:
+",COMPANY,Bharat Dynamics
+C_SOLARINDS,"Type: COMPANY
+Name: Solar Industries
+Relationships:
+BENEFITS_FROM: Strait of Hormuz disruption",COMPANY,Solar Industries
+C_COCHINSHIP,"Type: COMPANY
+Name: Cochin Shipyard
+Relationships:
+BENEFITS_FROM: Strait of Hormuz disruption",COMPANY,Cochin Shipyard
+C_MAZDOCK,"Type: COMPANY
+Name: Mazagon Dock
+Relationships:
+",COMPANY,Mazagon Dock
+C_GRSE,"Type: COMPANY
+Name: Garden Reach Shipbuilders
+Relationships:
+",COMPANY,Garden Reach Shipbuilders
+C_DATAPATTNS,"Type: COMPANY
+Name: Data Patterns
+Relationships:
+",COMPANY,Data Patterns
+C_ASTRAMICRO,"Type: COMPANY
+Name: Astra Microwave
+Relationships:
+",COMPANY,Astra Microwave
+C_ADANIENT,"Type: COMPANY
+Name: Adani Enterprises
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle",COMPANY,Adani Enterprises
+C_ADANIENT,"Type: COMPANY
+Name: Adani Enterprises
+Relationships:
+JV_WITH: AdaniConneX",COMPANY,Adani Enterprises
+C_BHARTIARTL,"Type: COMPANY
+Name: Bharti Airtel
+Relationships:
+OWNS: Nxtra by Airtel",COMPANY,Bharti Airtel
+C_TATACOMM,"Type: COMPANY
+Name: Tata Communications
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle",COMPANY,Tata Communications
+C_TATACOMM,"Type: COMPANY
+Name: Tata Communications
+Relationships:
+SUPPLIES_TO: Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)",COMPANY,Tata Communications
+C_ANANTRAJ,"Type: COMPANY
+Name: Anant Raj
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle BENEFITS_FROM: Infra-ready land",COMPANY,Anant Raj
+C_LODHA,"Type: COMPANY
+Name: Macrotech Developers
+Relationships:
+BENEFITS_FROM: Infra-ready land",COMPANY,Macrotech Developers
+C_RAILTEL,"Type: COMPANY
+Name: RailTel Corporation
+Relationships:
+",COMPANY,RailTel Corporation
+C_DLF,"Type: COMPANY
+Name: DLF
+Relationships:
+",COMPANY,DLF
+C_EMBASSY,"Type: COMPANY
+Name: Embassy Office Parks REIT
+Relationships:
+BENEFITS_FROM: Global Capability Centres",COMPANY,Embassy Office Parks REIT
+C_MINDSPACE,"Type: COMPANY
+Name: Mindspace Business Parks REIT
+Relationships:
+",COMPANY,Mindspace Business Parks REIT
+C_BRIGADE,"Type: COMPANY
+Name: Brigade Enterprises
+Relationships:
+",COMPANY,Brigade Enterprises
+C_ABB,"Type: COMPANY
+Name: ABB India
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,ABB India
+C_SIEMENS,"Type: COMPANY
+Name: Siemens India
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Siemens India
+C_SIEMENSENER,"Type: COMPANY
+Name: Siemens Energy India
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Siemens Energy India
+C_HITACHIENER,"Type: COMPANY
+Name: Hitachi Energy India
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Hitachi Energy India
+C_GEVERNOVA,"Type: COMPANY
+Name: GE Vernova T&D India
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,GE Vernova T&D India
+C_SCHNEIDER,"Type: COMPANY
+Name: Schneider Electric Infrastructure
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Schneider Electric Infrastructure
+C_CGPOWER,"Type: COMPANY
+Name: CG Power & Industrial Solutions
+Relationships:
+BENEFITS_FROM: India Semiconductor Mission / OSAT",COMPANY,CG Power & Industrial Solutions
+C_CGPOWER,"Type: COMPANY
+Name: CG Power & Industrial Solutions
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,CG Power & Industrial Solutions
+C_VOLTAMP,"Type: COMPANY
+Name: Voltamp Transformers
+Relationships:
+CONSTRAINED_BY: CRGO electrical steel imports",COMPANY,Voltamp Transformers
+C_VOLTAMP,"Type: COMPANY
+Name: Voltamp Transformers
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Voltamp Transformers
+C_TRIL,"Type: COMPANY
+Name: Transformers & Rectifiers India
+Relationships:
+CONSTRAINED_BY: CRGO electrical steel imports",COMPANY,Transformers & Rectifiers India
+C_TRIL,"Type: COMPANY
+Name: Transformers & Rectifiers India
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Transformers & Rectifiers India
+C_SHILCHAR,"Type: COMPANY
+Name: Shilchar Technologies
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Shilchar Technologies
+C_CUMMINSIND,"Type: COMPANY
+Name: Cummins India
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Cummins India
+C_KOEL,"Type: COMPANY
+Name: Kirloskar Oil Engines
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Kirloskar Oil Engines
+C_HBLENGINE,"Type: COMPANY
+Name: HBL Engineering
+Relationships:
+SUPPLIES_TO: UPS / DC power backup",COMPANY,HBL Engineering
+C_APARINDS,"Type: COMPANY
+Name: Apar Industries
+Relationships:
+SUPPLIES_TO: Power transformer",COMPANY,Apar Industries
+C_HPL,"Type: COMPANY
+Name: HPL Electric & Power
+Relationships:
+",COMPANY,HPL Electric & Power
+C_BHEL,"Type: COMPANY
+Name: BHEL
+Relationships:
+",COMPANY,BHEL
+C_THERMAX,"Type: COMPANY
+Name: Thermax
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Thermax
+C_BLUESTARCO,"Type: COMPANY
+Name: Blue Star
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Blue Star
+C_VOLTAS,"Type: COMPANY
+Name: Voltas
+Relationships:
+EXPOSED_TO_ORDERBOOK: Gulf producers",COMPANY,Voltas
+C_VOLTAS,"Type: COMPANY
+Name: Voltas
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Voltas
+C_KRN,"Type: COMPANY
+Name: KRN Heat Exchanger
+Relationships:
+SUPPLIES_TO: Schneider Electric Infrastructure",COMPANY,KRN Heat Exchanger
+C_AMBER,"Type: COMPANY
+Name: Amber Enterprises
+Relationships:
+SUPPLIES_TO: Precision cooling / CDU",COMPANY,Amber Enterprises
+C_JCHAC,"Type: COMPANY
+Name: Johnson Controls-Hitachi AC India
+Relationships:
+SUPPLIES_TO: Precision cooling / CDU",COMPANY,Johnson Controls-Hitachi AC India
+C_EPACK,"Type: COMPANY
+Name: EPACK Durable
+Relationships:
+",COMPANY,EPACK Durable
+C_NETWEB,"Type: COMPANY
+Name: Netweb Technologies
+Relationships:
+PRODUCES: AI server / GPU system",COMPANY,Netweb Technologies
+C_NETWEB,"Type: COMPANY
+Name: Netweb Technologies
+Relationships:
+CONSTRAINED_BY: GPU supply",COMPANY,Netweb Technologies
+C_NETWEB,"Type: COMPANY
+Name: Netweb Technologies
+Relationships:
+SUPPLIES_TO: IndiaAI sovereign compute",COMPANY,Netweb Technologies
+C_DIXON,"Type: COMPANY
+Name: Dixon Technologies
+Relationships:
+BENEFITS_FROM: IT hardware PLI",COMPANY,Dixon Technologies
+C_KAYNES,"Type: COMPANY
+Name: Kaynes Technology
+Relationships:
+BENEFITS_FROM: India Semiconductor Mission / OSAT",COMPANY,Kaynes Technology
+C_SYRMA,"Type: COMPANY
+Name: Syrma SGS Technology
+Relationships:
+",COMPANY,Syrma SGS Technology
+C_CYIENTDLM,"Type: COMPANY
+Name: Cyient DLM
+Relationships:
+",COMPANY,Cyient DLM
+C_TATAELXSI,"Type: COMPANY
+Name: Tata Elxsi
+Relationships:
+",COMPANY,Tata Elxsi
+C_MOSCHIP,"Type: COMPANY
+Name: MosChip Technologies
+Relationships:
+",COMPANY,MosChip Technologies
+C_STLTECH,"Type: COMPANY
+Name: Sterlite Technologies
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Sterlite Technologies
+C_HFCL,"Type: COMPANY
+Name: HFCL
+Relationships:
+SUPPLIES_TO: Optical fibre / interconnect",COMPANY,HFCL
+C_TEJASNET,"Type: COMPANY
+Name: Tejas Networks
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Tejas Networks
+C_INDUSTOWER,"Type: COMPANY
+Name: Indus Towers
+Relationships:
+BENEFITS_FROM: Generative AI",COMPANY,Indus Towers
+C_POLYCAB,"Type: COMPANY
+Name: Polycab India
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Polycab India
+C_KEI,"Type: COMPANY
+Name: KEI Industries
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,KEI Industries
+C_RRKABEL,"Type: COMPANY
+Name: R R Kabel
+Relationships:
+",COMPANY,R R Kabel
+C_FINCABLES,"Type: COMPANY
+Name: Finolex Cables
+Relationships:
+",COMPANY,Finolex Cables
+C_RAMRATNA,"Type: COMPANY
+Name: Ram Ratna Wires
+Relationships:
+SUPPLIES_TO: Power transformer",COMPANY,Ram Ratna Wires
+C_PRECWIRE,"Type: COMPANY
+Name: Precision Wires India
+Relationships:
+SUPPLIES_TO: Power transformer",COMPANY,Precision Wires India
+C_SKIPPER,"Type: COMPANY
+Name: Skipper
+Relationships:
+SUPPLIES_TO: Transmission evacuation capacity",COMPANY,Skipper
+C_LT,"Type: COMPANY
+Name: Larsen & Toubro
+Relationships:
+HEDGES: Strait of Hormuz disruption",COMPANY,Larsen & Toubro
+C_LT,"Type: COMPANY
+Name: Larsen & Toubro
+Relationships:
+EXPOSED_TO_ORDERBOOK: Gulf producers",COMPANY,Larsen & Toubro
+C_LT,"Type: COMPANY
+Name: Larsen & Toubro
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Larsen & Toubro
+C_TECHNOE,"Type: COMPANY
+Name: Techno Electric & Engineering
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle",COMPANY,Techno Electric & Engineering
+C_KALPATPOWR,"Type: COMPANY
+Name: Kalpataru Projects
+Relationships:
+SUPPLIES_TO: Transmission evacuation capacity",COMPANY,Kalpataru Projects
+C_KEC,"Type: COMPANY
+Name: KEC International
+Relationships:
+EXPOSED_TO_ORDERBOOK: Gulf producers",COMPANY,KEC International
+C_KEC,"Type: COMPANY
+Name: KEC International
+Relationships:
+SUPPLIES_TO: Transmission evacuation capacity",COMPANY,KEC International
+C_AHLUCONT,"Type: COMPANY
+Name: Ahluwalia Contracts
+Relationships:
+",COMPANY,Ahluwalia Contracts
+C_PSPPROJECT,"Type: COMPANY
+Name: PSP Projects
+Relationships:
+",COMPANY,PSP Projects
+C_AFCONS,"Type: COMPANY
+Name: Afcons Infrastructure
+Relationships:
+",COMPANY,Afcons Infrastructure
+C_NTPC,"Type: COMPANY
+Name: NTPC
+Relationships:
+BENEFITS_FROM: Spot LNG / JKM",COMPANY,NTPC
+C_NTPCGREEN,"Type: COMPANY
+Name: NTPC Green Energy
+Relationships:
+SUPPLIES_TO: CtrlS Datacenters",COMPANY,NTPC Green Energy
+C_POWERGRID,"Type: COMPANY
+Name: Power Grid Corporation
+Relationships:
+BENEFITS_FROM: Transmission evacuation capacity",COMPANY,Power Grid Corporation
+C_TATAPOWER,"Type: COMPANY
+Name: Tata Power
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle",COMPANY,Tata Power
+C_ADANIPOWER,"Type: COMPANY
+Name: Adani Power
+Relationships:
+",COMPANY,Adani Power
+C_ADANIGREEN,"Type: COMPANY
+Name: Adani Green Energy
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle",COMPANY,Adani Green Energy
+C_JSWENERGY,"Type: COMPANY
+Name: JSW Energy
+Relationships:
+",COMPANY,JSW Energy
+C_TORNTPOWER,"Type: COMPANY
+Name: Torrent Power
+Relationships:
+",COMPANY,Torrent Power
+C_NHPC,"Type: COMPANY
+Name: NHPC
+Relationships:
+BENEFITS_FROM: Grid stability under volatile DC load ramps",COMPANY,NHPC
+C_IEX,"Type: COMPANY
+Name: Indian Energy Exchange
+Relationships:
+BENEFITS_FROM: India AI infrastructure capex cycle",COMPANY,Indian Energy Exchange
+C_SUZLON,"Type: COMPANY
+Name: Suzlon Energy
+Relationships:
+",COMPANY,Suzlon Energy
+C_INOXWIND,"Type: COMPANY
+Name: Inox Wind
+Relationships:
+",COMPANY,Inox Wind
+C_KPIGREEN,"Type: COMPANY
+Name: KPI Green Energy
+Relationships:
+",COMPANY,KPI Green Energy
+C_WAAREE,"Type: COMPANY
+Name: Waaree Energies
+Relationships:
+BENEFITS_FROM: Strait of Hormuz disruption",COMPANY,Waaree Energies
+C_PREMIER,"Type: COMPANY
+Name: Premier Energies
+Relationships:
+",COMPANY,Premier Energies
+C_EXIDE,"Type: COMPANY
+Name: Exide Industries
+Relationships:
+",COMPANY,Exide Industries
+C_AMARAJA,"Type: COMPANY
+Name: Amara Raja Energy & Mobility
+Relationships:
+",COMPANY,Amara Raja Energy & Mobility
+C_SERVOTECH,"Type: COMPANY
+Name: Servotech Renewable Power
+Relationships:
+",COMPANY,Servotech Renewable Power
+C_PFC,"Type: COMPANY
+Name: Power Finance Corporation
+Relationships:
+BENEFITS_FROM: Power availability",COMPANY,Power Finance Corporation
+C_RECLTD,"Type: COMPANY
+Name: REC Ltd
+Relationships:
+BENEFITS_FROM: Power availability",COMPANY,REC Ltd
+C_IREDA,"Type: COMPANY
+Name: IREDA
+Relationships:
+BENEFITS_FROM: Grid stability under volatile DC load ramps",COMPANY,IREDA
+C_VATECHWABAG,"Type: COMPANY
+Name: VA Tech Wabag
+Relationships:
+",COMPANY,VA Tech Wabag
+C_IONEXCHANGE,"Type: COMPANY
+Name: Ion Exchange India
+Relationships:
+SUPPLIES_TO: Data centre capacity (MW IT load)",COMPANY,Ion Exchange India
+C_TEAMLEASE,"Type: COMPANY
+Name: TeamLease Services
+Relationships:
+BENEFITS_FROM: Liquid cooling / HV commissioning talent",COMPANY,TeamLease Services
+C_QUESS,"Type: COMPANY
+Name: Quess Corp
+Relationships:
+BENEFITS_FROM: Liquid cooling / HV commissioning talent",COMPANY,Quess Corp

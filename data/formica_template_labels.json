@@ -1,0 +1,154 @@
+{
+  "classes": [
+    "F_LogUnion",
+    "F_LogIntersection",
+    "F_LogDifference",
+    "F_CompCountMore",
+    "F_CompCountLess",
+    "F_CompCountApprox",
+    "F_CompMore",
+    "F_CompLess",
+    "F_CompApprox",
+    "F_QuantCount",
+    "F_QuantCountAtmost",
+    "F_QuantCountAtleast",
+    "F_QuantCountApprox",
+    "F_QuantCountEqual",
+    "F_QuantAtmost",
+    "F_QuantAtleast",
+    "F_QuantApprox",
+    "F_QuantEqual",
+    "F_QuantMax",
+    "F_QuantMin",
+    "F_Simple"
+  ],
+  "descriptions": {
+    "F_LogUnion": [
+      "or",
+      "either",
+      "union"
+    ],
+    "F_LogIntersection": [
+      "and",
+      "both",
+      "intersection",
+      "also"
+    ],
+    "F_LogDifference": [
+      "but not",
+      "without",
+      "except",
+      "excluding",
+      "difference"
+    ],
+    "F_CompCountMore": [
+      "how many",
+      "more than",
+      "greater than",
+      "higher than"
+    ],
+    "F_CompCountLess": [
+      "how many",
+      "less than",
+      "fewer than",
+      "lower than"
+    ],
+    "F_CompCountApprox": [
+      "how many",
+      "approximately",
+      "around",
+      "about"
+    ],
+    "F_CompMore": [
+      "more than",
+      "greater",
+      "higher",
+      "larger",
+      "bigger"
+    ],
+    "F_CompLess": [
+      "less than",
+      "lower",
+      "smaller",
+      "fewer"
+    ],
+    "F_CompApprox": [
+      "approximately",
+      "around",
+      "similar",
+      "about the same"
+    ],
+    "F_QuantCount": [
+      "how many",
+      "how much",
+      "count",
+      "number of"
+    ],
+    "F_QuantCountAtmost": [
+      "at most",
+      "atmost",
+      "no more than"
+    ],
+    "F_QuantCountAtleast": [
+      "at least",
+      "atleast",
+      "minimum of"
+    ],
+    "F_QuantCountApprox": [
+      "how many",
+      "approximately",
+      "around"
+    ],
+    "F_QuantCountEqual": [
+      "exactly",
+      "equal to",
+      "precisely"
+    ],
+    "F_QuantAtmost": [
+      "at most",
+      "atmost",
+      "maximum",
+      "up to"
+    ],
+    "F_QuantAtleast": [
+      "at least",
+      "atleast",
+      "minimum"
+    ],
+    "F_QuantApprox": [
+      "approximately",
+      "around",
+      "roughly"
+    ],
+    "F_QuantEqual": [
+      "exactly",
+      "equal",
+      "precisely"
+    ],
+    "F_QuantMax": [
+      "max",
+      "maximum",
+      "most",
+      "highest",
+      "largest"
+    ],
+    "F_QuantMin": [
+      "min",
+      "minimum",
+      "least",
+      "lowest",
+      "smallest"
+    ],
+    "F_Simple": [
+      "what",
+      "who",
+      "which",
+      "how does",
+      "does",
+      "list",
+      "name",
+      "trace",
+      "explain"
+    ]
+  }
+}

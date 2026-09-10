@@ -1,0 +1,7546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Exposure Map — India thematic knowledge graph</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+  :root{
+    --ink:#0A111C; --ink2:#0F1826; --panel:#121D2E; --line:#1D2B41; --line2:#27395480;
+    --paper:#E4ECF7; --muted:#7C90AB; --dim:#4C5F7A;
+    --a:#F0A02B;      /* Theme A — Hormuz / energy */
+    --b:#38D3CB;      /* Theme B — AI infrastructure */
+    --both:#B07CF0;   /* both themes */
+    --pos:#4FD98A; --neg:#FF6E6E;
+    --r:2px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--ink); color:var(--paper);
+    font-family:"IBM Plex Sans",system-ui,sans-serif; font-size:14px;
+    overflow:hidden;
+  }
+  button,input,select{font:inherit;color:inherit}
+  ::selection{background:var(--both);color:#0A111C}
+
+  /* ---------- shell ---------- */
+  .shell{display:grid;grid-template-columns:264px 1fr;height:100vh}
+
+  /* ---------- left rail ---------- */
+  .rail{
+    background:var(--ink2); border-right:1px solid var(--line);
+    display:flex; flex-direction:column; overflow-y:auto;
+  }
+  .brand{padding:20px 18px 16px;border-bottom:1px solid var(--line)}
+  .brand h1{
+    font-family:"IBM Plex Sans Condensed",sans-serif; font-weight:700;
+    font-size:23px; line-height:1.02; letter-spacing:-0.015em; margin:0 0 7px;
+  }
+  .brand h1 em{font-style:normal;color:var(--muted);display:block;font-size:23px}
+  .brand p{
+    margin:0; font-family:"IBM Plex Mono",monospace; font-size:10.5px;
+    color:var(--dim); letter-spacing:.06em; line-height:1.5;
+  }
+  .grp{padding:15px 18px;border-bottom:1px solid var(--line)}
+  .grp h2{
+    font-family:"IBM Plex Mono",monospace; font-size:9.5px; font-weight:500;
+    letter-spacing:.17em; text-transform:uppercase; color:var(--dim);
+    margin:0 0 11px;
+  }
+  .seg{display:flex;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .seg button{
+    flex:1; background:transparent; border:0; padding:7px 4px; cursor:pointer;
+    font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.06em;
+    color:var(--muted); transition:background .15s,color .15s;
+  }
+  .seg button + button{border-left:1px solid var(--line)}
+  .seg button:hover{background:#ffffff08;color:var(--paper)}
+  .seg button[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+  .seg.themed button[aria-pressed="true"][data-v="A"]{background:var(--a);color:#160E00}
+  .seg.themed button[aria-pressed="true"][data-v="B"]{background:var(--b);color:#00201E}
+  .seg.themed button[aria-pressed="true"][data-v="both"]{background:var(--both);color:#1A0033}
+
+  .chips{display:flex;flex-wrap:wrap;gap:5px}
+  .chip{
+    background:transparent;border:1px solid var(--line);border-radius:var(--r);
+    padding:4px 8px;cursor:pointer;font-family:"IBM Plex Mono",monospace;
+    font-size:10px;letter-spacing:.04em;color:var(--dim);transition:.15s;
+  }
+  .chip:hover{border-color:var(--muted);color:var(--paper)}
+  .chip[aria-pressed="true"]{background:#ffffff12;border-color:var(--muted);color:var(--paper)}
+
+  .search{
+    width:100%;background:var(--ink);border:1px solid var(--line);border-radius:var(--r);
+    padding:8px 10px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;
+  }
+  .search::placeholder{color:var(--dim)}
+  .search:focus{outline:2px solid var(--both);outline-offset:1px;border-color:transparent}
+
+  .toggle{
+    display:flex;align-items:center;gap:9px;padding:5px 0;cursor:pointer;
+    font-size:12px;color:var(--muted);
+  }
+  .toggle:hover{color:var(--paper)}
+  .toggle input{
+    appearance:none;width:26px;height:15px;border-radius:8px;background:var(--line);
+    position:relative;cursor:pointer;flex:none;transition:background .18s;margin:0;
+  }
+  .toggle input::after{
+    content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;
+    background:var(--dim);transition:transform .18s,background .18s;
+  }
+  .toggle input:checked{background:#ffffff22}
+  .toggle input:checked::after{transform:translateX(11px);background:var(--paper)}
+  .toggle input:focus-visible{outline:2px solid var(--both);outline-offset:2px}
+
+  .legend{padding:15px 18px;margin-top:auto}
+  .lg{display:flex;align-items:center;gap:8px;margin-bottom:6px;
+      font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted)}
+  .sw{width:9px;height:9px;border-radius:50%;flex:none}
+  .note{
+    font-size:10.5px;color:var(--dim);line-height:1.55;margin:12px 0 0;
+    padding-top:12px;border-top:1px solid var(--line);
+  }
+
+  /* ---------- stage ---------- */
+  .stage{position:relative;overflow:hidden;background:
+    radial-gradient(circle at 50% 45%, #12203300 0%, #060B12 78%), var(--ink)}
+  svg{display:block;width:100%;height:100%;cursor:grab}
+  svg.dragging{cursor:grabbing}
+  .ringlab{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.22em;
+    fill:var(--dim);text-transform:uppercase;
+  }
+  .ringpath{fill:none;stroke:var(--line2);stroke-width:1;stroke-dasharray:2 6}
+  .link{stroke:#3E5878;stroke-opacity:.34;fill:none}
+  .link.hi{stroke-opacity:1;stroke-width:1.8}
+  .link.trace{stroke:var(--both);stroke-opacity:1;stroke-width:2.4}
+  .node{cursor:pointer}
+  .node .glyph{stroke:var(--ink);stroke-width:1.5;transition:opacity .2s}
+  .node.sel .glyph{stroke:var(--paper);stroke-width:2}
+  .nlab{
+    font-family:"IBM Plex Mono",monospace;font-size:9px;fill:var(--muted);
+    pointer-events:none;letter-spacing:.02em;
+  }
+  .node.sel .nlab,.node.hi .nlab{fill:var(--paper)}
+  .faded{opacity:.09}
+  .hidden{display:none}
+
+  .hud{
+    position:absolute;top:16px;left:16px;display:flex;gap:7px;align-items:center;
+    font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--dim);
+    letter-spacing:.08em;pointer-events:none;
+  }
+  .hud b{color:var(--muted);font-weight:500}
+  .zoomers{position:absolute;bottom:16px;left:16px;display:flex;gap:5px}
+  .zoomers button{
+    width:27px;height:27px;background:var(--ink2);border:1px solid var(--line);
+    border-radius:var(--r);cursor:pointer;color:var(--muted);font-size:14px;line-height:1;
+  }
+  .zoomers button:hover{color:var(--paper);border-color:var(--muted)}
+
+  .tip{
+    position:absolute;pointer-events:none;background:#060B12F2;border:1px solid var(--line);
+    border-radius:var(--r);padding:7px 9px;font-family:"IBM Plex Mono",monospace;
+    font-size:10.5px;max-width:230px;opacity:0;transition:opacity .12s;z-index:5;
+    line-height:1.45;
+  }
+  .tip .t{color:var(--paper);font-size:11.5px}
+  .tip .s{color:var(--dim)}
+
+  /* ---------- inspector ---------- */
+  .insp{
+    position:absolute;top:0;right:0;width:352px;height:100%;background:var(--panel);
+    border-left:1px solid var(--line);transform:translateX(100%);
+    transition:transform .26s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;
+  }
+  .insp.open{transform:none}
+  .ihead{padding:18px;border-bottom:1px solid var(--line);position:relative}
+  .ihead .kind{
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.17em;
+    text-transform:uppercase;color:var(--dim);margin-bottom:8px;
+  }
+  .ihead h3{
+    font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:21px;
+    line-height:1.14;margin:0 0 9px;letter-spacing:-.01em;padding-right:26px;
+  }
+  .tags{display:flex;flex-wrap:wrap;gap:5px}
+  .tag{
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.07em;
+    padding:3px 6px;border-radius:var(--r);border:1px solid var(--line);color:var(--muted);
+  }
+  .tag.a{color:var(--a);border-color:#F0A02B55}
+  .tag.b{color:var(--b);border-color:#38D3CB55}
+  .tag.both{color:var(--both);border-color:#B07CF055}
+  .x{
+    position:absolute;top:16px;right:16px;background:none;border:0;color:var(--dim);
+    font-size:19px;cursor:pointer;line-height:1;padding:2px 5px;
+  }
+  .x:hover{color:var(--paper)}
+  .ibody{overflow-y:auto;padding:0 18px 22px;flex:1}
+  .inote{
+    font-size:12px;color:var(--muted);line-height:1.55;padding:13px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .traceb{
+    width:100%;margin:13px 0 4px;background:transparent;border:1px solid var(--both);
+    color:var(--both);border-radius:var(--r);padding:8px;cursor:pointer;
+    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.08em;
+  }
+  .traceb:hover{background:#B07CF018}
+  .esec{
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--dim);margin:19px 0 9px;
+  }
+  .edge{
+    display:block;width:100%;text-align:left;background:transparent;border:0;
+    border-left:2px solid var(--line);padding:7px 0 7px 10px;margin-bottom:3px;
+    cursor:pointer;transition:border-color .15s,background .15s;
+  }
+  .edge:hover{background:#ffffff07;border-left-color:var(--muted)}
+  .edge.pos{border-left-color:var(--pos)} .edge.neg{border-left-color:var(--neg)}
+  .edge .rel{
+    font-family:"IBM Plex Mono",monospace;font-size:9.5px;letter-spacing:.08em;
+    color:var(--dim);display:block;margin-bottom:2px;
+  }
+  .edge .to{font-size:12.5px;color:var(--paper);display:block;line-height:1.3}
+  .edge .ch{font-size:11px;color:var(--muted);display:block;margin-top:3px;line-height:1.45}
+  .empty{color:var(--dim);font-size:12px;padding:20px 0}
+
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+    .rail{max-height:44vh}
+    .insp{width:100%}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition-duration:0.01ms !important;animation-duration:0.01ms !important}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <aside class="rail">
+    <div class="brand">
+      <h1>Exposure Map<em>India · two themes</em></h1>
+      <p>HORMUZ DISRUPTION × AI INFRASTRUCTURE<br>359 NODES · 487 EDGES · AUG 2026</p>
+    </div>
+
+    <div class="grp">
+      <h2>Layout</h2>
+      <div class="seg" id="layoutSeg">
+        <button data-v="rings" aria-pressed="true">Order rings</button>
+        <button data-v="force" aria-pressed="false">Force</button>
+      </div>
+      <label class="toggle" style="margin-top:11px">
+        <input type="checkbox" id="tShock"><span>Rings measured from Hormuz</span>
+      </label>
+    </div>
+
+    <div class="grp">
+      <h2>Theme</h2>
+      <div class="seg themed" id="themeSeg">
+        <button data-v="all" aria-pressed="true">All</button>
+        <button data-v="A" aria-pressed="false">A</button>
+        <button data-v="B" aria-pressed="false">B</button>
+        <button data-v="both" aria-pressed="false">Both</button>
+      </div>
+    </div>
+
+    <div class="grp">
+      <h2>Order</h2>
+      <div class="chips" id="orderChips">
+        <button class="chip" data-v="1" aria-pressed="true">1st</button>
+        <button class="chip" data-v="2" aria-pressed="true">2nd</button>
+        <button class="chip" data-v="3" aria-pressed="true">3rd</button>
+      </div>
+    </div>
+
+    <div class="grp">
+      <h2>Node type</h2>
+      <div class="chips" id="typeChips"></div>
+    </div>
+
+    <div class="grp">
+      <h2>Find</h2>
+      <input class="search" id="search" placeholder="company or ticker…" autocomplete="off">
+      <label class="toggle" style="margin-top:9px">
+        <input type="checkbox" id="tSectors"><span>Show sector grouping</span>
+      </label>
+      <label class="toggle">
+        <input type="checkbox" id="tLabels" checked><span>Labels</span>
+      </label>
+    </div>
+
+    <div class="legend">
+      <div class="lg"><span class="sw" style="background:var(--a)"></span>Theme A — Hormuz</div>
+      <div class="lg"><span class="sw" style="background:var(--b)"></span>Theme B — AI infra</div>
+      <div class="lg"><span class="sw" style="background:var(--both)"></span>Both themes</div>
+      <div class="lg"><span class="sw" style="background:var(--dim)"></span>Non-equity node</div>
+      <p class="note">Ring distance is hop count from the shock. Node size is degree.
+      Research scaffold — a drawn edge is a causal channel, not a recommendation.</p>
+    </div>
+  </aside>
+
+  <main class="stage">
+    <svg id="svg"></svg>
+    <div class="hud"><b id="hudCount"></b> visible <span>·</span> <b id="hudMode">order rings</b></div>
+    <div class="zoomers">
+      <button id="zin" title="Zoom in">+</button>
+      <button id="zout" title="Zoom out">−</button>
+      <button id="zfit" title="Reset view" style="width:auto;padding:0 9px;font-size:10px;font-family:'IBM Plex Mono',monospace">FIT</button>
+    </div>
+    <div class="tip" id="tip"></div>
+
+    <aside class="insp" id="insp" aria-label="Node details">
+      <div class="ihead">
+        <button class="x" id="closeInsp" aria-label="Close">×</button>
+        <div class="kind" id="iKind"></div>
+        <h3 id="iName"></h3>
+        <div class="tags" id="iTags"></div>
+      </div>
+      <div class="ibody" id="iBody"></div>
+    </aside>
+  </main>
+</div>
+
+<script>
+const DATA = {
+ "nodes": [
+  {
+   "id": "E_HORMUZ",
+   "type": "EVENT",
+   "label": "Strait of Hormuz disruption",
+   "note": "Closure declared 2 Mar 2026; partial reopening June 2026; status volatile"
+  },
+  {
+   "id": "E_AIBUILD",
+   "type": "EVENT",
+   "label": "India AI infrastructure capex cycle",
+   "note": "1.8 GW IT load 2026 -> 7-12 GW by 2030"
+  },
+  {
+   "id": "G_HORMUZ",
+   "type": "GEOGRAPHY",
+   "label": "Strait of Hormuz",
+   "note": "~20% of seaborne oil and LNG trade"
+  },
+  {
+   "id": "G_INDIA",
+   "type": "GEOGRAPHY",
+   "label": "India"
+  },
+  {
+   "id": "G_GCC",
+   "type": "GEOGRAPHY",
+   "label": "Gulf producers"
+  },
+  {
+   "id": "G_QATAR",
+   "type": "GEOGRAPHY",
+   "label": "Qatar"
+  },
+  {
+   "id": "G_OMAN",
+   "type": "GEOGRAPHY",
+   "label": "Oman",
+   "note": "largest single urea supplier to India"
+  },
+  {
+   "id": "G_RUSSIA",
+   "type": "GEOGRAPHY",
+   "label": "Russia",
+   "note": "substitute crude/LPG route"
+  },
+  {
+   "id": "G_CAPE",
+   "type": "GEOGRAPHY",
+   "label": "Cape of Good Hope reroute"
+  },
+  {
+   "id": "G_KERALA",
+   "type": "GEOGRAPHY",
+   "label": "Kerala",
+   "note": "Gulf remittance dependent"
+  },
+  {
+   "id": "G_ANDHRA",
+   "type": "GEOGRAPHY",
+   "label": "Andhra Pradesh"
+  },
+  {
+   "id": "G_GUJARAT",
+   "type": "GEOGRAPHY",
+   "label": "Gujarat"
+  },
+  {
+   "id": "M_BRENT",
+   "type": "MACRO_VAR",
+   "label": "Brent crude price"
+  },
+  {
+   "id": "M_LNG_SPOT",
+   "type": "MACRO_VAR",
+   "label": "Spot LNG / JKM"
+  },
+  {
+   "id": "M_LPG_SAUDI_CP",
+   "type": "MACRO_VAR",
+   "label": "Saudi LPG contract price"
+  },
+  {
+   "id": "M_GRM",
+   "type": "MACRO_VAR",
+   "label": "Gross refining margin"
+  },
+  {
+   "id": "M_FREIGHT",
+   "type": "MACRO_VAR",
+   "label": "Tanker freight rates"
+  },
+  {
+   "id": "M_WARRISK",
+   "type": "MACRO_VAR",
+   "label": "Marine war-risk premium"
+  },
+  {
+   "id": "M_INR",
+   "type": "MACRO_VAR",
+   "label": "USD/INR"
+  },
+  {
+   "id": "M_CPI",
+   "type": "MACRO_VAR",
+   "label": "India CPI"
+  },
+  {
+   "id": "M_CAD",
+   "type": "MACRO_VAR",
+   "label": "Current account deficit"
+  },
+  {
+   "id": "M_REPO",
+   "type": "MACRO_VAR",
+   "label": "RBI policy rate"
+  },
+  {
+   "id": "M_UREA",
+   "type": "MACRO_VAR",
+   "label": "Global urea/DAP/sulphur price"
+  },
+  {
+   "id": "M_SUBSIDY",
+   "type": "MACRO_VAR",
+   "label": "Fertiliser and LPG subsidy bill"
+  },
+  {
+   "id": "RM_CRUDE",
+   "type": "RAW_MATERIAL",
+   "label": "Crude oil"
+  },
+  {
+   "id": "RM_LNG",
+   "type": "RAW_MATERIAL",
+   "label": "LNG"
+  },
+  {
+   "id": "RM_LPG",
+   "type": "RAW_MATERIAL",
+   "label": "LPG"
+  },
+  {
+   "id": "RM_NATGAS",
+   "type": "RAW_MATERIAL",
+   "label": "Natural gas"
+  },
+  {
+   "id": "RM_COAL",
+   "type": "RAW_MATERIAL",
+   "label": "Coal"
+  },
+  {
+   "id": "RM_NAPHTHA",
+   "type": "RAW_MATERIAL",
+   "label": "Naphtha"
+  },
+  {
+   "id": "RM_PROPYLENE",
+   "type": "RAW_MATERIAL",
+   "label": "Propylene"
+  },
+  {
+   "id": "RM_BENZENE",
+   "type": "RAW_MATERIAL",
+   "label": "Benzene"
+  },
+  {
+   "id": "RM_CBFS",
+   "type": "RAW_MATERIAL",
+   "label": "Carbon black feedstock"
+  },
+  {
+   "id": "RM_CARBONBLACK",
+   "type": "RAW_MATERIAL",
+   "label": "Carbon black"
+  },
+  {
+   "id": "RM_BASEOIL",
+   "type": "RAW_MATERIAL",
+   "label": "Base oil"
+  },
+  {
+   "id": "RM_SYNRUBBER",
+   "type": "RAW_MATERIAL",
+   "label": "Synthetic rubber"
+  },
+  {
+   "id": "RM_NATRUBBER",
+   "type": "RAW_MATERIAL",
+   "label": "Natural rubber"
+  },
+  {
+   "id": "RM_TIO2",
+   "type": "RAW_MATERIAL",
+   "label": "Titanium dioxide"
+  },
+  {
+   "id": "RM_SOLVENT",
+   "type": "RAW_MATERIAL",
+   "label": "Solvents"
+  },
+  {
+   "id": "RM_MONOMER",
+   "type": "RAW_MATERIAL",
+   "label": "Acrylic monomers"
+  },
+  {
+   "id": "RM_HDPE",
+   "type": "RAW_MATERIAL",
+   "label": "HDPE/LLDPE/PP resin"
+  },
+  {
+   "id": "RM_PVC",
+   "type": "RAW_MATERIAL",
+   "label": "PVC resin"
+  },
+  {
+   "id": "RM_PTA_MEG",
+   "type": "RAW_MATERIAL",
+   "label": "PTA/MEG"
+  },
+  {
+   "id": "RM_VAM",
+   "type": "RAW_MATERIAL",
+   "label": "Vinyl acetate monomer"
+  },
+  {
+   "id": "RM_LAB",
+   "type": "RAW_MATERIAL",
+   "label": "Linear alkyl benzene"
+  },
+  {
+   "id": "RM_PETCOKE",
+   "type": "RAW_MATERIAL",
+   "label": "Petroleum coke"
+  },
+  {
+   "id": "RM_LLP",
+   "type": "RAW_MATERIAL",
+   "label": "Liquid light paraffin"
+  },
+  {
+   "id": "RM_UREA",
+   "type": "RAW_MATERIAL",
+   "label": "Urea"
+  },
+  {
+   "id": "RM_SULPHUR",
+   "type": "RAW_MATERIAL",
+   "label": "Sulphur"
+  },
+  {
+   "id": "RM_AMMONIA",
+   "type": "RAW_MATERIAL",
+   "label": "Ammonia"
+  },
+  {
+   "id": "RM_PHOSACID",
+   "type": "RAW_MATERIAL",
+   "label": "Phosphoric acid"
+  },
+  {
+   "id": "RM_COPPER",
+   "type": "RAW_MATERIAL",
+   "label": "Copper"
+  },
+  {
+   "id": "RM_ALUMINIUM",
+   "type": "RAW_MATERIAL",
+   "label": "Aluminium"
+  },
+  {
+   "id": "RM_CRGO_STEEL",
+   "type": "RAW_MATERIAL",
+   "label": "CRGO electrical steel"
+  },
+  {
+   "id": "RM_REFRIGERANT",
+   "type": "RAW_MATERIAL",
+   "label": "Refrigerant / dielectric fluid"
+  },
+  {
+   "id": "RM_BATTERY",
+   "type": "RAW_MATERIAL",
+   "label": "Battery cells"
+  },
+  {
+   "id": "RM_GPU",
+   "type": "RAW_MATERIAL",
+   "label": "GPU / AI accelerator"
+  },
+  {
+   "id": "P_ATF",
+   "type": "PRODUCT",
+   "label": "Aviation turbine fuel"
+  },
+  {
+   "id": "P_DIESEL",
+   "type": "PRODUCT",
+   "label": "Diesel"
+  },
+  {
+   "id": "P_PETROL",
+   "type": "PRODUCT",
+   "label": "Petrol"
+  },
+  {
+   "id": "P_ETHANOL",
+   "type": "PRODUCT",
+   "label": "Ethanol"
+  },
+  {
+   "id": "P_PAINT",
+   "type": "PRODUCT",
+   "label": "Decorative paint"
+  },
+  {
+   "id": "P_TYRE",
+   "type": "PRODUCT",
+   "label": "Tyre"
+  },
+  {
+   "id": "P_PVC_PIPE",
+   "type": "PRODUCT",
+   "label": "PVC pipe"
+  },
+  {
+   "id": "P_CEMENT",
+   "type": "PRODUCT",
+   "label": "Cement"
+  },
+  {
+   "id": "P_UREA",
+   "type": "PRODUCT",
+   "label": "Urea fertiliser"
+  },
+  {
+   "id": "P_DAP",
+   "type": "PRODUCT",
+   "label": "DAP/NPK fertiliser"
+  },
+  {
+   "id": "P_DATACENTRE",
+   "type": "PRODUCT",
+   "label": "Data centre capacity (MW IT load)"
+  },
+  {
+   "id": "P_TRANSFORMER",
+   "type": "PRODUCT",
+   "label": "Power transformer"
+  },
+  {
+   "id": "P_SWITCHGEAR",
+   "type": "PRODUCT",
+   "label": "Switchgear / MV-LV distribution"
+  },
+  {
+   "id": "P_UPS",
+   "type": "PRODUCT",
+   "label": "UPS / DC power backup"
+  },
+  {
+   "id": "P_GENSET",
+   "type": "PRODUCT",
+   "label": "Diesel genset"
+  },
+  {
+   "id": "P_COOLING",
+   "type": "PRODUCT",
+   "label": "Precision cooling / CDU"
+  },
+  {
+   "id": "P_CHILLER",
+   "type": "PRODUCT",
+   "label": "Chiller"
+  },
+  {
+   "id": "P_POWERCABLE",
+   "type": "PRODUCT",
+   "label": "Power cable"
+  },
+  {
+   "id": "P_FIBRE",
+   "type": "PRODUCT",
+   "label": "Optical fibre / interconnect"
+  },
+  {
+   "id": "P_AISERVER",
+   "type": "PRODUCT",
+   "label": "AI server / GPU system"
+  },
+  {
+   "id": "P_FIRMPOWER",
+   "type": "PRODUCT",
+   "label": "Firm 24x7 power supply"
+  },
+  {
+   "id": "P_GRIDEQUIP",
+   "type": "PRODUCT",
+   "label": "Grid stability equipment (BESS/STATCOM)"
+  },
+  {
+   "id": "CN_POWER",
+   "type": "CONSTRAINT",
+   "label": "Power availability",
+   "note": "26.3 GW incremental DC load by FY32"
+  },
+  {
+   "id": "CN_TRANSMISSION",
+   "type": "CONSTRAINT",
+   "label": "Transmission evacuation capacity"
+  },
+  {
+   "id": "CN_GRIDSTAB",
+   "type": "CONSTRAINT",
+   "label": "Grid stability under volatile DC load ramps"
+  },
+  {
+   "id": "CN_WATER",
+   "type": "CONSTRAINT",
+   "label": "Water availability",
+   "note": "150bn -> 358bn litres/yr"
+  },
+  {
+   "id": "CN_GPU",
+   "type": "CONSTRAINT",
+   "label": "GPU supply",
+   "note": "36-52 week lead times"
+  },
+  {
+   "id": "CN_HBM",
+   "type": "CONSTRAINT",
+   "label": "HBM / advanced packaging"
+  },
+  {
+   "id": "CN_CRGO",
+   "type": "CONSTRAINT",
+   "label": "CRGO electrical steel imports"
+  },
+  {
+   "id": "CN_LAND",
+   "type": "CONSTRAINT",
+   "label": "Infra-ready land"
+  },
+  {
+   "id": "CN_SKILLS",
+   "type": "CONSTRAINT",
+   "label": "Liquid cooling / HV commissioning talent"
+  },
+  {
+   "id": "T_GENAI",
+   "type": "TECHNOLOGY",
+   "label": "Generative AI"
+  },
+  {
+   "id": "T_LIQUIDCOOL",
+   "type": "TECHNOLOGY",
+   "label": "Liquid cooling",
+   "note": "~75% of new pipeline"
+  },
+  {
+   "id": "T_HIGHDENSITY",
+   "type": "TECHNOLOGY",
+   "label": "High-density racks"
+  },
+  {
+   "id": "POL_LPG_SUBSIDY",
+   "type": "POLICY",
+   "label": "Administered LPG pricing"
+  },
+  {
+   "id": "POL_EXCISE_CUT",
+   "type": "POLICY",
+   "label": "Fuel excise duty cuts (2026)"
+  },
+  {
+   "id": "POL_WINDFALL_TAX",
+   "type": "POLICY",
+   "label": "Windfall tax / SAED on upstream"
+  },
+  {
+   "id": "POL_APM_GAS",
+   "type": "POLICY",
+   "label": "APM gas price ceiling"
+  },
+  {
+   "id": "POL_GAS_CONTROL_ORDER",
+   "type": "POLICY",
+   "label": "Natural Gas Control Order (rationing)"
+  },
+  {
+   "id": "POL_NBS_SUBSIDY",
+   "type": "POLICY",
+   "label": "Nutrient Based Subsidy"
+  },
+  {
+   "id": "POL_DC_TAX",
+   "type": "POLICY",
+   "label": "21-year DC tax holiday to 2047"
+  },
+  {
+   "id": "POL_INDIAAI",
+   "type": "POLICY",
+   "label": "IndiaAI Mission"
+  },
+  {
+   "id": "POL_PLI_IT",
+   "type": "POLICY",
+   "label": "IT hardware PLI"
+  },
+  {
+   "id": "POL_SEMICON",
+   "type": "POLICY",
+   "label": "India Semiconductor Mission / OSAT"
+  },
+  {
+   "id": "CU_HYPERSCALER",
+   "type": "CUSTOMER",
+   "label": "Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)"
+  },
+  {
+   "id": "CU_INDIAAI",
+   "type": "CUSTOMER",
+   "label": "IndiaAI sovereign compute"
+  },
+  {
+   "id": "CU_GCC_ENT",
+   "type": "CUSTOMER",
+   "label": "Global Capability Centres"
+  },
+  {
+   "id": "IN_BLACKSTONE",
+   "type": "INVESTOR",
+   "label": "Blackstone"
+  },
+  {
+   "id": "IN_BROOKFIELD",
+   "type": "INVESTOR",
+   "label": "Brookfield"
+  },
+  {
+   "id": "AS_JAMNAGAR_DC",
+   "type": "ASSET",
+   "label": "Reliance Jamnagar AI campus"
+  },
+  {
+   "id": "AS_VIZAG_DC",
+   "type": "ASSET",
+   "label": "Google Visakhapatnam AI hub"
+  },
+  {
+   "id": "PC_ADANICONNEX",
+   "type": "PRIVATE_CO",
+   "label": "AdaniConneX"
+  },
+  {
+   "id": "PC_CTRLS",
+   "type": "PRIVATE_CO",
+   "label": "CtrlS Datacenters"
+  },
+  {
+   "id": "PC_YOTTA",
+   "type": "PRIVATE_CO",
+   "label": "Yotta"
+  },
+  {
+   "id": "PC_NXTRA",
+   "type": "PRIVATE_CO",
+   "label": "Nxtra by Airtel"
+  },
+  {
+   "id": "PC_NEYSA",
+   "type": "PRIVATE_CO",
+   "label": "Neysa"
+  },
+  {
+   "id": "PC_AIRTRUNK",
+   "type": "PRIVATE_CO",
+   "label": "AirTrunk"
+  },
+  {
+   "id": "PC_EQUINIX",
+   "type": "PRIVATE_CO",
+   "label": "Equinix India"
+  },
+  {
+   "id": "PC_NVIDIA",
+   "type": "PRIVATE_CO",
+   "label": "NVIDIA"
+  },
+  {
+   "id": "PC_NAYARA",
+   "type": "PRIVATE_CO",
+   "label": "Nayara Energy"
+  },
+  {
+   "id": "S_OILGAS",
+   "type": "SECTOR",
+   "label": "Oil & Gas"
+  },
+  {
+   "id": "S_SHIPPING",
+   "type": "SECTOR",
+   "label": "Shipping & Logistics"
+  },
+  {
+   "id": "S_AVIATION",
+   "type": "SECTOR",
+   "label": "Aviation"
+  },
+  {
+   "id": "S_CHEMICALS",
+   "type": "SECTOR",
+   "label": "Chemicals"
+  },
+  {
+   "id": "S_FERTILISER",
+   "type": "SECTOR",
+   "label": "Fertilisers & Agri-inputs"
+  },
+  {
+   "id": "S_PAINTS",
+   "type": "SECTOR",
+   "label": "Paints & Adhesives"
+  },
+  {
+   "id": "S_TYRES",
+   "type": "SECTOR",
+   "label": "Tyres"
+  },
+  {
+   "id": "S_CAPGOODS",
+   "type": "SECTOR",
+   "label": "Capital Goods & Electricals"
+  },
+  {
+   "id": "S_COOLING",
+   "type": "SECTOR",
+   "label": "HVAC & Thermal Management"
+  },
+  {
+   "id": "S_CABLES",
+   "type": "SECTOR",
+   "label": "Cables & Wires"
+  },
+  {
+   "id": "S_EMS",
+   "type": "SECTOR",
+   "label": "EMS & Compute Hardware"
+  },
+  {
+   "id": "S_POWER",
+   "type": "SECTOR",
+   "label": "Power & Utilities"
+  },
+  {
+   "id": "S_TELECOM",
+   "type": "SECTOR",
+   "label": "Telecom & Connectivity"
+  },
+  {
+   "id": "S_REALESTATE",
+   "type": "SECTOR",
+   "label": "Real Estate & REITs"
+  },
+  {
+   "id": "S_BFSI",
+   "type": "SECTOR",
+   "label": "Banks & NBFCs"
+  },
+  {
+   "id": "S_IT",
+   "type": "SECTOR",
+   "label": "IT Services"
+  },
+  {
+   "id": "S_DEFENCE",
+   "type": "SECTOR",
+   "label": "Defence"
+  },
+  {
+   "id": "S_METALS",
+   "type": "SECTOR",
+   "label": "Metals & Mining"
+  },
+  {
+   "id": "S_CEMENT",
+   "type": "SECTOR",
+   "label": "Cement"
+  },
+  {
+   "id": "S_AUTO",
+   "type": "SECTOR",
+   "label": "Automobiles"
+  },
+  {
+   "id": "S_FMCG",
+   "type": "SECTOR",
+   "label": "FMCG"
+  },
+  {
+   "id": "S_EPC",
+   "type": "SECTOR",
+   "label": "EPC & Infrastructure"
+  },
+  {
+   "id": "S_WATER",
+   "type": "SECTOR",
+   "label": "Water & Environment"
+  },
+  {
+   "id": "C_ONGC",
+   "label": "Oil & Natural Gas Corp",
+   "ticker": "ONGC",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_OIL",
+   "label": "Oil India",
+   "ticker": "OIL",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GAIL",
+   "label": "GAIL (India)",
+   "ticker": "GAIL",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_IOC",
+   "label": "Indian Oil",
+   "ticker": "IOC",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BPCL",
+   "label": "Bharat Petroleum",
+   "ticker": "BPCL",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HPCL",
+   "label": "Hindustan Petroleum",
+   "ticker": "HINDPETRO",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MRPL",
+   "label": "Mangalore Refinery",
+   "ticker": "MRPL",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CPCL",
+   "label": "Chennai Petroleum",
+   "ticker": "CHENNPETRO",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_RIL",
+   "label": "Reliance Industries",
+   "ticker": "RELIANCE",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PETRONET",
+   "label": "Petronet LNG",
+   "ticker": "PETRONET",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GSPL",
+   "label": "Gujarat State Petronet",
+   "ticker": "GSPL",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_IGL",
+   "label": "Indraprastha Gas",
+   "ticker": "IGL",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MGL",
+   "label": "Mahanagar Gas",
+   "ticker": "MGL",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GUJGAS",
+   "label": "Gujarat Gas",
+   "ticker": "GUJGASLTD",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ATGL",
+   "label": "Adani Total Gas",
+   "ticker": "ATGL",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SELAN",
+   "label": "Selan Exploration",
+   "ticker": "SELAN",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GESHIP",
+   "label": "Great Eastern Shipping",
+   "ticker": "GESHIP",
+   "sector": "S_SHIPPING",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SCI",
+   "label": "Shipping Corporation of India",
+   "ticker": "SCI",
+   "sector": "S_SHIPPING",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SEAMEC",
+   "label": "Seamec",
+   "ticker": "SEAMECLTD",
+   "sector": "S_SHIPPING",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ADANIPORTS",
+   "label": "Adani Ports & SEZ",
+   "ticker": "ADANIPORTS",
+   "sector": "S_SHIPPING",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_JSWINFRA",
+   "label": "JSW Infrastructure",
+   "ticker": "JSWINFRA",
+   "sector": "S_SHIPPING",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CONCOR",
+   "label": "Container Corp of India",
+   "ticker": "CONCOR",
+   "sector": "S_SHIPPING",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ALLCARGO",
+   "label": "Allcargo Logistics",
+   "ticker": "ALLCARGO",
+   "sector": "S_SHIPPING",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TCI",
+   "label": "Transport Corp of India",
+   "ticker": "TCI",
+   "sector": "S_SHIPPING",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_INDIGO",
+   "label": "InterGlobe Aviation",
+   "ticker": "INDIGO",
+   "sector": "S_AVIATION",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SPICEJET",
+   "label": "SpiceJet",
+   "ticker": "SPICEJET",
+   "sector": "S_AVIATION",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ASIANPAINT",
+   "label": "Asian Paints",
+   "ticker": "ASIANPAINT",
+   "sector": "S_PAINTS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BERGER",
+   "label": "Berger Paints",
+   "ticker": "BERGEPAINT",
+   "sector": "S_PAINTS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_KANSAI",
+   "label": "Kansai Nerolac",
+   "ticker": "KANSAINER",
+   "sector": "S_PAINTS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_INDIGOPNT",
+   "label": "Indigo Paints",
+   "ticker": "INDIGOPNTS",
+   "sector": "S_PAINTS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_AKZO",
+   "label": "Akzo Nobel India",
+   "ticker": "AKZOINDIA",
+   "sector": "S_PAINTS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PIDILITE",
+   "label": "Pidilite Industries",
+   "ticker": "PIDILITIND",
+   "sector": "S_PAINTS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GRASIM",
+   "label": "Grasim Industries",
+   "ticker": "GRASIM",
+   "sector": "S_PAINTS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MRF",
+   "label": "MRF",
+   "ticker": "MRF",
+   "sector": "S_TYRES",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_APOLLOTYRE",
+   "label": "Apollo Tyres",
+   "ticker": "APOLLOTYRE",
+   "sector": "S_TYRES",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CEAT",
+   "label": "CEAT",
+   "ticker": "CEATLTD",
+   "sector": "S_TYRES",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_JKTYRE",
+   "label": "JK Tyre",
+   "ticker": "JKTYRE",
+   "sector": "S_TYRES",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BALKRISHNA",
+   "label": "Balkrishna Industries",
+   "ticker": "BALKRISIND",
+   "sector": "S_TYRES",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PCBL",
+   "label": "PCBL",
+   "ticker": "PCBL",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HIMADRI",
+   "label": "Himadri Speciality Chemical",
+   "ticker": "HSCL",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SUPREME",
+   "label": "Supreme Industries",
+   "ticker": "SUPREMEIND",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ASTRAL",
+   "label": "Astral",
+   "ticker": "ASTRAL",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_FINOLEXIND",
+   "label": "Finolex Industries",
+   "ticker": "FINPIPE",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PRINCEPIPE",
+   "label": "Prince Pipes",
+   "ticker": "PRINCEPIPE",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_POLYPLEX",
+   "label": "Polyplex",
+   "ticker": "POLYPLEX",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_COSMO",
+   "label": "Cosmo First",
+   "ticker": "COSMOFIRST",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_UFLEX",
+   "label": "UFlex",
+   "ticker": "UFLEX",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_EPL",
+   "label": "EPL Ltd",
+   "ticker": "EPL",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TIMETECHNO",
+   "label": "Time Technoplast",
+   "ticker": "TIMETECHNO",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SRF",
+   "label": "SRF",
+   "ticker": "SRF",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_NAVINFLUOR",
+   "label": "Navin Fluorine",
+   "ticker": "NAVINFLUOR",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GFL",
+   "label": "Gujarat Fluorochemicals",
+   "ticker": "FLUOROCHEM",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_AARTIIND",
+   "label": "Aarti Industries",
+   "ticker": "AARTIIND",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_DEEPAKNTR",
+   "label": "Deepak Nitrite",
+   "ticker": "DEEPAKNTR",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ATUL",
+   "label": "Atul",
+   "ticker": "ATUL",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_VINATI",
+   "label": "Vinati Organics",
+   "ticker": "VINATIORGA",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TATACHEM",
+   "label": "Tata Chemicals",
+   "ticker": "TATACHEM",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GHCL",
+   "label": "GHCL",
+   "ticker": "GHCL",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ALKYLAMINE",
+   "label": "Alkyl Amines",
+   "ticker": "ALKYLAMINE",
+   "sector": "S_CHEMICALS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CHAMBAL",
+   "label": "Chambal Fertilisers",
+   "ticker": "CHAMBLFERT",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_COROMANDEL",
+   "label": "Coromandel International",
+   "ticker": "COROMANDEL",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GNFC",
+   "label": "GNFC",
+   "ticker": "GNFC",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GSFC",
+   "label": "GSFC",
+   "ticker": "GSFC",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_RCF",
+   "label": "Rashtriya Chemicals & Fertilizers",
+   "ticker": "RCF",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_NFL",
+   "label": "National Fertilizers",
+   "ticker": "NFL",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_DEEPAKFERT",
+   "label": "Deepak Fertilisers",
+   "ticker": "DEEPAKFERT",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PARADEEP",
+   "label": "Paradeep Phosphates",
+   "ticker": "PARADEEP",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_FACT",
+   "label": "FACT",
+   "ticker": "FACT",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_UPL",
+   "label": "UPL",
+   "ticker": "UPL",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PIIND",
+   "label": "PI Industries",
+   "ticker": "PIIND",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_RALLIS",
+   "label": "Rallis India",
+   "ticker": "RALLIS",
+   "sector": "S_FERTILISER",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_COALINDIA",
+   "label": "Coal India",
+   "ticker": "COALINDIA",
+   "sector": "S_POWER",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BALRAMPUR",
+   "label": "Balrampur Chini",
+   "ticker": "BALRAMCHIN",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TRIVENI",
+   "label": "Triveni Engineering",
+   "ticker": "TRIVENI",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SHREERENUKA",
+   "label": "Shree Renuka Sugars",
+   "ticker": "RENUKA",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PRAJ",
+   "label": "Praj Industries",
+   "ticker": "PRAJIND",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HUL",
+   "label": "Hindustan Unilever",
+   "ticker": "HINDUNILVR",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MARICO",
+   "label": "Marico",
+   "ticker": "MARICO",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GODREJCP",
+   "label": "Godrej Consumer",
+   "ticker": "GODREJCP",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_DABUR",
+   "label": "Dabur India",
+   "ticker": "DABUR",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_JYOTHYLAB",
+   "label": "Jyothy Labs",
+   "ticker": "JYOTHYLAB",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CASTROL",
+   "label": "Castrol India",
+   "ticker": "CASTROLIND",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GULFOIL",
+   "label": "Gulf Oil Lubricants",
+   "ticker": "GULFOILLUB",
+   "sector": "S_OILGAS",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ULTRACEMCO",
+   "label": "UltraTech Cement",
+   "ticker": "ULTRACEMCO",
+   "sector": "S_CEMENT",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_AMBUJA",
+   "label": "Ambuja Cements",
+   "ticker": "AMBUJACEM",
+   "sector": "S_CEMENT",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SHREECEM",
+   "label": "Shree Cement",
+   "ticker": "SHREECEM",
+   "sector": "S_CEMENT",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_DALMIA",
+   "label": "Dalmia Bharat",
+   "ticker": "DALBHARAT",
+   "sector": "S_CEMENT",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HINDALCO",
+   "label": "Hindalco",
+   "ticker": "HINDALCO",
+   "sector": "S_METALS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_NALCO",
+   "label": "National Aluminium",
+   "ticker": "NATIONALUM",
+   "sector": "S_METALS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_VEDL",
+   "label": "Vedanta",
+   "ticker": "VEDL",
+   "sector": "S_METALS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_JSWSTEEL",
+   "label": "JSW Steel",
+   "ticker": "JSWSTEEL",
+   "sector": "S_METALS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TATASTEEL",
+   "label": "Tata Steel",
+   "ticker": "TATASTEEL",
+   "sector": "S_METALS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HINDCOPPER",
+   "label": "Hindustan Copper",
+   "ticker": "HINDCOPPER",
+   "sector": "S_METALS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MARUTI",
+   "label": "Maruti Suzuki",
+   "ticker": "MARUTI",
+   "sector": "S_AUTO",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HEROMOTOCO",
+   "label": "Hero MotoCorp",
+   "ticker": "HEROMOTOCO",
+   "sector": "S_AUTO",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BAJAJAUTO",
+   "label": "Bajaj Auto",
+   "ticker": "BAJAJ-AUTO",
+   "sector": "S_AUTO",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TVSMOTOR",
+   "label": "TVS Motor",
+   "ticker": "TVSMOTOR",
+   "sector": "S_AUTO",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TATAMOTORS",
+   "label": "Tata Motors",
+   "ticker": "TATAMOTORS",
+   "sector": "S_AUTO",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MM",
+   "label": "Mahindra & Mahindra",
+   "ticker": "M&M",
+   "sector": "S_AUTO",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_OLECTRA",
+   "label": "Olectra Greentech",
+   "ticker": "OLECTRA",
+   "sector": "S_AUTO",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BAJFINANCE",
+   "label": "Bajaj Finance",
+   "ticker": "BAJFINANCE",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CHOLAFIN",
+   "label": "Cholamandalam Investment",
+   "ticker": "CHOLAFIN",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SHRIRAMFIN",
+   "label": "Shriram Finance",
+   "ticker": "SHRIRAMFIN",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MUTHOOT",
+   "label": "Muthoot Finance",
+   "ticker": "MUTHOOTFIN",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MANAPPURAM",
+   "label": "Manappuram Finance",
+   "ticker": "MANAPPURAM",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HDFCBANK",
+   "label": "HDFC Bank",
+   "ticker": "HDFCBANK",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SBIN",
+   "label": "State Bank of India",
+   "ticker": "SBIN",
+   "sector": "S_BFSI",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_AUBANK",
+   "label": "AU Small Finance Bank",
+   "ticker": "AUBANK",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_FEDERALBNK",
+   "label": "Federal Bank",
+   "ticker": "FEDERALBNK",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SIB",
+   "label": "South Indian Bank",
+   "ticker": "SOUTHBANK",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CSBBANK",
+   "label": "CSB Bank",
+   "ticker": "CSBBANK",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_DHANBANK",
+   "label": "Dhanlaxmi Bank",
+   "ticker": "DHANBANK",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GICRE",
+   "label": "GIC Re",
+   "ticker": "GICRE",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_NIACL",
+   "label": "New India Assurance",
+   "ticker": "NIACL",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ICICIGI",
+   "label": "ICICI Lombard",
+   "ticker": "ICICIGI",
+   "sector": "S_BFSI",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TCS",
+   "label": "Tata Consultancy Services",
+   "ticker": "TCS",
+   "sector": "S_IT",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_INFY",
+   "label": "Infosys",
+   "ticker": "INFY",
+   "sector": "S_IT",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HCLTECH",
+   "label": "HCL Technologies",
+   "ticker": "HCLTECH",
+   "sector": "S_IT",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_WIPRO",
+   "label": "Wipro",
+   "ticker": "WIPRO",
+   "sector": "S_IT",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_LTIM",
+   "label": "LTIMindtree",
+   "ticker": "LTIM",
+   "sector": "S_IT",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PERSISTENT",
+   "label": "Persistent Systems",
+   "ticker": "PERSISTENT",
+   "sector": "S_IT",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_COFORGE",
+   "label": "Coforge",
+   "ticker": "COFORGE",
+   "sector": "S_IT",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_QUICKHEAL",
+   "label": "Quick Heal Technologies",
+   "ticker": "QUICKHEAL",
+   "sector": "S_IT",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SUNPHARMA",
+   "label": "Sun Pharmaceutical",
+   "ticker": "SUNPHARMA",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_DRREDDY",
+   "ticker": "DRREDDY",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CIPLA",
+   "label": "Cipla",
+   "ticker": "CIPLA",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_DIVIS",
+   "ticker": "DIVISLAB",
+   "sector": "S_FMCG",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HAL",
+   "label": "Hindustan Aeronautics",
+   "ticker": "HAL",
+   "sector": "S_DEFENCE",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BEL",
+   "label": "Bharat Electronics",
+   "ticker": "BEL",
+   "sector": "S_DEFENCE",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BDL",
+   "label": "Bharat Dynamics",
+   "ticker": "BDL",
+   "sector": "S_DEFENCE",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SOLARINDS",
+   "label": "Solar Industries",
+   "ticker": "SOLARINDS",
+   "sector": "S_DEFENCE",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_COCHINSHIP",
+   "label": "Cochin Shipyard",
+   "ticker": "COCHINSHIP",
+   "sector": "S_DEFENCE",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MAZDOCK",
+   "label": "Mazagon Dock",
+   "ticker": "MAZDOCK",
+   "sector": "S_DEFENCE",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GRSE",
+   "label": "Garden Reach Shipbuilders",
+   "ticker": "GRSE",
+   "sector": "S_DEFENCE",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_DATAPATTNS",
+   "label": "Data Patterns",
+   "ticker": "DATAPATTNS",
+   "sector": "S_DEFENCE",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ASTRAMICRO",
+   "label": "Astra Microwave",
+   "ticker": "ASTRAMICRO",
+   "sector": "S_DEFENCE",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ADANIENT",
+   "label": "Adani Enterprises",
+   "ticker": "ADANIENT",
+   "sector": "S_POWER",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BHARTIARTL",
+   "label": "Bharti Airtel",
+   "ticker": "BHARTIARTL",
+   "sector": "S_TELECOM",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TATACOMM",
+   "label": "Tata Communications",
+   "ticker": "TATACOMM",
+   "sector": "S_TELECOM",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ANANTRAJ",
+   "label": "Anant Raj",
+   "ticker": "ANANTRAJ",
+   "sector": "S_REALESTATE",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_LODHA",
+   "label": "Macrotech Developers",
+   "ticker": "LODHA",
+   "sector": "S_REALESTATE",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_RAILTEL",
+   "label": "RailTel Corporation",
+   "ticker": "RAILTEL",
+   "sector": "S_TELECOM",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_DLF",
+   "label": "DLF",
+   "ticker": "DLF",
+   "sector": "S_REALESTATE",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_EMBASSY",
+   "label": "Embassy Office Parks REIT",
+   "ticker": "EMBASSY",
+   "sector": "S_REALESTATE",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MINDSPACE",
+   "label": "Mindspace Business Parks REIT",
+   "ticker": "MINDSPACE",
+   "sector": "S_REALESTATE",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BRIGADE",
+   "label": "Brigade Enterprises",
+   "ticker": "BRIGADE",
+   "sector": "S_REALESTATE",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ABB",
+   "label": "ABB India",
+   "ticker": "ABB",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SIEMENS",
+   "label": "Siemens India",
+   "ticker": "SIEMENS",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SIEMENSENER",
+   "label": "Siemens Energy India",
+   "ticker": "SIEMENSENER",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HITACHIENER",
+   "label": "Hitachi Energy India",
+   "ticker": "POWERINDIA",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_GEVERNOVA",
+   "label": "GE Vernova T&D India",
+   "ticker": "GVT&D",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SCHNEIDER",
+   "label": "Schneider Electric Infrastructure",
+   "ticker": "SCHNEIDER",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CGPOWER",
+   "label": "CG Power & Industrial Solutions",
+   "ticker": "CGPOWER",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_VOLTAMP",
+   "label": "Voltamp Transformers",
+   "ticker": "VOLTAMP",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TRIL",
+   "label": "Transformers & Rectifiers India",
+   "ticker": "TARIL",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SHILCHAR",
+   "label": "Shilchar Technologies",
+   "ticker": "SHILCTECH",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CUMMINSIND",
+   "label": "Cummins India",
+   "ticker": "CUMMINSIND",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_KOEL",
+   "label": "Kirloskar Oil Engines",
+   "ticker": "KIRLOSENG",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HBLENGINE",
+   "label": "HBL Engineering",
+   "ticker": "HBLENGINE",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_APARINDS",
+   "label": "Apar Industries",
+   "ticker": "APARINDS",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HPL",
+   "label": "HPL Electric & Power",
+   "ticker": "HPL",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BHEL",
+   "label": "BHEL",
+   "ticker": "BHEL",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_THERMAX",
+   "label": "Thermax",
+   "ticker": "THERMAX",
+   "sector": "S_CAPGOODS",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_BLUESTARCO",
+   "label": "Blue Star",
+   "ticker": "BLUESTARCO",
+   "sector": "S_COOLING",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_VOLTAS",
+   "label": "Voltas",
+   "ticker": "VOLTAS",
+   "sector": "S_COOLING",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_KRN",
+   "label": "KRN Heat Exchanger",
+   "ticker": "KRN",
+   "sector": "S_COOLING",
+   "themes": [
+    "B"
+   ],
+   "purity": "high",
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_AMBER",
+   "label": "Amber Enterprises",
+   "ticker": "AMBER",
+   "sector": "S_COOLING",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_JCHAC",
+   "label": "Johnson Controls-Hitachi AC India",
+   "ticker": "JCHAC",
+   "sector": "S_COOLING",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_EPACK",
+   "label": "EPACK Durable",
+   "ticker": "EPACK",
+   "sector": "S_COOLING",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_NETWEB",
+   "label": "Netweb Technologies",
+   "ticker": "NETWEB",
+   "sector": "S_EMS",
+   "themes": [
+    "B"
+   ],
+   "purity": "high",
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_DIXON",
+   "label": "Dixon Technologies",
+   "ticker": "DIXON",
+   "sector": "S_EMS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_KAYNES",
+   "label": "Kaynes Technology",
+   "ticker": "KAYNES",
+   "sector": "S_EMS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SYRMA",
+   "label": "Syrma SGS Technology",
+   "ticker": "SYRMA",
+   "sector": "S_EMS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_CYIENTDLM",
+   "label": "Cyient DLM",
+   "ticker": "CYIENTDLM",
+   "sector": "S_EMS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TATAELXSI",
+   "label": "Tata Elxsi",
+   "ticker": "TATAELXSI",
+   "sector": "S_EMS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_MOSCHIP",
+   "label": "MosChip Technologies",
+   "ticker": "MOSCHIP",
+   "sector": "S_EMS",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_STLTECH",
+   "label": "Sterlite Technologies",
+   "ticker": "STLTECH",
+   "sector": "S_TELECOM",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_HFCL",
+   "label": "HFCL",
+   "ticker": "HFCL",
+   "sector": "S_TELECOM",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TEJASNET",
+   "label": "Tejas Networks",
+   "ticker": "TEJASNET",
+   "sector": "S_TELECOM",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_INDUSTOWER",
+   "label": "Indus Towers",
+   "ticker": "INDUSTOWER",
+   "sector": "S_TELECOM",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_POLYCAB",
+   "label": "Polycab India",
+   "ticker": "POLYCAB",
+   "sector": "S_CABLES",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_KEI",
+   "label": "KEI Industries",
+   "ticker": "KEI",
+   "sector": "S_CABLES",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_RRKABEL",
+   "label": "R R Kabel",
+   "ticker": "RRKABEL",
+   "sector": "S_CABLES",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_FINCABLES",
+   "label": "Finolex Cables",
+   "ticker": "FINCABLES",
+   "sector": "S_CABLES",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_RAMRATNA",
+   "label": "Ram Ratna Wires",
+   "ticker": "RAMRAT",
+   "sector": "S_CABLES",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PRECWIRE",
+   "label": "Precision Wires India",
+   "ticker": "PRECWIRE",
+   "sector": "S_CABLES",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SKIPPER",
+   "label": "Skipper",
+   "ticker": "SKIPPER",
+   "sector": "S_CABLES",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_LT",
+   "label": "Larsen & Toubro",
+   "ticker": "LT",
+   "sector": "S_EPC",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TECHNOE",
+   "label": "Techno Electric & Engineering",
+   "ticker": "TECHNOE",
+   "sector": "S_EPC",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_KALPATPOWR",
+   "label": "Kalpataru Projects",
+   "ticker": "KPIL",
+   "sector": "S_EPC",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_KEC",
+   "label": "KEC International",
+   "ticker": "KEC",
+   "sector": "S_EPC",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_AHLUCONT",
+   "label": "Ahluwalia Contracts",
+   "ticker": "AHLUCONT",
+   "sector": "S_EPC",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PSPPROJECT",
+   "label": "PSP Projects",
+   "ticker": "PSPPROJECT",
+   "sector": "S_EPC",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_AFCONS",
+   "label": "Afcons Infrastructure",
+   "ticker": "AFCONS",
+   "sector": "S_EPC",
+   "themes": [
+    "A"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_NTPC",
+   "label": "NTPC",
+   "ticker": "NTPC",
+   "sector": "S_POWER",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_NTPCGREEN",
+   "label": "NTPC Green Energy",
+   "ticker": "NTPCGREEN",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_POWERGRID",
+   "label": "Power Grid Corporation",
+   "ticker": "POWERGRID",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TATAPOWER",
+   "label": "Tata Power",
+   "ticker": "TATAPOWER",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ADANIPOWER",
+   "label": "Adani Power",
+   "ticker": "ADANIPOWER",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_ADANIGREEN",
+   "label": "Adani Green Energy",
+   "ticker": "ADANIGREEN",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_JSWENERGY",
+   "label": "JSW Energy",
+   "ticker": "JSWENERGY",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TORNTPOWER",
+   "label": "Torrent Power",
+   "ticker": "TORNTPOWER",
+   "sector": "S_POWER",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_NHPC",
+   "label": "NHPC",
+   "ticker": "NHPC",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_IEX",
+   "label": "Indian Energy Exchange",
+   "ticker": "IEX",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SUZLON",
+   "label": "Suzlon Energy",
+   "ticker": "SUZLON",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_INOXWIND",
+   "label": "Inox Wind",
+   "ticker": "INOXWIND",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_KPIGREEN",
+   "label": "KPI Green Energy",
+   "ticker": "KPIGREEN",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_WAAREE",
+   "label": "Waaree Energies",
+   "ticker": "WAAREEENER",
+   "sector": "S_POWER",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PREMIER",
+   "label": "Premier Energies",
+   "ticker": "PREMIERENE",
+   "sector": "S_POWER",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_EXIDE",
+   "label": "Exide Industries",
+   "ticker": "EXIDEIND",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_AMARAJA",
+   "label": "Amara Raja Energy & Mobility",
+   "ticker": "ARE&M",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_SERVOTECH",
+   "label": "Servotech Renewable Power",
+   "ticker": "SERVOTECH",
+   "sector": "S_POWER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_PFC",
+   "label": "Power Finance Corporation",
+   "ticker": "PFC",
+   "sector": "S_BFSI",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_RECLTD",
+   "label": "REC Ltd",
+   "ticker": "RECLTD",
+   "sector": "S_BFSI",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_IREDA",
+   "label": "IREDA",
+   "ticker": "IREDA",
+   "sector": "S_BFSI",
+   "themes": [
+    "A",
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_VATECHWABAG",
+   "label": "VA Tech Wabag",
+   "ticker": "WABAG",
+   "sector": "S_WATER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_IONEXCHANGE",
+   "label": "Ion Exchange India",
+   "ticker": "IONEXCHANG",
+   "sector": "S_WATER",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_TEAMLEASE",
+   "label": "TeamLease Services",
+   "ticker": "TEAMLEASE",
+   "sector": "S_IT",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  },
+  {
+   "id": "C_QUESS",
+   "label": "Quess Corp",
+   "ticker": "QUESS",
+   "sector": "S_IT",
+   "themes": [
+    "B"
+   ],
+   "type": "COMPANY"
+  }
+ ],
+ "edges": [
+  {
+   "source": "E_HORMUZ",
+   "target": "M_BRENT",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "E_HORMUZ",
+   "target": "M_LNG_SPOT",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "E_HORMUZ",
+   "target": "M_LPG_SAUDI_CP",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "E_HORMUZ",
+   "target": "M_WARRISK",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": "0.125% -> 2.5-5% of hull value per transit"
+  },
+  {
+   "source": "E_HORMUZ",
+   "target": "M_FREIGHT",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "E_HORMUZ",
+   "target": "M_GRM",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "E_HORMUZ",
+   "target": "M_UREA",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "M_BRENT",
+   "target": "M_CAD",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": "$10/bbl ~ -0.1 to -0.2pp GDP"
+  },
+  {
+   "source": "M_CAD",
+   "target": "M_INR",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "M_BRENT",
+   "target": "M_CPI",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "M_INR",
+   "target": "M_CPI",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "M_CPI",
+   "target": "M_REPO",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "M_UREA",
+   "target": "M_SUBSIDY",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "M_LPG_SAUDI_CP",
+   "target": "M_SUBSIDY",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": "+",
+   "channel": null
+  },
+  {
+   "source": "RM_CRUDE",
+   "target": "G_HORMUZ",
+   "rel": "TRANSITS",
+   "order": null,
+   "sign": null,
+   "channel": "41-53% of India imports"
+  },
+  {
+   "source": "RM_LNG",
+   "target": "G_HORMUZ",
+   "rel": "TRANSITS",
+   "order": null,
+   "sign": null,
+   "channel": "~55%"
+  },
+  {
+   "source": "RM_LPG",
+   "target": "G_HORMUZ",
+   "rel": "TRANSITS",
+   "order": null,
+   "sign": null,
+   "channel": "~88-90%"
+  },
+  {
+   "source": "RM_UREA",
+   "target": "G_HORMUZ",
+   "rel": "TRANSITS",
+   "order": null,
+   "sign": null,
+   "channel": "~70% of imports"
+  },
+  {
+   "source": "RM_SULPHUR",
+   "target": "G_HORMUZ",
+   "rel": "TRANSITS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "RM_AMMONIA",
+   "target": "G_HORMUZ",
+   "rel": "TRANSITS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "G_INDIA",
+   "target": "G_HORMUZ",
+   "rel": "IMPORTS_VIA",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "G_CAPE",
+   "target": "G_HORMUZ",
+   "rel": "SUBSTITUTES_FOR",
+   "order": null,
+   "sign": null,
+   "channel": "+3800nm, +10-14 days"
+  },
+  {
+   "source": "RM_UREA",
+   "target": "G_OMAN",
+   "rel": "SOURCED_FROM",
+   "order": null,
+   "sign": null,
+   "channel": "largest single supplier"
+  },
+  {
+   "source": "RM_LNG",
+   "target": "G_QATAR",
+   "rel": "SOURCED_FROM",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "RM_SULPHUR",
+   "target": "G_GCC",
+   "rel": "SOURCED_FROM",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_ONGC",
+   "target": "RM_CRUDE",
+   "rel": "PRODUCES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_ONGC",
+   "target": "M_BRENT",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": "realisation tracks Brent"
+  },
+  {
+   "source": "C_OIL",
+   "target": "M_BRENT",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_ONGC",
+   "target": "POL_WINDFALL_TAX",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": "clawback of upstream windfall"
+  },
+  {
+   "source": "C_ONGC",
+   "target": "C_MRPL",
+   "rel": "OWNS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_ONGC",
+   "target": "C_HPCL",
+   "rel": "OWNS",
+   "order": null,
+   "sign": null,
+   "channel": "~51%"
+  },
+  {
+   "source": "C_GAIL",
+   "target": "E_HORMUZ",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": "transmission volume vs petchem feedstock cost"
+  },
+  {
+   "source": "C_IOC",
+   "target": "RM_CRUDE",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_IOC",
+   "target": "M_LPG_SAUDI_CP",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": "LPG under-recovery"
+  },
+  {
+   "source": "C_HPCL",
+   "target": "M_LPG_SAUDI_CP",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": "largest LPG mix"
+  },
+  {
+   "source": "C_BPCL",
+   "target": "M_LPG_SAUDI_CP",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_IOC",
+   "target": "M_GRM",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_MRPL",
+   "target": "M_GRM",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": "pure refiner, no marketing drag"
+  },
+  {
+   "source": "C_CPCL",
+   "target": "M_GRM",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_MRPL",
+   "target": "E_HORMUZ",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": "Gulf-concentrated crude slate"
+  },
+  {
+   "source": "C_RIL",
+   "target": "E_HORMUZ",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": "O2C cost vs GRM and gas realisation"
+  },
+  {
+   "source": "C_IOC",
+   "target": "POL_LPG_SUBSIDY",
+   "rel": "REGULATED_BY",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_PETRONET",
+   "target": "E_HORMUZ",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": "regas throughput on Qatari curtailment"
+  },
+  {
+   "source": "C_IGL",
+   "target": "M_LNG_SPOT",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": "APM shortfall filled with spot"
+  },
+  {
+   "source": "C_MGL",
+   "target": "M_LNG_SPOT",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_GUJGAS",
+   "target": "M_LNG_SPOT",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": "industrial customers switch away"
+  },
+  {
+   "source": "C_IGL",
+   "target": "M_BRENT",
+   "rel": "BENEFITS_FROM",
+   "order": 2,
+   "sign": null,
+   "channel": "CNG conversion economics improve"
+  },
+  {
+   "source": "C_GUJGAS",
+   "target": "POL_GAS_CONTROL_ORDER",
+   "rel": "REGULATED_BY",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_GESHIP",
+   "target": "M_FREIGHT",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": "tanker day rates"
+  },
+  {
+   "source": "C_SCI",
+   "target": "M_FREIGHT",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_GESHIP",
+   "target": "M_WARRISK",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_ADANIPORTS",
+   "target": "E_HORMUZ",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "Gulf trade lane volumes"
+  },
+  {
+   "source": "C_CONCOR",
+   "target": "M_FREIGHT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TCI",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "diesel opex"
+  },
+  {
+   "source": "C_INDIGO",
+   "target": "P_ATF",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_ATF",
+   "target": "M_BRENT",
+   "rel": "PRICE_LINKED_TO",
+   "order": null,
+   "sign": null,
+   "channel": "beta ~1"
+  },
+  {
+   "source": "C_INDIGO",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_INDIGO",
+   "target": "M_INR",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "USD lease rentals"
+  },
+  {
+   "source": "C_SPICEJET",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "RM_COAL",
+   "target": "RM_LNG",
+   "rel": "SUBSTITUTES_FOR",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_COALINDIA",
+   "target": "M_LNG_SPOT",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": "gas-to-coal switching"
+  },
+  {
+   "source": "C_NTPC",
+   "target": "M_LNG_SPOT",
+   "rel": "BENEFITS_FROM",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_ETHANOL",
+   "target": "P_PETROL",
+   "rel": "SUBSTITUTES_FOR",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_BALRAMPUR",
+   "target": "M_BRENT",
+   "rel": "BENEFITS_FROM",
+   "order": 2,
+   "sign": null,
+   "channel": "ethanol blending economics"
+  },
+  {
+   "source": "C_PRAJ",
+   "target": "E_HORMUZ",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "energy security capex"
+  },
+  {
+   "source": "C_WAAREE",
+   "target": "E_HORMUZ",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "RE as import substitution"
+  },
+  {
+   "source": "RM_NAPHTHA",
+   "target": "M_BRENT",
+   "rel": "PRICE_LINKED_TO",
+   "order": null,
+   "sign": null,
+   "channel": "beta 0.8-1.0"
+  },
+  {
+   "source": "RM_CBFS",
+   "target": "M_BRENT",
+   "rel": "PRICE_LINKED_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "RM_SYNRUBBER",
+   "target": "M_BRENT",
+   "rel": "PRICE_LINKED_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "RM_BASEOIL",
+   "target": "M_BRENT",
+   "rel": "PRICE_LINKED_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "RM_PVC",
+   "target": "M_BRENT",
+   "rel": "PRICE_LINKED_TO",
+   "order": null,
+   "sign": null,
+   "channel": "weaker beta; Chinese carbide route"
+  },
+  {
+   "source": "RM_HDPE",
+   "target": "RM_NAPHTHA",
+   "rel": "PRICE_LINKED_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "RM_PETCOKE",
+   "target": "M_BRENT",
+   "rel": "PRICE_LINKED_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "RM_LLP",
+   "target": "M_BRENT",
+   "rel": "PRICE_LINKED_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_PAINT",
+   "target": "RM_SOLVENT",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_PAINT",
+   "target": "RM_TIO2",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_PAINT",
+   "target": "RM_MONOMER",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_ASIANPAINT",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "pass-through capped by Birla Opus competition"
+  },
+  {
+   "source": "C_BERGER",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_INDIGOPNT",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "weakest pricing power"
+  },
+  {
+   "source": "C_PIDILITE",
+   "target": "RM_VAM",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_TYRE",
+   "target": "RM_SYNRUBBER",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_TYRE",
+   "target": "RM_CARBONBLACK",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_TYRE",
+   "target": "RM_NATRUBBER",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "RM_CARBONBLACK",
+   "target": "RM_CBFS",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_PCBL",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "CBFS; formula pricing offsets"
+  },
+  {
+   "source": "C_MRF",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "~40% of RM is natural rubber"
+  },
+  {
+   "source": "C_BALKRISHNA",
+   "target": "M_INR",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": "export revenue offsets RM inflation"
+  },
+  {
+   "source": "P_PVC_PIPE",
+   "target": "RM_PVC",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_SUPREME",
+   "target": "RM_PVC",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "volatility > level; destocking risk"
+  },
+  {
+   "source": "C_FINOLEXIND",
+   "target": "RM_PVC",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": "backward integrated"
+  },
+  {
+   "source": "C_POLYPLEX",
+   "target": "RM_PTA_MEG",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_EPL",
+   "target": "RM_HDPE",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_DEEPAKNTR",
+   "target": "RM_BENZENE",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "Chinese phenol imports cap pass-through"
+  },
+  {
+   "source": "C_AARTIIND",
+   "target": "RM_BENZENE",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TATACHEM",
+   "target": "M_LNG_SPOT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "soda ash energy intensity"
+  },
+  {
+   "source": "C_GHCL",
+   "target": "M_LNG_SPOT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_SRF",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_UREA",
+   "target": "RM_NATGAS",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DAP",
+   "target": "RM_PHOSACID",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DAP",
+   "target": "RM_SULPHUR",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DAP",
+   "target": "RM_AMMONIA",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_CHAMBAL",
+   "target": "M_LNG_SPOT",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": "gas feedstock; working capital"
+  },
+  {
+   "source": "C_COROMANDEL",
+   "target": "E_HORMUZ",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": "sulphur + phos acid + ammonia"
+  },
+  {
+   "source": "C_PARADEEP",
+   "target": "RM_SULPHUR",
+   "rel": "HURT_BY",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_DEEPAKFERT",
+   "target": "RM_AMMONIA",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": "captive ammonia"
+  },
+  {
+   "source": "C_CHAMBAL",
+   "target": "POL_NBS_SUBSIDY",
+   "rel": "REGULATED_BY",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_COROMANDEL",
+   "target": "M_SUBSIDY",
+   "rel": "HURT_BY",
+   "order": 3,
+   "sign": null,
+   "channel": "subsidy disbursal delay"
+  },
+  {
+   "source": "P_CEMENT",
+   "target": "RM_PETCOKE",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_CEMENT",
+   "target": "P_DIESEL",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": "~25% of cost is freight"
+  },
+  {
+   "source": "C_ULTRACEMCO",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_HINDALCO",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "CP coke, caustic, power ~35-40% of cost"
+  },
+  {
+   "source": "C_NALCO",
+   "target": "M_BRENT",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": "LME aluminium also rises"
+  },
+  {
+   "source": "C_MARICO",
+   "target": "RM_LLP",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_HUL",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "LAB, packaging, freight"
+  },
+  {
+   "source": "C_CASTROL",
+   "target": "RM_BASEOIL",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "~50% of COGS"
+  },
+  {
+   "source": "C_GULFOIL",
+   "target": "RM_BASEOIL",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_HEROMOTOCO",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 3,
+   "sign": null,
+   "channel": "rural running cost"
+  },
+  {
+   "source": "C_MARUTI",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TATAMOTORS",
+   "target": "M_BRENT",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "EV TCO advantage widens"
+  },
+  {
+   "source": "C_OLECTRA",
+   "target": "M_BRENT",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_MM",
+   "target": "M_UREA",
+   "rel": "HURT_BY",
+   "order": 3,
+   "sign": null,
+   "channel": "farm profitability -> tractor demand"
+  },
+  {
+   "source": "C_BAJFINANCE",
+   "target": "M_REPO",
+   "rel": "HURT_BY",
+   "order": 3,
+   "sign": null,
+   "channel": "cost of funds"
+  },
+  {
+   "source": "C_SHRIRAMFIN",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 3,
+   "sign": null,
+   "channel": "CV borrower cash flow"
+  },
+  {
+   "source": "C_CHOLAFIN",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_MUTHOOT",
+   "target": "E_HORMUZ",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "gold rally lifts AUM"
+  },
+  {
+   "source": "C_MANAPPURAM",
+   "target": "E_HORMUZ",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TCS",
+   "target": "M_INR",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "1% INR dep ~ 20-25bps EBIT"
+  },
+  {
+   "source": "C_INFY",
+   "target": "M_INR",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_SUNPHARMA",
+   "target": "M_INR",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_DIVIS",
+   "target": "M_BRENT",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "solvent + energy in API"
+  },
+  {
+   "source": "G_KERALA",
+   "target": "G_GCC",
+   "rel": "EXPOSED_TO_ORDERBOOK",
+   "order": null,
+   "sign": null,
+   "channel": "expatriate employment"
+  },
+  {
+   "source": "C_FEDERALBNK",
+   "target": "E_HORMUZ",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": "NRI deposit inflow vs Gulf job risk"
+  },
+  {
+   "source": "C_FEDERALBNK",
+   "target": "M_INR",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "NRE/FCNR accretion"
+  },
+  {
+   "source": "C_SIB",
+   "target": "M_INR",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_CSBBANK",
+   "target": "E_HORMUZ",
+   "rel": "HURT_BY",
+   "order": 3,
+   "sign": null,
+   "channel": "gold LTV reversal risk"
+  },
+  {
+   "source": "C_LT",
+   "target": "G_GCC",
+   "rel": "EXPOSED_TO_ORDERBOOK",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_LT",
+   "target": "E_HORMUZ",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": "GCC capex funding vs award deferral"
+  },
+  {
+   "source": "C_KEC",
+   "target": "G_GCC",
+   "rel": "EXPOSED_TO_ORDERBOOK",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_VOLTAS",
+   "target": "G_GCC",
+   "rel": "EXPOSED_TO_ORDERBOOK",
+   "order": null,
+   "sign": null,
+   "channel": "legacy Gulf MEP"
+  },
+  {
+   "source": "C_BEL",
+   "target": "E_HORMUZ",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "defence budget priority"
+  },
+  {
+   "source": "C_COCHINSHIP",
+   "target": "E_HORMUZ",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "naval orders + ship repair"
+  },
+  {
+   "source": "C_SOLARINDS",
+   "target": "E_HORMUZ",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_GICRE",
+   "target": "M_WARRISK",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": "rate hardening vs claims"
+  },
+  {
+   "source": "C_NIACL",
+   "target": "M_WARRISK",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "T_GENAI",
+   "target": "E_AIBUILD",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "CU_HYPERSCALER",
+   "target": "E_AIBUILD",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "POL_DC_TAX",
+   "target": "E_AIBUILD",
+   "rel": "ENABLES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "POL_INDIAAI",
+   "target": "E_AIBUILD",
+   "rel": "ENABLES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "E_AIBUILD",
+   "target": "CN_POWER",
+   "rel": "CONSTRAINED_BY",
+   "order": null,
+   "sign": null,
+   "channel": "26.3 GW by FY32"
+  },
+  {
+   "source": "E_AIBUILD",
+   "target": "CN_TRANSMISSION",
+   "rel": "CONSTRAINED_BY",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "E_AIBUILD",
+   "target": "CN_GPU",
+   "rel": "CONSTRAINED_BY",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "E_AIBUILD",
+   "target": "CN_WATER",
+   "rel": "CONSTRAINED_BY",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "E_AIBUILD",
+   "target": "CN_LAND",
+   "rel": "CONSTRAINED_BY",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "T_HIGHDENSITY",
+   "target": "T_LIQUIDCOOL",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "CN_CRGO",
+   "target": "P_TRANSFORMER",
+   "rel": "CONSTRAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "CN_GRIDSTAB",
+   "target": "P_GRIDEQUIP",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_ADANIENT",
+   "target": "PC_ADANICONNEX",
+   "rel": "JV_WITH",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_ADANIENT",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": "2 GW -> 5 GW by 2035"
+  },
+  {
+   "source": "C_RIL",
+   "target": "AS_JAMNAGAR_DC",
+   "rel": "OWNS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "CU_HYPERSCALER",
+   "target": "C_RIL",
+   "rel": "CUSTOMER_OF",
+   "order": null,
+   "sign": null,
+   "channel": "Meta 168 MW lease"
+  },
+  {
+   "source": "C_RIL",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_BHARTIARTL",
+   "target": "PC_NXTRA",
+   "rel": "OWNS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TATACOMM",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_ANANTRAJ",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": "land to DC conversion"
+  },
+  {
+   "source": "C_LODHA",
+   "target": "CN_LAND",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "IN_BLACKSTONE",
+   "target": "PC_NEYSA",
+   "rel": "INVESTS_IN",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "IN_BLACKSTONE",
+   "target": "PC_AIRTRUNK",
+   "rel": "INVESTS_IN",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "PC_CTRLS",
+   "target": "C_NTPCGREEN",
+   "rel": "JV_WITH",
+   "order": null,
+   "sign": null,
+   "channel": "~2 GW renewable MoU"
+  },
+  {
+   "source": "AS_VIZAG_DC",
+   "target": "G_ANDHRA",
+   "rel": "LOCATED_IN",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "AS_JAMNAGAR_DC",
+   "target": "G_GUJARAT",
+   "rel": "LOCATED_IN",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DATACENTRE",
+   "target": "P_TRANSFORMER",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DATACENTRE",
+   "target": "P_SWITCHGEAR",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DATACENTRE",
+   "target": "P_UPS",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DATACENTRE",
+   "target": "P_GENSET",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DATACENTRE",
+   "target": "P_COOLING",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DATACENTRE",
+   "target": "P_POWERCABLE",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DATACENTRE",
+   "target": "P_FIBRE",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_DATACENTRE",
+   "target": "P_FIRMPOWER",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": "~50% of opex"
+  },
+  {
+   "source": "C_HITACHIENER",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "HV transformers, grid connection"
+  },
+  {
+   "source": "C_ABB",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "switchgear, drives, motors"
+  },
+  {
+   "source": "C_SIEMENS",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_SIEMENSENER",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_GEVERNOVA",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_SCHNEIDER",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "UPS, MV/LV, power skids"
+  },
+  {
+   "source": "C_CGPOWER",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_VOLTAMP",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TRIL",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_SHILCHAR",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_CUMMINSIND",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "HHP gensets N+1"
+  },
+  {
+   "source": "C_KOEL",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_APARINDS",
+   "target": "P_TRANSFORMER",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "transformer oil"
+  },
+  {
+   "source": "C_TRIL",
+   "target": "CN_CRGO",
+   "rel": "CONSTRAINED_BY",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_VOLTAMP",
+   "target": "CN_CRGO",
+   "rel": "CONSTRAINED_BY",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "T_LIQUIDCOOL",
+   "target": "P_COOLING",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_KRN",
+   "target": "C_SCHNEIDER",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "heat exchangers; targeting ~50% India DC share"
+  },
+  {
+   "source": "C_BLUESTARCO",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "precision AC + MEP/EPC"
+  },
+  {
+   "source": "C_VOLTAS",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "chillers"
+  },
+  {
+   "source": "C_THERMAX",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "chillers, water, captive power"
+  },
+  {
+   "source": "C_AMBER",
+   "target": "P_COOLING",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_JCHAC",
+   "target": "P_COOLING",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_AISERVER",
+   "target": "RM_GPU",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_AISERVER",
+   "target": "CN_HBM",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_NETWEB",
+   "target": "P_AISERVER",
+   "rel": "PRODUCES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_NETWEB",
+   "target": "CU_INDIAAI",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "Rs 1734cr Blackwell order, Q4FY26-H1FY27"
+  },
+  {
+   "source": "C_NETWEB",
+   "target": "CN_GPU",
+   "rel": "CONSTRAINED_BY",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "PC_NVIDIA",
+   "target": "C_NETWEB",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_DIXON",
+   "target": "POL_PLI_IT",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_KAYNES",
+   "target": "POL_SEMICON",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_CGPOWER",
+   "target": "POL_SEMICON",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_STLTECH",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "optical fibre"
+  },
+  {
+   "source": "C_HFCL",
+   "target": "P_FIBRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TEJASNET",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TATACOMM",
+   "target": "CU_HYPERSCALER",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "subsea + interconnect"
+  },
+  {
+   "source": "C_POLYCAB",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_KEI",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "HT/EHV cables"
+  },
+  {
+   "source": "P_POWERCABLE",
+   "target": "RM_COPPER",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_POWERCABLE",
+   "target": "RM_PVC",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_LT",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "turnkey shell + MEP + substation"
+  },
+  {
+   "source": "C_TECHNOE",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": "substation EPC + own DC"
+  },
+  {
+   "source": "C_KEC",
+   "target": "CN_TRANSMISSION",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_KALPATPOWR",
+   "target": "CN_TRANSMISSION",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_SKIPPER",
+   "target": "CN_TRANSMISSION",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_POWERGRID",
+   "target": "CN_TRANSMISSION",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": "Rs 9.16 lakh crore plan"
+  },
+  {
+   "source": "C_NTPCGREEN",
+   "target": "PC_CTRLS",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TATAPOWER",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": "RTC RE + Mumbai distribution"
+  },
+  {
+   "source": "C_ADANIGREEN",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 1,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_NHPC",
+   "target": "CN_GRIDSTAB",
+   "rel": "BENEFITS_FROM",
+   "order": 2,
+   "sign": null,
+   "channel": "hydro peaking for load ramps"
+  },
+  {
+   "source": "C_IEX",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 2,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_EMBASSY",
+   "target": "CU_GCC_ENT",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_HINDALCO",
+   "target": "P_TRANSFORMER",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "aluminium + copper"
+  },
+  {
+   "source": "C_HINDCOPPER",
+   "target": "RM_COPPER",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_NALCO",
+   "target": "RM_ALUMINIUM",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_RAMRATNA",
+   "target": "P_TRANSFORMER",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "winding wire"
+  },
+  {
+   "source": "C_PRECWIRE",
+   "target": "P_TRANSFORMER",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "enamelled copper wire"
+  },
+  {
+   "source": "CN_CRGO",
+   "target": "C_VOLTAMP",
+   "rel": "CONSTRAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_CHILLER",
+   "target": "RM_REFRIGERANT",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_GFL",
+   "target": "P_CHILLER",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "refrigerants, immersion fluid optionality"
+  },
+  {
+   "source": "C_SRF",
+   "target": "P_CHILLER",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "T_LIQUIDCOOL",
+   "target": "RM_REFRIGERANT",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "CN_GRIDSTAB",
+   "target": "C_EXIDE",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": null,
+   "channel": "BESS demand"
+  },
+  {
+   "source": "CN_GRIDSTAB",
+   "target": "C_HITACHIENER",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": null,
+   "channel": "STATCOM, synchronous condensers"
+  },
+  {
+   "source": "CN_GRIDSTAB",
+   "target": "C_AMARAJA",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "P_UPS",
+   "target": "RM_BATTERY",
+   "rel": "NEEDS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_HBLENGINE",
+   "target": "P_UPS",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "CN_WATER",
+   "target": "C_VATECHWABAG",
+   "rel": "CAUSES",
+   "order": null,
+   "sign": null,
+   "channel": "ZLD + recycling demand"
+  },
+  {
+   "source": "C_IONEXCHANGE",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": "DM water, cooling chemistry"
+  },
+  {
+   "source": "C_ULTRACEMCO",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_JSWSTEEL",
+   "target": "P_DATACENTRE",
+   "rel": "SUPPLIES_TO",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_PFC",
+   "target": "CN_POWER",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_RECLTD",
+   "target": "CN_POWER",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_IREDA",
+   "target": "CN_GRIDSTAB",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_SBIN",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TEAMLEASE",
+   "target": "CN_SKILLS",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_QUESS",
+   "target": "CN_SKILLS",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_TCS",
+   "target": "T_GENAI",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": "TAM expansion vs linear model deflation"
+  },
+  {
+   "source": "C_INFY",
+   "target": "T_GENAI",
+   "rel": "HEDGES",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_QUICKHEAL",
+   "target": "POL_DC_TAX",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "DPDP + localisation"
+  },
+  {
+   "source": "C_INDUSTOWER",
+   "target": "T_GENAI",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "edge inference"
+  },
+  {
+   "source": "C_ADANIPORTS",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "equipment import volumes"
+  },
+  {
+   "source": "C_INDIGO",
+   "target": "E_AIBUILD",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "air-freighted GPU cargo"
+  },
+  {
+   "source": "C_ANANTRAJ",
+   "target": "CN_LAND",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "C_COALINDIA",
+   "target": "CN_POWER",
+   "rel": "BENEFITS_FROM",
+   "order": 3,
+   "sign": null,
+   "channel": "DC load partly met by coal"
+  },
+  {
+   "source": "E_HORMUZ",
+   "target": "E_AIBUILD",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "LNG/power cost -> DC opex (power ~50% of opex)"
+  },
+  {
+   "source": "M_WARRISK",
+   "target": "E_AIBUILD",
+   "rel": "HURT_BY",
+   "order": 2,
+   "sign": null,
+   "channel": "freight + war risk on imported transformers, chillers, GPUs"
+  },
+  {
+   "source": "M_INR",
+   "target": "C_NETWEB",
+   "rel": "HURT_BY",
+   "order": 3,
+   "sign": null,
+   "channel": "USD-denominated GPU landed cost"
+  },
+  {
+   "source": "M_REPO",
+   "target": "C_ADANIGREEN",
+   "rel": "HURT_BY",
+   "order": 3,
+   "sign": null,
+   "channel": "long-duration project WACC"
+  },
+  {
+   "source": "M_REPO",
+   "target": "C_ANANTRAJ",
+   "rel": "HURT_BY",
+   "order": 3,
+   "sign": null,
+   "channel": "DC project financing cost"
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_ONGC",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_OIL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_GAIL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_IOC",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_BPCL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_HPCL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_MRPL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_CPCL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_RIL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_PETRONET",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_GSPL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_IGL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_MGL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_GUJGAS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_ATGL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_SELAN",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_SHIPPING",
+   "target": "C_GESHIP",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_SHIPPING",
+   "target": "C_SCI",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_SHIPPING",
+   "target": "C_SEAMEC",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_SHIPPING",
+   "target": "C_ADANIPORTS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_SHIPPING",
+   "target": "C_JSWINFRA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_SHIPPING",
+   "target": "C_CONCOR",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_SHIPPING",
+   "target": "C_ALLCARGO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_SHIPPING",
+   "target": "C_TCI",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_AVIATION",
+   "target": "C_INDIGO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_AVIATION",
+   "target": "C_SPICEJET",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_PAINTS",
+   "target": "C_ASIANPAINT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_PAINTS",
+   "target": "C_BERGER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_PAINTS",
+   "target": "C_KANSAI",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_PAINTS",
+   "target": "C_INDIGOPNT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_PAINTS",
+   "target": "C_AKZO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_PAINTS",
+   "target": "C_PIDILITE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_PAINTS",
+   "target": "C_GRASIM",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TYRES",
+   "target": "C_MRF",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TYRES",
+   "target": "C_APOLLOTYRE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TYRES",
+   "target": "C_CEAT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TYRES",
+   "target": "C_JKTYRE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TYRES",
+   "target": "C_BALKRISHNA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_PCBL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_HIMADRI",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_SUPREME",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_ASTRAL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_FINOLEXIND",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_PRINCEPIPE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_POLYPLEX",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_COSMO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_UFLEX",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_EPL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_TIMETECHNO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_SRF",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_NAVINFLUOR",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_GFL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_AARTIIND",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_DEEPAKNTR",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_ATUL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_VINATI",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_TATACHEM",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_GHCL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CHEMICALS",
+   "target": "C_ALKYLAMINE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_CHAMBAL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_COROMANDEL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_GNFC",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_GSFC",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_RCF",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_NFL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_DEEPAKFERT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_PARADEEP",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_FACT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_UPL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_PIIND",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FERTILISER",
+   "target": "C_RALLIS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_COALINDIA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_BALRAMPUR",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_TRIVENI",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_SHREERENUKA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_PRAJ",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_HUL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_MARICO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_GODREJCP",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_DABUR",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_JYOTHYLAB",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_CASTROL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_OILGAS",
+   "target": "C_GULFOIL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CEMENT",
+   "target": "C_ULTRACEMCO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CEMENT",
+   "target": "C_AMBUJA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CEMENT",
+   "target": "C_SHREECEM",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CEMENT",
+   "target": "C_DALMIA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_METALS",
+   "target": "C_HINDALCO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_METALS",
+   "target": "C_NALCO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_METALS",
+   "target": "C_VEDL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_METALS",
+   "target": "C_JSWSTEEL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_METALS",
+   "target": "C_TATASTEEL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_METALS",
+   "target": "C_HINDCOPPER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_AUTO",
+   "target": "C_MARUTI",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_AUTO",
+   "target": "C_HEROMOTOCO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_AUTO",
+   "target": "C_BAJAJAUTO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_AUTO",
+   "target": "C_TVSMOTOR",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_AUTO",
+   "target": "C_TATAMOTORS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_AUTO",
+   "target": "C_MM",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_AUTO",
+   "target": "C_OLECTRA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_BAJFINANCE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_CHOLAFIN",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_SHRIRAMFIN",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_MUTHOOT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_MANAPPURAM",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_HDFCBANK",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_SBIN",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_AUBANK",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_FEDERALBNK",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_SIB",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_CSBBANK",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_DHANBANK",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_GICRE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_NIACL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_ICICIGI",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_IT",
+   "target": "C_TCS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_IT",
+   "target": "C_INFY",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_IT",
+   "target": "C_HCLTECH",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_IT",
+   "target": "C_WIPRO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_IT",
+   "target": "C_LTIM",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_IT",
+   "target": "C_PERSISTENT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_IT",
+   "target": "C_COFORGE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_IT",
+   "target": "C_QUICKHEAL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_SUNPHARMA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_DRREDDY",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_CIPLA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_FMCG",
+   "target": "C_DIVIS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_DEFENCE",
+   "target": "C_HAL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_DEFENCE",
+   "target": "C_BEL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_DEFENCE",
+   "target": "C_BDL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_DEFENCE",
+   "target": "C_SOLARINDS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_DEFENCE",
+   "target": "C_COCHINSHIP",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_DEFENCE",
+   "target": "C_MAZDOCK",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_DEFENCE",
+   "target": "C_GRSE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_DEFENCE",
+   "target": "C_DATAPATTNS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_DEFENCE",
+   "target": "C_ASTRAMICRO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_ADANIENT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TELECOM",
+   "target": "C_BHARTIARTL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TELECOM",
+   "target": "C_TATACOMM",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_REALESTATE",
+   "target": "C_ANANTRAJ",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_REALESTATE",
+   "target": "C_LODHA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TELECOM",
+   "target": "C_RAILTEL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_REALESTATE",
+   "target": "C_DLF",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_REALESTATE",
+   "target": "C_EMBASSY",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_REALESTATE",
+   "target": "C_MINDSPACE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_REALESTATE",
+   "target": "C_BRIGADE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_ABB",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_SIEMENS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_SIEMENSENER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_HITACHIENER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_GEVERNOVA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_SCHNEIDER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_CGPOWER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_VOLTAMP",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_TRIL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_SHILCHAR",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_CUMMINSIND",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_KOEL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_HBLENGINE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_APARINDS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_HPL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_BHEL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CAPGOODS",
+   "target": "C_THERMAX",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_COOLING",
+   "target": "C_BLUESTARCO",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_COOLING",
+   "target": "C_VOLTAS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_COOLING",
+   "target": "C_KRN",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_COOLING",
+   "target": "C_AMBER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_COOLING",
+   "target": "C_JCHAC",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_COOLING",
+   "target": "C_EPACK",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EMS",
+   "target": "C_NETWEB",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EMS",
+   "target": "C_DIXON",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EMS",
+   "target": "C_KAYNES",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EMS",
+   "target": "C_SYRMA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EMS",
+   "target": "C_CYIENTDLM",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EMS",
+   "target": "C_TATAELXSI",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EMS",
+   "target": "C_MOSCHIP",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TELECOM",
+   "target": "C_STLTECH",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TELECOM",
+   "target": "C_HFCL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TELECOM",
+   "target": "C_TEJASNET",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_TELECOM",
+   "target": "C_INDUSTOWER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CABLES",
+   "target": "C_POLYCAB",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CABLES",
+   "target": "C_KEI",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CABLES",
+   "target": "C_RRKABEL",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CABLES",
+   "target": "C_FINCABLES",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CABLES",
+   "target": "C_RAMRATNA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CABLES",
+   "target": "C_PRECWIRE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_CABLES",
+   "target": "C_SKIPPER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EPC",
+   "target": "C_LT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EPC",
+   "target": "C_TECHNOE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EPC",
+   "target": "C_KALPATPOWR",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EPC",
+   "target": "C_KEC",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EPC",
+   "target": "C_AHLUCONT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EPC",
+   "target": "C_PSPPROJECT",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_EPC",
+   "target": "C_AFCONS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_NTPC",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_NTPCGREEN",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_POWERGRID",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_TATAPOWER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_ADANIPOWER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_ADANIGREEN",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_JSWENERGY",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_TORNTPOWER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_NHPC",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_IEX",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_SUZLON",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_INOXWIND",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_KPIGREEN",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_WAAREE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_PREMIER",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_EXIDE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_AMARAJA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_POWER",
+   "target": "C_SERVOTECH",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_PFC",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_RECLTD",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_BFSI",
+   "target": "C_IREDA",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_WATER",
+   "target": "C_VATECHWABAG",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_WATER",
+   "target": "C_IONEXCHANGE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_IT",
+   "target": "C_TEAMLEASE",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  },
+  {
+   "source": "S_IT",
+   "target": "C_QUESS",
+   "rel": "CONTAINS",
+   "order": null,
+   "sign": null,
+   "channel": null
+  }
+ ]
+};
+
+/* ---------------- model ---------------- */
+const byId = new Map(DATA.nodes.map(n => [n.id, n]));
+// d3.forceLink rewrites e.source/e.target into node objects, so keep immutable ids
+DATA.edges.forEach(e => { e.sid = e.source; e.tid = e.target; e.s = byId.get(e.sid); e.t = byId.get(e.tid); });
+
+const CAUSAL = DATA.edges.filter(e => e.rel !== 'CONTAINS');
+const SHOCKS = { B: 'E_AIBUILD', A: 'E_HORMUZ' };
+
+// adjacency over causal edges (undirected for traversal)
+const adj = new Map(DATA.nodes.map(n => [n.id, []]));
+CAUSAL.forEach(e => { adj.get(e.sid).push(e.tid); adj.get(e.tid).push(e.sid); });
+
+function bfs(rootId){
+  const dist = new Map([[rootId, 0]]), prev = new Map();
+  const q = [rootId];
+  while (q.length){
+    const cur = q.shift();
+    for (const nb of adj.get(cur)) if (!dist.has(nb)){
+      dist.set(nb, dist.get(cur) + 1); prev.set(nb, cur); q.push(nb);
+    }
+  }
+  return { dist, prev };
+}
+const BFS = { A: bfs(SHOCKS.A), B: bfs(SHOCKS.B) };
+
+// explicit authored order on a node's own edges wins over raw hop count
+const explicitOrder = new Map();
+CAUSAL.forEach(e => {
+  if (!e.order) return;
+  const cur = explicitOrder.get(e.sid);
+  if (cur == null || e.order < cur) explicitOrder.set(e.sid, e.order);
+});
+
+function ringOf(n, shockKey){
+  if (n.id === SHOCKS[shockKey]) return 0;
+  const ex = explicitOrder.get(n.id);
+  if (ex) return Math.min(ex, 3);
+  const d = BFS[shockKey].dist.get(n.id);
+  if (d == null) return 4;               // unreachable
+  return Math.min(Math.max(d, 1), 3);
+}
+
+// theme of any node: companies carry it; others inherit from reachability
+DATA.nodes.forEach(n => {
+  if (!n.themes){
+    const inA = BFS.A.dist.has(n.id), inB = BFS.B.dist.has(n.id);
+    const dA = BFS.A.dist.get(n.id) ?? 99, dB = BFS.B.dist.get(n.id) ?? 99;
+    n.themes = (inA && inB && Math.abs(dA - dB) <= 1) ? ['A','B'] : inA && dA <= dB ? ['A'] : inB ? ['B'] : [];
+  }
+  n.deg = 0;
+});
+CAUSAL.forEach(e => { e.s.deg++; e.t.deg++; });
+
+const COL = { A:'#F0A02B', B:'#38D3CB', both:'#B07CF0', none:'#4C5F7A' };
+const colorOf = n => n.type !== 'COMPANY' ? COL.none
+  : n.themes.length === 2 ? COL.both : n.themes[0] ? COL[n.themes[0]] : COL.none;
+
+const SHAPE = {
+  EVENT:      d3.symbolDiamond, MACRO_VAR: d3.symbolSquare,
+  CONSTRAINT: d3.symbolTriangle, COMPANY:  d3.symbolCircle,
+  SECTOR:     d3.symbolSquare
+};
+const sizeOf = n => n.type === 'EVENT' ? 340
+  : n.type === 'COMPANY' ? 26 + Math.min(n.deg, 12) * 11
+  : 40 + Math.min(n.deg, 14) * 13;
+
+/* ---------------- state ---------------- */
+const S = {
+  layout:'rings', shock:'B', theme:'all',
+  orders:new Set(['1','2','3']), types:new Set(), query:'',
+  sectors:false, labels:true, sel:null, trace:null
+};
+const TYPES = [...new Set(DATA.nodes.map(n => n.type))]
+  .filter(t => t !== 'SECTOR').sort();
+TYPES.forEach(t => S.types.add(t));
+
+/* ---------------- svg scaffold ---------------- */
+const svg = d3.select('#svg');
+const root = svg.append('g');
+const gRings = root.append('g');
+const gLink  = root.append('g');
+const gNode  = root.append('g');
+let W = 0, H = 0;
+
+const zoom = d3.zoom().scaleExtent([0.15, 5]).on('zoom', ev => root.attr('transform', ev.transform));
+svg.call(zoom)
+   .on('mousedown.cur', () => svg.classed('dragging', true))
+   .on('mouseup.cur',   () => svg.classed('dragging', false));
+
+const RING_R = [0, 150, 305, 460, 600];
+const RING_LABEL = ['shock', 'first order', 'second order', 'third order', 'unlinked'];
+
+function drawRings(){
+  gRings.selectAll('*').remove();
+  if (S.layout !== 'rings') return;
+  RING_R.slice(1).forEach((r, i) => {
+    gRings.append('circle').attr('class','ringpath').attr('r', r);
+    gRings.append('path').attr('id', 'arc'+i).attr('fill','none')
+      .attr('d', `M ${-r} 0 A ${r} ${r} 0 0 1 ${r} 0`);
+    gRings.append('text').attr('class','ringlab').attr('dy',-7)
+      .append('textPath').attr('href','#arc'+i).attr('startOffset','50%')
+      .attr('text-anchor','middle').text(RING_LABEL[i+1]);
+  });
+}
+
+/* ---------------- filtering ---------------- */
+function visibleNodes(){
+  const q = S.query.trim().toLowerCase();
+  return DATA.nodes.filter(n => {
+    if (n.type === 'SECTOR') return S.sectors;
+    if (!S.types.has(n.type)) return false;
+    if (S.theme !== 'all'){
+      const t = n.themes;
+      if (S.theme === 'both'){ if (t.length !== 2) return false; }
+      else if (!t.includes(S.theme)) return false;
+    }
+    const r = ringOf(n, S.shock);
+    if (r > 0 && r < 4 && !S.orders.has(String(r))) return false;
+    if (r === 4 && S.orders.size < 3) return false;
+    if (q){
+      const hay = (n.label + ' ' + (n.ticker || '') + ' ' + n.id).toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+let sim = null, nodeSel = null, linkSel = null, shown = [];
+
+function render(){
+  shown = visibleNodes();
+  const ids = new Set(shown.map(n => n.id));
+  const links = DATA.edges.filter(e =>
+    ids.has(e.sid) && ids.has(e.tid) && (S.sectors || e.rel !== 'CONTAINS'));
+
+  document.getElementById('hudCount').textContent = shown.length + ' / ' + DATA.nodes.length;
+  document.getElementById('hudMode').textContent =
+    S.layout === 'rings' ? ('rings from ' + (S.shock === 'A' ? 'Hormuz' : 'AI buildout')) : 'force';
+
+  // seed positions
+  shown.forEach(n => {
+    if (n.x == null){ n.x = (Math.random()-.5)*300; n.y = (Math.random()-.5)*300; }
+  });
+
+  linkSel = gLink.selectAll('line').data(links, d => d.sid+'>'+d.tid+d.rel);
+  linkSel.exit().remove();
+  linkSel = linkSel.enter().append('line').attr('class','link').merge(linkSel);
+
+  nodeSel = gNode.selectAll('g.node').data(shown, d => d.id);
+  nodeSel.exit().remove();
+  const enter = nodeSel.enter().append('g').attr('class','node')
+    .on('click', (ev,d) => { ev.stopPropagation(); select(d); })
+    .on('mouseenter', (ev,d) => { hover(d); showTip(ev,d); })
+    .on('mousemove', moveTip)
+    .on('mouseleave', () => { hover(null); hideTip(); });
+  enter.append('path').attr('class','glyph');
+  enter.append('text').attr('class','nlab');
+  nodeSel = enter.merge(nodeSel);
+
+  nodeSel.select('path.glyph')
+    .attr('d', d => d3.symbol(SHAPE[d.type] || d3.symbolWye, sizeOf(d))())
+    .attr('fill', colorOf);
+  nodeSel.select('text.nlab')
+    .attr('x', d => Math.sqrt(sizeOf(d)) * .8 + 5).attr('dy', '.32em')
+    .text(d => d.type === 'COMPANY' ? (d.ticker || d.label) : d.label.toUpperCase());
+  nodeSel.select('text.nlab')
+    .classed('hidden', d => !S.labels || (d.deg < 3 && d.type === 'COMPANY' && shown.length > 90));
+
+  if (sim) sim.stop();
+  sim = d3.forceSimulation(shown)
+    .force('link', d3.forceLink(links).id(d => d.id).distance(l =>
+        l.rel === 'CONTAINS' ? 46 : 62).strength(.25))
+    .force('charge', d3.forceManyBody().strength(d => d.type === 'EVENT' ? -900 : -170))
+    .force('collide', d3.forceCollide(d => Math.sqrt(sizeOf(d)) * .9 + 11))
+    .on('tick', tick);
+
+  if (S.layout === 'rings'){
+    sim.force('r', d3.forceRadial(d => RING_R[ringOf(d, S.shock)], 0, 0).strength(d =>
+        d.id === SHOCKS[S.shock] ? 1 : .92))
+       .force('center', null)
+       .force('charge', d3.forceManyBody().strength(-95));
+  } else {
+    sim.force('r', null).force('center', d3.forceCenter(0,0));
+  }
+  sim.alpha(.9).restart();
+  drawRings();
+  applyHighlight();
+}
+
+function tick(){
+  linkSel.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+         .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+  nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
+}
+
+/* ---------------- highlight / trace ---------------- */
+let hovered = null;
+function hover(d){ hovered = d; applyHighlight(); }
+
+function applyHighlight(){
+  if (!nodeSel) return;
+  const focus = hovered || S.sel;
+  const traceSet = S.trace ? new Set(S.trace) : null;
+
+  if (!focus && !traceSet){
+    nodeSel.classed('faded', false).classed('hi', false);
+    linkSel.classed('faded', false).classed('hi', false).classed('trace', false);
+    nodeSel.classed('sel', d => S.sel && d.id === S.sel.id);
+    return;
+  }
+  const near = new Set();
+  if (focus){ near.add(focus.id); adj.get(focus.id).forEach(id => near.add(id)); }
+  if (traceSet) traceSet.forEach(id => near.add(id));
+
+  nodeSel.classed('faded', d => !near.has(d.id))
+         .classed('hi', d => near.has(d.id))
+         .classed('sel', d => S.sel && d.id === S.sel.id);
+  linkSel
+    .classed('trace', d => traceSet && traceSet.has(d.sid) && traceSet.has(d.tid))
+    .classed('hi', d => focus && (d.sid === focus.id || d.tid === focus.id))
+    .classed('faded', d => {
+      const onTrace = traceSet && traceSet.has(d.sid) && traceSet.has(d.tid);
+      const onFocus = focus && (d.sid === focus.id || d.tid === focus.id);
+      return !onTrace && !onFocus;
+    });
+}
+
+function traceTo(nodeId){
+  const best = ['A','B']
+    .map(k => ({ k, d: BFS[k].dist.get(nodeId) ?? Infinity }))
+    .sort((x,y) => x.d - y.d)[0];
+  if (!isFinite(best.d)) return null;
+  const path = [nodeId];
+  let cur = nodeId;
+  while (BFS[best.k].prev.has(cur)){ cur = BFS[best.k].prev.get(cur); path.push(cur); }
+  return { path, shock: best.k, hops: best.d };
+}
+
+/* ---------------- tooltip ---------------- */
+const tip = document.getElementById('tip');
+function showTip(ev, d){
+  const r = ringOf(d, S.shock);
+  tip.innerHTML = `<div class="t">${d.label}</div><div class="s">${d.ticker ? d.ticker + ' · ' : ''}${d.type.replace('_',' ').toLowerCase()} · ${r === 0 ? 'shock' : r === 4 ? 'unlinked' : r + ' order'}</div>`;
+  tip.style.opacity = 1; moveTip(ev);
+}
+function moveTip(ev){
+  const b = document.querySelector('.stage').getBoundingClientRect();
+  tip.style.left = Math.min(ev.clientX - b.left + 14, b.width - 245) + 'px';
+  tip.style.top  = (ev.clientY - b.top + 14) + 'px';
+}
+function hideTip(){ tip.style.opacity = 0; }
+
+/* ---------------- inspector ---------------- */
+const insp = document.getElementById('insp');
+const relLabel = r => r.replace(/_/g,' ').toLowerCase();
+
+function select(d){
+  S.sel = d; S.trace = null;
+  const t = traceTo(d.id);
+
+  document.getElementById('iKind').textContent = d.type.replace(/_/g,' ');
+  document.getElementById('iName').textContent = d.label;
+
+  const tags = [];
+  if (d.ticker) tags.push(`<span class="tag">${d.ticker}</span>`);
+  if (d.type === 'COMPANY'){
+    const cls = d.themes.length === 2 ? 'both' : (d.themes[0] || '').toLowerCase();
+    const txt = d.themes.length === 2 ? 'BOTH THEMES' : d.themes[0] ? 'THEME ' + d.themes[0] : '—';
+    tags.push(`<span class="tag ${cls}">${txt}</span>`);
+  }
+  const r = ringOf(d, S.shock);
+  tags.push(`<span class="tag">${r === 0 ? 'SHOCK NODE' : r === 4 ? 'UNLINKED' : ['','1ST','2ND','3RD'][r] + ' ORDER'}</span>`);
+  if (d.purity) tags.push(`<span class="tag">PURITY ${d.purity.toUpperCase()}</span>`);
+  document.getElementById('iTags').innerHTML = tags.join('');
+
+  const out = DATA.edges.filter(e => e.sid === d.id && e.rel !== 'CONTAINS');
+  const inc = DATA.edges.filter(e => e.tid === d.id && e.rel !== 'CONTAINS');
+  const sec = DATA.edges.find(e => e.rel === 'CONTAINS' && e.tid === d.id);
+
+  const row = (e, other) => {
+    const cls = e.rel === 'BENEFITS_FROM' ? 'pos' : e.rel === 'HURT_BY' ? 'neg' : '';
+    return `<button class="edge ${cls}" data-go="${other.id}">
+      <span class="rel">${relLabel(e.rel)}${e.order ? ' · ' + e.order + ' order' : ''}</span>
+      <span class="to">${other.label}${other.ticker ? ' · ' + other.ticker : ''}</span>
+      ${e.channel ? `<span class="ch">${e.channel}</span>` : ''}</button>`;
+  };
+
+  let html = '';
+  if (d.note) html += `<p class="inote">${d.note}</p>`;
+  if (sec) html += `<p class="inote">Sector · ${byId.get(sec.sid).label}</p>`;
+  if (t && t.hops > 0)
+    html += `<button class="traceb" id="doTrace">TRACE PATH TO ${t.shock === 'A' ? 'HORMUZ' : 'AI BUILDOUT'} · ${t.hops} HOPS</button>`;
+  if (out.length) html += `<div class="esec">Outgoing · ${out.length}</div>` + out.map(e => row(e, e.t)).join('');
+  if (inc.length) html += `<div class="esec">Incoming · ${inc.length}</div>` + inc.map(e => row(e, e.s)).join('');
+  if (!out.length && !inc.length) html += `<p class="empty">No causal edges recorded.</p>`;
+
+  const body = document.getElementById('iBody');
+  body.innerHTML = html; body.scrollTop = 0;
+  insp.classList.add('open');
+
+  body.querySelectorAll('[data-go]').forEach(b =>
+    b.onclick = () => { const n = byId.get(b.dataset.go); if (n) { select(n); focusOn(n); } });
+  const dt = document.getElementById('doTrace');
+  if (dt) dt.onclick = () => {
+    S.trace = t.path;
+    S.theme = 'all'; S.query = '';
+    document.getElementById('search').value = '';
+    document.querySelectorAll('#themeSeg button').forEach(x =>
+      x.setAttribute('aria-pressed', String(x.dataset.v === 'all')));
+    t.path.forEach(id => {                       // make sure the whole path can render
+      const n = byId.get(id);
+      S.types.add(n.type); S.orders.add(String(ringOf(n, S.shock)));
+    });
+    syncChips(); render();
+  };
+  applyHighlight();
+}
+
+function focusOn(n){
+  if (n.x == null) return;
+  svg.transition().duration(500).call(zoom.transform,
+    d3.zoomIdentity.translate(W/2 - 176, H/2).scale(1.1).translate(-n.x, -n.y));
+}
+function closeInsp(){ S.sel = null; S.trace = null; insp.classList.remove('open'); applyHighlight(); }
+document.getElementById('closeInsp').onclick = closeInsp;
+svg.on('click', closeInsp);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeInsp(); });
+
+/* ---------------- controls ---------------- */
+function segment(id, cb){
+  const el = document.getElementById(id);
+  el.querySelectorAll('button').forEach(b => b.onclick = () => {
+    el.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    cb(b.dataset.v);
+  });
+}
+segment('layoutSeg', v => { S.layout = v; render(); });
+segment('themeSeg',  v => { S.theme  = v; render(); });
+
+const typeChips = document.getElementById('typeChips');
+typeChips.innerHTML = TYPES.map(t =>
+  `<button class="chip" data-v="${t}" aria-pressed="true">${t.replace(/_/g,' ').toLowerCase()}</button>`).join('');
+
+function chipGroup(el, set, after){
+  el.querySelectorAll('.chip').forEach(b => b.onclick = () => {
+    const v = b.dataset.v, on = b.getAttribute('aria-pressed') === 'true';
+    if (on) set.delete(v); else set.add(v);
+    b.setAttribute('aria-pressed', String(!on));
+    after();
+  });
+}
+chipGroup(typeChips, S.types, render);
+chipGroup(document.getElementById('orderChips'), S.orders, render);
+
+function syncChips(){
+  typeChips.querySelectorAll('.chip').forEach(b =>
+    b.setAttribute('aria-pressed', String(S.types.has(b.dataset.v))));
+  document.getElementById('orderChips').querySelectorAll('.chip').forEach(b =>
+    b.setAttribute('aria-pressed', String(S.orders.has(b.dataset.v))));
+}
+
+let qt;
+document.getElementById('search').oninput = e => {
+  clearTimeout(qt);
+  qt = setTimeout(() => { S.query = e.target.value; render(); }, 180);
+};
+document.getElementById('tShock').onchange   = e => { S.shock = e.target.checked ? 'A' : 'B'; render(); };
+document.getElementById('tSectors').onchange = e => { S.sectors = e.target.checked; render(); };
+document.getElementById('tLabels').onchange  = e => { S.labels = e.target.checked; render(); };
+
+document.getElementById('zin').onclick  = () => svg.transition().duration(200).call(zoom.scaleBy, 1.4);
+document.getElementById('zout').onclick = () => svg.transition().duration(200).call(zoom.scaleBy, 1/1.4);
+document.getElementById('zfit').onclick = fit;
+
+function fit(){
+  svg.transition().duration(450).call(zoom.transform,
+    d3.zoomIdentity.translate(W/2, H/2).scale(Math.min(W,H) / 1500));
+}
+
+function resize(){
+  const b = document.querySelector('.stage').getBoundingClientRect();
+  W = b.width; H = b.height;
+  svg.attr('viewBox', [0,0,W,H]);
+  root.attr('transform', d3.zoomIdentity.translate(W/2, H/2).scale(Math.min(W,H)/1500));
+  svg.call(zoom.transform, d3.zoomIdentity.translate(W/2, H/2).scale(Math.min(W,H)/1500));
+}
+window.addEventListener('resize', () => { const b = document.querySelector('.stage').getBoundingClientRect(); W = b.width; H = b.height; svg.attr('viewBox',[0,0,W,H]); });
+
+resize();
+render();
+</script>
+</body>
+</html>

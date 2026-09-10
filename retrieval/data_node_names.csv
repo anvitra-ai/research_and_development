@@ -1,0 +1,400 @@
+id,node_type,node_name
+E_HORMUZ,EVENT,Strait of Hormuz disruption
+E_HORMUZ,EVENT,Strait of Hormuz disruption
+E_AIBUILD,EVENT,India AI infrastructure capex cycle
+G_HORMUZ,GEOGRAPHY,Strait of Hormuz
+G_INDIA,GEOGRAPHY,India
+G_GCC,GEOGRAPHY,Gulf producers
+G_QATAR,GEOGRAPHY,Qatar
+G_OMAN,GEOGRAPHY,Oman
+G_RUSSIA,GEOGRAPHY,Russia
+G_CAPE,GEOGRAPHY,Cape of Good Hope reroute
+G_KERALA,GEOGRAPHY,Kerala
+G_ANDHRA,GEOGRAPHY,Andhra Pradesh
+G_GUJARAT,GEOGRAPHY,Gujarat
+M_BRENT,MACRO_VAR,Brent crude price
+M_LNG_SPOT,MACRO_VAR,Spot LNG / JKM
+M_LPG_SAUDI_CP,MACRO_VAR,Saudi LPG contract price
+M_GRM,MACRO_VAR,Gross refining margin
+M_FREIGHT,MACRO_VAR,Tanker freight rates
+M_WARRISK,MACRO_VAR,Marine war-risk premium
+M_INR,MACRO_VAR,USD/INR
+M_INR,MACRO_VAR,USD/INR
+M_CPI,MACRO_VAR,India CPI
+M_CAD,MACRO_VAR,Current account deficit
+M_REPO,MACRO_VAR,RBI policy rate
+M_UREA,MACRO_VAR,Global urea/DAP/sulphur price
+M_SUBSIDY,MACRO_VAR,Fertiliser and LPG subsidy bill
+RM_CRUDE,RAW_MATERIAL,Crude oil
+RM_LNG,RAW_MATERIAL,LNG
+RM_LNG,RAW_MATERIAL,LNG
+RM_LPG,RAW_MATERIAL,LPG
+RM_NATGAS,RAW_MATERIAL,Natural gas
+RM_COAL,RAW_MATERIAL,Coal
+RM_NAPHTHA,RAW_MATERIAL,Naphtha
+RM_PROPYLENE,RAW_MATERIAL,Propylene
+RM_BENZENE,RAW_MATERIAL,Benzene
+RM_CBFS,RAW_MATERIAL,Carbon black feedstock
+RM_CARBONBLACK,RAW_MATERIAL,Carbon black
+RM_BASEOIL,RAW_MATERIAL,Base oil
+RM_SYNRUBBER,RAW_MATERIAL,Synthetic rubber
+RM_NATRUBBER,RAW_MATERIAL,Natural rubber
+RM_TIO2,RAW_MATERIAL,Titanium dioxide
+RM_SOLVENT,RAW_MATERIAL,Solvents
+RM_MONOMER,RAW_MATERIAL,Acrylic monomers
+RM_HDPE,RAW_MATERIAL,HDPE/LLDPE/PP resin
+RM_PVC,RAW_MATERIAL,PVC resin
+RM_PTA_MEG,RAW_MATERIAL,PTA/MEG
+RM_VAM,RAW_MATERIAL,Vinyl acetate monomer
+RM_LAB,RAW_MATERIAL,Linear alkyl benzene
+RM_PETCOKE,RAW_MATERIAL,Petroleum coke
+RM_LLP,RAW_MATERIAL,Liquid light paraffin
+RM_UREA,RAW_MATERIAL,Urea
+RM_UREA,RAW_MATERIAL,Urea
+RM_SULPHUR,RAW_MATERIAL,Sulphur
+RM_SULPHUR,RAW_MATERIAL,Sulphur
+RM_AMMONIA,RAW_MATERIAL,Ammonia
+RM_PHOSACID,RAW_MATERIAL,Phosphoric acid
+RM_COPPER,RAW_MATERIAL,Copper
+RM_ALUMINIUM,RAW_MATERIAL,Aluminium
+RM_CRGO_STEEL,RAW_MATERIAL,CRGO electrical steel
+RM_REFRIGERANT,RAW_MATERIAL,Refrigerant / dielectric fluid
+RM_BATTERY,RAW_MATERIAL,Battery cells
+RM_GPU,RAW_MATERIAL,GPU / AI accelerator
+P_ATF,PRODUCT,Aviation turbine fuel
+P_DIESEL,PRODUCT,Diesel
+P_PETROL,PRODUCT,Petrol
+P_ETHANOL,PRODUCT,Ethanol
+P_PAINT,PRODUCT,Decorative paint
+P_TYRE,PRODUCT,Tyre
+P_PVC_PIPE,PRODUCT,PVC pipe
+P_CEMENT,PRODUCT,Cement
+P_UREA,PRODUCT,Urea fertiliser
+P_DAP,PRODUCT,DAP/NPK fertiliser
+P_DATACENTRE,PRODUCT,Data centre capacity (MW IT load)
+P_TRANSFORMER,PRODUCT,Power transformer
+P_SWITCHGEAR,PRODUCT,Switchgear / MV-LV distribution
+P_UPS,PRODUCT,UPS / DC power backup
+P_GENSET,PRODUCT,Diesel genset
+P_COOLING,PRODUCT,Precision cooling / CDU
+P_CHILLER,PRODUCT,Chiller
+P_POWERCABLE,PRODUCT,Power cable
+P_FIBRE,PRODUCT,Optical fibre / interconnect
+P_AISERVER,PRODUCT,AI server / GPU system
+P_FIRMPOWER,PRODUCT,Firm 24x7 power supply
+P_GRIDEQUIP,PRODUCT,Grid stability equipment (BESS/STATCOM)
+CN_POWER,CONSTRAINT,Power availability
+CN_TRANSMISSION,CONSTRAINT,Transmission evacuation capacity
+CN_GRIDSTAB,CONSTRAINT,Grid stability under volatile DC load ramps
+CN_WATER,CONSTRAINT,Water availability
+CN_GPU,CONSTRAINT,GPU supply
+CN_HBM,CONSTRAINT,HBM / advanced packaging
+CN_CRGO,CONSTRAINT,CRGO electrical steel imports
+CN_LAND,CONSTRAINT,Infra-ready land
+CN_SKILLS,CONSTRAINT,Liquid cooling / HV commissioning talent
+T_GENAI,TECHNOLOGY,Generative AI
+T_LIQUIDCOOL,TECHNOLOGY,Liquid cooling
+T_HIGHDENSITY,TECHNOLOGY,High-density racks
+POL_LPG_SUBSIDY,POLICY,Administered LPG pricing
+POL_EXCISE_CUT,POLICY,Fuel excise duty cuts (2026)
+POL_WINDFALL_TAX,POLICY,Windfall tax / SAED on upstream
+POL_APM_GAS,POLICY,APM gas price ceiling
+POL_GAS_CONTROL_ORDER,POLICY,Natural Gas Control Order (rationing)
+POL_NBS_SUBSIDY,POLICY,Nutrient Based Subsidy
+POL_DC_TAX,POLICY,21-year DC tax holiday to 2047
+POL_INDIAAI,POLICY,IndiaAI Mission
+POL_PLI_IT,POLICY,IT hardware PLI
+POL_SEMICON,POLICY,India Semiconductor Mission / OSAT
+CU_HYPERSCALER,CUSTOMER,"Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)"
+CU_HYPERSCALER,CUSTOMER,"Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)"
+CU_INDIAAI,CUSTOMER,IndiaAI sovereign compute
+CU_GCC_ENT,CUSTOMER,Global Capability Centres
+IN_BLACKSTONE,INVESTOR,Blackstone
+IN_BROOKFIELD,INVESTOR,Brookfield
+AS_JAMNAGAR_DC,ASSET,Reliance Jamnagar AI campus
+AS_VIZAG_DC,ASSET,Google Visakhapatnam AI hub
+PC_ADANICONNEX,PRIVATE_CO,AdaniConneX
+PC_CTRLS,PRIVATE_CO,CtrlS Datacenters
+PC_YOTTA,PRIVATE_CO,Yotta
+PC_NXTRA,PRIVATE_CO,Nxtra by Airtel
+PC_NEYSA,PRIVATE_CO,Neysa
+PC_AIRTRUNK,PRIVATE_CO,AirTrunk
+PC_EQUINIX,PRIVATE_CO,Equinix India
+PC_NVIDIA,PRIVATE_CO,NVIDIA
+PC_NAYARA,PRIVATE_CO,Nayara Energy
+S_OILGAS,SECTOR,Oil & Gas
+S_SHIPPING,SECTOR,Shipping & Logistics
+S_AVIATION,SECTOR,Aviation
+S_CHEMICALS,SECTOR,Chemicals
+S_FERTILISER,SECTOR,Fertilisers & Agri-inputs
+S_PAINTS,SECTOR,Paints & Adhesives
+S_TYRES,SECTOR,Tyres
+S_CAPGOODS,SECTOR,Capital Goods & Electricals
+S_COOLING,SECTOR,HVAC & Thermal Management
+S_CABLES,SECTOR,Cables & Wires
+S_EMS,SECTOR,EMS & Compute Hardware
+S_POWER,SECTOR,Power & Utilities
+S_TELECOM,SECTOR,Telecom & Connectivity
+S_REALESTATE,SECTOR,Real Estate & REITs
+S_BFSI,SECTOR,Banks & NBFCs
+S_IT,SECTOR,IT Services
+S_DEFENCE,SECTOR,Defence
+S_METALS,SECTOR,Metals & Mining
+S_CEMENT,SECTOR,Cement
+S_AUTO,SECTOR,Automobiles
+S_FMCG,SECTOR,FMCG
+S_EPC,SECTOR,EPC & Infrastructure
+S_WATER,SECTOR,Water & Environment
+C_ONGC,COMPANY,Oil & Natural Gas Corp
+C_ONGC,COMPANY,Oil & Natural Gas Corp
+C_ONGC,COMPANY,Oil & Natural Gas Corp
+C_ONGC,COMPANY,Oil & Natural Gas Corp
+C_OIL,COMPANY,Oil India
+C_GAIL,COMPANY,GAIL (India)
+C_IOC,COMPANY,Indian Oil
+C_IOC,COMPANY,Indian Oil
+C_IOC,COMPANY,Indian Oil
+C_IOC,COMPANY,Indian Oil
+C_BPCL,COMPANY,Bharat Petroleum
+C_HPCL,COMPANY,Hindustan Petroleum
+C_MRPL,COMPANY,Mangalore Refinery
+C_MRPL,COMPANY,Mangalore Refinery
+C_CPCL,COMPANY,Chennai Petroleum
+C_RIL,COMPANY,Reliance Industries
+C_RIL,COMPANY,Reliance Industries
+C_RIL,COMPANY,Reliance Industries
+C_PETRONET,COMPANY,Petronet LNG
+C_GSPL,COMPANY,Gujarat State Petronet
+C_IGL,COMPANY,Indraprastha Gas
+C_IGL,COMPANY,Indraprastha Gas
+C_MGL,COMPANY,Mahanagar Gas
+C_GUJGAS,COMPANY,Gujarat Gas
+C_GUJGAS,COMPANY,Gujarat Gas
+C_ATGL,COMPANY,Adani Total Gas
+C_SELAN,COMPANY,Selan Exploration
+C_GESHIP,COMPANY,Great Eastern Shipping
+C_GESHIP,COMPANY,Great Eastern Shipping
+C_SCI,COMPANY,Shipping Corporation of India
+C_SEAMEC,COMPANY,Seamec
+C_ADANIPORTS,COMPANY,Adani Ports & SEZ
+C_ADANIPORTS,COMPANY,Adani Ports & SEZ
+C_JSWINFRA,COMPANY,JSW Infrastructure
+C_CONCOR,COMPANY,Container Corp of India
+C_ALLCARGO,COMPANY,Allcargo Logistics
+C_TCI,COMPANY,Transport Corp of India
+C_INDIGO,COMPANY,InterGlobe Aviation
+C_INDIGO,COMPANY,InterGlobe Aviation
+C_INDIGO,COMPANY,InterGlobe Aviation
+C_SPICEJET,COMPANY,SpiceJet
+C_ASIANPAINT,COMPANY,Asian Paints
+C_BERGER,COMPANY,Berger Paints
+C_KANSAI,COMPANY,Kansai Nerolac
+C_INDIGOPNT,COMPANY,Indigo Paints
+C_AKZO,COMPANY,Akzo Nobel India
+C_PIDILITE,COMPANY,Pidilite Industries
+C_GRASIM,COMPANY,Grasim Industries
+C_MRF,COMPANY,MRF
+C_APOLLOTYRE,COMPANY,Apollo Tyres
+C_CEAT,COMPANY,CEAT
+C_JKTYRE,COMPANY,JK Tyre
+C_BALKRISHNA,COMPANY,Balkrishna Industries
+C_PCBL,COMPANY,PCBL
+C_HIMADRI,COMPANY,Himadri Speciality Chemical
+C_SUPREME,COMPANY,Supreme Industries
+C_ASTRAL,COMPANY,Astral
+C_FINOLEXIND,COMPANY,Finolex Industries
+C_PRINCEPIPE,COMPANY,Prince Pipes
+C_POLYPLEX,COMPANY,Polyplex
+C_COSMO,COMPANY,Cosmo First
+C_UFLEX,COMPANY,UFlex
+C_EPL,COMPANY,EPL Ltd
+C_TIMETECHNO,COMPANY,Time Technoplast
+C_SRF,COMPANY,SRF
+C_SRF,COMPANY,SRF
+C_NAVINFLUOR,COMPANY,Navin Fluorine
+C_GFL,COMPANY,Gujarat Fluorochemicals
+C_AARTIIND,COMPANY,Aarti Industries
+C_DEEPAKNTR,COMPANY,Deepak Nitrite
+C_ATUL,COMPANY,Atul
+C_VINATI,COMPANY,Vinati Organics
+C_TATACHEM,COMPANY,Tata Chemicals
+C_GHCL,COMPANY,GHCL
+C_ALKYLAMINE,COMPANY,Alkyl Amines
+C_CHAMBAL,COMPANY,Chambal Fertilisers
+C_CHAMBAL,COMPANY,Chambal Fertilisers
+C_COROMANDEL,COMPANY,Coromandel International
+C_GNFC,COMPANY,GNFC
+C_GSFC,COMPANY,GSFC
+C_RCF,COMPANY,Rashtriya Chemicals & Fertilizers
+C_NFL,COMPANY,National Fertilizers
+C_DEEPAKFERT,COMPANY,Deepak Fertilisers
+C_PARADEEP,COMPANY,Paradeep Phosphates
+C_FACT,COMPANY,FACT
+C_UPL,COMPANY,UPL
+C_PIIND,COMPANY,PI Industries
+C_RALLIS,COMPANY,Rallis India
+C_COALINDIA,COMPANY,Coal India
+C_BALRAMPUR,COMPANY,Balrampur Chini
+C_TRIVENI,COMPANY,Triveni Engineering
+C_SHREERENUKA,COMPANY,Shree Renuka Sugars
+C_PRAJ,COMPANY,Praj Industries
+C_HUL,COMPANY,Hindustan Unilever
+C_MARICO,COMPANY,Marico
+C_GODREJCP,COMPANY,Godrej Consumer
+C_DABUR,COMPANY,Dabur India
+C_JYOTHYLAB,COMPANY,Jyothy Labs
+C_CASTROL,COMPANY,Castrol India
+C_GULFOIL,COMPANY,Gulf Oil Lubricants
+C_ULTRACEMCO,COMPANY,UltraTech Cement
+C_ULTRACEMCO,COMPANY,UltraTech Cement
+C_AMBUJA,COMPANY,Ambuja Cements
+C_SHREECEM,COMPANY,Shree Cement
+C_DALMIA,COMPANY,Dalmia Bharat
+C_HINDALCO,COMPANY,Hindalco
+C_HINDALCO,COMPANY,Hindalco
+C_NALCO,COMPANY,National Aluminium
+C_NALCO,COMPANY,National Aluminium
+C_VEDL,COMPANY,Vedanta
+C_JSWSTEEL,COMPANY,JSW Steel
+C_TATASTEEL,COMPANY,Tata Steel
+C_HINDCOPPER,COMPANY,Hindustan Copper
+C_MARUTI,COMPANY,Maruti Suzuki
+C_HEROMOTOCO,COMPANY,Hero MotoCorp
+C_BAJAJAUTO,COMPANY,Bajaj Auto
+C_TVSMOTOR,COMPANY,TVS Motor
+C_TATAMOTORS,COMPANY,Tata Motors
+C_MM,COMPANY,Mahindra & Mahindra
+C_OLECTRA,COMPANY,Olectra Greentech
+C_BAJFINANCE,COMPANY,Bajaj Finance
+C_CHOLAFIN,COMPANY,Cholamandalam Investment
+C_SHRIRAMFIN,COMPANY,Shriram Finance
+C_MUTHOOT,COMPANY,Muthoot Finance
+C_MANAPPURAM,COMPANY,Manappuram Finance
+C_HDFCBANK,COMPANY,HDFC Bank
+C_SBIN,COMPANY,State Bank of India
+C_AUBANK,COMPANY,AU Small Finance Bank
+C_FEDERALBNK,COMPANY,Federal Bank
+C_FEDERALBNK,COMPANY,Federal Bank
+C_SIB,COMPANY,South Indian Bank
+C_CSBBANK,COMPANY,CSB Bank
+C_DHANBANK,COMPANY,Dhanlaxmi Bank
+C_GICRE,COMPANY,GIC Re
+C_NIACL,COMPANY,New India Assurance
+C_ICICIGI,COMPANY,ICICI Lombard
+C_TCS,COMPANY,Tata Consultancy Services
+C_TCS,COMPANY,Tata Consultancy Services
+C_INFY,COMPANY,Infosys
+C_INFY,COMPANY,Infosys
+C_HCLTECH,COMPANY,HCL Technologies
+C_WIPRO,COMPANY,Wipro
+C_LTIM,COMPANY,LTIMindtree
+C_PERSISTENT,COMPANY,Persistent Systems
+C_COFORGE,COMPANY,Coforge
+C_QUICKHEAL,COMPANY,Quick Heal Technologies
+C_SUNPHARMA,COMPANY,Sun Pharmaceutical
+C_DRREDDY,COMPANY,Dr Reddy's Laboratories
+C_CIPLA,COMPANY,Cipla
+C_DIVIS,COMPANY,Divi's Laboratories
+C_HAL,COMPANY,Hindustan Aeronautics
+C_BEL,COMPANY,Bharat Electronics
+C_BDL,COMPANY,Bharat Dynamics
+C_SOLARINDS,COMPANY,Solar Industries
+C_COCHINSHIP,COMPANY,Cochin Shipyard
+C_MAZDOCK,COMPANY,Mazagon Dock
+C_GRSE,COMPANY,Garden Reach Shipbuilders
+C_DATAPATTNS,COMPANY,Data Patterns
+C_ASTRAMICRO,COMPANY,Astra Microwave
+C_ADANIENT,COMPANY,Adani Enterprises
+C_ADANIENT,COMPANY,Adani Enterprises
+C_BHARTIARTL,COMPANY,Bharti Airtel
+C_TATACOMM,COMPANY,Tata Communications
+C_TATACOMM,COMPANY,Tata Communications
+C_ANANTRAJ,COMPANY,Anant Raj
+C_LODHA,COMPANY,Macrotech Developers
+C_RAILTEL,COMPANY,RailTel Corporation
+C_DLF,COMPANY,DLF
+C_EMBASSY,COMPANY,Embassy Office Parks REIT
+C_MINDSPACE,COMPANY,Mindspace Business Parks REIT
+C_BRIGADE,COMPANY,Brigade Enterprises
+C_ABB,COMPANY,ABB India
+C_SIEMENS,COMPANY,Siemens India
+C_SIEMENSENER,COMPANY,Siemens Energy India
+C_HITACHIENER,COMPANY,Hitachi Energy India
+C_GEVERNOVA,COMPANY,GE Vernova T&D India
+C_SCHNEIDER,COMPANY,Schneider Electric Infrastructure
+C_CGPOWER,COMPANY,CG Power & Industrial Solutions
+C_CGPOWER,COMPANY,CG Power & Industrial Solutions
+C_VOLTAMP,COMPANY,Voltamp Transformers
+C_VOLTAMP,COMPANY,Voltamp Transformers
+C_TRIL,COMPANY,Transformers & Rectifiers India
+C_TRIL,COMPANY,Transformers & Rectifiers India
+C_SHILCHAR,COMPANY,Shilchar Technologies
+C_CUMMINSIND,COMPANY,Cummins India
+C_KOEL,COMPANY,Kirloskar Oil Engines
+C_HBLENGINE,COMPANY,HBL Engineering
+C_APARINDS,COMPANY,Apar Industries
+C_HPL,COMPANY,HPL Electric & Power
+C_BHEL,COMPANY,BHEL
+C_THERMAX,COMPANY,Thermax
+C_BLUESTARCO,COMPANY,Blue Star
+C_VOLTAS,COMPANY,Voltas
+C_VOLTAS,COMPANY,Voltas
+C_KRN,COMPANY,KRN Heat Exchanger
+C_AMBER,COMPANY,Amber Enterprises
+C_JCHAC,COMPANY,Johnson Controls-Hitachi AC India
+C_EPACK,COMPANY,EPACK Durable
+C_NETWEB,COMPANY,Netweb Technologies
+C_NETWEB,COMPANY,Netweb Technologies
+C_NETWEB,COMPANY,Netweb Technologies
+C_DIXON,COMPANY,Dixon Technologies
+C_KAYNES,COMPANY,Kaynes Technology
+C_SYRMA,COMPANY,Syrma SGS Technology
+C_CYIENTDLM,COMPANY,Cyient DLM
+C_TATAELXSI,COMPANY,Tata Elxsi
+C_MOSCHIP,COMPANY,MosChip Technologies
+C_STLTECH,COMPANY,Sterlite Technologies
+C_HFCL,COMPANY,HFCL
+C_TEJASNET,COMPANY,Tejas Networks
+C_INDUSTOWER,COMPANY,Indus Towers
+C_POLYCAB,COMPANY,Polycab India
+C_KEI,COMPANY,KEI Industries
+C_RRKABEL,COMPANY,R R Kabel
+C_FINCABLES,COMPANY,Finolex Cables
+C_RAMRATNA,COMPANY,Ram Ratna Wires
+C_PRECWIRE,COMPANY,Precision Wires India
+C_SKIPPER,COMPANY,Skipper
+C_LT,COMPANY,Larsen & Toubro
+C_LT,COMPANY,Larsen & Toubro
+C_LT,COMPANY,Larsen & Toubro
+C_TECHNOE,COMPANY,Techno Electric & Engineering
+C_KALPATPOWR,COMPANY,Kalpataru Projects
+C_KEC,COMPANY,KEC International
+C_KEC,COMPANY,KEC International
+C_AHLUCONT,COMPANY,Ahluwalia Contracts
+C_PSPPROJECT,COMPANY,PSP Projects
+C_AFCONS,COMPANY,Afcons Infrastructure
+C_NTPC,COMPANY,NTPC
+C_NTPCGREEN,COMPANY,NTPC Green Energy
+C_POWERGRID,COMPANY,Power Grid Corporation
+C_TATAPOWER,COMPANY,Tata Power
+C_ADANIPOWER,COMPANY,Adani Power
+C_ADANIGREEN,COMPANY,Adani Green Energy
+C_JSWENERGY,COMPANY,JSW Energy
+C_TORNTPOWER,COMPANY,Torrent Power
+C_NHPC,COMPANY,NHPC
+C_IEX,COMPANY,Indian Energy Exchange
+C_SUZLON,COMPANY,Suzlon Energy
+C_INOXWIND,COMPANY,Inox Wind
+C_KPIGREEN,COMPANY,KPI Green Energy
+C_WAAREE,COMPANY,Waaree Energies
+C_PREMIER,COMPANY,Premier Energies
+C_EXIDE,COMPANY,Exide Industries
+C_AMARAJA,COMPANY,Amara Raja Energy & Mobility
+C_SERVOTECH,COMPANY,Servotech Renewable Power
+C_PFC,COMPANY,Power Finance Corporation
+C_RECLTD,COMPANY,REC Ltd
+C_IREDA,COMPANY,IREDA
+C_VATECHWABAG,COMPANY,VA Tech Wabag
+C_IONEXCHANGE,COMPANY,Ion Exchange India
+C_TEAMLEASE,COMPANY,TeamLease Services
+C_QUESS,COMPANY,Quess Corp

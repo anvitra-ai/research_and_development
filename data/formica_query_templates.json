@@ -1,0 +1,162 @@
+{
+  "schema": {
+    "node_label": "Node",
+    "id_property": "id",
+    "name_property": "label",
+    "type_property": "type",
+    "slots": {
+      "nnp1": "primary named entity (subject)",
+      "nnp2": "secondary named entity (object/comparator)",
+      "prop1": "relationship / predicate",
+      "nn1": "type filter for subject",
+      "nn2": "type filter for object",
+      "threshold": "numeric bound for comparative/quantitative filters"
+    }
+  },
+  "templates": {
+    "F_Simple": {
+      "template_id": "simple_triplet",
+      "description": "Simple question: subject linked to objects via a predicate.",
+      "parameters": ["nnp1", "prop1", "nn1"],
+      "default_relationships": "CAUSES|TRANSITS|HURT_BY|BENEFITS_FROM|HEDGES|OWNS|INVESTS_IN|REGULATED_BY|CONSTRAINED_BY|PRICE_LINKED_TO|CONTAINS|NEEDS|PRODUCES|SOURCED_FROM",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nRETURN s.label AS subject_name, type(r) AS relationship, o.label AS object_name, o.type AS object_type\nORDER BY object_name\nLIMIT 50"
+    },
+    "F_LogUnion": {
+      "template_id": "logical_union",
+      "description": "Union of two relationship patterns from the same subject.",
+      "parameters": ["nnp1", "prop1", "nn1"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES|TRANSITS",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r1]->(o1:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r1) = $prop1)\nRETURN s.label AS subject_name, type(r1) AS relationship, o1.label AS object_name, o1.type AS object_type\nUNION\nMATCH (s:Node {id: $nnp1})-[r2]->(o2:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\nRETURN s.label AS subject_name, type(r2) AS relationship, o2.label AS object_name, o2.type AS object_type\nORDER BY object_name\nLIMIT 50"
+    },
+    "F_LogIntersection": {
+      "template_id": "logical_intersection",
+      "description": "Objects reachable via two predicates from the same subject.",
+      "parameters": ["nnp1", "prop1", "nnp2", "nn1"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r1]->(o:Node)<-[r2]-(t:Node {id: $nnp2})\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r1) = $prop1)\nRETURN s.label AS subject_name, o.label AS object_name, type(r1) AS rel1, t.label AS anchor_name\nLIMIT 50"
+    },
+    "F_LogDifference": {
+      "template_id": "logical_difference",
+      "description": "Objects linked to subject but not to a second anchor entity.",
+      "parameters": ["nnp1", "nnp2", "prop1", "nn1"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES|TRANSITS",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\n  AND NOT EXISTS { MATCH (o)-[]-(exclude:Node {id: $nnp2}) }\nRETURN s.label AS subject_name, type(r) AS relationship, o.label AS object_name, o.type AS object_type\nLIMIT 50"
+    },
+    "F_CompMore": {
+      "template_id": "compare_more",
+      "description": "Compare exposure/path length: first entity has more hops than second.",
+      "parameters": ["nnp1", "nnp2", "nnp3"],
+      "cypher": "MATCH (a:Node {id: $nnp1}), (b:Node {id: $nnp2}), (shock:Node {id: $nnp3})\nOPTIONAL MATCH pa = shortestPath((a)-[*..12]-(shock))\nOPTIONAL MATCH pb = shortestPath((b)-[*..12]-(shock))\nRETURN a.label AS entity_a, b.label AS entity_b, shock.label AS shock_name,\n  length(pa) AS hops_a, length(pb) AS hops_b,\n  CASE WHEN length(pa) > length(pb) THEN a.label ELSE b.label END AS more_exposed"
+    },
+    "F_CompLess": {
+      "template_id": "compare_less",
+      "description": "Compare exposure/path length: first entity has fewer hops than second.",
+      "parameters": ["nnp1", "nnp2", "nnp3"],
+      "cypher": "MATCH (a:Node {id: $nnp1}), (b:Node {id: $nnp2}), (shock:Node {id: $nnp3})\nOPTIONAL MATCH pa = shortestPath((a)-[*..12]-(shock))\nOPTIONAL MATCH pb = shortestPath((b)-[*..12]-(shock))\nRETURN a.label AS entity_a, b.label AS entity_b, shock.label AS shock_name,\n  length(pa) AS hops_a, length(pb) AS hops_b,\n  CASE WHEN length(pa) < length(pb) THEN a.label ELSE b.label END AS less_exposed"
+    },
+    "F_CompApprox": {
+      "template_id": "compare_approx",
+      "description": "Compare exposure/path length: entities within one hop of each other.",
+      "parameters": ["nnp1", "nnp2", "nnp3"],
+      "cypher": "MATCH (a:Node {id: $nnp1}), (b:Node {id: $nnp2}), (shock:Node {id: $nnp3})\nOPTIONAL MATCH pa = shortestPath((a)-[*..12]-(shock))\nOPTIONAL MATCH pb = shortestPath((b)-[*..12]-(shock))\nWITH a, b, shock, length(pa) AS hops_a, length(pb) AS hops_b\nWHERE abs(hops_a - hops_b) <= 1\nRETURN a.label AS entity_a, b.label AS entity_b, shock.label AS shock_name, hops_a, hops_b"
+    },
+    "F_CompCountMore": {
+      "template_id": "count_compare_more",
+      "description": "Count objects for subject where count exceeds threshold.",
+      "parameters": ["nnp1", "prop1", "threshold", "nn1"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nWITH s, count(o) AS cnt\nWHERE cnt > coalesce($threshold, 0)\nRETURN s.label AS subject_name, cnt AS object_count"
+    },
+    "F_CompCountLess": {
+      "template_id": "count_compare_less",
+      "description": "Count objects for subject where count is below threshold.",
+      "parameters": ["nnp1", "prop1", "threshold", "nn1"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nWITH s, count(o) AS cnt\nWHERE cnt < coalesce($threshold, 999)\nRETURN s.label AS subject_name, cnt AS object_count"
+    },
+    "F_CompCountApprox": {
+      "template_id": "count_compare_approx",
+      "description": "Count objects for subject near a threshold.",
+      "parameters": ["nnp1", "prop1", "threshold", "nn1"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nWITH s, count(o) AS cnt, coalesce($threshold, 1) AS t\nWHERE cnt >= t - 1 AND cnt <= t + 1\nRETURN s.label AS subject_name, cnt AS object_count, t AS target_count"
+    },
+    "F_QuantCount": {
+      "template_id": "quant_count",
+      "description": "Count related objects for a subject entity.",
+      "parameters": ["nnp1", "prop1", "nn1", "nn2"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES|TRANSITS|CONTAINS",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($nn2 IS NULL OR o.type = $nn2)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nRETURN s.label AS subject_name, count(o) AS object_count"
+    },
+    "F_QuantCountAtmost": {
+      "template_id": "quant_count_atmost",
+      "description": "Count objects with at-most bound.",
+      "parameters": ["nnp1", "prop1", "threshold", "nn1"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES|TRANSITS",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nWITH s, count(o) AS cnt\nWHERE cnt <= coalesce($threshold, 5)\nRETURN s.label AS subject_name, cnt AS object_count"
+    },
+    "F_QuantCountAtleast": {
+      "template_id": "quant_count_atleast",
+      "description": "Count objects with at-least bound.",
+      "parameters": ["nnp1", "prop1", "threshold", "nn1"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES|TRANSITS",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nWITH s, count(o) AS cnt\nWHERE cnt >= coalesce($threshold, 1)\nRETURN s.label AS subject_name, cnt AS object_count"
+    },
+    "F_QuantCountApprox": {
+      "template_id": "quant_count_approx",
+      "description": "Count objects approximately equal to threshold.",
+      "parameters": ["nnp1", "prop1", "threshold", "nn1"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES|TRANSITS",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nWITH s, count(o) AS cnt, coalesce($threshold, 1) AS t\nWHERE cnt >= t - 1 AND cnt <= t + 1\nRETURN s.label AS subject_name, cnt AS object_count"
+    },
+    "F_QuantCountEqual": {
+      "template_id": "quant_count_equal",
+      "description": "Count objects exactly equal to threshold.",
+      "parameters": ["nnp1", "prop1", "threshold", "nn1"],
+      "default_relationships": "HURT_BY|BENEFITS_FROM|CAUSES|TRANSITS",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nWITH s, count(o) AS cnt\nWHERE cnt = coalesce($threshold, 1)\nRETURN s.label AS subject_name, cnt AS object_count"
+    },
+    "F_QuantAtmost": {
+      "template_id": "quant_atmost",
+      "description": "Filter numeric edge property with at-most bound.",
+      "parameters": ["nnp1", "prop1", "threshold"],
+      "default_relationships": "TRANSITS|PRICE_LINKED_TO",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($prop1 IS NULL OR type(r) = $prop1)\n  AND coalesce(r.share, r.weight, 1.0) <= coalesce($threshold, 1.0)\nRETURN s.label AS subject_name, o.label AS object_name, coalesce(r.share, r.weight) AS value"
+    },
+    "F_QuantAtleast": {
+      "template_id": "quant_atleast",
+      "description": "Filter numeric edge property with at-least bound.",
+      "parameters": ["nnp1", "prop1", "threshold"],
+      "default_relationships": "TRANSITS|PRICE_LINKED_TO",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($prop1 IS NULL OR type(r) = $prop1)\n  AND coalesce(r.share, r.weight, 0.0) >= coalesce($threshold, 0.0)\nRETURN s.label AS subject_name, o.label AS object_name, coalesce(r.share, r.weight) AS value"
+    },
+    "F_QuantApprox": {
+      "template_id": "quant_approx",
+      "description": "Filter numeric edge property near threshold.",
+      "parameters": ["nnp1", "prop1", "threshold"],
+      "default_relationships": "TRANSITS|PRICE_LINKED_TO",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($prop1 IS NULL OR type(r) = $prop1)\nWITH s, o, r, coalesce(r.share, r.weight, 0.5) AS val, coalesce($threshold, 0.5) AS t\nWHERE val >= t - 0.1 AND val <= t + 0.1\nRETURN s.label AS subject_name, o.label AS object_name, val AS value"
+    },
+    "F_QuantEqual": {
+      "template_id": "quant_equal",
+      "description": "Filter numeric edge property equal to threshold.",
+      "parameters": ["nnp1", "prop1", "threshold"],
+      "default_relationships": "TRANSITS|PRICE_LINKED_TO",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($prop1 IS NULL OR type(r) = $prop1)\n  AND coalesce(r.share, r.weight, 0.0) = coalesce($threshold, 0.0)\nRETURN s.label AS subject_name, o.label AS object_name, coalesce(r.share, r.weight) AS value"
+    },
+    "F_QuantMax": {
+      "template_id": "quant_max",
+      "description": "Return object with maximum related value for subject.",
+      "parameters": ["nnp1", "prop1", "nn1"],
+      "default_relationships": "TRANSITS|PRICE_LINKED_TO|HURT_BY|BENEFITS_FROM",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nWITH s, o, r, coalesce(r.share, r.weight, 1.0) AS val\nORDER BY val DESC\nRETURN s.label AS subject_name, o.label AS object_name, val AS max_value\nLIMIT 1"
+    },
+    "F_QuantMin": {
+      "template_id": "quant_min",
+      "description": "Return object with minimum related value for subject.",
+      "parameters": ["nnp1", "prop1", "nn1"],
+      "default_relationships": "TRANSITS|PRICE_LINKED_TO|HURT_BY|BENEFITS_FROM",
+      "cypher": "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\nWHERE ($nn1 IS NULL OR s.type = $nn1)\n  AND ($prop1 IS NULL OR type(r) = $prop1)\nWITH s, o, r, coalesce(r.share, r.weight, 1.0) AS val\nORDER BY val ASC\nRETURN s.label AS subject_name, o.label AS object_name, val AS min_value\nLIMIT 1"
+    }
+  }
+}

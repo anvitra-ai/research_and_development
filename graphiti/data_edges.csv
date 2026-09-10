@@ -1,0 +1,488 @@
+source,target,source_name,target_name,source_type,target_type,text,edge_type
+0,12,Strait of Hormuz disruption,Brent crude price,EVENT,MACRO_VAR,Strait of Hormuz disruption causes Brent crude price,CAUSES
+0,13,Strait of Hormuz disruption,Spot LNG / JKM,EVENT,MACRO_VAR,Strait of Hormuz disruption causes Spot LNG / JKM,CAUSES
+0,14,Strait of Hormuz disruption,Saudi LPG contract price,EVENT,MACRO_VAR,Strait of Hormuz disruption causes Saudi LPG contract price,CAUSES
+0,15,Strait of Hormuz disruption,Gross refining margin,EVENT,MACRO_VAR,Strait of Hormuz disruption causes Gross refining margin,CAUSES
+0,16,Strait of Hormuz disruption,Tanker freight rates,EVENT,MACRO_VAR,Strait of Hormuz disruption causes Tanker freight rates,CAUSES
+0,17,Strait of Hormuz disruption,Marine war-risk premium,EVENT,MACRO_VAR,Strait of Hormuz disruption causes Marine war-risk premium,CAUSES
+0,22,Strait of Hormuz disruption,Global urea/DAP/sulphur price,EVENT,MACRO_VAR,Strait of Hormuz disruption causes Global urea/DAP/sulphur price,CAUSES
+0,1,Strait of Hormuz disruption,India AI infrastructure capex cycle,EVENT,EVENT,Strait of Hormuz disruption hurt by India AI infrastructure capex cycle,HURT_BY
+1,79,India AI infrastructure capex cycle,Power availability,EVENT,CONSTRAINT,India AI infrastructure capex cycle constrained by Power availability,CONSTRAINED_BY
+1,80,India AI infrastructure capex cycle,Transmission evacuation capacity,EVENT,CONSTRAINT,India AI infrastructure capex cycle constrained by Transmission evacuation capacity,CONSTRAINED_BY
+1,82,India AI infrastructure capex cycle,Water availability,EVENT,CONSTRAINT,India AI infrastructure capex cycle constrained by Water availability,CONSTRAINED_BY
+1,83,India AI infrastructure capex cycle,GPU supply,EVENT,CONSTRAINT,India AI infrastructure capex cycle constrained by GPU supply,CONSTRAINED_BY
+1,86,India AI infrastructure capex cycle,Infra-ready land,EVENT,CONSTRAINT,India AI infrastructure capex cycle constrained by Infra-ready land,CONSTRAINED_BY
+3,2,India,Strait of Hormuz,GEOGRAPHY,GEOGRAPHY,India imports via Strait of Hormuz,IMPORTS_VIA
+8,2,Cape of Good Hope reroute,Strait of Hormuz,GEOGRAPHY,GEOGRAPHY,Cape of Good Hope reroute substitutes for Strait of Hormuz,SUBSTITUTES_FOR
+9,4,Kerala,Gulf producers,GEOGRAPHY,GEOGRAPHY,Kerala exposed to orderbook Gulf producers,EXPOSED_TO_ORDERBOOK
+12,19,Brent crude price,India CPI,MACRO_VAR,MACRO_VAR,Brent crude price causes India CPI,CAUSES
+12,20,Brent crude price,Current account deficit,MACRO_VAR,MACRO_VAR,Brent crude price causes Current account deficit,CAUSES
+14,23,Saudi LPG contract price,Fertiliser and LPG subsidy bill,MACRO_VAR,MACRO_VAR,Saudi LPG contract price causes Fertiliser and LPG subsidy bill,CAUSES
+17,1,Marine war-risk premium,India AI infrastructure capex cycle,MACRO_VAR,EVENT,Marine war-risk premium hurt by India AI infrastructure capex cycle,HURT_BY
+18,19,USD/INR,India CPI,MACRO_VAR,MACRO_VAR,USD/INR causes India CPI,CAUSES
+18,309,USD/INR,Netweb Technologies,MACRO_VAR,COMPANY,USD/INR hurt by Netweb Technologies,HURT_BY
+19,21,India CPI,RBI policy rate,MACRO_VAR,MACRO_VAR,India CPI causes RBI policy rate,CAUSES
+20,18,Current account deficit,USD/INR,MACRO_VAR,MACRO_VAR,Current account deficit causes USD/INR,CAUSES
+21,279,RBI policy rate,Anant Raj,MACRO_VAR,COMPANY,RBI policy rate hurt by Anant Raj,HURT_BY
+21,339,RBI policy rate,Adani Green Energy,MACRO_VAR,COMPANY,RBI policy rate hurt by Adani Green Energy,HURT_BY
+22,23,Global urea/DAP/sulphur price,Fertiliser and LPG subsidy bill,MACRO_VAR,MACRO_VAR,Global urea/DAP/sulphur price causes Fertiliser and LPG subsidy bill,CAUSES
+24,2,Crude oil,Strait of Hormuz,RAW_MATERIAL,GEOGRAPHY,Crude oil transits Strait of Hormuz,TRANSITS
+25,2,LNG,Strait of Hormuz,RAW_MATERIAL,GEOGRAPHY,LNG transits Strait of Hormuz,TRANSITS
+25,5,LNG,Qatar,RAW_MATERIAL,GEOGRAPHY,LNG sourced from Qatar,SOURCED_FROM
+26,2,LPG,Strait of Hormuz,RAW_MATERIAL,GEOGRAPHY,LPG transits Strait of Hormuz,TRANSITS
+28,25,Coal,LNG,RAW_MATERIAL,RAW_MATERIAL,Coal substitutes for LNG,SUBSTITUTES_FOR
+29,12,Naphtha,Brent crude price,RAW_MATERIAL,MACRO_VAR,Naphtha price linked to Brent crude price,PRICE_LINKED_TO
+32,12,Carbon black feedstock,Brent crude price,RAW_MATERIAL,MACRO_VAR,Carbon black feedstock price linked to Brent crude price,PRICE_LINKED_TO
+33,32,Carbon black,Carbon black feedstock,RAW_MATERIAL,RAW_MATERIAL,Carbon black needs Carbon black feedstock,NEEDS
+34,12,Base oil,Brent crude price,RAW_MATERIAL,MACRO_VAR,Base oil price linked to Brent crude price,PRICE_LINKED_TO
+35,12,Synthetic rubber,Brent crude price,RAW_MATERIAL,MACRO_VAR,Synthetic rubber price linked to Brent crude price,PRICE_LINKED_TO
+40,29,HDPE/LLDPE/PP resin,Naphtha,RAW_MATERIAL,RAW_MATERIAL,HDPE/LLDPE/PP resin price linked to Naphtha,PRICE_LINKED_TO
+41,12,PVC resin,Brent crude price,RAW_MATERIAL,MACRO_VAR,PVC resin price linked to Brent crude price,PRICE_LINKED_TO
+45,12,Petroleum coke,Brent crude price,RAW_MATERIAL,MACRO_VAR,Petroleum coke price linked to Brent crude price,PRICE_LINKED_TO
+46,12,Liquid light paraffin,Brent crude price,RAW_MATERIAL,MACRO_VAR,Liquid light paraffin price linked to Brent crude price,PRICE_LINKED_TO
+47,2,Urea,Strait of Hormuz,RAW_MATERIAL,GEOGRAPHY,Urea transits Strait of Hormuz,TRANSITS
+47,6,Urea,Oman,RAW_MATERIAL,GEOGRAPHY,Urea sourced from Oman,SOURCED_FROM
+48,2,Sulphur,Strait of Hormuz,RAW_MATERIAL,GEOGRAPHY,Sulphur transits Strait of Hormuz,TRANSITS
+48,4,Sulphur,Gulf producers,RAW_MATERIAL,GEOGRAPHY,Sulphur sourced from Gulf producers,SOURCED_FROM
+49,2,Ammonia,Strait of Hormuz,RAW_MATERIAL,GEOGRAPHY,Ammonia transits Strait of Hormuz,TRANSITS
+57,12,Aviation turbine fuel,Brent crude price,PRODUCT,MACRO_VAR,Aviation turbine fuel price linked to Brent crude price,PRICE_LINKED_TO
+60,59,Ethanol,Petrol,PRODUCT,PRODUCT,Ethanol substitutes for Petrol,SUBSTITUTES_FOR
+61,37,Decorative paint,Titanium dioxide,PRODUCT,RAW_MATERIAL,Decorative paint needs Titanium dioxide,NEEDS
+61,38,Decorative paint,Solvents,PRODUCT,RAW_MATERIAL,Decorative paint needs Solvents,NEEDS
+61,39,Decorative paint,Acrylic monomers,PRODUCT,RAW_MATERIAL,Decorative paint needs Acrylic monomers,NEEDS
+62,33,Tyre,Carbon black,PRODUCT,RAW_MATERIAL,Tyre needs Carbon black,NEEDS
+62,35,Tyre,Synthetic rubber,PRODUCT,RAW_MATERIAL,Tyre needs Synthetic rubber,NEEDS
+62,36,Tyre,Natural rubber,PRODUCT,RAW_MATERIAL,Tyre needs Natural rubber,NEEDS
+63,41,PVC pipe,PVC resin,PRODUCT,RAW_MATERIAL,PVC pipe needs PVC resin,NEEDS
+64,45,Cement,Petroleum coke,PRODUCT,RAW_MATERIAL,Cement needs Petroleum coke,NEEDS
+64,58,Cement,Diesel,PRODUCT,PRODUCT,Cement needs Diesel,NEEDS
+65,27,Urea fertiliser,Natural gas,PRODUCT,RAW_MATERIAL,Urea fertiliser needs Natural gas,NEEDS
+66,48,DAP/NPK fertiliser,Sulphur,PRODUCT,RAW_MATERIAL,DAP/NPK fertiliser needs Sulphur,NEEDS
+66,49,DAP/NPK fertiliser,Ammonia,PRODUCT,RAW_MATERIAL,DAP/NPK fertiliser needs Ammonia,NEEDS
+66,50,DAP/NPK fertiliser,Phosphoric acid,PRODUCT,RAW_MATERIAL,DAP/NPK fertiliser needs Phosphoric acid,NEEDS
+67,68,Data centre capacity (MW IT load),Power transformer,PRODUCT,PRODUCT,Data centre capacity (MW IT load) needs Power transformer,NEEDS
+67,69,Data centre capacity (MW IT load),Switchgear / MV-LV distribution,PRODUCT,PRODUCT,Data centre capacity (MW IT load) needs Switchgear / MV-LV distribution,NEEDS
+67,70,Data centre capacity (MW IT load),UPS / DC power backup,PRODUCT,PRODUCT,Data centre capacity (MW IT load) needs UPS / DC power backup,NEEDS
+67,71,Data centre capacity (MW IT load),Diesel genset,PRODUCT,PRODUCT,Data centre capacity (MW IT load) needs Diesel genset,NEEDS
+67,72,Data centre capacity (MW IT load),Precision cooling / CDU,PRODUCT,PRODUCT,Data centre capacity (MW IT load) needs Precision cooling / CDU,NEEDS
+67,74,Data centre capacity (MW IT load),Power cable,PRODUCT,PRODUCT,Data centre capacity (MW IT load) needs Power cable,NEEDS
+67,75,Data centre capacity (MW IT load),Optical fibre / interconnect,PRODUCT,PRODUCT,Data centre capacity (MW IT load) needs Optical fibre / interconnect,NEEDS
+67,77,Data centre capacity (MW IT load),Firm 24x7 power supply,PRODUCT,PRODUCT,Data centre capacity (MW IT load) needs Firm 24x7 power supply,NEEDS
+70,55,UPS / DC power backup,Battery cells,PRODUCT,RAW_MATERIAL,UPS / DC power backup needs Battery cells,NEEDS
+73,54,Chiller,Refrigerant / dielectric fluid,PRODUCT,RAW_MATERIAL,Chiller needs Refrigerant / dielectric fluid,NEEDS
+74,41,Power cable,PVC resin,PRODUCT,RAW_MATERIAL,Power cable needs PVC resin,NEEDS
+74,51,Power cable,Copper,PRODUCT,RAW_MATERIAL,Power cable needs Copper,NEEDS
+76,56,AI server / GPU system,GPU / AI accelerator,PRODUCT,RAW_MATERIAL,AI server / GPU system needs GPU / AI accelerator,NEEDS
+76,84,AI server / GPU system,HBM / advanced packaging,PRODUCT,CONSTRAINT,AI server / GPU system needs HBM / advanced packaging,NEEDS
+81,78,Grid stability under volatile DC load ramps,Grid stability equipment (BESS/STATCOM),CONSTRAINT,PRODUCT,Grid stability under volatile DC load ramps causes Grid stability equipment (BESS/STATCOM),CAUSES
+81,289,Grid stability under volatile DC load ramps,Hitachi Energy India,CONSTRAINT,COMPANY,Grid stability under volatile DC load ramps causes Hitachi Energy India,CAUSES
+81,349,Grid stability under volatile DC load ramps,Exide Industries,CONSTRAINT,COMPANY,Grid stability under volatile DC load ramps causes Exide Industries,CAUSES
+81,350,Grid stability under volatile DC load ramps,Amara Raja Energy & Mobility,CONSTRAINT,COMPANY,Grid stability under volatile DC load ramps causes Amara Raja Energy & Mobility,CAUSES
+82,355,Water availability,VA Tech Wabag,CONSTRAINT,COMPANY,Water availability causes VA Tech Wabag,CAUSES
+85,68,CRGO electrical steel imports,Power transformer,CONSTRAINT,PRODUCT,CRGO electrical steel imports constrains Power transformer,CONSTRAINS
+85,293,CRGO electrical steel imports,Voltamp Transformers,CONSTRAINT,COMPANY,CRGO electrical steel imports constrains Voltamp Transformers,CONSTRAINS
+88,1,Generative AI,India AI infrastructure capex cycle,TECHNOLOGY,EVENT,Generative AI causes India AI infrastructure capex cycle,CAUSES
+89,54,Liquid cooling,Refrigerant / dielectric fluid,TECHNOLOGY,RAW_MATERIAL,Liquid cooling causes Refrigerant / dielectric fluid,CAUSES
+89,72,Liquid cooling,Precision cooling / CDU,TECHNOLOGY,PRODUCT,Liquid cooling causes Precision cooling / CDU,CAUSES
+90,89,High-density racks,Liquid cooling,TECHNOLOGY,TECHNOLOGY,High-density racks causes Liquid cooling,CAUSES
+97,1,21-year DC tax holiday to 2047,India AI infrastructure capex cycle,POLICY,EVENT,21-year DC tax holiday to 2047 enables India AI infrastructure capex cycle,ENABLES
+98,1,IndiaAI Mission,India AI infrastructure capex cycle,POLICY,EVENT,IndiaAI Mission enables India AI infrastructure capex cycle,ENABLES
+101,1,"Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)",India AI infrastructure capex cycle,CUSTOMER,EVENT,"Hyperscalers (Google, Meta, MSFT, AWS, OpenAI) causes India AI infrastructure capex cycle",CAUSES
+101,148,"Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)",Reliance Industries,CUSTOMER,COMPANY,"Hyperscalers (Google, Meta, MSFT, AWS, OpenAI) customer of Reliance Industries",CUSTOMER_OF
+104,112,Blackstone,Neysa,INVESTOR,PRIVATE_CO,Blackstone invests in Neysa,INVESTS_IN
+104,113,Blackstone,AirTrunk,INVESTOR,PRIVATE_CO,Blackstone invests in AirTrunk,INVESTS_IN
+106,11,Reliance Jamnagar AI campus,Gujarat,ASSET,GEOGRAPHY,Reliance Jamnagar AI campus located in Gujarat,LOCATED_IN
+107,10,Google Visakhapatnam AI hub,Andhra Pradesh,ASSET,GEOGRAPHY,Google Visakhapatnam AI hub located in Andhra Pradesh,LOCATED_IN
+109,335,CtrlS Datacenters,NTPC Green Energy,PRIVATE_CO,COMPANY,CtrlS Datacenters jv with NTPC Green Energy,JV_WITH
+115,309,NVIDIA,Netweb Technologies,PRIVATE_CO,COMPANY,NVIDIA supplies to Netweb Technologies,SUPPLIES_TO
+117,140,Oil & Gas,Oil & Natural Gas Corp,SECTOR,COMPANY,Oil & Gas contains Oil & Natural Gas Corp,CONTAINS
+117,141,Oil & Gas,Oil India,SECTOR,COMPANY,Oil & Gas contains Oil India,CONTAINS
+117,142,Oil & Gas,GAIL (India),SECTOR,COMPANY,Oil & Gas contains GAIL (India),CONTAINS
+117,143,Oil & Gas,Indian Oil,SECTOR,COMPANY,Oil & Gas contains Indian Oil,CONTAINS
+117,144,Oil & Gas,Bharat Petroleum,SECTOR,COMPANY,Oil & Gas contains Bharat Petroleum,CONTAINS
+117,145,Oil & Gas,Hindustan Petroleum,SECTOR,COMPANY,Oil & Gas contains Hindustan Petroleum,CONTAINS
+117,146,Oil & Gas,Mangalore Refinery,SECTOR,COMPANY,Oil & Gas contains Mangalore Refinery,CONTAINS
+117,147,Oil & Gas,Chennai Petroleum,SECTOR,COMPANY,Oil & Gas contains Chennai Petroleum,CONTAINS
+117,148,Oil & Gas,Reliance Industries,SECTOR,COMPANY,Oil & Gas contains Reliance Industries,CONTAINS
+117,149,Oil & Gas,Petronet LNG,SECTOR,COMPANY,Oil & Gas contains Petronet LNG,CONTAINS
+117,150,Oil & Gas,Gujarat State Petronet,SECTOR,COMPANY,Oil & Gas contains Gujarat State Petronet,CONTAINS
+117,151,Oil & Gas,Indraprastha Gas,SECTOR,COMPANY,Oil & Gas contains Indraprastha Gas,CONTAINS
+117,152,Oil & Gas,Mahanagar Gas,SECTOR,COMPANY,Oil & Gas contains Mahanagar Gas,CONTAINS
+117,153,Oil & Gas,Gujarat Gas,SECTOR,COMPANY,Oil & Gas contains Gujarat Gas,CONTAINS
+117,154,Oil & Gas,Adani Total Gas,SECTOR,COMPANY,Oil & Gas contains Adani Total Gas,CONTAINS
+117,155,Oil & Gas,Selan Exploration,SECTOR,COMPANY,Oil & Gas contains Selan Exploration,CONTAINS
+117,221,Oil & Gas,Castrol India,SECTOR,COMPANY,Oil & Gas contains Castrol India,CONTAINS
+117,222,Oil & Gas,Gulf Oil Lubricants,SECTOR,COMPANY,Oil & Gas contains Gulf Oil Lubricants,CONTAINS
+118,156,Shipping & Logistics,Great Eastern Shipping,SECTOR,COMPANY,Shipping & Logistics contains Great Eastern Shipping,CONTAINS
+118,157,Shipping & Logistics,Shipping Corporation of India,SECTOR,COMPANY,Shipping & Logistics contains Shipping Corporation of India,CONTAINS
+118,158,Shipping & Logistics,Seamec,SECTOR,COMPANY,Shipping & Logistics contains Seamec,CONTAINS
+118,159,Shipping & Logistics,Adani Ports & SEZ,SECTOR,COMPANY,Shipping & Logistics contains Adani Ports & SEZ,CONTAINS
+118,160,Shipping & Logistics,JSW Infrastructure,SECTOR,COMPANY,Shipping & Logistics contains JSW Infrastructure,CONTAINS
+118,161,Shipping & Logistics,Container Corp of India,SECTOR,COMPANY,Shipping & Logistics contains Container Corp of India,CONTAINS
+118,162,Shipping & Logistics,Allcargo Logistics,SECTOR,COMPANY,Shipping & Logistics contains Allcargo Logistics,CONTAINS
+118,163,Shipping & Logistics,Transport Corp of India,SECTOR,COMPANY,Shipping & Logistics contains Transport Corp of India,CONTAINS
+119,164,Aviation,InterGlobe Aviation,SECTOR,COMPANY,Aviation contains InterGlobe Aviation,CONTAINS
+119,165,Aviation,SpiceJet,SECTOR,COMPANY,Aviation contains SpiceJet,CONTAINS
+120,178,Chemicals,PCBL,SECTOR,COMPANY,Chemicals contains PCBL,CONTAINS
+120,179,Chemicals,Himadri Speciality Chemical,SECTOR,COMPANY,Chemicals contains Himadri Speciality Chemical,CONTAINS
+120,180,Chemicals,Supreme Industries,SECTOR,COMPANY,Chemicals contains Supreme Industries,CONTAINS
+120,181,Chemicals,Astral,SECTOR,COMPANY,Chemicals contains Astral,CONTAINS
+120,182,Chemicals,Finolex Industries,SECTOR,COMPANY,Chemicals contains Finolex Industries,CONTAINS
+120,183,Chemicals,Prince Pipes,SECTOR,COMPANY,Chemicals contains Prince Pipes,CONTAINS
+120,184,Chemicals,Polyplex,SECTOR,COMPANY,Chemicals contains Polyplex,CONTAINS
+120,185,Chemicals,Cosmo First,SECTOR,COMPANY,Chemicals contains Cosmo First,CONTAINS
+120,186,Chemicals,UFlex,SECTOR,COMPANY,Chemicals contains UFlex,CONTAINS
+120,187,Chemicals,EPL Ltd,SECTOR,COMPANY,Chemicals contains EPL Ltd,CONTAINS
+120,188,Chemicals,Time Technoplast,SECTOR,COMPANY,Chemicals contains Time Technoplast,CONTAINS
+120,189,Chemicals,SRF,SECTOR,COMPANY,Chemicals contains SRF,CONTAINS
+120,190,Chemicals,Navin Fluorine,SECTOR,COMPANY,Chemicals contains Navin Fluorine,CONTAINS
+120,191,Chemicals,Gujarat Fluorochemicals,SECTOR,COMPANY,Chemicals contains Gujarat Fluorochemicals,CONTAINS
+120,192,Chemicals,Aarti Industries,SECTOR,COMPANY,Chemicals contains Aarti Industries,CONTAINS
+120,193,Chemicals,Deepak Nitrite,SECTOR,COMPANY,Chemicals contains Deepak Nitrite,CONTAINS
+120,194,Chemicals,Atul,SECTOR,COMPANY,Chemicals contains Atul,CONTAINS
+120,195,Chemicals,Vinati Organics,SECTOR,COMPANY,Chemicals contains Vinati Organics,CONTAINS
+120,196,Chemicals,Tata Chemicals,SECTOR,COMPANY,Chemicals contains Tata Chemicals,CONTAINS
+120,197,Chemicals,GHCL,SECTOR,COMPANY,Chemicals contains GHCL,CONTAINS
+120,198,Chemicals,Alkyl Amines,SECTOR,COMPANY,Chemicals contains Alkyl Amines,CONTAINS
+121,199,Fertilisers & Agri-inputs,Chambal Fertilisers,SECTOR,COMPANY,Fertilisers & Agri-inputs contains Chambal Fertilisers,CONTAINS
+121,200,Fertilisers & Agri-inputs,Coromandel International,SECTOR,COMPANY,Fertilisers & Agri-inputs contains Coromandel International,CONTAINS
+121,201,Fertilisers & Agri-inputs,GNFC,SECTOR,COMPANY,Fertilisers & Agri-inputs contains GNFC,CONTAINS
+121,202,Fertilisers & Agri-inputs,GSFC,SECTOR,COMPANY,Fertilisers & Agri-inputs contains GSFC,CONTAINS
+121,203,Fertilisers & Agri-inputs,Rashtriya Chemicals & Fertilizers,SECTOR,COMPANY,Fertilisers & Agri-inputs contains Rashtriya Chemicals & Fertilizers,CONTAINS
+121,204,Fertilisers & Agri-inputs,National Fertilizers,SECTOR,COMPANY,Fertilisers & Agri-inputs contains National Fertilizers,CONTAINS
+121,205,Fertilisers & Agri-inputs,Deepak Fertilisers,SECTOR,COMPANY,Fertilisers & Agri-inputs contains Deepak Fertilisers,CONTAINS
+121,206,Fertilisers & Agri-inputs,Paradeep Phosphates,SECTOR,COMPANY,Fertilisers & Agri-inputs contains Paradeep Phosphates,CONTAINS
+121,207,Fertilisers & Agri-inputs,FACT,SECTOR,COMPANY,Fertilisers & Agri-inputs contains FACT,CONTAINS
+121,208,Fertilisers & Agri-inputs,UPL,SECTOR,COMPANY,Fertilisers & Agri-inputs contains UPL,CONTAINS
+121,209,Fertilisers & Agri-inputs,PI Industries,SECTOR,COMPANY,Fertilisers & Agri-inputs contains PI Industries,CONTAINS
+121,210,Fertilisers & Agri-inputs,Rallis India,SECTOR,COMPANY,Fertilisers & Agri-inputs contains Rallis India,CONTAINS
+122,166,Paints & Adhesives,Asian Paints,SECTOR,COMPANY,Paints & Adhesives contains Asian Paints,CONTAINS
+122,167,Paints & Adhesives,Berger Paints,SECTOR,COMPANY,Paints & Adhesives contains Berger Paints,CONTAINS
+122,168,Paints & Adhesives,Kansai Nerolac,SECTOR,COMPANY,Paints & Adhesives contains Kansai Nerolac,CONTAINS
+122,169,Paints & Adhesives,Indigo Paints,SECTOR,COMPANY,Paints & Adhesives contains Indigo Paints,CONTAINS
+122,170,Paints & Adhesives,Akzo Nobel India,SECTOR,COMPANY,Paints & Adhesives contains Akzo Nobel India,CONTAINS
+122,171,Paints & Adhesives,Pidilite Industries,SECTOR,COMPANY,Paints & Adhesives contains Pidilite Industries,CONTAINS
+122,172,Paints & Adhesives,Grasim Industries,SECTOR,COMPANY,Paints & Adhesives contains Grasim Industries,CONTAINS
+123,173,Tyres,MRF,SECTOR,COMPANY,Tyres contains MRF,CONTAINS
+123,174,Tyres,Apollo Tyres,SECTOR,COMPANY,Tyres contains Apollo Tyres,CONTAINS
+123,175,Tyres,CEAT,SECTOR,COMPANY,Tyres contains CEAT,CONTAINS
+123,176,Tyres,JK Tyre,SECTOR,COMPANY,Tyres contains JK Tyre,CONTAINS
+123,177,Tyres,Balkrishna Industries,SECTOR,COMPANY,Tyres contains Balkrishna Industries,CONTAINS
+124,215,Capital Goods & Electricals,Praj Industries,SECTOR,COMPANY,Capital Goods & Electricals contains Praj Industries,CONTAINS
+124,286,Capital Goods & Electricals,ABB India,SECTOR,COMPANY,Capital Goods & Electricals contains ABB India,CONTAINS
+124,287,Capital Goods & Electricals,Siemens India,SECTOR,COMPANY,Capital Goods & Electricals contains Siemens India,CONTAINS
+124,288,Capital Goods & Electricals,Siemens Energy India,SECTOR,COMPANY,Capital Goods & Electricals contains Siemens Energy India,CONTAINS
+124,289,Capital Goods & Electricals,Hitachi Energy India,SECTOR,COMPANY,Capital Goods & Electricals contains Hitachi Energy India,CONTAINS
+124,290,Capital Goods & Electricals,GE Vernova T&D India,SECTOR,COMPANY,Capital Goods & Electricals contains GE Vernova T&D India,CONTAINS
+124,291,Capital Goods & Electricals,Schneider Electric Infrastructure,SECTOR,COMPANY,Capital Goods & Electricals contains Schneider Electric Infrastructure,CONTAINS
+124,292,Capital Goods & Electricals,CG Power & Industrial Solutions,SECTOR,COMPANY,Capital Goods & Electricals contains CG Power & Industrial Solutions,CONTAINS
+124,293,Capital Goods & Electricals,Voltamp Transformers,SECTOR,COMPANY,Capital Goods & Electricals contains Voltamp Transformers,CONTAINS
+124,294,Capital Goods & Electricals,Transformers & Rectifiers India,SECTOR,COMPANY,Capital Goods & Electricals contains Transformers & Rectifiers India,CONTAINS
+124,295,Capital Goods & Electricals,Shilchar Technologies,SECTOR,COMPANY,Capital Goods & Electricals contains Shilchar Technologies,CONTAINS
+124,296,Capital Goods & Electricals,Cummins India,SECTOR,COMPANY,Capital Goods & Electricals contains Cummins India,CONTAINS
+124,297,Capital Goods & Electricals,Kirloskar Oil Engines,SECTOR,COMPANY,Capital Goods & Electricals contains Kirloskar Oil Engines,CONTAINS
+124,298,Capital Goods & Electricals,HBL Engineering,SECTOR,COMPANY,Capital Goods & Electricals contains HBL Engineering,CONTAINS
+124,299,Capital Goods & Electricals,Apar Industries,SECTOR,COMPANY,Capital Goods & Electricals contains Apar Industries,CONTAINS
+124,300,Capital Goods & Electricals,HPL Electric & Power,SECTOR,COMPANY,Capital Goods & Electricals contains HPL Electric & Power,CONTAINS
+124,301,Capital Goods & Electricals,BHEL,SECTOR,COMPANY,Capital Goods & Electricals contains BHEL,CONTAINS
+124,302,Capital Goods & Electricals,Thermax,SECTOR,COMPANY,Capital Goods & Electricals contains Thermax,CONTAINS
+125,303,HVAC & Thermal Management,Blue Star,SECTOR,COMPANY,HVAC & Thermal Management contains Blue Star,CONTAINS
+125,304,HVAC & Thermal Management,Voltas,SECTOR,COMPANY,HVAC & Thermal Management contains Voltas,CONTAINS
+125,305,HVAC & Thermal Management,KRN Heat Exchanger,SECTOR,COMPANY,HVAC & Thermal Management contains KRN Heat Exchanger,CONTAINS
+125,306,HVAC & Thermal Management,Amber Enterprises,SECTOR,COMPANY,HVAC & Thermal Management contains Amber Enterprises,CONTAINS
+125,307,HVAC & Thermal Management,Johnson Controls-Hitachi AC India,SECTOR,COMPANY,HVAC & Thermal Management contains Johnson Controls-Hitachi AC India,CONTAINS
+125,308,HVAC & Thermal Management,EPACK Durable,SECTOR,COMPANY,HVAC & Thermal Management contains EPACK Durable,CONTAINS
+126,320,Cables & Wires,Polycab India,SECTOR,COMPANY,Cables & Wires contains Polycab India,CONTAINS
+126,321,Cables & Wires,KEI Industries,SECTOR,COMPANY,Cables & Wires contains KEI Industries,CONTAINS
+126,322,Cables & Wires,R R Kabel,SECTOR,COMPANY,Cables & Wires contains R R Kabel,CONTAINS
+126,323,Cables & Wires,Finolex Cables,SECTOR,COMPANY,Cables & Wires contains Finolex Cables,CONTAINS
+126,324,Cables & Wires,Ram Ratna Wires,SECTOR,COMPANY,Cables & Wires contains Ram Ratna Wires,CONTAINS
+126,325,Cables & Wires,Precision Wires India,SECTOR,COMPANY,Cables & Wires contains Precision Wires India,CONTAINS
+126,326,Cables & Wires,Skipper,SECTOR,COMPANY,Cables & Wires contains Skipper,CONTAINS
+127,309,EMS & Compute Hardware,Netweb Technologies,SECTOR,COMPANY,EMS & Compute Hardware contains Netweb Technologies,CONTAINS
+127,310,EMS & Compute Hardware,Dixon Technologies,SECTOR,COMPANY,EMS & Compute Hardware contains Dixon Technologies,CONTAINS
+127,311,EMS & Compute Hardware,Kaynes Technology,SECTOR,COMPANY,EMS & Compute Hardware contains Kaynes Technology,CONTAINS
+127,312,EMS & Compute Hardware,Syrma SGS Technology,SECTOR,COMPANY,EMS & Compute Hardware contains Syrma SGS Technology,CONTAINS
+127,313,EMS & Compute Hardware,Cyient DLM,SECTOR,COMPANY,EMS & Compute Hardware contains Cyient DLM,CONTAINS
+127,314,EMS & Compute Hardware,Tata Elxsi,SECTOR,COMPANY,EMS & Compute Hardware contains Tata Elxsi,CONTAINS
+127,315,EMS & Compute Hardware,MosChip Technologies,SECTOR,COMPANY,EMS & Compute Hardware contains MosChip Technologies,CONTAINS
+128,211,Power & Utilities,Coal India,SECTOR,COMPANY,Power & Utilities contains Coal India,CONTAINS
+128,276,Power & Utilities,Adani Enterprises,SECTOR,COMPANY,Power & Utilities contains Adani Enterprises,CONTAINS
+128,334,Power & Utilities,NTPC,SECTOR,COMPANY,Power & Utilities contains NTPC,CONTAINS
+128,335,Power & Utilities,NTPC Green Energy,SECTOR,COMPANY,Power & Utilities contains NTPC Green Energy,CONTAINS
+128,336,Power & Utilities,Power Grid Corporation,SECTOR,COMPANY,Power & Utilities contains Power Grid Corporation,CONTAINS
+128,337,Power & Utilities,Tata Power,SECTOR,COMPANY,Power & Utilities contains Tata Power,CONTAINS
+128,338,Power & Utilities,Adani Power,SECTOR,COMPANY,Power & Utilities contains Adani Power,CONTAINS
+128,339,Power & Utilities,Adani Green Energy,SECTOR,COMPANY,Power & Utilities contains Adani Green Energy,CONTAINS
+128,340,Power & Utilities,JSW Energy,SECTOR,COMPANY,Power & Utilities contains JSW Energy,CONTAINS
+128,341,Power & Utilities,Torrent Power,SECTOR,COMPANY,Power & Utilities contains Torrent Power,CONTAINS
+128,342,Power & Utilities,NHPC,SECTOR,COMPANY,Power & Utilities contains NHPC,CONTAINS
+128,343,Power & Utilities,Indian Energy Exchange,SECTOR,COMPANY,Power & Utilities contains Indian Energy Exchange,CONTAINS
+128,344,Power & Utilities,Suzlon Energy,SECTOR,COMPANY,Power & Utilities contains Suzlon Energy,CONTAINS
+128,345,Power & Utilities,Inox Wind,SECTOR,COMPANY,Power & Utilities contains Inox Wind,CONTAINS
+128,346,Power & Utilities,KPI Green Energy,SECTOR,COMPANY,Power & Utilities contains KPI Green Energy,CONTAINS
+128,347,Power & Utilities,Waaree Energies,SECTOR,COMPANY,Power & Utilities contains Waaree Energies,CONTAINS
+128,348,Power & Utilities,Premier Energies,SECTOR,COMPANY,Power & Utilities contains Premier Energies,CONTAINS
+128,349,Power & Utilities,Exide Industries,SECTOR,COMPANY,Power & Utilities contains Exide Industries,CONTAINS
+128,350,Power & Utilities,Amara Raja Energy & Mobility,SECTOR,COMPANY,Power & Utilities contains Amara Raja Energy & Mobility,CONTAINS
+128,351,Power & Utilities,Servotech Renewable Power,SECTOR,COMPANY,Power & Utilities contains Servotech Renewable Power,CONTAINS
+129,277,Telecom & Connectivity,Bharti Airtel,SECTOR,COMPANY,Telecom & Connectivity contains Bharti Airtel,CONTAINS
+129,278,Telecom & Connectivity,Tata Communications,SECTOR,COMPANY,Telecom & Connectivity contains Tata Communications,CONTAINS
+129,281,Telecom & Connectivity,RailTel Corporation,SECTOR,COMPANY,Telecom & Connectivity contains RailTel Corporation,CONTAINS
+129,316,Telecom & Connectivity,Sterlite Technologies,SECTOR,COMPANY,Telecom & Connectivity contains Sterlite Technologies,CONTAINS
+129,317,Telecom & Connectivity,HFCL,SECTOR,COMPANY,Telecom & Connectivity contains HFCL,CONTAINS
+129,318,Telecom & Connectivity,Tejas Networks,SECTOR,COMPANY,Telecom & Connectivity contains Tejas Networks,CONTAINS
+129,319,Telecom & Connectivity,Indus Towers,SECTOR,COMPANY,Telecom & Connectivity contains Indus Towers,CONTAINS
+130,279,Real Estate & REITs,Anant Raj,SECTOR,COMPANY,Real Estate & REITs contains Anant Raj,CONTAINS
+130,280,Real Estate & REITs,Macrotech Developers,SECTOR,COMPANY,Real Estate & REITs contains Macrotech Developers,CONTAINS
+130,282,Real Estate & REITs,DLF,SECTOR,COMPANY,Real Estate & REITs contains DLF,CONTAINS
+130,283,Real Estate & REITs,Embassy Office Parks REIT,SECTOR,COMPANY,Real Estate & REITs contains Embassy Office Parks REIT,CONTAINS
+130,284,Real Estate & REITs,Mindspace Business Parks REIT,SECTOR,COMPANY,Real Estate & REITs contains Mindspace Business Parks REIT,CONTAINS
+130,285,Real Estate & REITs,Brigade Enterprises,SECTOR,COMPANY,Real Estate & REITs contains Brigade Enterprises,CONTAINS
+131,240,Banks & NBFCs,Bajaj Finance,SECTOR,COMPANY,Banks & NBFCs contains Bajaj Finance,CONTAINS
+131,241,Banks & NBFCs,Cholamandalam Investment,SECTOR,COMPANY,Banks & NBFCs contains Cholamandalam Investment,CONTAINS
+131,242,Banks & NBFCs,Shriram Finance,SECTOR,COMPANY,Banks & NBFCs contains Shriram Finance,CONTAINS
+131,243,Banks & NBFCs,Muthoot Finance,SECTOR,COMPANY,Banks & NBFCs contains Muthoot Finance,CONTAINS
+131,244,Banks & NBFCs,Manappuram Finance,SECTOR,COMPANY,Banks & NBFCs contains Manappuram Finance,CONTAINS
+131,245,Banks & NBFCs,HDFC Bank,SECTOR,COMPANY,Banks & NBFCs contains HDFC Bank,CONTAINS
+131,246,Banks & NBFCs,State Bank of India,SECTOR,COMPANY,Banks & NBFCs contains State Bank of India,CONTAINS
+131,247,Banks & NBFCs,AU Small Finance Bank,SECTOR,COMPANY,Banks & NBFCs contains AU Small Finance Bank,CONTAINS
+131,248,Banks & NBFCs,Federal Bank,SECTOR,COMPANY,Banks & NBFCs contains Federal Bank,CONTAINS
+131,249,Banks & NBFCs,South Indian Bank,SECTOR,COMPANY,Banks & NBFCs contains South Indian Bank,CONTAINS
+131,250,Banks & NBFCs,CSB Bank,SECTOR,COMPANY,Banks & NBFCs contains CSB Bank,CONTAINS
+131,251,Banks & NBFCs,Dhanlaxmi Bank,SECTOR,COMPANY,Banks & NBFCs contains Dhanlaxmi Bank,CONTAINS
+131,252,Banks & NBFCs,GIC Re,SECTOR,COMPANY,Banks & NBFCs contains GIC Re,CONTAINS
+131,253,Banks & NBFCs,New India Assurance,SECTOR,COMPANY,Banks & NBFCs contains New India Assurance,CONTAINS
+131,254,Banks & NBFCs,ICICI Lombard,SECTOR,COMPANY,Banks & NBFCs contains ICICI Lombard,CONTAINS
+131,352,Banks & NBFCs,Power Finance Corporation,SECTOR,COMPANY,Banks & NBFCs contains Power Finance Corporation,CONTAINS
+131,353,Banks & NBFCs,REC Ltd,SECTOR,COMPANY,Banks & NBFCs contains REC Ltd,CONTAINS
+131,354,Banks & NBFCs,IREDA,SECTOR,COMPANY,Banks & NBFCs contains IREDA,CONTAINS
+132,255,IT Services,Tata Consultancy Services,SECTOR,COMPANY,IT Services contains Tata Consultancy Services,CONTAINS
+132,256,IT Services,Infosys,SECTOR,COMPANY,IT Services contains Infosys,CONTAINS
+132,257,IT Services,HCL Technologies,SECTOR,COMPANY,IT Services contains HCL Technologies,CONTAINS
+132,258,IT Services,Wipro,SECTOR,COMPANY,IT Services contains Wipro,CONTAINS
+132,259,IT Services,LTIMindtree,SECTOR,COMPANY,IT Services contains LTIMindtree,CONTAINS
+132,260,IT Services,Persistent Systems,SECTOR,COMPANY,IT Services contains Persistent Systems,CONTAINS
+132,261,IT Services,Coforge,SECTOR,COMPANY,IT Services contains Coforge,CONTAINS
+132,262,IT Services,Quick Heal Technologies,SECTOR,COMPANY,IT Services contains Quick Heal Technologies,CONTAINS
+132,357,IT Services,TeamLease Services,SECTOR,COMPANY,IT Services contains TeamLease Services,CONTAINS
+132,358,IT Services,Quess Corp,SECTOR,COMPANY,IT Services contains Quess Corp,CONTAINS
+133,267,Defence,Hindustan Aeronautics,SECTOR,COMPANY,Defence contains Hindustan Aeronautics,CONTAINS
+133,268,Defence,Bharat Electronics,SECTOR,COMPANY,Defence contains Bharat Electronics,CONTAINS
+133,269,Defence,Bharat Dynamics,SECTOR,COMPANY,Defence contains Bharat Dynamics,CONTAINS
+133,270,Defence,Solar Industries,SECTOR,COMPANY,Defence contains Solar Industries,CONTAINS
+133,271,Defence,Cochin Shipyard,SECTOR,COMPANY,Defence contains Cochin Shipyard,CONTAINS
+133,272,Defence,Mazagon Dock,SECTOR,COMPANY,Defence contains Mazagon Dock,CONTAINS
+133,273,Defence,Garden Reach Shipbuilders,SECTOR,COMPANY,Defence contains Garden Reach Shipbuilders,CONTAINS
+133,274,Defence,Data Patterns,SECTOR,COMPANY,Defence contains Data Patterns,CONTAINS
+133,275,Defence,Astra Microwave,SECTOR,COMPANY,Defence contains Astra Microwave,CONTAINS
+134,227,Metals & Mining,Hindalco,SECTOR,COMPANY,Metals & Mining contains Hindalco,CONTAINS
+134,228,Metals & Mining,National Aluminium,SECTOR,COMPANY,Metals & Mining contains National Aluminium,CONTAINS
+134,229,Metals & Mining,Vedanta,SECTOR,COMPANY,Metals & Mining contains Vedanta,CONTAINS
+134,230,Metals & Mining,JSW Steel,SECTOR,COMPANY,Metals & Mining contains JSW Steel,CONTAINS
+134,231,Metals & Mining,Tata Steel,SECTOR,COMPANY,Metals & Mining contains Tata Steel,CONTAINS
+134,232,Metals & Mining,Hindustan Copper,SECTOR,COMPANY,Metals & Mining contains Hindustan Copper,CONTAINS
+135,223,Cement,UltraTech Cement,SECTOR,COMPANY,Cement contains UltraTech Cement,CONTAINS
+135,224,Cement,Ambuja Cements,SECTOR,COMPANY,Cement contains Ambuja Cements,CONTAINS
+135,225,Cement,Shree Cement,SECTOR,COMPANY,Cement contains Shree Cement,CONTAINS
+135,226,Cement,Dalmia Bharat,SECTOR,COMPANY,Cement contains Dalmia Bharat,CONTAINS
+136,233,Automobiles,Maruti Suzuki,SECTOR,COMPANY,Automobiles contains Maruti Suzuki,CONTAINS
+136,234,Automobiles,Hero MotoCorp,SECTOR,COMPANY,Automobiles contains Hero MotoCorp,CONTAINS
+136,235,Automobiles,Bajaj Auto,SECTOR,COMPANY,Automobiles contains Bajaj Auto,CONTAINS
+136,236,Automobiles,TVS Motor,SECTOR,COMPANY,Automobiles contains TVS Motor,CONTAINS
+136,237,Automobiles,Tata Motors,SECTOR,COMPANY,Automobiles contains Tata Motors,CONTAINS
+136,238,Automobiles,Mahindra & Mahindra,SECTOR,COMPANY,Automobiles contains Mahindra & Mahindra,CONTAINS
+136,239,Automobiles,Olectra Greentech,SECTOR,COMPANY,Automobiles contains Olectra Greentech,CONTAINS
+137,212,FMCG,Balrampur Chini,SECTOR,COMPANY,FMCG contains Balrampur Chini,CONTAINS
+137,213,FMCG,Triveni Engineering,SECTOR,COMPANY,FMCG contains Triveni Engineering,CONTAINS
+137,214,FMCG,Shree Renuka Sugars,SECTOR,COMPANY,FMCG contains Shree Renuka Sugars,CONTAINS
+137,216,FMCG,Hindustan Unilever,SECTOR,COMPANY,FMCG contains Hindustan Unilever,CONTAINS
+137,217,FMCG,Marico,SECTOR,COMPANY,FMCG contains Marico,CONTAINS
+137,218,FMCG,Godrej Consumer,SECTOR,COMPANY,FMCG contains Godrej Consumer,CONTAINS
+137,219,FMCG,Dabur India,SECTOR,COMPANY,FMCG contains Dabur India,CONTAINS
+137,220,FMCG,Jyothy Labs,SECTOR,COMPANY,FMCG contains Jyothy Labs,CONTAINS
+137,263,FMCG,Sun Pharmaceutical,SECTOR,COMPANY,FMCG contains Sun Pharmaceutical,CONTAINS
+137,264,FMCG,Dr Reddy's Laboratories,SECTOR,COMPANY,FMCG contains Dr Reddy's Laboratories,CONTAINS
+137,265,FMCG,Cipla,SECTOR,COMPANY,FMCG contains Cipla,CONTAINS
+137,266,FMCG,Divi's Laboratories,SECTOR,COMPANY,FMCG contains Divi's Laboratories,CONTAINS
+138,327,EPC & Infrastructure,Larsen & Toubro,SECTOR,COMPANY,EPC & Infrastructure contains Larsen & Toubro,CONTAINS
+138,328,EPC & Infrastructure,Techno Electric & Engineering,SECTOR,COMPANY,EPC & Infrastructure contains Techno Electric & Engineering,CONTAINS
+138,329,EPC & Infrastructure,Kalpataru Projects,SECTOR,COMPANY,EPC & Infrastructure contains Kalpataru Projects,CONTAINS
+138,330,EPC & Infrastructure,KEC International,SECTOR,COMPANY,EPC & Infrastructure contains KEC International,CONTAINS
+138,331,EPC & Infrastructure,Ahluwalia Contracts,SECTOR,COMPANY,EPC & Infrastructure contains Ahluwalia Contracts,CONTAINS
+138,332,EPC & Infrastructure,PSP Projects,SECTOR,COMPANY,EPC & Infrastructure contains PSP Projects,CONTAINS
+138,333,EPC & Infrastructure,Afcons Infrastructure,SECTOR,COMPANY,EPC & Infrastructure contains Afcons Infrastructure,CONTAINS
+139,355,Water & Environment,VA Tech Wabag,SECTOR,COMPANY,Water & Environment contains VA Tech Wabag,CONTAINS
+139,356,Water & Environment,Ion Exchange India,SECTOR,COMPANY,Water & Environment contains Ion Exchange India,CONTAINS
+140,24,Oil & Natural Gas Corp,Crude oil,COMPANY,RAW_MATERIAL,Oil & Natural Gas Corp produces Crude oil,PRODUCES
+140,12,Oil & Natural Gas Corp,Brent crude price,COMPANY,MACRO_VAR,Oil & Natural Gas Corp benefits from Brent crude price,BENEFITS_FROM
+140,93,Oil & Natural Gas Corp,Windfall tax / SAED on upstream,COMPANY,POLICY,Oil & Natural Gas Corp hurt by Windfall tax / SAED on upstream,HURT_BY
+140,145,Oil & Natural Gas Corp,Hindustan Petroleum,COMPANY,COMPANY,Oil & Natural Gas Corp owns Hindustan Petroleum,OWNS
+140,146,Oil & Natural Gas Corp,Mangalore Refinery,COMPANY,COMPANY,Oil & Natural Gas Corp owns Mangalore Refinery,OWNS
+141,12,Oil India,Brent crude price,COMPANY,MACRO_VAR,Oil India benefits from Brent crude price,BENEFITS_FROM
+142,0,GAIL (India),Strait of Hormuz disruption,COMPANY,EVENT,GAIL (India) hedges Strait of Hormuz disruption,HEDGES
+143,15,Indian Oil,Gross refining margin,COMPANY,MACRO_VAR,Indian Oil benefits from Gross refining margin,BENEFITS_FROM
+143,14,Indian Oil,Saudi LPG contract price,COMPANY,MACRO_VAR,Indian Oil hurt by Saudi LPG contract price,HURT_BY
+143,24,Indian Oil,Crude oil,COMPANY,RAW_MATERIAL,Indian Oil needs Crude oil,NEEDS
+143,91,Indian Oil,Administered LPG pricing,COMPANY,POLICY,Indian Oil regulated by Administered LPG pricing,REGULATED_BY
+144,14,Bharat Petroleum,Saudi LPG contract price,COMPANY,MACRO_VAR,Bharat Petroleum hurt by Saudi LPG contract price,HURT_BY
+145,14,Hindustan Petroleum,Saudi LPG contract price,COMPANY,MACRO_VAR,Hindustan Petroleum hurt by Saudi LPG contract price,HURT_BY
+146,15,Mangalore Refinery,Gross refining margin,COMPANY,MACRO_VAR,Mangalore Refinery benefits from Gross refining margin,BENEFITS_FROM
+146,0,Mangalore Refinery,Strait of Hormuz disruption,COMPANY,EVENT,Mangalore Refinery hurt by Strait of Hormuz disruption,HURT_BY
+147,15,Chennai Petroleum,Gross refining margin,COMPANY,MACRO_VAR,Chennai Petroleum benefits from Gross refining margin,BENEFITS_FROM
+148,1,Reliance Industries,India AI infrastructure capex cycle,COMPANY,EVENT,Reliance Industries benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+148,106,Reliance Industries,Reliance Jamnagar AI campus,COMPANY,ASSET,Reliance Industries owns Reliance Jamnagar AI campus,OWNS
+148,0,Reliance Industries,Strait of Hormuz disruption,COMPANY,EVENT,Reliance Industries hedges Strait of Hormuz disruption,HEDGES
+149,0,Petronet LNG,Strait of Hormuz disruption,COMPANY,EVENT,Petronet LNG hurt by Strait of Hormuz disruption,HURT_BY
+151,12,Indraprastha Gas,Brent crude price,COMPANY,MACRO_VAR,Indraprastha Gas benefits from Brent crude price,BENEFITS_FROM
+151,13,Indraprastha Gas,Spot LNG / JKM,COMPANY,MACRO_VAR,Indraprastha Gas hurt by Spot LNG / JKM,HURT_BY
+152,13,Mahanagar Gas,Spot LNG / JKM,COMPANY,MACRO_VAR,Mahanagar Gas hurt by Spot LNG / JKM,HURT_BY
+153,13,Gujarat Gas,Spot LNG / JKM,COMPANY,MACRO_VAR,Gujarat Gas hurt by Spot LNG / JKM,HURT_BY
+153,95,Gujarat Gas,Natural Gas Control Order (rationing),COMPANY,POLICY,Gujarat Gas regulated by Natural Gas Control Order (rationing),REGULATED_BY
+156,16,Great Eastern Shipping,Tanker freight rates,COMPANY,MACRO_VAR,Great Eastern Shipping benefits from Tanker freight rates,BENEFITS_FROM
+156,17,Great Eastern Shipping,Marine war-risk premium,COMPANY,MACRO_VAR,Great Eastern Shipping hurt by Marine war-risk premium,HURT_BY
+157,16,Shipping Corporation of India,Tanker freight rates,COMPANY,MACRO_VAR,Shipping Corporation of India benefits from Tanker freight rates,BENEFITS_FROM
+159,1,Adani Ports & SEZ,India AI infrastructure capex cycle,COMPANY,EVENT,Adani Ports & SEZ benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+159,0,Adani Ports & SEZ,Strait of Hormuz disruption,COMPANY,EVENT,Adani Ports & SEZ hurt by Strait of Hormuz disruption,HURT_BY
+161,16,Container Corp of India,Tanker freight rates,COMPANY,MACRO_VAR,Container Corp of India hurt by Tanker freight rates,HURT_BY
+163,12,Transport Corp of India,Brent crude price,COMPANY,MACRO_VAR,Transport Corp of India hurt by Brent crude price,HURT_BY
+164,1,InterGlobe Aviation,India AI infrastructure capex cycle,COMPANY,EVENT,InterGlobe Aviation benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+164,12,InterGlobe Aviation,Brent crude price,COMPANY,MACRO_VAR,InterGlobe Aviation hurt by Brent crude price,HURT_BY
+164,18,InterGlobe Aviation,USD/INR,COMPANY,MACRO_VAR,InterGlobe Aviation hurt by USD/INR,HURT_BY
+164,57,InterGlobe Aviation,Aviation turbine fuel,COMPANY,PRODUCT,InterGlobe Aviation needs Aviation turbine fuel,NEEDS
+165,12,SpiceJet,Brent crude price,COMPANY,MACRO_VAR,SpiceJet hurt by Brent crude price,HURT_BY
+166,12,Asian Paints,Brent crude price,COMPANY,MACRO_VAR,Asian Paints hurt by Brent crude price,HURT_BY
+167,12,Berger Paints,Brent crude price,COMPANY,MACRO_VAR,Berger Paints hurt by Brent crude price,HURT_BY
+169,12,Indigo Paints,Brent crude price,COMPANY,MACRO_VAR,Indigo Paints hurt by Brent crude price,HURT_BY
+171,43,Pidilite Industries,Vinyl acetate monomer,COMPANY,RAW_MATERIAL,Pidilite Industries hurt by Vinyl acetate monomer,HURT_BY
+173,12,MRF,Brent crude price,COMPANY,MACRO_VAR,MRF hurt by Brent crude price,HURT_BY
+177,18,Balkrishna Industries,USD/INR,COMPANY,MACRO_VAR,Balkrishna Industries hedges USD/INR,HEDGES
+178,12,PCBL,Brent crude price,COMPANY,MACRO_VAR,PCBL hurt by Brent crude price,HURT_BY
+180,41,Supreme Industries,PVC resin,COMPANY,RAW_MATERIAL,Supreme Industries hurt by PVC resin,HURT_BY
+182,41,Finolex Industries,PVC resin,COMPANY,RAW_MATERIAL,Finolex Industries hedges PVC resin,HEDGES
+184,42,Polyplex,PTA/MEG,COMPANY,RAW_MATERIAL,Polyplex hurt by PTA/MEG,HURT_BY
+187,40,EPL Ltd,HDPE/LLDPE/PP resin,COMPANY,RAW_MATERIAL,EPL Ltd hurt by HDPE/LLDPE/PP resin,HURT_BY
+189,12,SRF,Brent crude price,COMPANY,MACRO_VAR,SRF hurt by Brent crude price,HURT_BY
+189,73,SRF,Chiller,COMPANY,PRODUCT,SRF supplies to Chiller,SUPPLIES_TO
+191,73,Gujarat Fluorochemicals,Chiller,COMPANY,PRODUCT,Gujarat Fluorochemicals supplies to Chiller,SUPPLIES_TO
+192,31,Aarti Industries,Benzene,COMPANY,RAW_MATERIAL,Aarti Industries hurt by Benzene,HURT_BY
+193,31,Deepak Nitrite,Benzene,COMPANY,RAW_MATERIAL,Deepak Nitrite hurt by Benzene,HURT_BY
+196,13,Tata Chemicals,Spot LNG / JKM,COMPANY,MACRO_VAR,Tata Chemicals hurt by Spot LNG / JKM,HURT_BY
+197,13,GHCL,Spot LNG / JKM,COMPANY,MACRO_VAR,GHCL hurt by Spot LNG / JKM,HURT_BY
+199,13,Chambal Fertilisers,Spot LNG / JKM,COMPANY,MACRO_VAR,Chambal Fertilisers hurt by Spot LNG / JKM,HURT_BY
+199,96,Chambal Fertilisers,Nutrient Based Subsidy,COMPANY,POLICY,Chambal Fertilisers regulated by Nutrient Based Subsidy,REGULATED_BY
+200,0,Coromandel International,Strait of Hormuz disruption,COMPANY,EVENT,Coromandel International hurt by Strait of Hormuz disruption,HURT_BY
+200,23,Coromandel International,Fertiliser and LPG subsidy bill,COMPANY,MACRO_VAR,Coromandel International hurt by Fertiliser and LPG subsidy bill,HURT_BY
+205,49,Deepak Fertilisers,Ammonia,COMPANY,RAW_MATERIAL,Deepak Fertilisers hedges Ammonia,HEDGES
+206,48,Paradeep Phosphates,Sulphur,COMPANY,RAW_MATERIAL,Paradeep Phosphates hurt by Sulphur,HURT_BY
+211,13,Coal India,Spot LNG / JKM,COMPANY,MACRO_VAR,Coal India benefits from Spot LNG / JKM,BENEFITS_FROM
+211,79,Coal India,Power availability,COMPANY,CONSTRAINT,Coal India benefits from Power availability,BENEFITS_FROM
+212,12,Balrampur Chini,Brent crude price,COMPANY,MACRO_VAR,Balrampur Chini benefits from Brent crude price,BENEFITS_FROM
+215,0,Praj Industries,Strait of Hormuz disruption,COMPANY,EVENT,Praj Industries benefits from Strait of Hormuz disruption,BENEFITS_FROM
+216,12,Hindustan Unilever,Brent crude price,COMPANY,MACRO_VAR,Hindustan Unilever hurt by Brent crude price,HURT_BY
+217,46,Marico,Liquid light paraffin,COMPANY,RAW_MATERIAL,Marico hurt by Liquid light paraffin,HURT_BY
+221,34,Castrol India,Base oil,COMPANY,RAW_MATERIAL,Castrol India hurt by Base oil,HURT_BY
+222,34,Gulf Oil Lubricants,Base oil,COMPANY,RAW_MATERIAL,Gulf Oil Lubricants hurt by Base oil,HURT_BY
+223,12,UltraTech Cement,Brent crude price,COMPANY,MACRO_VAR,UltraTech Cement hurt by Brent crude price,HURT_BY
+223,67,UltraTech Cement,Data centre capacity (MW IT load),COMPANY,PRODUCT,UltraTech Cement supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+227,12,Hindalco,Brent crude price,COMPANY,MACRO_VAR,Hindalco hurt by Brent crude price,HURT_BY
+227,68,Hindalco,Power transformer,COMPANY,PRODUCT,Hindalco supplies to Power transformer,SUPPLIES_TO
+228,12,National Aluminium,Brent crude price,COMPANY,MACRO_VAR,National Aluminium hedges Brent crude price,HEDGES
+228,52,National Aluminium,Aluminium,COMPANY,RAW_MATERIAL,National Aluminium supplies to Aluminium,SUPPLIES_TO
+230,67,JSW Steel,Data centre capacity (MW IT load),COMPANY,PRODUCT,JSW Steel supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+232,51,Hindustan Copper,Copper,COMPANY,RAW_MATERIAL,Hindustan Copper supplies to Copper,SUPPLIES_TO
+233,12,Maruti Suzuki,Brent crude price,COMPANY,MACRO_VAR,Maruti Suzuki hurt by Brent crude price,HURT_BY
+234,12,Hero MotoCorp,Brent crude price,COMPANY,MACRO_VAR,Hero MotoCorp hurt by Brent crude price,HURT_BY
+237,12,Tata Motors,Brent crude price,COMPANY,MACRO_VAR,Tata Motors benefits from Brent crude price,BENEFITS_FROM
+238,22,Mahindra & Mahindra,Global urea/DAP/sulphur price,COMPANY,MACRO_VAR,Mahindra & Mahindra hurt by Global urea/DAP/sulphur price,HURT_BY
+239,12,Olectra Greentech,Brent crude price,COMPANY,MACRO_VAR,Olectra Greentech benefits from Brent crude price,BENEFITS_FROM
+240,21,Bajaj Finance,RBI policy rate,COMPANY,MACRO_VAR,Bajaj Finance hurt by RBI policy rate,HURT_BY
+241,12,Cholamandalam Investment,Brent crude price,COMPANY,MACRO_VAR,Cholamandalam Investment hurt by Brent crude price,HURT_BY
+242,12,Shriram Finance,Brent crude price,COMPANY,MACRO_VAR,Shriram Finance hurt by Brent crude price,HURT_BY
+243,0,Muthoot Finance,Strait of Hormuz disruption,COMPANY,EVENT,Muthoot Finance benefits from Strait of Hormuz disruption,BENEFITS_FROM
+244,0,Manappuram Finance,Strait of Hormuz disruption,COMPANY,EVENT,Manappuram Finance benefits from Strait of Hormuz disruption,BENEFITS_FROM
+246,1,State Bank of India,India AI infrastructure capex cycle,COMPANY,EVENT,State Bank of India benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+248,18,Federal Bank,USD/INR,COMPANY,MACRO_VAR,Federal Bank benefits from USD/INR,BENEFITS_FROM
+248,0,Federal Bank,Strait of Hormuz disruption,COMPANY,EVENT,Federal Bank hedges Strait of Hormuz disruption,HEDGES
+249,18,South Indian Bank,USD/INR,COMPANY,MACRO_VAR,South Indian Bank benefits from USD/INR,BENEFITS_FROM
+250,0,CSB Bank,Strait of Hormuz disruption,COMPANY,EVENT,CSB Bank hurt by Strait of Hormuz disruption,HURT_BY
+252,17,GIC Re,Marine war-risk premium,COMPANY,MACRO_VAR,GIC Re hedges Marine war-risk premium,HEDGES
+253,17,New India Assurance,Marine war-risk premium,COMPANY,MACRO_VAR,New India Assurance benefits from Marine war-risk premium,BENEFITS_FROM
+255,18,Tata Consultancy Services,USD/INR,COMPANY,MACRO_VAR,Tata Consultancy Services benefits from USD/INR,BENEFITS_FROM
+255,88,Tata Consultancy Services,Generative AI,COMPANY,TECHNOLOGY,Tata Consultancy Services hedges Generative AI,HEDGES
+256,18,Infosys,USD/INR,COMPANY,MACRO_VAR,Infosys benefits from USD/INR,BENEFITS_FROM
+256,88,Infosys,Generative AI,COMPANY,TECHNOLOGY,Infosys hedges Generative AI,HEDGES
+262,97,Quick Heal Technologies,21-year DC tax holiday to 2047,COMPANY,POLICY,Quick Heal Technologies benefits from 21-year DC tax holiday to 2047,BENEFITS_FROM
+263,18,Sun Pharmaceutical,USD/INR,COMPANY,MACRO_VAR,Sun Pharmaceutical benefits from USD/INR,BENEFITS_FROM
+266,12,Divi's Laboratories,Brent crude price,COMPANY,MACRO_VAR,Divi's Laboratories hurt by Brent crude price,HURT_BY
+268,0,Bharat Electronics,Strait of Hormuz disruption,COMPANY,EVENT,Bharat Electronics benefits from Strait of Hormuz disruption,BENEFITS_FROM
+270,0,Solar Industries,Strait of Hormuz disruption,COMPANY,EVENT,Solar Industries benefits from Strait of Hormuz disruption,BENEFITS_FROM
+271,0,Cochin Shipyard,Strait of Hormuz disruption,COMPANY,EVENT,Cochin Shipyard benefits from Strait of Hormuz disruption,BENEFITS_FROM
+276,1,Adani Enterprises,India AI infrastructure capex cycle,COMPANY,EVENT,Adani Enterprises benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+276,108,Adani Enterprises,AdaniConneX,COMPANY,PRIVATE_CO,Adani Enterprises jv with AdaniConneX,JV_WITH
+277,111,Bharti Airtel,Nxtra by Airtel,COMPANY,PRIVATE_CO,Bharti Airtel owns Nxtra by Airtel,OWNS
+278,1,Tata Communications,India AI infrastructure capex cycle,COMPANY,EVENT,Tata Communications benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+278,101,Tata Communications,"Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)",COMPANY,CUSTOMER,"Tata Communications supplies to Hyperscalers (Google, Meta, MSFT, AWS, OpenAI)",SUPPLIES_TO
+279,1,Anant Raj,India AI infrastructure capex cycle,COMPANY,EVENT,Anant Raj benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+279,86,Anant Raj,Infra-ready land,COMPANY,CONSTRAINT,Anant Raj benefits from Infra-ready land,BENEFITS_FROM
+280,86,Macrotech Developers,Infra-ready land,COMPANY,CONSTRAINT,Macrotech Developers benefits from Infra-ready land,BENEFITS_FROM
+283,103,Embassy Office Parks REIT,Global Capability Centres,COMPANY,CUSTOMER,Embassy Office Parks REIT benefits from Global Capability Centres,BENEFITS_FROM
+286,67,ABB India,Data centre capacity (MW IT load),COMPANY,PRODUCT,ABB India supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+287,67,Siemens India,Data centre capacity (MW IT load),COMPANY,PRODUCT,Siemens India supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+288,67,Siemens Energy India,Data centre capacity (MW IT load),COMPANY,PRODUCT,Siemens Energy India supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+289,67,Hitachi Energy India,Data centre capacity (MW IT load),COMPANY,PRODUCT,Hitachi Energy India supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+290,67,GE Vernova T&D India,Data centre capacity (MW IT load),COMPANY,PRODUCT,GE Vernova T&D India supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+291,67,Schneider Electric Infrastructure,Data centre capacity (MW IT load),COMPANY,PRODUCT,Schneider Electric Infrastructure supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+292,100,CG Power & Industrial Solutions,India Semiconductor Mission / OSAT,COMPANY,POLICY,CG Power & Industrial Solutions benefits from India Semiconductor Mission / OSAT,BENEFITS_FROM
+292,67,CG Power & Industrial Solutions,Data centre capacity (MW IT load),COMPANY,PRODUCT,CG Power & Industrial Solutions supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+293,85,Voltamp Transformers,CRGO electrical steel imports,COMPANY,CONSTRAINT,Voltamp Transformers constrained by CRGO electrical steel imports,CONSTRAINED_BY
+293,67,Voltamp Transformers,Data centre capacity (MW IT load),COMPANY,PRODUCT,Voltamp Transformers supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+294,85,Transformers & Rectifiers India,CRGO electrical steel imports,COMPANY,CONSTRAINT,Transformers & Rectifiers India constrained by CRGO electrical steel imports,CONSTRAINED_BY
+294,67,Transformers & Rectifiers India,Data centre capacity (MW IT load),COMPANY,PRODUCT,Transformers & Rectifiers India supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+295,67,Shilchar Technologies,Data centre capacity (MW IT load),COMPANY,PRODUCT,Shilchar Technologies supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+296,67,Cummins India,Data centre capacity (MW IT load),COMPANY,PRODUCT,Cummins India supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+297,67,Kirloskar Oil Engines,Data centre capacity (MW IT load),COMPANY,PRODUCT,Kirloskar Oil Engines supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+298,70,HBL Engineering,UPS / DC power backup,COMPANY,PRODUCT,HBL Engineering supplies to UPS / DC power backup,SUPPLIES_TO
+299,68,Apar Industries,Power transformer,COMPANY,PRODUCT,Apar Industries supplies to Power transformer,SUPPLIES_TO
+302,67,Thermax,Data centre capacity (MW IT load),COMPANY,PRODUCT,Thermax supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+303,67,Blue Star,Data centre capacity (MW IT load),COMPANY,PRODUCT,Blue Star supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+304,4,Voltas,Gulf producers,COMPANY,GEOGRAPHY,Voltas exposed to orderbook Gulf producers,EXPOSED_TO_ORDERBOOK
+304,67,Voltas,Data centre capacity (MW IT load),COMPANY,PRODUCT,Voltas supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+305,291,KRN Heat Exchanger,Schneider Electric Infrastructure,COMPANY,COMPANY,KRN Heat Exchanger supplies to Schneider Electric Infrastructure,SUPPLIES_TO
+306,72,Amber Enterprises,Precision cooling / CDU,COMPANY,PRODUCT,Amber Enterprises supplies to Precision cooling / CDU,SUPPLIES_TO
+307,72,Johnson Controls-Hitachi AC India,Precision cooling / CDU,COMPANY,PRODUCT,Johnson Controls-Hitachi AC India supplies to Precision cooling / CDU,SUPPLIES_TO
+309,76,Netweb Technologies,AI server / GPU system,COMPANY,PRODUCT,Netweb Technologies produces AI server / GPU system,PRODUCES
+309,83,Netweb Technologies,GPU supply,COMPANY,CONSTRAINT,Netweb Technologies constrained by GPU supply,CONSTRAINED_BY
+309,102,Netweb Technologies,IndiaAI sovereign compute,COMPANY,CUSTOMER,Netweb Technologies supplies to IndiaAI sovereign compute,SUPPLIES_TO
+310,99,Dixon Technologies,IT hardware PLI,COMPANY,POLICY,Dixon Technologies benefits from IT hardware PLI,BENEFITS_FROM
+311,100,Kaynes Technology,India Semiconductor Mission / OSAT,COMPANY,POLICY,Kaynes Technology benefits from India Semiconductor Mission / OSAT,BENEFITS_FROM
+316,67,Sterlite Technologies,Data centre capacity (MW IT load),COMPANY,PRODUCT,Sterlite Technologies supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+317,75,HFCL,Optical fibre / interconnect,COMPANY,PRODUCT,HFCL supplies to Optical fibre / interconnect,SUPPLIES_TO
+318,67,Tejas Networks,Data centre capacity (MW IT load),COMPANY,PRODUCT,Tejas Networks supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+319,88,Indus Towers,Generative AI,COMPANY,TECHNOLOGY,Indus Towers benefits from Generative AI,BENEFITS_FROM
+320,67,Polycab India,Data centre capacity (MW IT load),COMPANY,PRODUCT,Polycab India supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+321,67,KEI Industries,Data centre capacity (MW IT load),COMPANY,PRODUCT,KEI Industries supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+324,68,Ram Ratna Wires,Power transformer,COMPANY,PRODUCT,Ram Ratna Wires supplies to Power transformer,SUPPLIES_TO
+325,68,Precision Wires India,Power transformer,COMPANY,PRODUCT,Precision Wires India supplies to Power transformer,SUPPLIES_TO
+326,80,Skipper,Transmission evacuation capacity,COMPANY,CONSTRAINT,Skipper supplies to Transmission evacuation capacity,SUPPLIES_TO
+327,0,Larsen & Toubro,Strait of Hormuz disruption,COMPANY,EVENT,Larsen & Toubro hedges Strait of Hormuz disruption,HEDGES
+327,4,Larsen & Toubro,Gulf producers,COMPANY,GEOGRAPHY,Larsen & Toubro exposed to orderbook Gulf producers,EXPOSED_TO_ORDERBOOK
+327,67,Larsen & Toubro,Data centre capacity (MW IT load),COMPANY,PRODUCT,Larsen & Toubro supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+328,1,Techno Electric & Engineering,India AI infrastructure capex cycle,COMPANY,EVENT,Techno Electric & Engineering benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+329,80,Kalpataru Projects,Transmission evacuation capacity,COMPANY,CONSTRAINT,Kalpataru Projects supplies to Transmission evacuation capacity,SUPPLIES_TO
+330,4,KEC International,Gulf producers,COMPANY,GEOGRAPHY,KEC International exposed to orderbook Gulf producers,EXPOSED_TO_ORDERBOOK
+330,80,KEC International,Transmission evacuation capacity,COMPANY,CONSTRAINT,KEC International supplies to Transmission evacuation capacity,SUPPLIES_TO
+334,13,NTPC,Spot LNG / JKM,COMPANY,MACRO_VAR,NTPC benefits from Spot LNG / JKM,BENEFITS_FROM
+335,109,NTPC Green Energy,CtrlS Datacenters,COMPANY,PRIVATE_CO,NTPC Green Energy supplies to CtrlS Datacenters,SUPPLIES_TO
+336,80,Power Grid Corporation,Transmission evacuation capacity,COMPANY,CONSTRAINT,Power Grid Corporation benefits from Transmission evacuation capacity,BENEFITS_FROM
+337,1,Tata Power,India AI infrastructure capex cycle,COMPANY,EVENT,Tata Power benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+339,1,Adani Green Energy,India AI infrastructure capex cycle,COMPANY,EVENT,Adani Green Energy benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+342,81,NHPC,Grid stability under volatile DC load ramps,COMPANY,CONSTRAINT,NHPC benefits from Grid stability under volatile DC load ramps,BENEFITS_FROM
+343,1,Indian Energy Exchange,India AI infrastructure capex cycle,COMPANY,EVENT,Indian Energy Exchange benefits from India AI infrastructure capex cycle,BENEFITS_FROM
+347,0,Waaree Energies,Strait of Hormuz disruption,COMPANY,EVENT,Waaree Energies benefits from Strait of Hormuz disruption,BENEFITS_FROM
+352,79,Power Finance Corporation,Power availability,COMPANY,CONSTRAINT,Power Finance Corporation benefits from Power availability,BENEFITS_FROM
+353,79,REC Ltd,Power availability,COMPANY,CONSTRAINT,REC Ltd benefits from Power availability,BENEFITS_FROM
+354,81,IREDA,Grid stability under volatile DC load ramps,COMPANY,CONSTRAINT,IREDA benefits from Grid stability under volatile DC load ramps,BENEFITS_FROM
+356,67,Ion Exchange India,Data centre capacity (MW IT load),COMPANY,PRODUCT,Ion Exchange India supplies to Data centre capacity (MW IT load),SUPPLIES_TO
+357,87,TeamLease Services,Liquid cooling / HV commissioning talent,COMPANY,CONSTRAINT,TeamLease Services benefits from Liquid cooling / HV commissioning talent,BENEFITS_FROM
+358,87,Quess Corp,Liquid cooling / HV commissioning talent,COMPANY,CONSTRAINT,Quess Corp benefits from Liquid cooling / HV commissioning talent,BENEFITS_FROM

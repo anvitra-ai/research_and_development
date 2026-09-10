@@ -1,0 +1,1201 @@
+text,label
+What is transit exposure of sulphur via UAE?,T_TransitRisk
+How does government intervention affect Telecom & Connectivity?,T_RegulatoryImpact
+Trace the path from Oman to Federal Bank via marine war-risk premium.,T_CausalChain
+Explain hedging strategy of InterGlobe Aviation for bond yields.,T_Hedging
+Name beneficiaries in Aviation from oil supply shock.,T_Beneficiary
+How does Gulf producers chokepoint impact Indian energy imports?,T_TransitRisk
+Stress test Shriram Finance for prolonged geopolitical escalation.,T_EventScenario
+How does oil supply shock affect Voltamp Transformers share price?,T_StockImpact
+What protects Cochin Shipyard margins from naphtha spikes?,T_Hedging
+Which regulations constrain NTPC margins?,T_RegulatoryImpact
+How does government intervention affect Shipping & Logistics?,T_RegulatoryImpact
+Who are the upside names if crude price rally persists?,T_Beneficiary
+List Indian winners from Gulf producers disruption.,T_Beneficiary
+Which policy levers matter for Federal Bank in Metals & Mining?,T_RegulatoryImpact
+What infrastructure constraints affect Shriram Finance?,T_ConstraintRisk
+Which peer has greater tanker freight rates exposure: Shriram Finance or GAIL?,T_CompareExposure
+Who funds Asian Paints expansion?,T_InvestmentFlow
+What commodities drive Bharat Petroleum cost base?,T_PriceLinkage
+How do LPG subsidy rules impact Cholamandalam Investment?,T_RegulatoryImpact
+What derivative hedges does Bajaj Finance run on fertiliser subsidy bill?,T_Hedging
+Downside scenario for Oil & Gas from tanker freight surge.,T_EventScenario
+How does spot LNG price flow into Refining valuations?,T_MacroTransmission
+Does Oil India hold stakes in other listed entities?,T_OwnershipStructure
+Downside scenario for Metals & Mining from LNG curtailment.,T_EventScenario
+How does a shock at Russia propagate to Larsen & Toubro?,T_CausalChain
+What capacity bottlenecks slow Chambal Fertilisers rollout?,T_ConstraintRisk
+Does Bharat Electronics hold stakes in other listed entities?,T_OwnershipStructure
+What happens to Federal Bank when marine war-risk premium rises?,T_MacroTransmission
+What if Red Sea disruption lasts six months?,T_EventScenario
+How does INR depreciation impact Great Eastern Shipping?,T_MacroTransmission
+Stress test Chambal Fertilisers for prolonged LPG import disruption.,T_EventScenario
+Who in Fertilisers is most exposed to Oman?,T_SectorExposure
+Which group entities sit under Adani Green Energy?,T_OwnershipStructure
+How does naphtha price impact Netweb Technologies?,T_PriceLinkage
+What if Red Sea closes completely?,T_EventScenario
+Does fertiliser subsidy bill weaken ONGC fundamentals?,T_MacroTransmission
+What protects SpiceJet margins from carbon black spikes?,T_Hedging
+Who benefits from higher USD/INR?,T_Beneficiary
+Run a bear case for Adani Ports under marine war-risk spike.,T_EventScenario
+Show ownership map for CSB Bank.,T_OwnershipStructure
+How does LNG curtailment disrupt base oil supply?,T_SupplyDisruption
+Explain the knock-on effect from Gulf producers to INR depreciation.,T_CausalChain
+How does oil supply shock disrupt sulphur supply?,T_SupplyDisruption
+Stress test GIC Re for prolonged geopolitical escalation.,T_EventScenario
+Break down Insurance sensitivity to Singapore GRM.,T_SectorExposure
+What if Russia disruption lasts six months?,T_EventScenario
+Scenario analysis for marine war-risk spike on Nifty energy.,T_EventScenario
+Who wins from marine war-risk spike in Indian markets?,T_Beneficiary
+Which insurers benefit from war-risk premium spike?,T_Beneficiary
+How does grid evacuation limit Asian Paints?,T_ConstraintRisk
+What is the price linkage between ammonia and Federal Bank?,T_PriceLinkage
+What is transit exposure of naphtha via Saudi Arabia?,T_TransitRisk
+Model escalation scenario for Cape of Good Hope.,T_EventScenario
+Which is more exposed: Adani Ports or Reliance Industries?,T_CompareExposure
+What procurement risk does tanker freight surge create for Larsen & Toubro?,T_SupplyDisruption
+Simulate de-escalation impact on India CPI.,T_EventScenario
+Why is Coal India moving on bond yields news?,T_StockImpact
+Quantify India's urea dependence on Cape of Good Hope.,T_TransitRisk
+Explain how Gulf producers disruption hits Coal India equity.,T_StockImpact
+Model escalation scenario for Gulf producers.,T_EventScenario
+How does grid evacuation limit Bharat Petroleum?,T_ConstraintRisk
+What is the transmission channel from refinery outage to Refining?,T_CausalChain
+Who is more hurt by Brent rally: Adani Green Energy or Tata Motors?,T_CompareExposure
+What links Oman closure to Aviation stocks?,T_CausalChain
+Benchmark Bharat Petroleum against peers on India CPI linkage.,T_CompareExposure
+What is the downside for State Bank of India from Strait of Hormuz closure?,T_StockImpact
+Who are the upside names if tanker freight surge persists?,T_Beneficiary
+Does Chambal Fertilisers have a natural offset to crude price rally?,T_Hedging
+What capital flows into Telecom & Connectivity from KKR?,T_InvestmentFlow
+Which global funds are buying into Shriram Finance?,T_InvestmentFlow
+Does Federal Bank offset current account deficit risk via FX hedges?,T_Hedging
+What is the causal chain from crude price rally to marine war-risk premium?,T_CausalChain
+Quantify India's LNG dependence on Russia.,T_TransitRisk
+Which refiners benefit from tanker freight rates widening?,T_Beneficiary
+Who benefits from higher marine war-risk premium?,T_Beneficiary
+What protects InterGlobe Aviation margins from LPG spikes?,T_Hedging
+"Between New India Assurance and ONGC, who faces more Hormuz disruption risk?",T_CompareExposure
+List stocks that gain from Russia rerouting.,T_Beneficiary
+What is the Shipping & Logistics peer set for Bharat Electronics?,T_SectorExposure
+How do subsidy revisions change Solar Industries outlook?,T_RegulatoryImpact
+What is transit exposure of PVC resin via Saudi Arabia?,T_TransitRisk
+Compare insurers vs banks on Hormuz risk.,T_CompareExposure
+Is Indian Oil regulated on sulphur pricing?,T_RegulatoryImpact
+What is the mechanism from crude price rally to bank stocks?,T_CausalChain
+Which sovereign funds invest in Indian Metals & Mining?,T_InvestmentFlow
+Does geopolitical escalation hurt Indian Oil investors?,T_StockImpact
+Can Adani Green Energy secure LNG if Cape of Good Hope closes?,T_SupplyDisruption
+Which peer has greater India CPI exposure: State Bank of India or GAIL?,T_CompareExposure
+What is the stock impact of LNG curtailment on Asian Paints?,T_StockImpact
+How do freight rates transmit to Cholamandalam Investment costs?,T_MacroTransmission
+Who invests in ICICI Lombard?,T_InvestmentFlow
+What derivative hedges does GAIL run on Singapore GRM?,T_Hedging
+Which physical constraints bind Power & Utilities growth?,T_ConstraintRisk
+Downside scenario for Insurance from geopolitical escalation.,T_EventScenario
+Is GAIL vulnerable to geopolitical escalation?,T_StockImpact
+Map corporate structure of Voltamp Transformers.,T_OwnershipStructure
+Who funds Muthoot Finance expansion?,T_InvestmentFlow
+Break down Power & Utilities sensitivity to marine war-risk premium.,T_SectorExposure
+What power availability risk hits Cochin Shipyard?,T_ConstraintRisk
+How does gross refining margin feed into Paints & Adhesives earnings?,T_CausalChain
+How do India CPI moves show up in Adani Green Energy P&L?,T_MacroTransmission
+How does a shock at Oman propagate to Chambal Fertilisers?,T_CausalChain
+What is the price linkage between aviation turbine fuel and Tata Power?,T_PriceLinkage
+How does Red Sea affect ammonia and then Bharat Petroleum?,T_CausalChain
+Which Power & Utilities stocks should I screen for Oman risk?,T_SectorExposure
+What is the price linkage between urea and NTPC?,T_PriceLinkage
+What supply chain risk does Qatar pose for ONGC?,T_SupplyDisruption
+Which Aviation stocks are in the Hormuz theme?,T_SectorExposure
+How does rerouting via Cape affect Federal Bank?,T_TransitRisk
+Which Metals & Mining stocks should I screen for Red Sea risk?,T_SectorExposure
+What if Russia closes completely?,T_EventScenario
+Give me Paints & Adhesives players affected by oil shock.,T_SectorExposure
+Walk through the causal links from crude oil to tanker freight rates.,T_CausalChain
+Explain how India disruption hits Bharat Electronics equity.,T_StockImpact
+How do bond yields moves show up in Bajaj Finance P&L?,T_MacroTransmission
+Does Hormuz disruption hurt Bharat Petroleum investors?,T_StockImpact
+What infrastructure constraints affect Infosys?,T_ConstraintRisk
+What intermediate nodes connect Hormuz disruption and Federal Bank?,T_CausalChain
+How is InterGlobe Aviation linked to tanker freight rates?,T_PriceLinkage
+Compare Hindustan Petroleum and Indian Oil exposure to oil supply shock.,T_CompareExposure
+What FII flows affect Larsen & Toubro?,T_InvestmentFlow
+Which companies are in Paints & Adhesives?,T_SectorExposure
+How does Hormuz disruption affect Oil India share price?,T_StockImpact
+What supply bottlenecks hit Metals & Mining from tanker freight surge?,T_SupplyDisruption
+What protects Hindustan Petroleum margins from LPG spikes?,T_Hedging
+What share of imports passes Gulf producers?,T_TransitRisk
+What happens if Brent hits $120 again?,T_EventScenario
+What is the mechanism from tanker freight surge to bank stocks?,T_CausalChain
+List subsidiaries under Hindustan Petroleum.,T_OwnershipStructure
+What happens to Shriram Finance when marine war-risk premium rises?,T_MacroTransmission
+Which supply bottlenecks hurt IT Services?,T_ConstraintRisk
+Which routes are affected if Saudi Arabia closes?,T_TransitRisk
+Which physical constraints bind Telecom & Connectivity growth?,T_ConstraintRisk
+Which peer has greater Singapore GRM exposure: Adani Ports or GAIL?,T_CompareExposure
+What supply chain risk does UAE pose for SpiceJet?,T_SupplyDisruption
+What happens to Shriram Finance when Singapore GRM rises?,T_MacroTransmission
+List subsidiaries under New India Assurance.,T_OwnershipStructure
+Does Bharat Petroleum offset RBI policy rate risk via FX hedges?,T_Hedging
+What derivative hedges does Netweb Technologies run on Brent crude price?,T_Hedging
+Which NBFCs sit in the impact chain for Coal India?,T_SectorExposure
+Which suppliers are disrupted by UAE tension?,T_SupplyDisruption
+Does CAD widening hurt Coal India?,T_MacroTransmission
+What if UAE disruption lasts six months?,T_EventScenario
+Does a weaker rupee help or hurt ONGC?,T_MacroTransmission
+What is the beta of Cochin Shipyard to marine war-risk premium?,T_PriceLinkage
+Where is Blackstone deploying capital in India?,T_InvestmentFlow
+How is Oil India linked to ONGC group?,T_OwnershipStructure
+Map corporate structure of Shriram Finance.,T_OwnershipStructure
+Does CAD widening hurt Coromandel International?,T_MacroTransmission
+Which sovereign funds invest in Indian Oil & Gas?,T_InvestmentFlow
+Does New India Assurance face feedstock shortage from Strait of Hormuz?,T_SupplyDisruption
+What land or water constraints affect Federal Bank?,T_ConstraintRisk
+Is Muthoot Finance realization tied to Brent?,T_PriceLinkage
+Which NBFC is more sensitive to Brent crude price?,T_CompareExposure
+What Banks & NBFCs names are linked to naphtha?,T_SectorExposure
+Does Federal Bank hedge LNG price volatility?,T_Hedging
+What happens to markets if marine war-risk premium doubles?,T_EventScenario
+What infrastructure constraints affect Adani Ports?,T_ConstraintRisk
+Does Power Grid Corporation face feedstock shortage from Russia?,T_SupplyDisruption
+How does grid evacuation limit ONGC?,T_ConstraintRisk
+How does LNG curtailment affect Adani Ports?,T_SupplyDisruption
+Give me Metals & Mining players affected by oil shock.,T_SectorExposure
+How does oil supply shock affect Tata Power share price?,T_StockImpact
+Which supply bottlenecks hurt Shipping & Logistics?,T_ConstraintRisk
+Which physical constraints bind IT Services growth?,T_ConstraintRisk
+Which policy levers matter for Asian Paints in IT Services?,T_RegulatoryImpact
+How does Strait of Hormuz closure lead to higher fertiliser subsidy bill?,T_CausalChain
+Show all Capital Goods names with India CPI linkage.,T_SectorExposure
+How do subsidy revisions change State Bank of India outlook?,T_RegulatoryImpact
+Who benefits from higher RBI policy rate?,T_Beneficiary
+How does naphtha price affect New India Assurance margins?,T_PriceLinkage
+What is the Defence peer set for Tata Motors?,T_SectorExposure
+Which physical constraints bind Fertilisers growth?,T_ConstraintRisk
+How does grid evacuation limit Hindustan Petroleum?,T_ConstraintRisk
+Compare InterGlobe Aviation and Indian Oil exposure to geopolitical escalation.,T_CompareExposure
+How does Brent crude price flow into Telecom & Connectivity valuations?,T_MacroTransmission
+"Between NTPC and ONGC, who faces more oil supply shock risk?",T_CompareExposure
+What percentage of LNG flows through Strait of Hormuz?,T_TransitRisk
+What intermediate nodes connect LPG import disruption and GAIL?,T_CausalChain
+What commodities drive Muthoot Finance cost base?,T_PriceLinkage
+Is Solar Industries pricing indexed to spot LNG price?,T_PriceLinkage
+How does excise duty change hit SpiceJet?,T_RegulatoryImpact
+Who is more hurt by Brent rally: Tata Power or Tata Motors?,T_CompareExposure
+Explain how Red Sea disruption hits Reliance Industries equity.,T_StockImpact
+What capacity bottlenecks slow ONGC rollout?,T_ConstraintRisk
+What is the downside for ICICI Lombard from oil supply shock?,T_StockImpact
+Who are the major backers of Indian Oil?,T_InvestmentFlow
+How does government intervention affect Metals & Mining?,T_RegulatoryImpact
+Does Adani Green Energy hedge PVC resin price volatility?,T_Hedging
+Which global funds are buying into New India Assurance?,T_InvestmentFlow
+Which regulations constrain Bajaj Finance margins?,T_RegulatoryImpact
+What subsidiaries does NTPC have?,T_OwnershipStructure
+Who are the upside names if geopolitical escalation persists?,T_Beneficiary
+Which regulations constrain GIC Re margins?,T_RegulatoryImpact
+How does New India Assurance manage India CPI sensitivity?,T_Hedging
+Rank Federal Bank versus sector peers on India risk.,T_CompareExposure
+Which refiners benefit from marine war-risk premium widening?,T_Beneficiary
+Which Power & Utilities stocks are in the Hormuz theme?,T_SectorExposure
+Why is CSB Bank moving on fertiliser subsidy bill news?,T_StockImpact
+What capacity bottlenecks slow Federal Bank rollout?,T_ConstraintRisk
+What policy tailwinds support Federal Bank?,T_RegulatoryImpact
+Enumerate Defence companies tied to LPG import disruption.,T_SectorExposure
+Who is the parent of Bharat Petroleum?,T_OwnershipStructure
+Which Fertilisers stocks should I screen for Strait of Hormuz risk?,T_SectorExposure
+Enumerate Insurance companies tied to LNG curtailment.,T_SectorExposure
+"Between ONGC and ONGC, who faces more LNG curtailment risk?",T_CompareExposure
+How does naphtha price impact Cholamandalam Investment?,T_PriceLinkage
+Which group company controls GIC Re?,T_OwnershipStructure
+What is the promoter shareholding in Chambal Fertilisers?,T_OwnershipStructure
+How does Hindustan Unilever source base oil during disruption?,T_SupplyDisruption
+"If Oman shuts, how much PVC resin supply is at risk?",T_TransitRisk
+How closely does Voltamp Transformers follow base oil prices?,T_PriceLinkage
+Which hedges reduce Hindustan Unilever oil exposure?,T_Hedging
+Which companies are in Capital Goods?,T_SectorExposure
+List Insurance constituents exposed to LNG curtailment.,T_SectorExposure
+Which physical constraints bind Metals & Mining growth?,T_ConstraintRisk
+What is RBI rate impact on Great Eastern Shipping?,T_MacroTransmission
+What land or water constraints affect New India Assurance?,T_ConstraintRisk
+What is the promoter shareholding in Mangalore Refinery?,T_OwnershipStructure
+Does ADIA have exposure to Indian Capital Goods?,T_InvestmentFlow
+What is Hormuz transit risk for Indian crude oil?,T_TransitRisk
+Explain how Red Sea disruption hits SpiceJet equity.,T_StockImpact
+What is the downside for Chambal Fertilisers from LNG curtailment?,T_StockImpact
+Should investors worry about Hindustan Petroleum after oil supply shock?,T_StockImpact
+What capacity bottlenecks slow Adani Ports rollout?,T_ConstraintRisk
+Where is Temasek deploying capital in India?,T_InvestmentFlow
+Link Cochin Shipyard earnings to Brent crude price.,T_PriceLinkage
+Trace the path from UAE to Great Eastern Shipping via Singapore GRM.,T_CausalChain
+Rank Bharat Petroleum versus sector peers on Strait of Hormuz risk.,T_CompareExposure
+How does INR depreciation impact Indian Oil?,T_MacroTransmission
+Stress test Great Eastern Shipping for prolonged tanker freight surge.,T_EventScenario
+How does Gulf producers disruption cause changes in Singapore GRM?,T_CausalChain
+Why is Coal India moving on INR depreciation news?,T_StockImpact
+Does Tata Motors hold stakes in other listed entities?,T_OwnershipStructure
+Why is SpiceJet moving on Brent crude price news?,T_StockImpact
+Downside scenario for Insurance from Strait of Hormuz closure.,T_EventScenario
+Which policy levers matter for ONGC in Insurance?,T_RegulatoryImpact
+Who invests in Bajaj Finance?,T_InvestmentFlow
+What percentage of LNG flows through Qatar?,T_TransitRisk
+How does government intervention affect Fertilisers?,T_RegulatoryImpact
+Downside scenario for Oil & Gas from LNG curtailment.,T_EventScenario
+What derivative hedges does Petronet LNG run on fertiliser subsidy bill?,T_Hedging
+Which companies benefit from oil supply shock?,T_Beneficiary
+How is Power Grid Corporation affected by fuel subsidy policy?,T_RegulatoryImpact
+Show transmission from sulphur shock to Infosys.,T_CausalChain
+Which global funds are buying into Great Eastern Shipping?,T_InvestmentFlow
+What subsidiaries does Larsen & Toubro have?,T_OwnershipStructure
+What is the Telecom & Connectivity peer set for Cochin Shipyard?,T_SectorExposure
+Who benefits from higher Brent crude price?,T_Beneficiary
+What links Red Sea closure to Aviation stocks?,T_CausalChain
+What JVs does Coromandel International operate?,T_OwnershipStructure
+Model escalation scenario for Red Sea.,T_EventScenario
+Stress test Adani Ports for prolonged geopolitical escalation.,T_EventScenario
+How does a shock at Cape of Good Hope propagate to Coal India?,T_CausalChain
+Which NBFCs sit in the impact chain for New India Assurance?,T_SectorExposure
+What procurement risk does LNG curtailment create for Asian Paints?,T_SupplyDisruption
+Benchmark ICICI Lombard against peers on marine war-risk premium linkage.,T_CompareExposure
+Who are the major backers of ICICI Lombard?,T_InvestmentFlow
+Which bottlenecks limit IT Services expansion?,T_ConstraintRisk
+"If UAE shuts, how much PVC resin supply is at risk?",T_TransitRisk
+Which global funds are buying into Coromandel International?,T_InvestmentFlow
+Run a bear case for Solar Industries under LNG curtailment.,T_EventScenario
+How does Hormuz disruption affect Coal India share price?,T_StockImpact
+How does gross refining margin flow into Telecom & Connectivity valuations?,T_MacroTransmission
+Map corporate structure of Mangalore Refinery.,T_OwnershipStructure
+Does Oil India pass through RBI policy rate changes?,T_PriceLinkage
+Map Temasek investments in Indian markets.,T_InvestmentFlow
+Does CAD widening hurt Mangalore Refinery?,T_MacroTransmission
+Which NBFCs sit in the impact chain for GIC Re?,T_SectorExposure
+What derivative hedges does Muthoot Finance run on spot LNG price?,T_Hedging
+What earnings line moves first when RBI policy rate shifts?,T_MacroTransmission
+Is State Bank of India realization tied to Brent?,T_PriceLinkage
+How does CPI shock affect IT Services demand?,T_MacroTransmission
+How is CSB Bank affected by fuel subsidy policy?,T_RegulatoryImpact
+Which bottlenecks limit Shipping & Logistics expansion?,T_ConstraintRisk
+Who profits from higher marine war-risk premium in Aviation?,T_Beneficiary
+Who gains when gross refining margin rises?,T_Beneficiary
+How does transmission capacity limit Power Grid Corporation?,T_ConstraintRisk
+Explain hedging strategy of Indian Oil for bond yields.,T_Hedging
+What intermediate nodes connect LPG import disruption and ONGC?,T_CausalChain
+How does Chambal Fertilisers source crude oil during disruption?,T_SupplyDisruption
+What government action caps Great Eastern Shipping pricing?,T_RegulatoryImpact
+Who gains when fertiliser subsidy bill rises?,T_Beneficiary
+What policy response affects SpiceJet after LNG curtailment?,T_RegulatoryImpact
+How does INR depreciation impact Coromandel International?,T_MacroTransmission
+How does Hormuz disruption affect Infosys share price?,T_StockImpact
+What subsidiaries does New India Assurance have?,T_OwnershipStructure
+How does excise duty change hit Adani Green Energy?,T_RegulatoryImpact
+Is CSB Bank realization tied to Brent?,T_PriceLinkage
+Which feedstocks are at risk from Hormuz disruption?,T_SupplyDisruption
+Does Tata Motors hedge sulphur price volatility?,T_Hedging
+What is transit exposure of sulphur via Oman?,T_TransitRisk
+Which hedges reduce Adani Ports oil exposure?,T_Hedging
+How does rerouting via Cape affect Coal India?,T_TransitRisk
+Show transmission from crude oil shock to Federal Bank.,T_CausalChain
+What is the price linkage between LNG and ONGC?,T_PriceLinkage
+What PE capital is entering Indian Paints & Adhesives?,T_InvestmentFlow
+Does tanker freight surge hurt Cholamandalam Investment investors?,T_StockImpact
+Is Federal Bank regulated on urea pricing?,T_RegulatoryImpact
+How much Indian carbon black transits through Cape of Good Hope?,T_TransitRisk
+What policy response affects ONGC after LPG import disruption?,T_RegulatoryImpact
+Explain how Cape of Good Hope disruption hits CSB Bank equity.,T_StockImpact
+Compare Bajaj Finance and Indian Oil exposure to marine war-risk spike.,T_CompareExposure
+"If Saudi Arabia shuts, how much base oil supply is at risk?",T_TransitRisk
+Does Voltamp Transformers hold stakes in other listed entities?,T_OwnershipStructure
+How do subsidy revisions change Federal Bank outlook?,T_RegulatoryImpact
+Break down Insurance sensitivity to USD/INR.,T_SectorExposure
+Who profits from higher tanker freight rates in Power & Utilities?,T_Beneficiary
+Who profits from higher USD/INR in Paints & Adhesives?,T_Beneficiary
+Which policy levers matter for GIC Re in Oil & Gas?,T_RegulatoryImpact
+"Between Tata Motors and ONGC, who faces more marine war-risk spike risk?",T_CompareExposure
+Which stocks rally when tanker freight rates increases?,T_Beneficiary
+Track investment from Warburg Pincin into Indian tech infra.,T_InvestmentFlow
+How does India chokepoint impact Indian energy imports?,T_TransitRisk
+What power availability risk hits SpiceJet?,T_ConstraintRisk
+What derivative hedges does InterGlobe Aviation run on current account deficit?,T_Hedging
+Is Shriram Finance pricing indexed to USD/INR?,T_PriceLinkage
+Can New India Assurance secure ammonia if Cape of Good Hope closes?,T_SupplyDisruption
+Which group company controls Bajaj Finance?,T_OwnershipStructure
+How does Red Sea chokepoint impact Indian energy imports?,T_TransitRisk
+What commodities drive Netweb Technologies cost base?,T_PriceLinkage
+What is the stock impact of marine war-risk spike on GAIL?,T_StockImpact
+Map ADIA investments in Indian markets.,T_InvestmentFlow
+How does bond yields flow into Power & Utilities valuations?,T_MacroTransmission
+What supply bottlenecks hit Telecom & Connectivity from crude price rally?,T_SupplyDisruption
+How does CPI shock affect Paints & Adhesives demand?,T_MacroTransmission
+Is Hindustan Unilever realization tied to Brent?,T_PriceLinkage
+What resource shortages cap Power & Utilities expansion?,T_ConstraintRisk
+Why did Chambal Fertilisers fall after Saudi Arabia headlines?,T_StockImpact
+Benchmark Tata Power against peers on marine war-risk premium linkage.,T_CompareExposure
+Explain hedging strategy of Federal Bank for tanker freight rates.,T_Hedging
+Which companies have positive exposure to tanker freight rates?,T_Beneficiary
+Which refiners benefit from current account deficit widening?,T_Beneficiary
+Which supply bottlenecks hurt Insurance?,T_ConstraintRisk
+How does refinery outage disrupt LNG supply?,T_SupplyDisruption
+Which hedges reduce Coromandel International oil exposure?,T_Hedging
+How does base oil price affect Federal Bank margins?,T_PriceLinkage
+Rank Infosys versus sector peers on Gulf producers risk.,T_CompareExposure
+Which inputs become scarce after tanker freight surge?,T_SupplyDisruption
+Which stocks rally when current account deficit increases?,T_Beneficiary
+How does rerouting via Cape affect Shriram Finance?,T_TransitRisk
+Stress test Adani Green Energy for prolonged Strait of Hormuz closure.,T_EventScenario
+How is Bajaj Finance affected by fuel subsidy policy?,T_RegulatoryImpact
+What commodities drive CSB Bank cost base?,T_PriceLinkage
+How does bond yields flow into Insurance valuations?,T_MacroTransmission
+What derivative hedges does Bharat Petroleum run on Singapore GRM?,T_Hedging
+Is ICICI Lombard realization tied to Brent?,T_PriceLinkage
+What PE capital is entering Indian Metals & Mining?,T_InvestmentFlow
+Does GIC Re face feedstock shortage from UAE?,T_SupplyDisruption
+What happens to markets if bond yields doubles?,T_EventScenario
+How does transmission capacity limit NTPC?,T_ConstraintRisk
+How does transmission capacity limit State Bank of India?,T_ConstraintRisk
+Which stocks rally when spot LNG price increases?,T_Beneficiary
+What if Saudi Arabia closes completely?,T_EventScenario
+What happens to Larsen & Toubro when RBI policy rate rises?,T_MacroTransmission
+Which companies have positive exposure to India CPI?,T_Beneficiary
+What infrastructure constraints affect Mangalore Refinery?,T_ConstraintRisk
+What intermediate nodes connect crude price rally and Bharat Petroleum?,T_CausalChain
+Does Power Grid Corporation pass through marine war-risk premium changes?,T_PriceLinkage
+Which companies have positive exposure to Singapore GRM?,T_Beneficiary
+What capital flows into Metals & Mining from Temasek?,T_InvestmentFlow
+Which is more exposed: CSB Bank or Reliance Industries?,T_CompareExposure
+Show transmission from urea shock to Solar Industries.,T_CausalChain
+Which companies are in Refining?,T_SectorExposure
+How vulnerable is InterGlobe Aviation's PVC resin sourcing to UAE?,T_SupplyDisruption
+Can ONGC secure aviation turbine fuel if Gulf producers closes?,T_SupplyDisruption
+Which Fertilisers names are beneficiaries of spot LNG price?,T_Beneficiary
+Give me IT Services players affected by oil shock.,T_SectorExposure
+How correlated is Shriram Finance with fertiliser subsidy bill?,T_PriceLinkage
+Show ownership map for Tata Motors.,T_OwnershipStructure
+Map GIC investments in Indian markets.,T_InvestmentFlow
+What procurement risk does crude price rally create for State Bank of India?,T_SupplyDisruption
+How does LNG curtailment affect Asian Paints?,T_SupplyDisruption
+Who invests in Bharat Petroleum?,T_InvestmentFlow
+What macro channel links crude price rally to Coromandel International?,T_MacroTransmission
+What risk mitigants does Coromandel International use for oil supply shock?,T_Hedging
+Why are Tata Power shares under pressure from fertiliser subsidy bill?,T_StockImpact
+What if Qatar disruption lasts six months?,T_EventScenario
+Which Oil & Gas stocks are in the Hormuz theme?,T_SectorExposure
+Which constraints gate Fertilisers capex?,T_ConstraintRisk
+How is fertiliser subsidy linked to Netweb Technologies?,T_RegulatoryImpact
+What share of imports passes Cape of Good Hope?,T_TransitRisk
+Which sovereign funds invest in Indian Insurance?,T_InvestmentFlow
+Is Muthoot Finance regulated on LNG pricing?,T_RegulatoryImpact
+Which group company controls Chambal Fertilisers?,T_OwnershipStructure
+List Telecom & Connectivity constituents exposed to Strait of Hormuz closure.,T_SectorExposure
+Which companies have positive exposure to Brent crude price?,T_Beneficiary
+Link Tata Motors earnings to gross refining margin.,T_PriceLinkage
+Trace the path from Russia to Hindustan Petroleum via marine war-risk premium.,T_CausalChain
+What government action caps Tata Power pricing?,T_RegulatoryImpact
+Does CAD widening hurt NTPC?,T_MacroTransmission
+Model base and bull cases for Metals & Mining after marine war-risk spike.,T_EventScenario
+Show all Insurance names with spot LNG price linkage.,T_SectorExposure
+What infrastructure constraints affect CSB Bank?,T_ConstraintRisk
+How does Bajaj Finance hedge against current account deficit?,T_Hedging
+Can Bharat Petroleum secure base oil if Saudi Arabia closes?,T_SupplyDisruption
+Scenario analysis for geopolitical escalation on Nifty energy.,T_EventScenario
+Is Adani Ports hedged for marine war-risk?,T_Hedging
+How is Solar Industries linked to ONGC group?,T_OwnershipStructure
+What PE capital is entering Indian Shipping & Logistics?,T_InvestmentFlow
+How much of Asian Paints's fertiliser subsidy bill risk is hedged?,T_Hedging
+How vulnerable is Federal Bank's LPG sourcing to Russia?,T_SupplyDisruption
+Rank Bajaj Finance versus sector peers on Qatar risk.,T_CompareExposure
+What supply bottlenecks hit Paints & Adhesives from geopolitical escalation?,T_SupplyDisruption
+Does NTPC hedge carbon black price volatility?,T_Hedging
+Walk through the causal links from crude oil to spot LNG price.,T_CausalChain
+Model escalation scenario for Strait of Hormuz.,T_EventScenario
+Rank NTPC versus sector peers on UAE risk.,T_CompareExposure
+Map corporate structure of Adani Ports.,T_OwnershipStructure
+How does Brent crude price affect Indian Oil?,T_MacroTransmission
+Does a weaker rupee help or hurt Reliance Industries?,T_MacroTransmission
+Does KKR have exposure to Indian Power & Utilities?,T_InvestmentFlow
+Who is the parent of State Bank of India?,T_OwnershipStructure
+How does grid evacuation limit Shriram Finance?,T_ConstraintRisk
+Does Bharat Electronics hedge urea price volatility?,T_Hedging
+List subsidiaries under SpiceJet.,T_OwnershipStructure
+Stress test Reliance Industries for prolonged crude price rally.,T_EventScenario
+Show ownership map for SpiceJet.,T_OwnershipStructure
+What FII flows affect Asian Paints?,T_InvestmentFlow
+What risk mitigants does Bajaj Finance use for tanker freight surge?,T_Hedging
+Who is more hurt by Brent rally: Bharat Electronics or Tata Motors?,T_CompareExposure
+How does Gulf producers disruption cause changes in INR depreciation?,T_CausalChain
+How does rerouting via Cape affect Tata Power?,T_TransitRisk
+List subsidiaries under Netweb Technologies.,T_OwnershipStructure
+How does Brent crude price flow into Capital Goods valuations?,T_MacroTransmission
+How does marine war-risk premium feed into Defence earnings?,T_CausalChain
+Does Reliance Industries track USD/INR?,T_PriceLinkage
+What regulatory risk does Larsen & Toubro face in Refining?,T_RegulatoryImpact
+How is Great Eastern Shipping linked to fertiliser subsidy bill?,T_PriceLinkage
+Name beneficiaries in Refining from Hormuz disruption.,T_Beneficiary
+Who are the major backers of SpiceJet?,T_InvestmentFlow
+Who is the more defensive name: Indian Oil or Bharat Electronics?,T_CompareExposure
+What power availability risk hits Shriram Finance?,T_ConstraintRisk
+Which physical constraints bind Paints & Adhesives growth?,T_ConstraintRisk
+Explain hedging strategy of GAIL for India CPI.,T_Hedging
+Stress test Reliance Industries for prolonged LPG import disruption.,T_EventScenario
+Downside scenario for Refining from oil supply shock.,T_EventScenario
+What land or water constraints affect Reliance Industries?,T_ConstraintRisk
+What is the IT Services peer set for Shriram Finance?,T_SectorExposure
+How does crude price rally lead to higher current account deficit?,T_CausalChain
+Explain hedging strategy of NTPC for gross refining margin.,T_Hedging
+What drives Bharat Petroleum selloff after Russia tension?,T_StockImpact
+Which Defence stocks should I screen for India risk?,T_SectorExposure
+Is Cochin Shipyard pricing indexed to INR depreciation?,T_PriceLinkage
+Which NBFCs sit in the impact chain for Chambal Fertilisers?,T_SectorExposure
+What macro channel links Strait of Hormuz closure to Coal India?,T_MacroTransmission
+What policy tailwinds support GAIL?,T_RegulatoryImpact
+Is Bajaj Finance realization tied to Brent?,T_PriceLinkage
+Who are the major shareholders of Bharat Petroleum?,T_OwnershipStructure
+List stocks that gain from India rerouting.,T_Beneficiary
+How closely does Bharat Electronics follow aviation turbine fuel prices?,T_PriceLinkage
+How correlated is Mangalore Refinery with marine war-risk premium?,T_PriceLinkage
+How do gross refining margin moves show up in State Bank of India P&L?,T_MacroTransmission
+Which feedstocks are at risk from LNG curtailment?,T_SupplyDisruption
+Does ONGC face feedstock shortage from Strait of Hormuz?,T_SupplyDisruption
+How does transmission capacity limit New India Assurance?,T_ConstraintRisk
+Which constraints gate Oil & Gas capex?,T_ConstraintRisk
+What Oil & Gas names are linked to naphtha?,T_SectorExposure
+How does tanker freight surge affect Solar Industries share price?,T_StockImpact
+What land or water constraints affect Tata Power?,T_ConstraintRisk
+What PE capital is entering Indian Defence?,T_InvestmentFlow
+Which Insurance name has highest Gulf producers risk?,T_CompareExposure
+Simulate de-escalation impact on bond yields.,T_EventScenario
+Which NBFC is more sensitive to Singapore GRM?,T_CompareExposure
+What policy tailwinds support Adani Ports?,T_RegulatoryImpact
+Does Temasek have exposure to Indian Capital Goods?,T_InvestmentFlow
+What subsidiaries does ICICI Lombard have?,T_OwnershipStructure
+What capacity bottlenecks slow CSB Bank rollout?,T_ConstraintRisk
+Which suppliers are disrupted by Saudi Arabia tension?,T_SupplyDisruption
+How does carbon black shortage propagate to Defence?,T_SupplyDisruption
+How correlated is CSB Bank with current account deficit?,T_PriceLinkage
+List Telecom & Connectivity constituents exposed to geopolitical escalation.,T_SectorExposure
+How dependent is India on Qatar for LNG?,T_TransitRisk
+How does grid evacuation limit GAIL?,T_ConstraintRisk
+Does ONGC track spot LNG price?,T_PriceLinkage
+How does CPI shock affect Fertilisers demand?,T_MacroTransmission
+Who wins from LNG curtailment in Indian markets?,T_Beneficiary
+Walk through the causal links from base oil to RBI policy rate.,T_CausalChain
+Who invests in GAIL?,T_InvestmentFlow
+Name beneficiaries in Defence from geopolitical escalation.,T_Beneficiary
+What regulatory risk does Coal India face in Aviation?,T_RegulatoryImpact
+What is RBI rate impact on Cochin Shipyard?,T_MacroTransmission
+How much of Mangalore Refinery's India CPI risk is hedged?,T_Hedging
+What derivative hedges does Solar Industries run on current account deficit?,T_Hedging
+What infrastructure constraints affect State Bank of India?,T_ConstraintRisk
+Who is the more defensive name: Bharat Petroleum or Solar Industries?,T_CompareExposure
+How do Brent crude price moves show up in Muthoot Finance P&L?,T_MacroTransmission
+Which policy levers matter for Coal India in Insurance?,T_RegulatoryImpact
+How do current account deficit moves show up in Coromandel International P&L?,T_MacroTransmission
+Simulate de-escalation impact on gross refining margin.,T_EventScenario
+How is Mangalore Refinery affected by fuel subsidy policy?,T_RegulatoryImpact
+Who are the upside names if Hormuz disruption persists?,T_Beneficiary
+How does oil supply shock lead to higher current account deficit?,T_CausalChain
+Which sovereign funds invest in Indian Shipping & Logistics?,T_InvestmentFlow
+Walk through the causal links from PVC resin to current account deficit.,T_CausalChain
+How does InterGlobe Aviation manage current account deficit sensitivity?,T_Hedging
+What share of imports passes Strait of Hormuz?,T_TransitRisk
+What earnings line moves first when tanker freight rates shifts?,T_MacroTransmission
+What import share transits Saudi Arabia for sulphur?,T_TransitRisk
+What procurement risk does crude price rally create for Power Grid Corporation?,T_SupplyDisruption
+How is GIC Re linked to USD/INR?,T_PriceLinkage
+What risk mitigants does GIC Re use for geopolitical escalation?,T_Hedging
+What FII flows affect Hindustan Unilever?,T_InvestmentFlow
+Does Infosys face feedstock shortage from Gulf producers?,T_SupplyDisruption
+Can Reliance Industries secure aviation turbine fuel if Saudi Arabia closes?,T_SupplyDisruption
+What if India reroutes all cargo via Cape?,T_EventScenario
+Who is the more defensive name: Bharat Electronics or Federal Bank?,T_CompareExposure
+What derivative hedges does Infosys run on spot LNG price?,T_Hedging
+How does current account deficit flow into Insurance valuations?,T_MacroTransmission
+Which names are net beneficiaries of crude price rally?,T_Beneficiary
+How does transmission capacity limit Oil India?,T_ConstraintRisk
+Which group entities sit under Tata Power?,T_OwnershipStructure
+What natural hedge does GIC Re have for oil supply shock?,T_Hedging
+What percentage of LNG flows through Gulf producers?,T_TransitRisk
+Can Cochin Shipyard secure naphtha if Saudi Arabia closes?,T_SupplyDisruption
+Which suppliers are disrupted by Gulf producers tension?,T_SupplyDisruption
+What intermediate nodes connect tanker freight surge and Adani Ports?,T_CausalChain
+Does QIA have exposure to Indian Fertilisers?,T_InvestmentFlow
+What macro channel links LNG curtailment to Tata Power?,T_MacroTransmission
+Who gains when USD/INR rises?,T_Beneficiary
+What constrains Muthoot Finance growth in AI infra?,T_ConstraintRisk
+What procurement risk does Strait of Hormuz closure create for Netweb Technologies?,T_SupplyDisruption
+Compare refining vs marketing exposure to marine war-risk spike.,T_CompareExposure
+Which Capital Goods name has highest Gulf producers risk?,T_CompareExposure
+How does a shock at India propagate to NTPC?,T_CausalChain
+What supply bottlenecks hit Fertilisers from tanker freight surge?,T_SupplyDisruption
+What happens to markets if INR depreciation doubles?,T_EventScenario
+Map causality from marine war-risk spike to insurance stocks.,T_CausalChain
+What policy tailwinds support ONGC?,T_RegulatoryImpact
+What power availability risk hits CSB Bank?,T_ConstraintRisk
+"If India shuts, how much crude oil supply is at risk?",T_TransitRisk
+Who wins from tanker freight surge in Indian markets?,T_Beneficiary
+How much of New India Assurance's Brent crude price risk is hedged?,T_Hedging
+What policy tailwinds support GIC Re?,T_RegulatoryImpact
+Downside scenario for Oil & Gas from LPG import disruption.,T_EventScenario
+What is the stock impact of LNG curtailment on Coal India?,T_StockImpact
+What natural hedge does New India Assurance have for geopolitical escalation?,T_Hedging
+How does rerouting via Cape affect Netweb Technologies?,T_TransitRisk
+What is the causal chain from oil supply shock to Singapore GRM?,T_CausalChain
+What FII flows affect Chambal Fertilisers?,T_InvestmentFlow
+What procurement risk does refinery outage create for GAIL?,T_SupplyDisruption
+Which global funds are buying into ICICI Lombard?,T_InvestmentFlow
+Which peer has greater bond yields exposure: Cholamandalam Investment or GAIL?,T_CompareExposure
+What is Hormuz transit risk for Indian urea?,T_TransitRisk
+Can Voltamp Transformers secure LNG if Gulf producers closes?,T_SupplyDisruption
+How does CPI shock affect Metals & Mining demand?,T_MacroTransmission
+Is Coromandel International exposed to Qatar shipping routes?,T_TransitRisk
+Who benefits from higher Singapore GRM?,T_Beneficiary
+Does a weaker rupee help or hurt Asian Paints?,T_MacroTransmission
+Which regulations constrain Asian Paints margins?,T_RegulatoryImpact
+Model escalation scenario for Saudi Arabia.,T_EventScenario
+Model base and bull cases for Insurance after marine war-risk spike.,T_EventScenario
+Map corporate structure of Bharat Petroleum.,T_OwnershipStructure
+What policy tailwinds support Great Eastern Shipping?,T_RegulatoryImpact
+How does GPU supply constrain data centre buildout?,T_ConstraintRisk
+Enumerate Shipping & Logistics companies tied to LNG curtailment.,T_SectorExposure
+What policy response affects Federal Bank after LNG curtailment?,T_RegulatoryImpact
+How much of India's base oil import basket uses India?,T_TransitRisk
+Show sector basket for geopolitical escalation impact.,T_SectorExposure
+Track investment from Mubadala into Indian tech infra.,T_InvestmentFlow
+Which policy levers matter for Adani Ports in Paints & Adhesives?,T_RegulatoryImpact
+Does CSB Bank pass through bond yields changes?,T_PriceLinkage
+What drives Tata Power selloff after Qatar tension?,T_StockImpact
+What is Hormuz transit risk for Indian ammonia?,T_TransitRisk
+How does Voltamp Transformers hedge against current account deficit?,T_Hedging
+What FII flows affect Cholamandalam Investment?,T_InvestmentFlow
+What is the Capital Goods peer set for Coromandel International?,T_SectorExposure
+"Between ONGC and ONGC, who faces more marine war-risk spike risk?",T_CompareExposure
+What supply interruptions follow geopolitical escalation?,T_SupplyDisruption
+Rank Telecom & Connectivity stocks by gross refining margin sensitivity.,T_CompareExposure
+Who benefits from higher bond yields?,T_Beneficiary
+How does a shock at Oman propagate to Hindustan Petroleum?,T_CausalChain
+How does CPI shock affect Capital Goods demand?,T_MacroTransmission
+Map corporate structure of SpiceJet.,T_OwnershipStructure
+What macro channel links Hormuz disruption to Cochin Shipyard?,T_MacroTransmission
+How does Cape of Good Hope disruption cause changes in INR depreciation?,T_CausalChain
+How is Solar Industries linked to current account deficit?,T_PriceLinkage
+Which hedges reduce Voltamp Transformers oil exposure?,T_Hedging
+How material is tanker freight surge for Asian Paints shareholders?,T_StockImpact
+Which sovereign funds invest in Indian IT Services?,T_InvestmentFlow
+How does excise duty change hit Voltamp Transformers?,T_RegulatoryImpact
+Map Blackstone investments in Indian markets.,T_InvestmentFlow
+Show ownership map for Cholamandalam Investment.,T_OwnershipStructure
+Downside scenario for Aviation from crude price rally.,T_EventScenario
+Downside scenario for Oil & Gas from refinery outage.,T_EventScenario
+Which refiners benefit from spot LNG price widening?,T_Beneficiary
+Model escalation scenario for Oman.,T_EventScenario
+Which routes are affected if Oman closes?,T_TransitRisk
+How much of Larsen & Toubro's USD/INR risk is hedged?,T_Hedging
+What is the price linkage between LPG and Tata Motors?,T_PriceLinkage
+How does sulphur price affect Bharat Electronics margins?,T_PriceLinkage
+Benchmark Netweb Technologies against peers on USD/INR linkage.,T_CompareExposure
+What risk mitigants does Cholamandalam Investment use for marine war-risk spike?,T_Hedging
+Show transmission from base oil shock to Coromandel International.,T_CausalChain
+Which Defence stocks should I screen for Oman risk?,T_SectorExposure
+Which PE firms invest in data centre ecosystem?,T_InvestmentFlow
+Map causality from Strait of Hormuz closure to insurance stocks.,T_CausalChain
+How much of India's ammonia import basket uses Saudi Arabia?,T_TransitRisk
+Benchmark GAIL against peers on USD/INR linkage.,T_CompareExposure
+What equity risk does oil supply shock create for Power Grid Corporation?,T_StockImpact
+Is Coromandel International vulnerable to LPG import disruption?,T_StockImpact
+Which physical constraints bind Shipping & Logistics growth?,T_ConstraintRisk
+Which stocks rally when RBI policy rate increases?,T_Beneficiary
+What links Strait of Hormuz closure to Oil & Gas stocks?,T_CausalChain
+What infrastructure constraints affect Larsen & Toubro?,T_ConstraintRisk
+How does rerouting via Cape affect Hindustan Petroleum?,T_TransitRisk
+Scenario analysis for LPG import disruption on Nifty energy.,T_EventScenario
+Why is Bharat Petroleum moving on fertiliser subsidy bill news?,T_StockImpact
+What FII flows affect GAIL?,T_InvestmentFlow
+Which group entities sit under Chambal Fertilisers?,T_OwnershipStructure
+Give me Defence players affected by oil shock.,T_SectorExposure
+Which global funds are buying into Asian Paints?,T_InvestmentFlow
+Run a bear case for Tata Motors under geopolitical escalation.,T_EventScenario
+Explain how Red Sea disruption hits InterGlobe Aviation equity.,T_StockImpact
+Compare Chambal Fertilisers and Indian Oil exposure to refinery outage.,T_CompareExposure
+Which companies benefit from Strait of Hormuz closure?,T_Beneficiary
+Does QIA have exposure to Indian Defence?,T_InvestmentFlow
+Who is the more defensive name: Hindustan Unilever or GIC Re?,T_CompareExposure
+What procurement risk does refinery outage create for Bharat Petroleum?,T_SupplyDisruption
+Which is more exposed: ICICI Lombard or Reliance Industries?,T_CompareExposure
+What supply bottlenecks hit Aviation from LNG curtailment?,T_SupplyDisruption
+Which Aviation name has highest Qatar risk?,T_CompareExposure
+What PE capital is entering Indian Insurance?,T_InvestmentFlow
+Why did Larsen & Toubro fall after Red Sea headlines?,T_StockImpact
+What JVs does Federal Bank operate?,T_OwnershipStructure
+Does QIA have exposure to Indian Paints & Adhesives?,T_InvestmentFlow
+Which Shipping & Logistics names are beneficiaries of Brent crude price?,T_Beneficiary
+Does geopolitical escalation hurt Bharat Petroleum investors?,T_StockImpact
+How does CPI shock affect Telecom & Connectivity demand?,T_MacroTransmission
+Rank State Bank of India versus sector peers on Russia risk.,T_CompareExposure
+Which NBFC is more sensitive to RBI policy rate?,T_CompareExposure
+What is the Metals & Mining peer set for Oil India?,T_SectorExposure
+How does gross refining margin feed into Defence earnings?,T_CausalChain
+Quantify India's LNG dependence on Cape of Good Hope.,T_TransitRisk
+Which input prices move with USD/INR for Mangalore Refinery?,T_PriceLinkage
+List Fertilisers constituents exposed to LPG import disruption.,T_SectorExposure
+Compare ICICI Lombard and Indian Oil exposure to marine war-risk spike.,T_CompareExposure
+Who gains when Singapore GRM rises?,T_Beneficiary
+What is the causal chain from geopolitical escalation to India CPI?,T_CausalChain
+How do subsidy revisions change Asian Paints outlook?,T_RegulatoryImpact
+How does INR depreciation impact Tata Motors?,T_MacroTransmission
+Who owns InterGlobe Aviation?,T_OwnershipStructure
+Why did Petronet LNG fall after Gulf producers headlines?,T_StockImpact
+Which routes are affected if Russia closes?,T_TransitRisk
+Map Warburg Pincin investments in Indian markets.,T_InvestmentFlow
+Does Oil India have a natural offset to Strait of Hormuz closure?,T_Hedging
+Which stocks rally when fertiliser subsidy bill increases?,T_Beneficiary
+Which group entities sit under CSB Bank?,T_OwnershipStructure
+What is the promoter shareholding in Shriram Finance?,T_OwnershipStructure
+Which input prices move with Brent crude price for Solar Industries?,T_PriceLinkage
+Explain how Cape of Good Hope disruption hits Mangalore Refinery equity.,T_StockImpact
+What happens to markets if RBI policy rate doubles?,T_EventScenario
+Which policy levers matter for ONGC in Aviation?,T_RegulatoryImpact
+Which suppliers are disrupted by Red Sea tension?,T_SupplyDisruption
+Model base and bull cases for Oil & Gas after geopolitical escalation.,T_EventScenario
+Does New India Assurance have a natural offset to oil supply shock?,T_Hedging
+What resource shortages cap Capital Goods expansion?,T_ConstraintRisk
+How closely does Bharat Electronics follow carbon black prices?,T_PriceLinkage
+What is the stock impact of Strait of Hormuz closure on SpiceJet?,T_StockImpact
+How is Adani Ports protected from UAE disruption?,T_Hedging
+Run a bear case for CSB Bank under LNG curtailment.,T_EventScenario
+Does Bharat Petroleum track RBI policy rate?,T_PriceLinkage
+Which is more exposed: Chambal Fertilisers or Reliance Industries?,T_CompareExposure
+Which companies benefit from LPG import disruption?,T_Beneficiary
+What is the Telecom & Connectivity peer set for Adani Ports?,T_SectorExposure
+Which regulations constrain SpiceJet margins?,T_RegulatoryImpact
+What earnings line moves first when fertiliser subsidy bill shifts?,T_MacroTransmission
+List stocks that gain from Qatar rerouting.,T_Beneficiary
+What constrains Tata Motors growth in AI infra?,T_ConstraintRisk
+How does rerouting via Cape affect CSB Bank?,T_TransitRisk
+Which physical constraints bind Insurance growth?,T_ConstraintRisk
+How do subsidy revisions change Cochin Shipyard outlook?,T_RegulatoryImpact
+Model base and bull cases for Aviation after marine war-risk spike.,T_EventScenario
+Show all Shipping & Logistics names with Brent crude price linkage.,T_SectorExposure
+How exposed is Cochin Shipyard to Strait of Hormuz closure?,T_StockImpact
+How do LPG subsidy rules impact Hindustan Unilever?,T_RegulatoryImpact
+How does urea price affect State Bank of India margins?,T_PriceLinkage
+How does government intervention affect Paints & Adhesives?,T_RegulatoryImpact
+What PE capital is entering Indian IT Services?,T_InvestmentFlow
+How do subsidy revisions change Reliance Industries outlook?,T_RegulatoryImpact
+Show sector basket for oil supply shock impact.,T_SectorExposure
+Does Tata Motors offset tanker freight rates risk via FX hedges?,T_Hedging
+Downside scenario for Capital Goods from crude price rally.,T_EventScenario
+Which group entities sit under Petronet LNG?,T_OwnershipStructure
+Enumerate Metals & Mining companies tied to crude price rally.,T_SectorExposure
+What is the downside for Cholamandalam Investment from geopolitical escalation?,T_StockImpact
+Model base and bull cases for Fertilisers after LPG import disruption.,T_EventScenario
+How does Cholamandalam Investment hedge against RBI policy rate?,T_Hedging
+Who wins from geopolitical escalation in Indian markets?,T_Beneficiary
+How does Qatar chokepoint impact Indian energy imports?,T_TransitRisk
+How is fertiliser subsidy linked to Larsen & Toubro?,T_RegulatoryImpact
+Which sovereign funds invest in Indian Power & Utilities?,T_InvestmentFlow
+Enumerate Telecom & Connectivity companies tied to Strait of Hormuz closure.,T_SectorExposure
+How does INR depreciation impact Oil India?,T_MacroTransmission
+Show transmission from sulphur shock to Hindustan Petroleum.,T_CausalChain
+What derivative hedges does Coal India run on RBI policy rate?,T_Hedging
+Does CAD widening hurt Hindustan Unilever?,T_MacroTransmission
+What is RBI rate impact on New India Assurance?,T_MacroTransmission
+Trace the path from Qatar to Adani Ports via India CPI.,T_CausalChain
+"If Cape of Good Hope shuts, how much aviation turbine fuel supply is at risk?",T_TransitRisk
+Who funds Adani Ports expansion?,T_InvestmentFlow
+What regulatory risk does Coromandel International face in Oil & Gas?,T_RegulatoryImpact
+Show all Banks & NBFCs names with RBI policy rate linkage.,T_SectorExposure
+What is the downside for Petronet LNG from LPG import disruption?,T_StockImpact
+Who profits from higher current account deficit in Defence?,T_Beneficiary
+Downside scenario for Telecom & Connectivity from geopolitical escalation.,T_EventScenario
+How does carbon black price affect GIC Re margins?,T_PriceLinkage
+What capital flows into Defence from GIC?,T_InvestmentFlow
+Which Oil & Gas names are beneficiaries of tanker freight rates?,T_Beneficiary
+Benchmark SpiceJet against peers on USD/INR linkage.,T_CompareExposure
+What natural hedge does Power Grid Corporation have for marine war-risk spike?,T_Hedging
+How does CPI shock affect Aviation demand?,T_MacroTransmission
+Which bottlenecks limit Insurance expansion?,T_ConstraintRisk
+What government action caps InterGlobe Aviation pricing?,T_RegulatoryImpact
+Explain hedging strategy of Cochin Shipyard for Singapore GRM.,T_Hedging
+What subsidiaries does Netweb Technologies have?,T_OwnershipStructure
+Who funds GIC Re expansion?,T_InvestmentFlow
+How does rerouting via Cape affect Asian Paints?,T_TransitRisk
+Who is the parent of Bajaj Finance?,T_OwnershipStructure
+List subsidiaries under Tata Motors.,T_OwnershipStructure
+What supply chain risk does Red Sea pose for ONGC?,T_SupplyDisruption
+Is Adani Green Energy exposed to UAE shipping routes?,T_TransitRisk
+What equity risk does oil supply shock create for Asian Paints?,T_StockImpact
+What is Mangalore Refinery's equity sensitivity to marine war-risk spike?,T_StockImpact
+How does transmission capacity limit Mangalore Refinery?,T_ConstraintRisk
+Stress test Solar Industries for prolonged geopolitical escalation.,T_EventScenario
+List stocks that gain from Cape of Good Hope rerouting.,T_Beneficiary
+Show all Metals & Mining names with fertiliser subsidy bill linkage.,T_SectorExposure
+Run a bear case for Asian Paints under crude price rally.,T_EventScenario
+How do INR depreciation moves show up in Petronet LNG P&L?,T_MacroTransmission
+Does Power Grid Corporation face feedstock shortage from Red Sea?,T_SupplyDisruption
+Link Hindustan Petroleum earnings to Singapore GRM.,T_PriceLinkage
+Compare Hindustan Unilever and Indian Oil exposure to tanker freight surge.,T_CompareExposure
+Rank Bharat Petroleum versus sector peers on Red Sea risk.,T_CompareExposure
+Explain the knock-on effect from Oman to bond yields.,T_CausalChain
+Track investment from Blackstone into Indian tech infra.,T_InvestmentFlow
+Who profits from higher Brent crude price in Fertilisers?,T_Beneficiary
+What if war-risk premium stays at 5%?,T_EventScenario
+What commodities drive New India Assurance cost base?,T_PriceLinkage
+Which feedstocks are at risk from refinery outage?,T_SupplyDisruption
+Does Shriram Finance face feedstock shortage from Cape of Good Hope?,T_SupplyDisruption
+What is RBI rate impact on Hindustan Unilever?,T_MacroTransmission
+Is Asian Paints vulnerable to LPG import disruption?,T_StockImpact
+Stress test Mangalore Refinery for prolonged geopolitical escalation.,T_EventScenario
+How much of Great Eastern Shipping's bond yields risk is hedged?,T_Hedging
+How exposed is Shriram Finance to Hormuz disruption?,T_StockImpact
+Rank Shipping & Logistics stocks by India CPI sensitivity.,T_CompareExposure
+Which peer has greater bond yields exposure: CSB Bank or GAIL?,T_CompareExposure
+Which Refining stocks are in the Hormuz theme?,T_SectorExposure
+List Insurance constituents exposed to oil supply shock.,T_SectorExposure
+How does bond yields feed into Capital Goods earnings?,T_CausalChain
+What is the Banks & NBFCs peer set for Chambal Fertilisers?,T_SectorExposure
+Which stocks rally when Singapore GRM increases?,T_Beneficiary
+What Aviation names are linked to naphtha?,T_SectorExposure
+What resource shortages cap IT Services expansion?,T_ConstraintRisk
+What subsidiaries does Tata Motors have?,T_OwnershipStructure
+Show transmission from LNG shock to GIC Re.,T_CausalChain
+How much of ONGC's fertiliser subsidy bill risk is hedged?,T_Hedging
+What commodities drive Bharat Electronics cost base?,T_PriceLinkage
+How does Saudi Arabia disruption cause changes in fertiliser subsidy bill?,T_CausalChain
+Who benefits from higher INR depreciation?,T_Beneficiary
+How vulnerable is Shriram Finance's base oil sourcing to Red Sea?,T_SupplyDisruption
+How sensitive is SpiceJet to a RBI policy rate spike?,T_MacroTransmission
+How much of Muthoot Finance's Singapore GRM risk is hedged?,T_Hedging
+What is the promoter shareholding in NTPC?,T_OwnershipStructure
+Who is the more defensive name: Cholamandalam Investment or Tata Motors?,T_CompareExposure
+How does CRGO steel shortage impact transformers?,T_ConstraintRisk
+Who is the more defensive name: CSB Bank or Adani Ports?,T_CompareExposure
+Where is KKR deploying capital in India?,T_InvestmentFlow
+What percentage of LNG flows through Saudi Arabia?,T_TransitRisk
+Map QIA investments in Indian markets.,T_InvestmentFlow
+Explain the knock-on effect from Saudi Arabia to spot LNG price.,T_CausalChain
+What is RBI rate impact on Voltamp Transformers?,T_MacroTransmission
+Which routes are affected if Qatar closes?,T_TransitRisk
+What is the beta of Adani Green Energy to India CPI?,T_PriceLinkage
+What capital flows into Fertilisers from KKR?,T_InvestmentFlow
+Does CAD widening hurt Larsen & Toubro?,T_MacroTransmission
+How does naphtha price impact Tata Power?,T_PriceLinkage
+What is Muthoot Finance's equity sensitivity to LNG curtailment?,T_StockImpact
+Is State Bank of India regulated on crude oil pricing?,T_RegulatoryImpact
+Map causality from LPG import disruption to insurance stocks.,T_CausalChain
+What is the mechanism from LNG curtailment to bank stocks?,T_CausalChain
+What protects GIC Re margins from urea spikes?,T_Hedging
+Link State Bank of India earnings to marine war-risk premium.,T_PriceLinkage
+How does LNG curtailment affect State Bank of India share price?,T_StockImpact
+Name beneficiaries in IT Services from Strait of Hormuz closure.,T_Beneficiary
+What happens to Petronet LNG when Brent crude price rises?,T_MacroTransmission
+Is Voltamp Transformers pricing indexed to marine war-risk premium?,T_PriceLinkage
+Why did GAIL fall after UAE headlines?,T_StockImpact
+Who is the parent of Netweb Technologies?,T_OwnershipStructure
+Map Aviation exposure to bond yields.,T_SectorExposure
+Which Oil & Gas stocks should I screen for UAE risk?,T_SectorExposure
+How does oil supply shock lead to higher bond yields?,T_CausalChain
+How does INR depreciation impact ONGC?,T_MacroTransmission
+What happens to markets if spot LNG price doubles?,T_EventScenario
+What capacity bottlenecks slow Mangalore Refinery rollout?,T_ConstraintRisk
+What subsidiaries does Adani Ports have?,T_OwnershipStructure
+Which companies benefit from tanker freight surge?,T_Beneficiary
+Scenario analysis for tanker freight surge on Nifty energy.,T_EventScenario
+Link Larsen & Toubro earnings to Brent crude price.,T_PriceLinkage
+Which IT Services name has highest Qatar risk?,T_CompareExposure
+Walk through the causal links from ammonia to marine war-risk premium.,T_CausalChain
+Who profits from higher current account deficit in Metals & Mining?,T_Beneficiary
+How do freight rates transmit to Hindustan Unilever costs?,T_MacroTransmission
+What is the stock impact of crude price rally on Power Grid Corporation?,T_StockImpact
+Name beneficiaries in Fertilisers from LNG curtailment.,T_Beneficiary
+What power availability risk hits Solar Industries?,T_ConstraintRisk
+How does LNG curtailment affect Voltamp Transformers?,T_SupplyDisruption
+What derivative hedges does Coal India run on gross refining margin?,T_Hedging
+Is Netweb Technologies a casualty of Brent crude price volatility?,T_StockImpact
+Does Infosys pass through marine war-risk premium changes?,T_PriceLinkage
+Which policy levers matter for Netweb Technologies in Telecom & Connectivity?,T_RegulatoryImpact
+Who is the parent of GIC Re?,T_OwnershipStructure
+Which bottlenecks limit Capital Goods expansion?,T_ConstraintRisk
+Run a bear case for Shriram Finance under oil supply shock.,T_EventScenario
+Which policy levers matter for Adani Green Energy in Power & Utilities?,T_RegulatoryImpact
+What capacity bottlenecks slow Infosys rollout?,T_ConstraintRisk
+How does Russia disruption cause changes in gross refining margin?,T_CausalChain
+What is the mechanism from oil supply shock to bank stocks?,T_CausalChain
+What supply bottlenecks hit Capital Goods from crude price rally?,T_SupplyDisruption
+How does CPI shock affect Refining demand?,T_MacroTransmission
+Who is the parent of Shriram Finance?,T_OwnershipStructure
+Does Asian Paints hold stakes in other listed entities?,T_OwnershipStructure
+List Indian winners from Qatar disruption.,T_Beneficiary
+What commodities drive Indian Oil cost base?,T_PriceLinkage
+How does base oil price affect Hindustan Petroleum margins?,T_PriceLinkage
+What if Gulf producers disruption lasts six months?,T_EventScenario
+Is Chambal Fertilisers exposed to Cape of Good Hope shipping routes?,T_TransitRisk
+Walk through the causal links from PVC resin to fertiliser subsidy bill.,T_CausalChain
+Explain hedging strategy of Adani Green Energy for tanker freight rates.,T_Hedging
+Which group company controls Tata Power?,T_OwnershipStructure
+Model base and bull cases for Fertilisers after refinery outage.,T_EventScenario
+What percentage of LNG flows through UAE?,T_TransitRisk
+What Insurance names are linked to ammonia?,T_SectorExposure
+Scenario analysis for Hormuz disruption on Nifty energy.,T_EventScenario
+Who are the upside names if oil supply shock persists?,T_Beneficiary
+What subsidiaries does Bajaj Finance have?,T_OwnershipStructure
+Who gains when Brent crude price rises?,T_Beneficiary
+Is Muthoot Finance regulated on urea pricing?,T_RegulatoryImpact
+Which sovereign funds invest in Indian Aviation?,T_InvestmentFlow
+What regulatory overhang exists for NTPC?,T_RegulatoryImpact
+How vulnerable is Tata Motors's LPG sourcing to Oman?,T_SupplyDisruption
+What derivative hedges does Reliance Industries run on RBI policy rate?,T_Hedging
+How do LPG subsidy rules impact Tata Power?,T_RegulatoryImpact
+Where is ADIA deploying capital in India?,T_InvestmentFlow
+Which input prices move with INR depreciation for GAIL?,T_PriceLinkage
+Does Bharat Electronics face feedstock shortage from Strait of Hormuz?,T_SupplyDisruption
+Break down Shipping & Logistics sensitivity to INR depreciation.,T_SectorExposure
+Who benefits from higher tanker freight rates?,T_Beneficiary
+Which peer has greater Singapore GRM exposure: GAIL or GAIL?,T_CompareExposure
+What capacity bottlenecks slow Oil India rollout?,T_ConstraintRisk
+How do subsidy revisions change Coal India outlook?,T_RegulatoryImpact
+Which inputs become scarce after LPG import disruption?,T_SupplyDisruption
+Does SpiceJet face feedstock shortage from Russia?,T_SupplyDisruption
+What is the beta of Oil India to INR depreciation?,T_PriceLinkage
+How does rerouting via Cape affect Infosys?,T_TransitRisk
+Where is Warburg Pincin deploying capital in India?,T_InvestmentFlow
+What is the transmission channel from LPG import disruption to Telecom & Connectivity?,T_CausalChain
+How do freight rates transmit to Oil India costs?,T_MacroTransmission
+Who owns Coromandel International?,T_OwnershipStructure
+How do LPG subsidy rules impact Shriram Finance?,T_RegulatoryImpact
+What power availability risk hits GIC Re?,T_ConstraintRisk
+How does INR depreciation impact Muthoot Finance?,T_MacroTransmission
+What is transit exposure of aviation turbine fuel via Strait of Hormuz?,T_TransitRisk
+Who is the parent of SpiceJet?,T_OwnershipStructure
+What government action caps GAIL pricing?,T_RegulatoryImpact
+Does CAD widening hurt GAIL?,T_MacroTransmission
+"If Saudi Arabia shuts, how much naphtha supply is at risk?",T_TransitRisk
+Is Tata Motors pricing indexed to tanker freight rates?,T_PriceLinkage
+How closely does Mangalore Refinery follow LPG prices?,T_PriceLinkage
+Who gains when India CPI rises?,T_Beneficiary
+How does a shock at India propagate to Oil India?,T_CausalChain
+Model base and bull cases for Metals & Mining after geopolitical escalation.,T_EventScenario
+What power availability risk hits NTPC?,T_ConstraintRisk
+Break down Defence sensitivity to marine war-risk premium.,T_SectorExposure
+What percentage of LNG flows through Cape of Good Hope?,T_TransitRisk
+Compare refining vs marketing exposure to LPG import disruption.,T_CompareExposure
+How does gross refining margin feed into Power & Utilities earnings?,T_CausalChain
+What is Hormuz transit risk for Indian LNG?,T_TransitRisk
+List Paints & Adhesives constituents exposed to crude price rally.,T_SectorExposure
+What macro channel links LPG import disruption to Muthoot Finance?,T_MacroTransmission
+Which peer has greater Singapore GRM exposure: Bharat Electronics or GAIL?,T_CompareExposure
+What land or water constraints affect GAIL?,T_ConstraintRisk
+What FII flows affect Bharat Electronics?,T_InvestmentFlow
+What if Strait of Hormuz disruption lasts six months?,T_EventScenario
+Why did Muthoot Finance fall after Saudi Arabia headlines?,T_StockImpact
+What is the stock impact of Strait of Hormuz closure on Asian Paints?,T_StockImpact
+Is Tata Power realization tied to Brent?,T_PriceLinkage
+What percentage of LNG flows through Oman?,T_TransitRisk
+Track investment from QIA into Indian tech infra.,T_InvestmentFlow
+Scenario analysis for LNG curtailment on Nifty energy.,T_EventScenario
+Who gains when INR depreciation rises?,T_Beneficiary
+What risk mitigants does InterGlobe Aviation use for oil supply shock?,T_Hedging
+Walk through the causal links from base oil to current account deficit.,T_CausalChain
+How does LNG curtailment affect Netweb Technologies?,T_SupplyDisruption
+Which is more exposed: GIC Re or Reliance Industries?,T_CompareExposure
+Who profits from higher spot LNG price in Insurance?,T_Beneficiary
+What FII flows affect ONGC?,T_InvestmentFlow
+Which companies have positive exposure to RBI policy rate?,T_Beneficiary
+Who is more hurt by Brent rally: Tata Motors or Tata Motors?,T_CompareExposure
+Which global funds are buying into Voltamp Transformers?,T_InvestmentFlow
+What PE capital is entering Indian Aviation?,T_InvestmentFlow
+Is Infosys a casualty of Singapore GRM volatility?,T_StockImpact
+What is the Defence peer set for Cholamandalam Investment?,T_SectorExposure
+Which regulations constrain Muthoot Finance margins?,T_RegulatoryImpact
+What is New India Assurance's equity sensitivity to LPG import disruption?,T_StockImpact
+Who funds ICICI Lombard expansion?,T_InvestmentFlow
+How much of India's PVC resin import basket uses Gulf producers?,T_TransitRisk
+What constrains Infosys growth in AI infra?,T_ConstraintRisk
+What equity risk does LNG curtailment create for InterGlobe Aviation?,T_StockImpact
+What is the price linkage between carbon black and Tata Motors?,T_PriceLinkage
+Which Fertilisers stocks are in the Hormuz theme?,T_SectorExposure
+Which NBFC is more sensitive to USD/INR?,T_CompareExposure
+Who profits from higher INR depreciation in IT Services?,T_Beneficiary
+What constrains Chambal Fertilisers growth in AI infra?,T_ConstraintRisk
+How much Indian LPG transits through Cape of Good Hope?,T_TransitRisk
+How does Hindustan Petroleum hedge against India CPI?,T_Hedging
+How much of India's carbon black import basket uses UAE?,T_TransitRisk
+Stress test Larsen & Toubro for prolonged crude price rally.,T_EventScenario
+Which NBFC is more sensitive to fertiliser subsidy bill?,T_CompareExposure
+Which refiners benefit from Singapore GRM widening?,T_Beneficiary
+Who owns Tata Motors?,T_OwnershipStructure
+How correlated is Oil India with fertiliser subsidy bill?,T_PriceLinkage
+How does Russia chokepoint impact Indian energy imports?,T_TransitRisk
+Model escalation scenario for Qatar.,T_EventScenario
+Does Coal India offset tanker freight rates risk via FX hedges?,T_Hedging
+Enumerate Telecom & Connectivity companies tied to tanker freight surge.,T_SectorExposure
+"If UAE shuts, how much urea supply is at risk?",T_TransitRisk
+Who is the parent of Power Grid Corporation?,T_OwnershipStructure
+Who profits from higher gross refining margin in Shipping & Logistics?,T_Beneficiary
+What is the stock impact of tanker freight surge on Tata Motors?,T_StockImpact
+"If Qatar shuts, how much LPG supply is at risk?",T_TransitRisk
+Compare Cochin Shipyard and Indian Oil exposure to LNG curtailment.,T_CompareExposure
+How does LNG shortage propagate to Metals & Mining?,T_SupplyDisruption
+How vulnerable is InterGlobe Aviation's naphtha sourcing to UAE?,T_SupplyDisruption
+What procurement risk does tanker freight surge create for Cochin Shipyard?,T_SupplyDisruption
+Which sovereign funds invest in Indian Refining?,T_InvestmentFlow
+What Shipping & Logistics names are linked to PVC resin?,T_SectorExposure
+Is Adani Green Energy a casualty of RBI policy rate volatility?,T_StockImpact
+Quantify India's carbon black dependence on Saudi Arabia.,T_TransitRisk
+What supply chain risk does Gulf producers pose for Adani Ports?,T_SupplyDisruption
+How is fertiliser subsidy linked to Coal India?,T_RegulatoryImpact
+What macro channel links Strait of Hormuz closure to Shriram Finance?,T_MacroTransmission
+Who is the more defensive name: Asian Paints or ONGC?,T_CompareExposure
+Does Petronet LNG hold stakes in other listed entities?,T_OwnershipStructure
+How much of India's base oil import basket uses Russia?,T_TransitRisk
+Benchmark ICICI Lombard against peers on gross refining margin linkage.,T_CompareExposure
+How does government intervention affect Aviation?,T_RegulatoryImpact
+How is Mangalore Refinery linked to ONGC group?,T_OwnershipStructure
+How exposed is Coal India to LNG curtailment?,T_StockImpact
+How is fertiliser subsidy linked to Bharat Petroleum?,T_RegulatoryImpact
+List IT Services constituents exposed to marine war-risk spike.,T_SectorExposure
+Which NBFCs sit in the impact chain for Federal Bank?,T_SectorExposure
+How dependent is India on Strait of Hormuz for ammonia?,T_TransitRisk
+How does disruption at India cascade into Shipping & Logistics?,T_CausalChain
+Explain how Oman disruption hits Great Eastern Shipping equity.,T_StockImpact
+Why is GIC Re moving on Brent crude price news?,T_StockImpact
+Which investors are backing AI infra plays?,T_InvestmentFlow
+How does Saudi Arabia affect urea and then Tata Power?,T_CausalChain
+Which NBFC is more sensitive to current account deficit?,T_CompareExposure
+How exposed is Chambal Fertilisers to Strait of Hormuz closure?,T_StockImpact
+What regulatory risk does Bharat Electronics face in Banks & NBFCs?,T_RegulatoryImpact
+Explain the knock-on effect from Cape of Good Hope to current account deficit.,T_CausalChain
+What derivative hedges does Mangalore Refinery run on Brent crude price?,T_Hedging
+Is Muthoot Finance hedged for marine war-risk?,T_Hedging
+Does CAD widening hurt Cholamandalam Investment?,T_MacroTransmission
+What is RBI rate impact on NTPC?,T_MacroTransmission
+Can Cholamandalam Investment secure LPG if India closes?,T_SupplyDisruption
+Map Defence exposure to INR depreciation.,T_SectorExposure
+Which group entities sit under GAIL?,T_OwnershipStructure
+Walk through the causal links from LNG to India CPI.,T_CausalChain
+Name beneficiaries in Capital Goods from marine war-risk spike.,T_Beneficiary
+What intermediate nodes connect crude price rally and Coal India?,T_CausalChain
+Which hedges reduce ONGC oil exposure?,T_Hedging
+What share of imports passes Red Sea?,T_TransitRisk
+Who is the more defensive name: Great Eastern Shipping or Oil India?,T_CompareExposure
+What import share transits UAE for LPG?,T_TransitRisk
+Who are the major shareholders of SpiceJet?,T_OwnershipStructure
+Which suppliers are disrupted by Qatar tension?,T_SupplyDisruption
+Compare refining vs marketing exposure to Strait of Hormuz closure.,T_CompareExposure
+Which names are net beneficiaries of LPG import disruption?,T_Beneficiary
+Walk through the causal links from LNG to fertiliser subsidy bill.,T_CausalChain
+List stocks that gain from Gulf producers rerouting.,T_Beneficiary
+Does Great Eastern Shipping have a natural offset to Hormuz disruption?,T_Hedging
+What subsidiaries does Asian Paints have?,T_OwnershipStructure
+What capacity bottlenecks slow GIC Re rollout?,T_ConstraintRisk
+How does grid evacuation limit Coal India?,T_ConstraintRisk
+Which Shipping & Logistics stocks should I screen for Strait of Hormuz risk?,T_SectorExposure
+How does ammonia shortage propagate to Capital Goods?,T_SupplyDisruption
+Which Aviation stocks should I screen for Qatar risk?,T_SectorExposure
+What macro channel links marine war-risk spike to Coromandel International?,T_MacroTransmission
+What is RBI rate impact on Hindustan Petroleum?,T_MacroTransmission
+Quantify India's LNG dependence on Saudi Arabia.,T_TransitRisk
+Is ICICI Lombard a casualty of fertiliser subsidy bill volatility?,T_StockImpact
+How dependent is India on Russia for sulphur?,T_TransitRisk
+What infrastructure constraints affect Cholamandalam Investment?,T_ConstraintRisk
+What is RBI rate impact on Coal India?,T_MacroTransmission
+What resource shortages cap Insurance expansion?,T_ConstraintRisk
+Is Chambal Fertilisers a casualty of USD/INR volatility?,T_StockImpact
+What natural hedge does GIC Re have for geopolitical escalation?,T_Hedging
+How does disruption at Strait of Hormuz cascade into Power & Utilities?,T_CausalChain
+Which Shipping & Logistics stocks should I screen for UAE risk?,T_SectorExposure
+Does Indian Oil offset Brent crude price risk via FX hedges?,T_Hedging
+Which companies are in Aviation?,T_SectorExposure
+What drives Indian Oil selloff after Saudi Arabia tension?,T_StockImpact
+How correlated is Larsen & Toubro with fertiliser subsidy bill?,T_PriceLinkage
+Who owns Bharat Electronics?,T_OwnershipStructure
+What is transit exposure of LNG via Gulf producers?,T_TransitRisk
+How much Indian ammonia transits through Oman?,T_TransitRisk
+Track investment from GIC into Indian tech infra.,T_InvestmentFlow
+Does CAD widening hurt Oil India?,T_MacroTransmission
+Give me Refining players affected by oil shock.,T_SectorExposure
+What is the Shipping & Logistics peer set for Chambal Fertilisers?,T_SectorExposure
+Does ADIA have exposure to Indian Power & Utilities?,T_InvestmentFlow
+Which policy levers matter for Tata Motors in Refining?,T_RegulatoryImpact
+What subsidiaries does Great Eastern Shipping have?,T_OwnershipStructure
+What supply interruptions follow oil supply shock?,T_SupplyDisruption
+What is the mechanism from geopolitical escalation to bank stocks?,T_CausalChain
+How does a shock at Red Sea propagate to Adani Ports?,T_CausalChain
+"If Russia shuts, how much ammonia supply is at risk?",T_TransitRisk
+Why are Tata Motors shares under pressure from India CPI?,T_StockImpact
+What if Gulf producers closes completely?,T_EventScenario
+How does Bharat Electronics hedge against Singapore GRM?,T_Hedging
+What is the Capital Goods peer set for Cochin Shipyard?,T_SectorExposure
+Who in Insurance is most exposed to Red Sea?,T_SectorExposure
+How dependent is India on Gulf producers for urea?,T_TransitRisk
+Map corporate structure of Power Grid Corporation.,T_OwnershipStructure
+What derivative hedges does Infosys run on Singapore GRM?,T_Hedging
+"Between Larsen & Toubro and ONGC, who faces more tanker freight surge risk?",T_CompareExposure
+What macro channel links oil supply shock to Netweb Technologies?,T_MacroTransmission
+What is the causal chain from tanker freight surge to India CPI?,T_CausalChain
+How is Chambal Fertilisers linked to bond yields?,T_PriceLinkage
+Does LNG curtailment hurt Muthoot Finance investors?,T_StockImpact
+Which peer has greater gross refining margin exposure: Muthoot Finance or GAIL?,T_CompareExposure
+Which NBFCs sit in the impact chain for Solar Industries?,T_SectorExposure
+Which bottlenecks limit Aviation expansion?,T_ConstraintRisk
+What power availability risk hits Cholamandalam Investment?,T_ConstraintRisk
+Can Solar Industries secure LNG if Qatar closes?,T_SupplyDisruption
+Explain hedging strategy of NTPC for India CPI.,T_Hedging
+Explain the knock-on effect from India to tanker freight rates.,T_CausalChain
+Compare GAIL and Indian Oil exposure to tanker freight surge.,T_CompareExposure
+What government action caps CSB Bank pricing?,T_RegulatoryImpact
+How does transmission capacity limit Great Eastern Shipping?,T_ConstraintRisk
+"If Gulf producers shuts, how much ammonia supply is at risk?",T_TransitRisk
+Run a bear case for Tata Motors under refinery outage.,T_EventScenario
+Is Bharat Petroleum regulated on LPG pricing?,T_RegulatoryImpact
+"Between InterGlobe Aviation and ONGC, who faces more crude price rally risk?",T_CompareExposure
+How is Infosys linked to ONGC group?,T_OwnershipStructure
+List stocks that gain from Saudi Arabia rerouting.,T_Beneficiary
+Walk through the causal links from PVC resin to Brent crude price.,T_CausalChain
+Map corporate structure of CSB Bank.,T_OwnershipStructure
+Who in Defence is most exposed to Cape of Good Hope?,T_SectorExposure
+How does ammonia shortage propagate to Aviation?,T_SupplyDisruption
+Does Shriram Finance have a natural offset to LPG import disruption?,T_Hedging
+Does Shriram Finance hold stakes in other listed entities?,T_OwnershipStructure
+Quantify India's aviation turbine fuel dependence on Qatar.,T_TransitRisk
+What land or water constraints affect GIC Re?,T_ConstraintRisk
+Show ownership map for GAIL.,T_OwnershipStructure
+What JVs does Chambal Fertilisers operate?,T_OwnershipStructure
+How exposed is Great Eastern Shipping to marine war-risk spike?,T_StockImpact
+What earnings line moves first when bond yields shifts?,T_MacroTransmission
+Does current account deficit weaken Netweb Technologies fundamentals?,T_MacroTransmission
+What is transit exposure of ammonia via Strait of Hormuz?,T_TransitRisk
+Which inputs become scarce after geopolitical escalation?,T_SupplyDisruption
+Link Indian Oil earnings to spot LNG price.,T_PriceLinkage
+Which group entities sit under Power Grid Corporation?,T_OwnershipStructure
+Why did Solar Industries fall after Russia headlines?,T_StockImpact
+Who invests in Tata Power?,T_InvestmentFlow
+Who owns Hindustan Petroleum?,T_OwnershipStructure
+How do freight rates transmit to Voltamp Transformers costs?,T_MacroTransmission
+What PE capital is entering Indian Banks & NBFCs?,T_InvestmentFlow
+Does Muthoot Finance face feedstock shortage from Cape of Good Hope?,T_SupplyDisruption
+Which global funds are buying into Tata Motors?,T_InvestmentFlow
+How closely does Chambal Fertilisers follow base oil prices?,T_PriceLinkage
+What supply chain risk does India pose for Oil India?,T_SupplyDisruption
+Who funds Indian Oil expansion?,T_InvestmentFlow
+How does bond yields feed into Power & Utilities earnings?,T_CausalChain
+Why did Hindustan Petroleum fall after Red Sea headlines?,T_StockImpact
+Does current account deficit weaken Cholamandalam Investment fundamentals?,T_MacroTransmission
+What is the price linkage between LPG and Hindustan Petroleum?,T_PriceLinkage
+How does excise duty change hit Bharat Petroleum?,T_RegulatoryImpact
+Break down Metals & Mining sensitivity to USD/INR.,T_SectorExposure
+Why did Solar Industries fall after Oman headlines?,T_StockImpact
+"Between Hindustan Unilever and ONGC, who faces more Hormuz disruption risk?",T_CompareExposure
+Model base and bull cases for Banks & NBFCs after refinery outage.,T_EventScenario
+What is the beta of Federal Bank to tanker freight rates?,T_PriceLinkage
+How is fertiliser subsidy linked to Indian Oil?,T_RegulatoryImpact
+Model base and bull cases for Telecom & Connectivity after crude price rally.,T_EventScenario
+Does Cochin Shipyard pass through bond yields changes?,T_PriceLinkage
+Which suppliers are disrupted by Oman tension?,T_SupplyDisruption
+How does LPG import disruption affect Solar Industries share price?,T_StockImpact
+Who is the parent of Cochin Shipyard?,T_OwnershipStructure
+What macro channel links LNG curtailment to Petronet LNG?,T_MacroTransmission
+What is Bharat Electronics's equity sensitivity to marine war-risk spike?,T_StockImpact
+How does naphtha price affect Infosys margins?,T_PriceLinkage
+How is Great Eastern Shipping linked to ONGC group?,T_OwnershipStructure
+Show transmission from urea shock to ONGC.,T_CausalChain
+What government action caps ONGC pricing?,T_RegulatoryImpact
+Which hedges reduce ICICI Lombard oil exposure?,T_Hedging
+What capital flows into Capital Goods from Mubadala?,T_InvestmentFlow
+How does LPG shortage propagate to Refining?,T_SupplyDisruption
+Which feedstocks are at risk from geopolitical escalation?,T_SupplyDisruption
+Who in Telecom & Connectivity is most exposed to Oman?,T_SectorExposure
+Is Power Grid Corporation pricing indexed to Brent crude price?,T_PriceLinkage
+Compare refining vs marketing exposure to oil supply shock.,T_CompareExposure
+What links Cape of Good Hope closure to Banks & NBFCs stocks?,T_CausalChain
+How does LNG curtailment affect Coromandel International?,T_SupplyDisruption
+Which refiners benefit from Brent crude price widening?,T_Beneficiary
+Why did Federal Bank fall after Saudi Arabia headlines?,T_StockImpact
+Rank Power & Utilities stocks by spot LNG price sensitivity.,T_CompareExposure
+Model base and bull cases for IT Services after refinery outage.,T_EventScenario
+What land or water constraints affect ICICI Lombard?,T_ConstraintRisk
+Does Reliance Industries hedge LNG price volatility?,T_Hedging
+Model base and bull cases for Telecom & Connectivity after oil supply shock.,T_EventScenario
+Does current account deficit weaken Federal Bank fundamentals?,T_MacroTransmission
+Which feedstocks are at risk from LPG import disruption?,T_SupplyDisruption
+Who are the major shareholders of Voltamp Transformers?,T_OwnershipStructure
+What FII flows affect Muthoot Finance?,T_InvestmentFlow
+List Indian winners from India disruption.,T_Beneficiary
+Which stocks rally when INR depreciation increases?,T_Beneficiary
+Which feedstocks are at risk from oil supply shock?,T_SupplyDisruption
+What FII flows affect InterGlobe Aviation?,T_InvestmentFlow
+What if India closes completely?,T_EventScenario
+Which peer has greater bond yields exposure: Adani Ports or GAIL?,T_CompareExposure
+Does InterGlobe Aviation pass through USD/INR changes?,T_PriceLinkage
+Rank Adani Green Energy versus sector peers on Strait of Hormuz risk.,T_CompareExposure
+How does sulphur price affect Indian Oil margins?,T_PriceLinkage
+What supply chain risk does Qatar pose for Petronet LNG?,T_SupplyDisruption
+Which policy levers matter for Reliance Industries in Shipping & Logistics?,T_RegulatoryImpact
+Simulate de-escalation impact on marine war-risk premium.,T_EventScenario
+How is InterGlobe Aviation linked to ONGC group?,T_OwnershipStructure
+How does grid evacuation limit Federal Bank?,T_ConstraintRisk
+Why are Bharat Petroleum stocks impacted by Hormuz disruption?,T_StockImpact
+How does Shriram Finance manage gross refining margin sensitivity?,T_Hedging
+What policy tailwinds support Petronet LNG?,T_RegulatoryImpact
+What infrastructure constraints affect Chambal Fertilisers?,T_ConstraintRisk
+How exposed is Bharat Electronics to geopolitical escalation?,T_StockImpact
+Who is more hurt by Brent rally: Adani Ports or Tata Motors?,T_CompareExposure
+Which peer has greater gross refining margin exposure: NTPC or GAIL?,T_CompareExposure
+What commodities drive Federal Bank cost base?,T_PriceLinkage
+What derivative hedges does Federal Bank run on USD/INR?,T_Hedging
+Which group entities sit under Coal India?,T_OwnershipStructure
+"If Cape of Good Hope shuts, how much LPG supply is at risk?",T_TransitRisk
+What earnings line moves first when spot LNG price shifts?,T_MacroTransmission
+Why are CSB Bank shares under pressure from bond yields?,T_StockImpact
+Does tanker freight surge hurt Hindustan Unilever investors?,T_StockImpact
+What procurement risk does geopolitical escalation create for GAIL?,T_SupplyDisruption
+"Between Coal India and ONGC, who faces more LPG import disruption risk?",T_CompareExposure
+Which refiners benefit from bond yields widening?,T_Beneficiary
+What is the beta of NTPC to India CPI?,T_PriceLinkage
+Which sovereign funds invest in Indian Capital Goods?,T_InvestmentFlow
+Is GIC Re exposed to Red Sea shipping routes?,T_TransitRisk
+How does Oman disruption cause changes in fertiliser subsidy bill?,T_CausalChain
+Which NBFCs sit in the impact chain for ICICI Lombard?,T_SectorExposure
+How sensitive is Voltamp Transformers to a spot LNG price spike?,T_MacroTransmission
+How is Larsen & Toubro linked to tanker freight rates?,T_PriceLinkage
+What power availability risk hits New India Assurance?,T_ConstraintRisk
+Which Paints & Adhesives names are beneficiaries of RBI policy rate?,T_Beneficiary
+What capacity bottlenecks slow Hindustan Unilever rollout?,T_ConstraintRisk
+How do freight rates transmit to GAIL costs?,T_MacroTransmission
+Run a bear case for Coal India under Hormuz disruption.,T_EventScenario
+Which is more exposed: Reliance Industries or Reliance Industries?,T_CompareExposure
+What government action caps SpiceJet pricing?,T_RegulatoryImpact
+List Indian winners from Saudi Arabia disruption.,T_Beneficiary
+Who are the major shareholders of Federal Bank?,T_OwnershipStructure
+How dependent is India on Cape of Good Hope for urea?,T_TransitRisk
+How is fertiliser subsidy linked to InterGlobe Aviation?,T_RegulatoryImpact
+How sensitive is Hindustan Petroleum to a current account deficit spike?,T_MacroTransmission
+Quantify India's base oil dependence on UAE.,T_TransitRisk
+Who is the parent of Great Eastern Shipping?,T_OwnershipStructure
+Enumerate Telecom & Connectivity companies tied to oil supply shock.,T_SectorExposure
+Rank Reliance Industries versus sector peers on Red Sea risk.,T_CompareExposure
+How does UAE risk transmit to Bharat Petroleum stock?,T_StockImpact
+How is New India Assurance linked to ONGC group?,T_OwnershipStructure
+Track investment from SoftBank into Indian tech infra.,T_InvestmentFlow
+Can New India Assurance secure LNG if Strait of Hormuz closes?,T_SupplyDisruption
+How does InterGlobe Aviation hedge against India CPI?,T_Hedging
+What policy tailwinds support Chambal Fertilisers?,T_RegulatoryImpact
+How does ammonia price affect Infosys margins?,T_PriceLinkage
+How does transmission capacity limit Solar Industries?,T_ConstraintRisk
+Which companies benefit from geopolitical escalation?,T_Beneficiary
+Does Tata Motors offset fertiliser subsidy bill risk via FX hedges?,T_Hedging
+What constrains New India Assurance growth in AI infra?,T_ConstraintRisk
+Show sector basket for tanker freight surge impact.,T_SectorExposure
+What if Oman closes completely?,T_EventScenario
+How do subsidy revisions change GAIL outlook?,T_RegulatoryImpact
+Model base and bull cases for IT Services after tanker freight surge.,T_EventScenario
+What is the price linkage between base oil and Cochin Shipyard?,T_PriceLinkage
+What is the mechanism from Hormuz disruption to bank stocks?,T_CausalChain
+Which regulations constrain Coal India margins?,T_RegulatoryImpact
+How does Cape of Good Hope chokepoint impact Indian energy imports?,T_TransitRisk
+How does Red Sea affect PVC resin and then Asian Paints?,T_CausalChain
+Model base and bull cases for Capital Goods after marine war-risk spike.,T_EventScenario
+Does Voltamp Transformers hedge naphtha price volatility?,T_Hedging
+How does spot LNG price feed into Power & Utilities earnings?,T_CausalChain
+Does Great Eastern Shipping face feedstock shortage from Red Sea?,T_SupplyDisruption
+Which inputs become scarce after crude price rally?,T_SupplyDisruption
+How does rerouting via Cape affect Reliance Industries?,T_TransitRisk
+What policy tailwinds support New India Assurance?,T_RegulatoryImpact
+What is Hormuz transit risk for Indian LPG?,T_TransitRisk
