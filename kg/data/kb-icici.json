@@ -1,0 +1,425 @@
+{
+  "schema_version": "1.0",
+  "sector": "Banking",
+  "country": "India",
+  "company": {
+    "entity_id": "company_icici_bank",
+    "name": "ICICI Bank Limited",
+    "entity_type": "Company",
+    "properties": {
+      "legal_name": "ICICI Bank Limited",
+      "ticker": "ICICIBANK",
+      "listed": true,
+      "country": "India",
+      "sector": "Financial Services",
+      "industry": "Banking",
+      "banking_segment": "Private Sector Bank"
+    }
+  },
+  "entities": [
+    {
+      "entity_id": "company_sbi",
+      "entity_type": "Company",
+      "name": "State Bank of India",
+      "properties": {
+        "legal_name": "State Bank of India",
+        "ticker": "SBIN",
+        "listed": true,
+        "country": "India",
+        "sector": "Financial Services",
+        "industry": "Banking",
+        "banking_segment": "Public Sector Bank"
+      },
+      "description": "The largest public sector bank in India.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "segment_private_sector_bank",
+      "entity_type": "BankingSegment",
+      "name": "Private Sector Bank",
+      "properties": {},
+      "description": "Indian banking segment characterized by private ownership and management.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "segment_public_sector_bank",
+      "entity_type": "BankingSegment",
+      "name": "Public Sector Bank",
+      "properties": {},
+      "description": "Indian banking segment characterized by majority government ownership.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "product_home_loan",
+      "entity_type": "Product",
+      "name": "Home Loan",
+      "properties": {
+        "category": "Loan Product",
+        "segment": "Retail Lending"
+      },
+      "description": "Residential property financing product.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "product_credit_card",
+      "entity_type": "Product",
+      "name": "Credit Card",
+      "properties": {
+        "category": "Card Product",
+        "segment": "Retail Lending"
+      },
+      "description": "Unsecured revolving credit facility linked to a physical or virtual card.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "customer_retail",
+      "entity_type": "CustomerSegment",
+      "name": "Retail",
+      "properties": {},
+      "description": "Individual consumers seeking personal banking services.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "customer_sme",
+      "entity_type": "CustomerSegment",
+      "name": "SME",
+      "properties": {},
+      "description": "Small and medium-sized enterprises seeking business banking solutions.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "funding_casa",
+      "entity_type": "FundingSource",
+      "name": "CASA",
+      "properties": {
+        "characteristic": "Low Cost"
+      },
+      "description": "Current Account and Savings Account deposits, representing low-cost stable funding.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "channel_branch",
+      "entity_type": "DistributionChannel",
+      "name": "Branch",
+      "properties": {
+        "type": "Physical"
+      },
+      "description": "Physical brick-and-mortar banking outlets.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "channel_digital_app",
+      "entity_type": "DistributionChannel",
+      "name": "Digital Application",
+      "properties": {
+        "type": "Digital"
+      },
+      "description": "Mobile banking and digital platform applications for self-service banking.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "risk_credit_risk",
+      "entity_type": "Risk",
+      "name": "Credit Risk",
+      "properties": {},
+      "description": "The risk of default on a debt that may arise from a borrower failing to make required payments.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "arena_retail_lending",
+      "entity_type": "CompetitiveArena",
+      "name": "Retail Lending",
+      "properties": {},
+      "description": "The competitive space involving lending to individual consumers.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "advantage_distribution_scale",
+      "entity_type": "CompetitiveAdvantage",
+      "name": "Distribution Scale",
+      "properties": {},
+      "description": "An extensive physical and digital network providing wide customer reach.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "advantage_technology_stack",
+      "entity_type": "CompetitiveAdvantage",
+      "name": "Technology Stack",
+      "properties": {},
+      "description": "Superior digital infrastructure enabling efficiency and customer acquisition.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "driver_cost_of_funds",
+      "entity_type": "Driver",
+      "name": "Cost of Funds",
+      "properties": {
+        "impacts": "NIM"
+      },
+      "description": "The interest rate paid by financial institutions for the funds they deploy in their business.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "metric_roe",
+      "entity_type": "Metric",
+      "name": "Return on Equity",
+      "properties": {
+        "type": "Profitability"
+      },
+      "description": "Measure of financial performance calculated by dividing net income by shareholders' equity.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "metric_nim",
+      "entity_type": "Metric",
+      "name": "Net Interest Margin",
+      "properties": {
+        "type": "Profitability"
+      },
+      "description": "Difference between interest income generated and interest paid out to lenders, relative to interest-earning assets.",
+      "confidence": "High"
+    },
+    {
+      "entity_id": "metric_gnpa",
+      "entity_type": "Metric",
+      "name": "Gross Non-Performing Assets",
+      "properties": {
+        "type": "Asset Quality"
+      },
+      "description": "Total value of non-performing assets before specific provisions.",
+      "confidence": "High"
+    }
+  ],
+  "relationships": [
+    {
+      "source_id": "company_icici_bank",
+      "relationship_type": "BELONGS_TO_SEGMENT",
+      "target_id": "segment_private_sector_bank",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "ICICI Bank is formally categorized as a private sector bank in India."
+    },
+    {
+      "source_id": "company_sbi",
+      "relationship_type": "BELONGS_TO_SEGMENT",
+      "target_id": "segment_public_sector_bank",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "State Bank of India is a majority government-owned public sector bank."
+    },
+    {
+      "source_id": "company_icici_bank",
+      "relationship_type": "COMPETES_WITH",
+      "target_id": "company_sbi",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "Both banks operate in the identical Indian macroeconomic environment across major product lines."
+    },
+    {
+      "source_id": "company_icici_bank",
+      "relationship_type": "COMPETES_IN",
+      "target_id": "arena_retail_lending",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "ICICI derives a significant portion of its loan book from retail credit."
+    },
+    {
+      "source_id": "company_sbi",
+      "relationship_type": "COMPETES_IN",
+      "target_id": "arena_retail_lending",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "SBI possesses the largest retail loan book in the country."
+    },
+    {
+      "source_id": "company_icici_bank",
+      "relationship_type": "OFFERS_PRODUCT",
+      "target_id": "product_home_loan",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "Home loans are a core offering in the bank's retail portfolio."
+    },
+    {
+      "source_id": "company_sbi",
+      "relationship_type": "OFFERS_PRODUCT",
+      "target_id": "product_home_loan",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "SBI is the market leader in the Indian home loan segment."
+    },
+    {
+      "source_id": "product_credit_card",
+      "relationship_type": "TARGETS",
+      "target_id": "customer_retail",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "Credit cards are consumer financing tools designed for retail spending."
+    },
+    {
+      "source_id": "company_icici_bank",
+      "relationship_type": "FUNDED_BY",
+      "target_id": "funding_casa",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "CASA constitutes a large percentage of ICICI's total liabilities."
+    },
+    {
+      "source_id": "company_sbi",
+      "relationship_type": "FUNDED_BY",
+      "target_id": "funding_casa",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "SBI leverages its vast network to generate immense CASA deposits."
+    },
+    {
+      "source_id": "company_sbi",
+      "relationship_type": "USES_CHANNEL",
+      "target_id": "channel_branch",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "SBI operates the largest physical branch network in India."
+    },
+    {
+      "source_id": "company_icici_bank",
+      "relationship_type": "USES_CHANNEL",
+      "target_id": "channel_digital_app",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "ICICI relies heavily on its iMobile ecosystem for customer interaction."
+    },
+    {
+      "source_id": "company_sbi",
+      "relationship_type": "HAS_ADVANTAGE",
+      "target_id": "advantage_distribution_scale",
+      "confidence": "High",
+      "evidence_strength": "Strong Inference",
+      "rationale": "Extensive rural and semi-urban branch presence creates barriers to entry."
+    },
+    {
+      "source_id": "company_icici_bank",
+      "relationship_type": "HAS_ADVANTAGE",
+      "target_id": "advantage_technology_stack",
+      "confidence": "High",
+      "evidence_strength": "Strong Inference",
+      "rationale": "Early adoption of digital API-led infrastructure creates operational leverage."
+    },
+    {
+      "source_id": "advantage_distribution_scale",
+      "relationship_type": "REDUCES",
+      "target_id": "driver_cost_of_funds",
+      "confidence": "High",
+      "evidence_strength": "Strong Inference",
+      "rationale": "Deep rural physical presence allows collection of granular, low-cost savings deposits."
+    },
+    {
+      "source_id": "funding_casa",
+      "relationship_type": "REDUCES",
+      "target_id": "driver_cost_of_funds",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "Current accounts carry zero interest and savings carry minimal interest compared to term deposits."
+    },
+    {
+      "source_id": "company_icici_bank",
+      "relationship_type": "EXPOSED_TO",
+      "target_id": "risk_credit_risk",
+      "confidence": "High",
+      "evidence_strength": "Direct",
+      "rationale": "Structural element of engaging in unsecured and secured lending activities."
+    }
+  ],
+  "metric_values": [
+    {
+      "company_id": "company_icici_bank",
+      "metric_id": "metric_roe",
+      "value": 18.5,
+      "unit": "percentage",
+      "period": "FY2024",
+      "basis": "reported",
+      "confidence": "High"
+    },
+    {
+      "company_id": "company_icici_bank",
+      "metric_id": "metric_nim",
+      "value": 4.5,
+      "unit": "percentage",
+      "period": "FY2024",
+      "basis": "reported",
+      "confidence": "High"
+    },
+    {
+      "company_id": "company_sbi",
+      "metric_id": "metric_roe",
+      "value": 16.5,
+      "unit": "percentage",
+      "period": "FY2024",
+      "basis": "reported",
+      "confidence": "High"
+    },
+    {
+      "company_id": "company_sbi",
+      "metric_id": "metric_nim",
+      "value": 3.3,
+      "unit": "percentage",
+      "period": "FY2024",
+      "basis": "reported",
+      "confidence": "High"
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "claim_sbi_distribution_moat",
+      "claim_type": "Strength",
+      "statement": "State Bank of India possesses a structural moat in deposit gathering due to its unparalleled physical distribution network.",
+      "subject_entity_id": "company_sbi",
+      "supporting_entity_ids": [
+        "advantage_distribution_scale",
+        "funding_casa",
+        "channel_branch"
+      ],
+      "confidence": "High",
+      "evidence_strength": "Strong Inference",
+      "rationale": "SBI's massive branch network, especially in semi-urban and rural areas, structurally enables it to attract low-cost CASA deposits that competitors cannot easily replicate."
+    },
+    {
+      "claim_id": "claim_icici_digital_premium",
+      "claim_type": "Strength",
+      "statement": "ICICI Bank commands premium operating margins driven by early technology investments that optimize cross-selling and reduce customer acquisition costs.",
+      "subject_entity_id": "company_icici_bank",
+      "supporting_entity_ids": [
+        "advantage_technology_stack",
+        "channel_digital_app",
+        "customer_retail"
+      ],
+      "confidence": "High",
+      "evidence_strength": "Strong Inference",
+      "rationale": "High adoption of the iMobile platform supports efficient scaling of the retail and credit card portfolios without proportionate branch expansion."
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "evidence_001",
+      "entity_or_claim_id": "claim_sbi_distribution_moat",
+      "evidence_type": "Company Disclosure",
+      "source_name": "SBI Annual Report",
+      "source_reference": "Branch Network Statistics",
+      "description": "Disclosure of physical branch count emphasizing rural and semi-urban density.",
+      "confidence": "High"
+    },
+    {
+      "evidence_id": "evidence_002",
+      "entity_or_claim_id": "claim_icici_digital_premium",
+      "evidence_type": "Company Disclosure",
+      "source_name": "ICICI Bank Investor Presentation",
+      "source_reference": "Digital Channels Sourcing",
+      "description": "Data showing the high percentage of retail products sourced entirely through digital platforms.",
+      "confidence": "High"
+    }
+  ],
+  "validation": {
+    "event_entities_found": false,
+    "duplicate_entities_found": false,
+    "unsupported_claims_found": false,
+    "warnings": []
+  }
+}
