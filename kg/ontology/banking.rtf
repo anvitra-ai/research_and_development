@@ -1,0 +1,134 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 BANKING SECTOR KNOWLEDGE GRAPH ONTOLOGY Listed Companies in India \u8212- Event-Free, Analyst-Oriented\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 1.\tx360\tab DESIGN PRINCIPLES \u8226 ? Capture persistent structural knowledge, not events or timelines. \u8226 ? Separate objective facts from analytical interpretation. \u8226 ? Use reusable, normalized entities across companies. \u8226 ? Prefer explicit, directional, semantically meaningful relationships. \u8226 ? Store metric definitions separately from company-specific metric values. \u8226 ? Preserve confidence and evidence strength for analytical knowledge.\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 2.\tx360\tab CORE KNOWLEDGE LAYERS\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Layer 1 \u8212- Structural Knowledge Sector, Industry, BankingSegment, Company, CorporateGroup, Product, Service, CustomerSegment, Geography, DistributionChannel, Regulator, License.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Layer 2 \u8212- Business and Economic Knowledge BusinessModel, OperatingModel, RevenueStream, FundingSource, AssetClass, LiabilityClass, LoanSegment, DepositSegment, InvestmentClass, Capability, Technology, CompetitiveArena, Partnership, Ecosystem, Metric.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Layer 3 \u8212- Analyst Knowledge Strength, Weakness, Opportunity, Threat, Risk, Dependency, Driver, CompetitiveAdvantage, StrategicPosition, Claim, Condition, Outcome.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab SECTOR HIERARCHY Financial Services \u9492 ?\u9472 ?\u9472 ? Banking \u9500 ?\u9472 ?\u9472 ? Public Sector Banks \u9500 ?\u9472 ?\u9472 ? Private Sector Banks \u9500 ?\u9472 ?\u9472 ? Small Finance Banks \u9500 ?\u9472 ?\u9472 ? Payments Banks \u9500 ?\u9472 ?\u9472 ? Foreign Banks \u9492 ?\u9472 ?\u9472 ? Other Banking Institutions\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: BELONGS_TO BELONGS_TO_SEGMENT OPERATES_IN_INDUSTRY\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab COMPANY AND CORPORATE STRUCTURE\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Entities: Company CorporateGroup\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: PART_OF_GROUP PARENT_OF SUBSIDIARY_OF ASSOCIATE_OF AFFILIATED_WITH JOINT_VENTURE_WITH\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Note: SIBLING_OF should generally be inferred from a common parent rather than stored.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Company properties: legal_name ticker isin listed exchange country sector industry banking_segment website description\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 5.\tx360\tab PRODUCTS\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Product categories: Deposit Product Loan Product Card Product Payment Product Wealth Product Insurance Product Forex Product Treasury Product Investment Product\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Examples: Savings Account Current Account Fixed Deposit Recurring Deposit Home Loan Vehicle Loan Personal Loan Business Loan SME Loan Agriculture Loan Credit Card Debit Card\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: OFFERS_PRODUCT TARGETS DISTRIBUTED_THROUGH\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 6.\tx360\tab SERVICES\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Examples: Wealth Management Private Banking Cash Management Trade Finance Forex Services Treasury Services Merchant Services Payment Processing Custody Services Relationship Management Corporate Banking Services\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: PROVIDES_SERVICE SERVES\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 7.\tx360\tab CUSTOMER SEGMENTS\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Retail Mass Market Affluent HNI UHNI SME Mid Market Large Corporate Government Financial Institution Agriculture Rural Customer\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: SERVES TARGETS\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 8.\tx360\tab ASSETS AND LOAN EXPOSURE\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Asset classes: Loan Portfolio Investments Cash Interbank Assets Other Assets\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Loan segments: Retail Lending Home Loan Vehicle Loan Personal Loan Credit Card Education Loan Corporate Lending Large Corporate Mid Corporate SME Agriculture Lending Infrastructure Lending\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_ASSET_EXPOSURE_TO HAS_LOAN_EXPOSURE_TO EXPOSED_TO\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 9.\tx360\tab FUNDING AND LIABILITIES\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Funding sources: CASA Savings Deposits Current Deposits Term Deposits Institutional Deposits Borrowings Bonds Interbank Funding\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Funding characteristics: Low Cost High Cost Stable Volatile Retail Institutional Diversified Concentrated\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: FUNDED_BY HAS_FUNDING_PROFILE\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 10.\tx360\tab REVENUE MODEL\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Revenue streams: Interest Income Fee Income Commission Income Treasury Income Forex Income Payment Income Wealth Income Insurance Distribution Income Other Operating Income\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_REVENUE_STREAM GENERATES_REVENUE_FROM\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 11.\tx360\tab DISTRIBUTION\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Channels: Branch ATM Mobile Application Web Platform API Relationship Manager Direct Sales Agent Partner Merchant Network Corporate Partnership\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: USES_CHANNEL DISTRIBUTED_THROUGH SERVES\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 12.\tx360\tab GEOGRAPHY\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Entities: Country State Region City Urban Semi Urban Rural International Market\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: OPERATES_IN HAS_STRONG_PRESENCE_IN HAS_STRATEGIC_EXPOSURE_TO\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 13.\tx360\tab BUSINESS AND OPERATING MODEL\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Business model dimensions: Customer Model Revenue Model Funding Model Distribution Model Operating Model Risk Model Competitive Model\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Operating models: Branch Led Digital First Hybrid Relationship Led Partnership Led Platform Led\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_BUSINESS_MODEL HAS_OPERATING_MODEL\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 14.\tx360\tab CAPABILITIES\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Examples: Underwriting Risk Management Fraud Detection Customer Acquisition Customer Retention Cross Selling Collections Data Analytics Relationship Management Treasury Management Digital Onboarding Payment Processing\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_CAPABILITY ENABLES CREATES_ADVANTAGE_IN\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 15.\tx360\tab TECHNOLOGY\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Technology categories: Core Banking Cloud Artificial Intelligence Data Platform Cybersecurity Mobile Banking API Payment Infrastructure Automation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: USES_TECHNOLOGY ENABLES\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 16.\tx360\tab COMPETITION\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Competitive arenas: Deposits Retail Lending Corporate Lending SME Lending Credit Cards Payments Wealth Management Digital Banking Transaction Banking\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: COMPETES_WITH COMPETES_IN HAS_ADVANTAGE_IN DIFFERENTIATES_FROM\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 17.\tx360\tab COMPETITIVE ADVANTAGE\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Advantage sources: Brand Distribution Scale Cost of Funds Customer Base Data Technology Ecosystem Regulatory License Network Effects Switching Costs\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_ADVANTAGE ENABLES IMPROVES CREATES_ADVANTAGE_IN\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 18.\tx360\tab SWOT\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Strength categories: Financial Funding Distribution Brand Technology Capability Customer Scale Management Strategic\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_STRENGTH ENABLES IMPROVES SUPPORTS\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Weakness categories: Financial Funding Distribution Technology Customer Concentration Geographic Concentration Product Concentration Scale Capability\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_WEAKNESS INCREASES_EXPOSURE_TO\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Opportunity categories: Market Expansion Customer Expansion Product Expansion Geographic Expansion Digital Expansion Margin Expansion Cross Sell Partnership Ecosystem Regulatory Opportunity\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_OPPORTUNITY DEPENDS_ON ENABLES\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Threat categories: Competition Technology Disruption Regulatory Pressure Margin Compression Credit Deterioration Funding Pressure Cybersecurity FinTech Disruption Customer Migration Macroeconomic Exposure\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: THREATENS AFFECTS\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 19.\tx360\tab RISK\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Risk categories: Credit Risk Market Risk Liquidity Risk Interest Rate Risk Operational Risk Cyber Risk Regulatory Risk Concentration Risk Reputation Risk Technology Risk Funding Risk\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: EXPOSED_TO AFFECTS IMPACTS MITIGATED_BY\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 20.\tx360\tab DEPENDENCIES\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Technology Dependency Funding Dependency Partner Dependency Customer Dependency Vendor Dependency Geographic Dependency Distribution Dependency Regulatory Dependency\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: DEPENDS_ON CREATES_RISK CONSTRAINS\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 21.\tx360\tab FINANCIAL METRICS\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Growth: Loan Growth Deposit Growth Revenue Growth Customer Growth\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Profitability: ROA ROE NIM Profit Margin\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Efficiency: Cost to Income Employee Productivity Branch Productivity\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Asset Quality: GNPA NNPA Provision Coverage Credit Cost\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Capital: CET1 Tier 1 Capital Adequacy Ratio\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_METRIC MEASURES\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Rule: Metric definitions are reusable entities. Company-specific metric values are observations with: company_id, metric_id, value, unit, period, basis.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 22.\tx360\tab ANALYST DRIVERS\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Driver types: Growth Driver Revenue Driver Margin Driver Profitability Driver ROE Driver Risk Driver Competitive Driver Structural Driver Valuation Driver\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_DRIVER HAS_GROWTH_DRIVER HAS_MARGIN_DRIVER HAS_ROE_DRIVER HAS_RISK_DRIVER HAS_VALUATION_DRIVER\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 23.\tx360\tab CAUSAL RELATIONSHIPS\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 CAUSES ENABLES IMPROVES REDUCES INCREASES CONSTRAINS SUPPORTS DEPENDS_ON EXPOSES_TO MITIGATES INFLUENCES\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Example: High CASA Ratio \u9492 ?\u9472 ?\u9472 ? REDUCES \u8594 ? Cost of Funds Cost of Funds \u9492 ?\u9472 ?\u9472 ? INFLUENCES \u8594 ? Net Interest Margin Net Interest Margin \u9492 ?\u9472 ?\u9472 ? INFLUENCES \u8594 ? ROA\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 24.\tx360\tab REGULATION\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Entities: Regulator License Requirement Regulation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: REGULATED_BY HAS_LICENSE SUBJECT_TO REQUIRES\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Requirement examples: Capital Requirement Liquidity Requirement Reserve Requirement Priority Sector Requirement Risk Management Requirement\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 25.\tx360\tab PARTNERSHIPS\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Categories: Technology Distribution Lending Payments Insurance Wealth Data\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: PARTNERS_WITH ENABLES SUPPORTS\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Only persistent partnerships should be represented. Do not model partnership events.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 26.\tx360\tab ECOSYSTEM\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Categories: Banking Insurance Asset Management Broking Payments Lending Wealth Consumer Platform\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: PART_OF_ECOSYSTEM ENABLES SUPPORTS\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 27.\tx360\tab STRATEGIC POSITIONING\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Examples: Premium Mass Market Digital First Corporate Focus Retail Focus Rural Focus SME Focus Universal Bank Niche Bank\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationship: POSITIONED_AS\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 28.\tx360\tab VALUATION DRIVERS\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Examples: Growth ROE Asset Quality Cost of Funds Capital Efficiency Franchise Quality Competitive Advantage Management Quality Risk Profile\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Relationships: HAS_VALUATION_DRIVER INFLUENCES\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The ontology must not generate investment recommendations such as BUY, SELL, HOLD, or TARGET_PRICE.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 29.\tx360\tab CLAIMS\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Claims represent analytical conclusions and must be separate from objective facts.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Claim types may include: Strength Weakness Opportunity Threat Risk Assessment Competitive Position Franchise Quality Growth Driver Margin Driver ROE Driver Valuation Driver\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Required claim fields: claim_id claim_type statement subject_entity_id supporting_entity_ids confidence evidence_strength rationale\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Confidence: High Medium Low\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Evidence strength: Direct Strong Inference Moderate Inference Weak Inference\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 30.\tx360\tab EVIDENCE AND PROVENANCE\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Evidence should support factual entities, relationships, metrics and claims.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Recommended evidence fields: evidence_id entity_or_claim_id evidence_type source_name source_reference description confidence\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Recommended provenance pattern: Entity/Relationship/Claim \u9492 ?\u9472 ?\u9472 ? SUPPORTED_BY \u8594 ? Evidence Evidence \u9492 ?\u9472 ?\u9472 ? FROM \u8594 ? Source\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 31.\tx360\tab NODE VS PROPERTY RULE\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Create an entity when the concept: \u8226 ? Can be shared across companies \u8226 ? Has its own relationships \u8226 ? Has analytical importance \u8226 ? Can be compared \u8226 ? Can participate in causal relationships\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Use properties for descriptive values such as: legal_name ticker isin website description value unit period confidence\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 32.\tx360\tab ENTITY NORMALIZATION\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Entity ID format: _\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Examples: company_hdfc_bank product_home_loan risk_credit_risk metric_roe customer_retail segment_private_sector_bank\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Rules: \u8226 ? Lowercase \u8226 ? Underscores \u8226 ? No punctuation \u8226 ? Stable naming \u8226 ? No random IDs \u8226 ? Reuse universal concepts\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 33.\tx360\tab EVENT EXCLUSION\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Strictly exclude: Event News Announcement Timeline EarningsEvent MarketEvent AcquisitionEvent ManagementChangeEvent\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Capture persistent state instead of the event that created it.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 34.\tx360\tab HIGH-LEVEL GRAPH MODEL\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Banking \u9492 ?\u9472 ?\u9472 ? HAS_COMPANY \u8594 ? Company\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Company \u9500 ?\u9472 ?\u9472 ? BELONGS_TO_SEGMENT \u8594 ? BankingSegment \u9500 ?\u9472 ?\u9472 ? PART_OF_GROUP \u8594 ? CorporateGroup \u9500 ?\u9472 ?\u9472 ? OFFERS_PRODUCT \u8594 ? Product \u9500 ?\u9472 ?\u9472 ? PROVIDES_SERVICE \u8594 ? Service \u9500 ?\u9472 ?\u9472 ? SERVES \u8594 ? CustomerSegment \u9500 ?\u9472 ?\u9472 ? FUNDED_BY \u8594 ? FundingSource \u9500 ?\u9472 ?\u9472 ? HAS_ASSET_EXPOSURE_TO \u8594 ? AssetClass \u9500 ?\u9472 ?\u9472 ? HAS_LOAN_EXPOSURE_TO \u8594 ? LoanSegment \u9500 ?\u9472 ?\u9472 ? HAS_REVENUE_STREAM \u8594 ? RevenueStream \u9500 ?\u9472 ?\u9472 ? USES_CHANNEL \u8594 ? DistributionChannel \u9500 ?\u9472 ?\u9472 ? HAS_CAPABILITY \u8594 ? Capability \u9500 ?\u9472 ?\u9472 ? USES_TECHNOLOGY \u8594 ? Technology \u9500 ?\u9472 ?\u9472 ? COMPETES_WITH \u8594 ? Company \u9500 ?\u9472 ?\u9472 ? COMPETES_IN \u8594 ? CompetitiveArena \u9500 ?\u9472 ?\u9472 ? HAS_ADVANTAGE \u8594 ? CompetitiveAdvantage \u9500 ?\u9472 ?\u9472 ? HAS_STRENGTH \u8594 ? Strength \u9500 ?\u9472 ?\u9472 ? HAS_WEAKNESS \u8594 ? Weakness \u9500 ?\u9472 ?\u9472 ? HAS_OPPORTUNITY \u8594 ? Opportunity \u9500 ?\u9472 ?\u9472 ? EXPOSED_TO \u8594 ? Risk \u9500 ?\u9472 ?\u9472 ? DEPENDS_ON \u8594 ? Dependency \u9500 ?\u9472 ?\u9472 ? HAS_DRIVER \u8594 ? Driver \u9500 ?\u9472 ?\u9472 ? REGULATED_BY \u8594 ? Regulator \u9500 ?\u9472 ?\u9472 ? HAS_LICENSE \u8594 ? License \u9500 ?\u9472 ?\u9472 ? PARTNERS_WITH \u8594 ? Partnership \u9500 ?\u9472 ?\u9472 ? PART_OF_ECOSYSTEM \u8594 ? Ecosystem \u9500 ?\u9472 ?\u9472 ? POSITIONED_AS \u8594 ? StrategicPosition \u9492 ?\u9472 ?\u9472 ? HAS_VALUATION_DRIVER \u8594 ? Driver\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 35.\tx360\tab ONTOLOGY OBJECTIVE\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The ontology is designed to answer: \u8226 ? What is the company? \u8226 ? How does it make money? \u8226 ? Who are its customers? \u8226 ? What products and services does it offer? \u8226 ? How is it funded? \u8226 ? Where are its assets deployed? \u8226 ? What capabilities does it possess? \u8226 ? What creates competitive advantage? \u8226 ? What are its structural risks? \u8226 ? What drives growth? \u8226 ? What drives profitability and ROE? \u8226 ? What influences franchise quality and valuation? \u8226 ? How does it compare with competitors?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The graph represents persistent, structured, analyst-oriented company knowledge. It is intentionally event-free.\par}
+}
