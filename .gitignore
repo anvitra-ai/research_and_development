@@ -1,2 +1,4 @@
 models/
 retrieval/__pycache__/
+retrieval/retrieval_env
+.claude/
