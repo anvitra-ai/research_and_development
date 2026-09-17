@@ -50,6 +50,14 @@ _QUERY_HINTS: list[tuple[re.Pattern[str], dict[str, Any]]] = [
     (re.compile(r"\bsupply|sourced from|feedstock\b", re.I), {"prop1": "SOURCED_FROM", "subject_types": ["COMPANY", "RAW_MATERIAL", "PRODUCT"]}),
 ]
 
+# Best-effort numeric value extraction from a Graphiti edge's flattened attributes
+# (property name varies by which edge_type class populated it -- ExposureRelation,
+# OwnershipStake, MetricObservation, etc. -- so try every plausible one in order).
+_NUMERIC_COALESCE = (
+    "coalesce(r.percentage, r.exposure_percentage, r.exposure_amount, "
+    "r.ownership_percentage, r.value, r.share, r.weight, 1.0)"
+)
+
 # Alternative Cypher patterns for query shapes the generic triplet cannot express.
 _SPECIAL_SIMPLE_CYPHER: dict[str, str] = {
     "sector_beneficiaries": (
@@ -124,6 +132,27 @@ _SPECIAL_SIMPLE_CYPHER: dict[str, str] = {
         "ORDER BY length(p)\n"
         "LIMIT 10"
     ),
+    # "Across all 39 banks, which reports the highest/lowest <metric>?" -- rank
+    # every entity of nn1's type (e.g. Company) connected to the specific resolved
+    # metric entity (nnp2), unlike the generic F_QuantMax/Min templates which rank
+    # one subject's own neighbors. Graphiti schema (:Entity/:RELATES_TO/r.fact),
+    # not the legacy :Node schema the rest of this dict uses.
+    "global_ranking_max": (
+        "MATCH (s:Entity)-[r:RELATES_TO]-(o:Entity {uuid: $nnp2})\n"
+        "WHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n"
+        f"WITH s, o, r, {_NUMERIC_COALESCE} AS val\n"
+        "ORDER BY val DESC\n"
+        "RETURN s.name AS subject_name, o.name AS object_name, val AS max_value, r.fact AS fact\n"
+        "LIMIT 1"
+    ),
+    "global_ranking_min": (
+        "MATCH (s:Entity)-[r:RELATES_TO]-(o:Entity {uuid: $nnp2})\n"
+        "WHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n"
+        f"WITH s, o, r, {_NUMERIC_COALESCE} AS val\n"
+        "ORDER BY val ASC\n"
+        "RETURN s.name AS subject_name, o.name AS object_name, val AS min_value, r.fact AS fact\n"
+        "LIMIT 1"
+    ),
 }
 
 _PROPAGATION_RE = re.compile(
@@ -142,26 +171,29 @@ _BENEFICIARY_FALLBACKS = ("shock_beneficiaries", "beneficiary_paths", "product_p
 
 _COMPARE_NO_SHOCK_CYPHER = {
     "F_CompMore": (
-        "MATCH (a:Node {id: $nnp1}), (b:Node {id: $nnp2})\n"
-        "WHERE a.id <> b.id\n"
+        "MATCH (a:Entity {uuid: $nnp1}), (b:Entity {uuid: $nnp2})\n"
+        "WHERE a.uuid <> b.uuid\n"
         "OPTIONAL MATCH pa = shortestPath((a)-[*..8]-(b))\n"
-        "RETURN a.label AS entity_a, b.label AS entity_b, length(pa) AS hops_a, "
-        "CASE WHEN length(pa) > 0 THEN a.label ELSE b.label END AS more_connected"
+        "RETURN a.name AS entity_a, b.name AS entity_b, length(pa) AS hops_a, "
+        "CASE WHEN length(pa) > 0 THEN a.name ELSE b.name END AS more_connected, "
+        "[rel IN relationships(pa) | rel.fact] AS facts"
     ),
     "F_CompLess": (
-        "MATCH (a:Node {id: $nnp1}), (b:Node {id: $nnp2})\n"
-        "WHERE a.id <> b.id\n"
+        "MATCH (a:Entity {uuid: $nnp1}), (b:Entity {uuid: $nnp2})\n"
+        "WHERE a.uuid <> b.uuid\n"
         "OPTIONAL MATCH pa = shortestPath((a)-[*..8]-(b))\n"
-        "RETURN a.label AS entity_a, b.label AS entity_b, length(pa) AS hops, "
-        "CASE WHEN length(pa) > 0 THEN b.label ELSE a.label END AS less_connected"
+        "RETURN a.name AS entity_a, b.name AS entity_b, length(pa) AS hops, "
+        "CASE WHEN length(pa) > 0 THEN b.name ELSE a.name END AS less_connected, "
+        "[rel IN relationships(pa) | rel.fact] AS facts"
     ),
     "F_CompApprox": (
-        "MATCH (a:Node {id: $nnp1}), (b:Node {id: $nnp2})\n"
-        "WHERE a.id <> b.id\n"
+        "MATCH (a:Entity {uuid: $nnp1}), (b:Entity {uuid: $nnp2})\n"
+        "WHERE a.uuid <> b.uuid\n"
         "OPTIONAL MATCH pa = shortestPath((a)-[*..8]-(b))\n"
-        "WITH a, b, length(pa) AS hops\n"
+        "WITH a, b, length(pa) AS hops, pa\n"
         "WHERE hops <= 2\n"
-        "RETURN a.label AS entity_a, b.label AS entity_b, hops"
+        "RETURN a.name AS entity_a, b.name AS entity_b, hops, "
+        "[rel IN relationships(pa) | rel.fact] AS facts"
     ),
 }
 
@@ -183,6 +215,25 @@ def _query_hints(query: str) -> dict[str, Any]:
 def _entity_position(query: str, entity_text: str) -> int:
     match = re.search(re.escape(entity_text), query, flags=re.IGNORECASE)
     return match.start() if match else 10_000
+
+
+def _is_parenthetical(query: str, entity_text: str) -> bool:
+    """Whether entity_text's span sits inside a "(...)" in the query.
+
+    English regularly restates a vague/broad term with a specific one in
+    parentheses right after it -- "asset quality (lowest gross NPA)" means the
+    gross NPA *metric specifically*, not the more general "asset quality" -- so
+    when two same-type candidates are otherwise tied, the parenthetical one is
+    almost always the more precise, intended referent.
+    """
+    match = re.search(re.escape(entity_text), query, flags=re.IGNORECASE)
+    if not match:
+        return False
+    start, end = match.start(), match.end()
+    open_paren = query.rfind("(", 0, start)
+    close_paren = query.find(")", end)
+    # A "(" before with no ")" in between, and a matching ")" after.
+    return open_paren != -1 and close_paren != -1 and query.find(")", open_paren, start) == -1
 
 
 def _row_type(matched: pd.DataFrame, entity_id: str | None) -> str | None:
@@ -357,8 +408,25 @@ def infer_prop1(query: str, template_label: str, templates: dict, hints: dict[st
     return None
 
 
-def _dedupe_slots(nnp1: str | None, nnp2: str | None, matched: pd.DataFrame, ordered: pd.DataFrame) -> str | None:
+def _dedupe_slots(
+    nnp1: str | None, nnp2: str | None, matched: pd.DataFrame, ordered: pd.DataFrame, query: str = ""
+) -> str | None:
     if not nnp2 or nnp2 == nnp1:
+        # When falling back to "any other distinct entity" (no type filter narrowed
+        # it down), prefer a parenthetical mention over leftmost position -- "asset
+        # quality (lowest gross NPA)" means the gross NPA metric specifically, and
+        # this fallback is exactly the path that otherwise silently picks whichever
+        # candidate happens to appear first in the raw sentence. Only overrides when
+        # there's exactly one parenthetical candidate; ambiguous cases (zero or
+        # several) fall through to the existing position-based pick unchanged.
+        candidates = matched[matched["matched_id"] != nnp1] if nnp1 else matched
+        parenthetical_ids = [
+            row["matched_id"]
+            for _, row in candidates.iterrows()
+            if _is_parenthetical(query, str(row["entity"]))
+        ]
+        if len(parenthetical_ids) == 1:
+            return parenthetical_ids[0]
         return _pick_distinct(matched, set(matched["matched_type"]), nnp1, ordered=ordered)
     return nnp2
 
@@ -392,12 +460,24 @@ def _special_simple_mode(query: str, slots: dict[str, Any], matched: pd.DataFram
     return None
 
 
+_GLOBAL_RANKING_RE = re.compile(
+    r"\bacross all\b|\bwhich\b(?:\s+\w+){0,3}\s+(?:bank|banks|company|companies)\b", re.I
+)
+
+
 def _quant_mode(query: str, template_label: str, slots: dict[str, Any]) -> str | None:
     if not template_label.startswith("F_Quant"):
         return None
     if slots.get("prop1") == "TRANSITS" or _TRANSIT_QUANT_RE.search(query):
         if slots.get("nn1") in {"RAW_MATERIAL", "PRODUCT", None}:
             return "transit_quant"
+    # "Across all 39 listed Indian banks, which report the highest/lowest <metric>?"
+    # needs to rank across every entity of nn1's type connected to the resolved
+    # metric (nnp2), not one entity's own neighbors -- the generic F_QuantMax/Min
+    # Cypher (rank one subject's neighbors) is the wrong shape for this regardless
+    # of what nnp1 got picked as (often a stray, wrong entity for these queries).
+    if template_label in {"F_QuantMax", "F_QuantMin"} and slots.get("nnp2") and _GLOBAL_RANKING_RE.search(query):
+        return "global_ranking_max" if template_label == "F_QuantMax" else "global_ranking_min"
     return None
 
 
@@ -519,7 +599,7 @@ def extract_triplet_slots(
     else:
         nnp3 = shock_id
 
-    nnp2 = _dedupe_slots(nnp1, nnp2, matched, ordered)
+    nnp2 = _dedupe_slots(nnp1, nnp2, matched, ordered, query)
     nn2 = _row_type(matched, nnp2)
 
     prop1 = locals().get("prop1") or infer_prop1(query, template_label, templates, hints)
@@ -623,7 +703,11 @@ def expand_formica_template(
 
     if mode:
         expanded["cypher"] = _SPECIAL_SIMPLE_CYPHER[mode]
-        expanded["parameters"] = _params_for_cypher(expanded["cypher"], slots)
+        # nn1 is irrelevant to the query that triggers global ranking (it comes
+        # from whatever nnp1 got picked, which is usually a stray, wrong entity for
+        # these queries -- see _quant_mode) -- always rank across Company entities.
+        mode_overrides = {"nn1": "COMPANY"} if mode in ("global_ranking_max", "global_ranking_min") else None
+        expanded["parameters"] = _params_for_cypher(expanded["cypher"], slots, mode_overrides)
         expanded["query_mode"] = mode
         expanded["missing_parameters"] = []
         expanded["triplet_slots"] = slots
@@ -707,23 +791,47 @@ def _apply_simple_single_entity(expanded: dict[str, Any], slots: dict[str, Any],
     return expanded
 
 
+_RELAXED_RETURN = (
+    "s.name AS subject_name, r.name AS relationship, o.name AS object_name, "
+    "[l IN labels(o) WHERE l <> 'Entity'][0] AS object_type, r.fact AS fact"
+)
+
+# Internal Graphiti bookkeeping properties -- never a fact worth surfacing to the user.
+_ATTRIBUTE_LOOKUP_EXCLUDED_KEYS = [
+    "uuid", "name", "name_embedding", "group_id", "summary", "created_at", "labels",
+]
+_ATTRIBUTE_LOOKUP_CYPHER = (
+    "MATCH (s:Entity {uuid: $nnp1})\n"
+    f"UNWIND [k IN keys(s) WHERE NOT k IN {_ATTRIBUTE_LOOKUP_EXCLUDED_KEYS} "
+    "AND s[k] IS NOT NULL AND s[k] <> '' | k] AS attribute\n"
+    "RETURN s.name AS subject_name, attribute, s[attribute] AS value\n"
+    "ORDER BY attribute"
+)
+
+
 def _relaxed_simple_cypher(prop1: str | None) -> str:
+    """Bidirectional fallback for F_Simple: Graphiti stores every fact as a generic
+    :RELATES_TO relationship with the real semantic type in r.name (never a typed
+    Neo4j relationship), and edge direction follows the ontology's edge_type_map
+    (e.g. Person -[GovernanceRole]-> Company), which may be the reverse of what the
+    query's phrasing assumes as subject/object -- so try both directions.
+    """
     if prop1:
         return (
-            "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\n"
-            "WHERE type(r) = $prop1\n"
-            "RETURN s.label AS subject_name, type(r) AS relationship, o.label AS object_name, o.type AS object_type\n"
+            "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]->(o:Entity)\n"
+            "WHERE r.name = $prop1\n"
+            f"RETURN {_RELAXED_RETURN}\n"
             "UNION\n"
-            "MATCH (s:Node {id: $nnp1})<-[r]-(o:Node)\n"
-            "WHERE type(r) = $prop1\n"
-            "RETURN s.label AS subject_name, type(r) AS relationship, o.label AS object_name, o.type AS object_type"
+            "MATCH (s:Entity {uuid: $nnp1})<-[r:RELATES_TO]-(o:Entity)\n"
+            "WHERE r.name = $prop1\n"
+            f"RETURN {_RELAXED_RETURN}"
         )
     return (
-        "MATCH (s:Node {id: $nnp1})-[r]->(o:Node)\n"
-        "RETURN s.label AS subject_name, type(r) AS relationship, o.label AS object_name, o.type AS object_type\n"
+        "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]->(o:Entity)\n"
+        f"RETURN {_RELAXED_RETURN}\n"
         "UNION\n"
-        "MATCH (s:Node {id: $nnp1})<-[r]-(o:Node)\n"
-        "RETURN s.label AS subject_name, type(r) AS relationship, o.label AS object_name, o.type AS object_type"
+        "MATCH (s:Entity {uuid: $nnp1})<-[r:RELATES_TO]-(o:Entity)\n"
+        f"RETURN {_RELAXED_RETURN}"
     )
 
 
@@ -823,6 +931,15 @@ def execute_formica_template(driver, expanded: dict[str, Any]) -> tuple[list, st
         rows = _run_cypher(driver, relaxed, relaxed_params)
         if rows:
             return rows, "relaxed_direction"
+
+    # Attribute-lookup retry: many banking facts (ticker, exchange, legal name, ...)
+    # are node PROPERTIES, not edges to another entity -- something the causal-chain
+    # relationship templates above can never answer. Return every non-null custom
+    # attribute on the resolved entity instead.
+    if work["template_label"] == "F_Simple" and params.get("nnp1"):
+        rows = _run_cypher(driver, _ATTRIBUTE_LOOKUP_CYPHER, {"nnp1": params["nnp1"]})
+        if rows:
+            return rows, "attribute_lookup"
 
     # Final fallback: entity-centric neighborhood query.
     resolved = work.get("resolved_entities") or []

@@ -119,6 +119,10 @@ def build_pipeline() -> Pipeline:
 def rule_label_formica(query: str, domain_label: str | None = None) -> str:
     """Bootstrap labels using discriminative keywords + domain hints."""
     q = query.lower()
+    # "most recently reported quarter" etc. is a standard qualifier phrase in this
+    # dataset (when the fact is from), not a request for a maximum/superlative --
+    # strip it before matching bare "most" so it doesn't false-trigger F_QuantMax.
+    q = q.replace("most recently", " ").replace("most recent", " ")
 
     def has(*patterns: str) -> bool:
         return any(p in q for p in patterns)
@@ -167,9 +171,13 @@ def rule_label_formica(query: str, domain_label: str | None = None) -> str:
         return "F_QuantAtleast"
     if has("exactly", "equal", "precisely"):
         return "F_QuantEqual"
-    if has("max", "maximum", "most", "highest", "largest"):
+    # "most"/"least" deliberately excluded: bare "most" collides with far too many
+    # non-superlative senses in this dataset ("most sensitive to risk", "prioritize
+    # most", "most of the figures", ...) -- none of the 46 such queries checked are
+    # genuine "give me the maximum value" questions this template can answer.
+    if has("max", "maximum", "highest", "largest"):
         return "F_QuantMax"
-    if has("min", "minimum", "least", "lowest", "smallest"):
+    if has("min", "minimum", "lowest", "smallest"):
         return "F_QuantMin"
     if has("approximately", "around", "roughly"):
         return "F_QuantApprox"

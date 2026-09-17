@@ -39,3 +39,29 @@ python run_batch_pipeline.py --no-summarize
 ## Pipeline overview
 
 Natural-language questions flow through entity linking → template classification → slot filling → Cypher → optional Gemini summarization. See [`retrieval/README.md`](retrieval/README.md) for the full step-by-step flow.
+
+
+
+## Commands 
+### to run judge:
+
+rm -f data/llm_judge_results.csv data/llm_judge_results.jsonl && retrieval/.venv/bin/python3 retrieval/llm_judge.py \
+  --input data/banking_pipeline_results_with_summary.jsonl \
+  --output-csv data/llm_judge_results.csv \
+  --output-jsonl data/llm_judge_results.jsonl \
+  --resume
+
+### to run batch pipeline
+
+rm -f data/banking_pipeline_results.csv data/banking_pipeline_results.jsonl && retrieval/.venv/bin/python3 retrieval/run_batch_pipeline.py \
+  --input data/banking_queries/indian_banks_1200_queries.csv \
+  --output-csv data/banking_pipeline_results_with_summary.csv \
+  --output-jsonl data/banking_pipeline_results_with_summary.jsonl
+
+### run batch pipeline with judge
+
+python3 retrieval/run_batch_pipeline.py --judge \
+  --output-csv data/banking_pipeline_results.csv \
+  --output-jsonl data/banking_pipeline_results.jsonl
+
+### to run fast api app

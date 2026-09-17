@@ -71,12 +71,20 @@ DISCRIMINATIVE_KEYWORDS: dict[str, list[str]] = {
     "F_QuantAtleast": ["at least", "atleast", "minimum"],
     "F_QuantApprox": ["approximately", "around", "roughly"],
     "F_QuantEqual": ["exactly", "equal", "precisely"],
-    "F_QuantMax": ["max", "maximum", "most", "highest", "largest"],
-    "F_QuantMin": ["min", "minimum", "least", "lowest", "smallest"],
+    # "most"/"least" deliberately excluded: "most recently reported quarter" is a
+    # standard qualifier phrase in this dataset, not a superlative/max request, and
+    # a bare substring match can't tell the two apart.
+    "F_QuantMax": ["max", "maximum", "highest", "largest"],
+    "F_QuantMin": ["min", "minimum", "lowest", "smallest"],
     "F_Simple": ["what", "who", "which", "how does", "does", "list", "name", "trace", "explain"],
 }
 
 # Domain relationship hints for triplet slot prop1.
+# Original entries below are for kg/india_theme_kg.cypher's thematic (Hormuz/oil)
+# graph and never match anything in the Graphiti-ingested banking KG -- kept as-is
+# so a run against that graph still works. Banking-domain entries use Graphiti's
+# actual edge_types keys (see graphiti_neo4j.ipynb) and are ranked ahead of any
+# overlapping legacy keyword since infer_prop1() prefers the longest keyword match.
 RELATION_KEYWORDS: dict[str, list[str]] = {
     "TRANSITS": ["transit", "passes through", "transits through"],
     "HURT_BY": ["hurt", "downside", "impact", "affect", "exposed"],
@@ -89,6 +97,17 @@ RELATION_KEYWORDS: dict[str, list[str]] = {
     "CAUSES": ["cause", "lead to", "propagate", "flow into"],
     "PRICE_LINKED_TO": ["price", "cost base", "linked to", "track"],
     "CONTAINS": ["sector", "constituent", "in sector"],
+    # --- Banking ontology (Graphiti edge_types) ---
+    "GovernanceRole": ["ceo", "md & ceo", "managing director", "chairman", "chief executive", "cfo", "board member"],
+    "OwnershipStake": ["promoter", "shareholder", "shareholding", "% held", "percent held", "held by", "stake in"],
+    "RegulatoryRelation": ["regulated by", "regulator", "license", "licence"],
+    "HAS_RATING": ["credit rating", "rated", "rating agency", "credit rated"],
+    "RATED_BY": ["rating agency", "rated by"],
+    "BELONGS_TO_SEGMENT": ["banking segment"],  # keep narrow: "segment does"/"which segment" also match unrelated "customer segment" questions
+    "OFFERS_PRODUCT": ["product", "offers", "home loan", "deposit product"],
+    "PARTNERS_WITH": ["partnership", "partners with", "partnered with"],
+    "COMPETES_WITH": ["competitor", "competes with", "competition"],
+    "CorporateStructureRelation": ["subsidiary of", "parent company", "corporate group"],
 }
 
 # Preferred entity types for triplet slot assignment (first match wins).

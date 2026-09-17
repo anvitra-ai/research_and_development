@@ -2,3 +2,6 @@ models/
 retrieval/__pycache__/
 retrieval/retrieval_env
 .claude/
+retrieval/.venv/
+retrieval/.env
+graphiti/.env

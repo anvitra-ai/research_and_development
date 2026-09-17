@@ -35,18 +35,30 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+from dotenv import load_dotenv
 from google import genai
 from neo4j import GraphDatabase
 from sentence_transformers import SentenceTransformer
 from transformers import pipeline
 
-from paths import DATA_DIR, MODELS_DIR
+from paths import DATA_DIR, MODELS_DIR, RD_ROOT
 
 from entity_resolver import enrich_for_formica_template, load_aliases, resolve_entities
 from formica_template_classifier import FormicaTemplateClassifier, rule_label_formica
 from formica_template_resolver import execute_formica_template, expand_formica_template
+from llm_judge import judge_pair
 
-TRAIN_CSV = DATA_DIR / "formica_template_train.csv"
+# GEMINI_API_KEY lives in a .env file, not the shell environment -- load it the same
+# way the graphiti notebook does. Prefer a .env at the research_and_development root
+# (shared across subprojects); fall back to graphiti/.env, the only place the key
+# currently lives, so it doesn't need to be duplicated. Either load is a no-op if the
+# variable is already set in the actual environment.
+for _env_path in (RD_ROOT / ".env", RD_ROOT / "graphiti" / ".env"):
+    if _env_path.exists():
+        load_dotenv(_env_path)
+        break
+
+TRAIN_CSV = DATA_DIR / "banking_queries/indian_banks_1200_queries.csv"
 LEGACY_TRAIN_CSV = DATA_DIR / "deberta_stock_impact_train.csv"
 DEFAULT_OUTPUT_CSV = DATA_DIR / "formica_pipeline_results.csv"
 DEFAULT_OUTPUT_JSONL = DATA_DIR / "formica_pipeline_results.jsonl"
@@ -73,6 +85,8 @@ RESULT_FIELDS = (
     "kg_row_count",
     "kg_hop_path",
     "summary",
+    "judge_label",
+    "judge_rationale",
     "error",
 )
 
@@ -108,7 +122,19 @@ def entity_types_from_matches(matches_df: pd.DataFrame) -> list[tuple[str, str]]
 
 
 def format_kg_rows_for_summary(rows: list, expanded: dict[str, Any]) -> str:
-    """Turn Neo4j result rows into readable hop/path text for Gemini summarization."""
+    """Turn Neo4j result rows into readable hop/path text for Gemini summarization.
+
+    Prefers Graphiti's own stored text over reconstructing a sentence from raw
+    subject/relationship/object triples, since it's already a precise, human-written
+    summary of that specific fact:
+      - attribute_lookup rows (a node's own property, not an edge) -> "X's <attr> is <value>"
+      - a single edge's r.fact -> the fact text verbatim
+      - aggregate/list facts (F_QuantCount's collect(), F_CompMore/Less/Approx's path
+        facts_a/facts_b) -> the count/comparison header plus every underlying fact
+    Falls through to the legacy path/transit formatting, then the generic key=value
+    reconstruction, for rows that carry none of the above (e.g. the still-unfixed
+    legacy :Node-schema special modes, which have no fact/attribute fields at all).
+    """
     if not rows:
         return ""
     lines = [
@@ -118,7 +144,27 @@ def format_kg_rows_for_summary(rows: list, expanded: dict[str, Any]) -> str:
     ]
     for i, row in enumerate(rows, start=1):
         data = dict(row)
-        if "path_names" in data and "rel_types" in data:
+        if "attribute" in data and "value" in data:
+            subject = data.get("subject_name", "?")
+            lines.append(f"Row {i}: {subject}'s {data['attribute']} is {data['value']}")
+        elif data.get("fact"):
+            lines.append(f"Row {i}: {data['fact']}")
+        elif data.get("facts"):
+            facts = [f for f in data["facts"] if f]
+            header_parts = [f"{k}={v}" for k, v in data.items() if v is not None and k != "facts"]
+            lines.append(f"Row {i}: " + " | ".join(header_parts) + f" ({len(facts)} facts)")
+            for f in facts:
+                lines.append(f"  - {f}")
+        elif data.get("facts_a") or data.get("facts_b"):
+            header_parts = [
+                f"{k}={v}" for k, v in data.items() if v is not None and k not in ("facts_a", "facts_b")
+            ]
+            lines.append(f"Row {i}: " + " | ".join(header_parts))
+            for label, facts in (("a", data.get("facts_a")), ("b", data.get("facts_b"))):
+                for f in facts or []:
+                    if f:
+                        lines.append(f"  [{label}] {f}")
+        elif "path_names" in data and "rel_types" in data:
             names = data.get("path_names") or []
             rels = data.get("rel_types") or []
             header = (
@@ -146,18 +192,20 @@ def format_kg_rows_for_summary(rows: list, expanded: dict[str, Any]) -> str:
 
 def summarize_hops(client: genai.Client, hop_path: str) -> str:
     prompt = f"""
-You are a financial knowledge-graph analyst.
+You are a financial analyst answering a business question using knowledge-graph facts.
 
-Summarize the following multi-hop relationship path from a knowledge graph.
+Write a plain-language summary of what these facts actually say, in business terms.
 
 Requirements:
-1. Identify the starting entity and ending entity.
-2. Explain the path in simple business/financial language.
-3. Mention important numerical facts if present.
-4. Do not invent relationships or facts.
-5. Keep the summary to 2-4 sentences.
+1. Focus only on the business/financial substance -- never describe the graph
+   itself (no "starting entity", "ending entity", "relationship", "path", or any
+   other entity/graph-structure framing, and no numbered or labeled sections).
+2. Write flowing prose, not a list.
+3. Include specific numbers, dates, or ratios only if they appear in the facts
+   below; never invent or estimate them.
+4. Maximum 2 sentences.
 
-Knowledge graph path:
+Knowledge graph facts:
 
 {hop_path}
 """
@@ -195,23 +243,56 @@ def load_ner_pipeline(model_name: str | None = None):
         return _load_ner_pipeline(DEFAULT_NER_MODEL)
 
 
+# Graphiti entity-type labels (PascalCase, real Neo4j labels) that correspond to a
+# legacy Formica type bucket the existing templates/vocabulary already know about.
+# Anything not listed here falls back to the label itself, upper-cased -- still
+# correctly indexed for gazetteer/alias/semantic matching, just not specially
+# prioritized by the legacy SLOT_SUBJECT_PRIORITY / FORMICA_NEEDED_TYPES sets
+# (which were built for kg/india_theme_kg.cypher's thematic graph, not banking).
+_GRAPHITI_TO_LEGACY_TYPE: dict[str, str] = {
+    "Company": "COMPANY",
+    "Geography": "GEOGRAPHY",
+    "Sector": "SECTOR",
+    "Product": "PRODUCT",
+    "MacroeconomicFactor": "MACRO_VAR",
+}
+
+
 def load_node_index(driver) -> tuple[pd.DataFrame, Any]:
-    """Load all KG nodes from Neo4j and pre-compute embedding vectors for semantic linking."""
+    """Load all KG nodes from Neo4j and pre-compute embedding vectors for semantic linking.
+
+    Reads Graphiti's actual node schema: id = n.uuid, name = n.name, and node_type is
+    derived from the node's Neo4j labels (every Graphiti node carries a generic
+    "Entity" label plus one specific type label, e.g. ["Entity", "Company"] -- the
+    specific one is used, mapped to a legacy type bucket where one exists (see
+    _GRAPHITI_TO_LEGACY_TYPE), otherwise upper-cased as-is.
+    """
     embedder = SentenceTransformer(EMBEDDING_MODEL, device="cpu")
     with driver.session() as session:
         nodes = session.execute_read(
             lambda tx: list(
                 tx.run(
                     """
-                    MATCH (n)
-                    RETURN n.id AS id, n.label AS name, n.type AS node_type
+                    MATCH (n:Entity)
+                    RETURN n.uuid AS id, n.name AS name, labels(n) AS node_labels
                     """
                 )
             )
         )
+
+    def _resolve_type(node_labels: list[str] | None) -> str | None:
+        specific = [l for l in (node_labels or []) if l != "Entity"]
+        if not specific:
+            return None
+        label = specific[0]
+        return _GRAPHITI_TO_LEGACY_TYPE.get(label, label.upper())
+
     node_df = (
         pd.DataFrame(
-            [{"id": r["id"], "node_name": r["name"], "node_type": r["node_type"]} for r in nodes]
+            [
+                {"id": r["id"], "node_name": r["name"], "node_type": _resolve_type(r["node_labels"])}
+                for r in nodes
+            ]
         )
         .dropna(subset=["node_name"])
         .drop_duplicates(subset=["node_name"])
@@ -222,8 +303,12 @@ def load_node_index(driver) -> tuple[pd.DataFrame, Any]:
     return embedder, node_df, node_emb
 
 
-def load_resources(summarize: bool = False) -> PipelineResources:
-    """Initialize NER, embedder, classifier, Neo4j driver, and optional Gemini client."""
+def load_resources(summarize: bool = False, judge: bool = False) -> PipelineResources:
+    """Initialize NER, embedder, classifier, Neo4j driver, and optional Gemini client.
+
+    The same Gemini client is reused for both summarization and LLM-as-judge, so
+    it's created whenever either is requested.
+    """
     ner = load_ner_pipeline()
     driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
     embedder, node_df, node_emb = load_node_index(driver)
@@ -231,10 +316,10 @@ def load_resources(summarize: bool = False) -> PipelineResources:
     classifier.load()
     aliases = load_aliases()
     gemini = None
-    if summarize:
-        api_key = os.getenv("GOOGLE_API_KEY")
+    if summarize or judge:
+        api_key = os.getenv("GEMINI_API_KEY")
         if not api_key:
-            raise ValueError("GOOGLE_API_KEY is required when summarization is enabled")
+            raise ValueError("GEMINI_API_KEY is required when summarization or judging is enabled")
         gemini = genai.Client(api_key=api_key)
     return PipelineResources(
         ner=ner,
@@ -263,12 +348,35 @@ def gold_label_from_row(row: pd.Series) -> str:
     return rule_label_formica(str(row["text"]), domain)
 
 
+def _finish(
+    result: dict[str, Any], query: str, resources: PipelineResources, judge: bool
+) -> dict[str, Any]:
+    """Apply the optional LLM-as-judge step, then return the result.
+
+    Every process_query() return funnels through here, so a query that fails
+    entity resolution or Cypher execution (empty summary) still gets auto-labeled
+    the same way llm_judge.py's standalone batch script does, instead of only
+    judging the success path.
+    """
+    if judge:
+        summary = (result.get("summary") or "").strip()
+        if not summary:
+            result["judge_label"] = "Not relevant"
+            result["judge_rationale"] = "No summary was produced for this query (empty assistant output)."
+        else:
+            verdict = judge_pair(resources.gemini, query, summary)
+            result["judge_label"] = verdict.label
+            result["judge_rationale"] = verdict.rationale
+    return result
+
+
 def process_query(
     query: str,
     gold_label: str,
     resources: PipelineResources,
     *,
     summarize: bool = False,
+    judge: bool = False,
 ) -> dict[str, Any]:
     """Run the full pipeline for a single query and return a result dict."""
     result = empty_query_result(query, gold_label)
@@ -285,7 +393,7 @@ def process_query(
         )
         if matches_df.empty:
             result["error"] = "no_entities_resolved"
-            return result
+            return _finish(result, query, resources, judge)
 
         masked_query = mask_entities_with_types(query, entity_types_from_matches(matches_df))
 
@@ -314,7 +422,7 @@ def process_query(
 
         if matches_df.empty:
             result["error"] = "no_entities_resolved"
-            return result
+            return _finish(result, query, resources, judge)
 
         # --- Step 4: add missing entities the template expects (gazetteer/alias sweep) ---
         matches_df = enrich_for_formica_template(
@@ -332,7 +440,7 @@ def process_query(
         kg_rows, strategy = execute_formica_template(resources.driver, expanded)
         if not kg_rows and expanded.get("missing_parameters"):
             result["error"] = f"missing_parameters:{expanded['missing_parameters']}"
-            return result
+            return _finish(result, query, resources, judge)
 
         result["cypher_strategy"] = strategy
         result["kg_row_count"] = len(kg_rows)
@@ -346,7 +454,7 @@ def process_query(
     except Exception as exc:
         result["error"] = str(exc)
 
-    return result
+    return _finish(result, query, resources, judge)
 
 
 def serialize_result_for_csv(result: dict[str, Any]) -> dict[str, Any]:
@@ -387,3 +495,9 @@ def print_summary_stats(csv_path: Path) -> None:
         print(f"Template accuracy: {acc:.3f}")
     if kg_hit is not None:
         print(f"KG row hit rate: {kg_hit:.3f}")
+    if "judge_label" in final and final["judge_label"].notna().any():
+        counts = final["judge_label"].value_counts()
+        total = counts.sum()
+        print("\nLLM-judge relevance:")
+        for label, count in counts.items():
+            print(f"  {label}: {count} ({count / total * 100:.0f}%)")

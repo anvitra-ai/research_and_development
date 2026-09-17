@@ -1,0 +1,241 @@
+text,formica_label
+"What technology platform, digital channel, or core banking system is specifically associated with Bank of Maharashtra?",F_LogUnion
+What is the single primary source cited for Ujjivan Small Finance Bank's most recent financial metrics in this dataset?,F_Simple
+"What technology platform, digital channel, or core banking system is specifically associated with UCO Bank?",F_LogUnion
+Which banks have undergone a merger or amalgamation in their recent history?,F_LogUnion
+What is the single primary source cited for Bandhan Bank's most recent financial metrics in this dataset?,F_Simple
+"Across all 39 listed Indian banks in this dataset, which report the lowest gross NPA ratio?",F_QuantMin
+"What credit ratings has Suryoday Small Finance Bank received, and from which rating agencies?",F_Simple
+What are Indian Bank's gross NPA and net NPA ratios?,F_Simple
+"Is Fino Payments Bank included in this dataset's researched company set, and what is its listing status?",F_Simple
+"Which banks have subsidiaries offering non-banking services (e.g., credit cards, investment banking, asset management)?",F_Simple
+"Does Indian Overseas Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+Who are State Bank of India's main named competitors?,F_Simple
+"What customer segment does CSB Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+What are Kotak Mahindra Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"What is Central Bank of India's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+"What products and services does Punjab & Sind Bank offer, and which customer segments does it serve?",F_Simple
+What was Jana Small Finance Bank's CASA ratio in the most recently reported quarter?,F_Simple
+What is the biggest threat facing ICICI Bank according to the analysis?,F_Simple
+"What customer segment does Bank of Maharashtra appear to prioritize most, based on its product mix and distribution network?",F_Simple
+What is IndusInd Bank's net interest margin (NIM) for the latest reported period?,F_Simple
+"What percentage of South Indian Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+What was UCO Bank's CASA ratio in the most recently reported quarter?,F_Simple
+Which banks are most exposed to MSME or agricultural lending as a customer segment?,F_LogUnion
+"Compare the return on equity of Axis Bank and IDFC First Bank. Which is stronger, and by how much?",F_QuantCount
+"What products and services does Bandhan Bank offer, and which customer segments does it serve?",F_Simple
+"Compare the net interest margin of Canara Bank and Union Bank of India. Which is stronger, and by how much?",F_QuantCount
+What is Ujjivan Small Finance Bank's net interest margin (NIM) for the latest reported period?,F_Simple
+"What percentage of Bank of India is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+What is Indian Overseas Bank's net interest margin (NIM) for the latest reported period?,F_Simple
+What is the key strength identified for AU Small Finance Bank in the current analysis?,F_Simple
+What is the biggest threat facing Equitas Small Finance Bank according to the analysis?,F_Simple
+"Does Federal Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+What are Union Bank of India's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"Compare the gross NPA ratio of Union Bank of India and Bank of India. Which is stronger, and by how much?",F_QuantCount
+"Which regulator(s) oversee every bank in this dataset, and what specific powers do they exercise (licensing, capital norms, disclosure)?",F_Simple
+"What credit, market, operational or regulatory risks is Bank of Baroda exposed to?",F_LogUnion
+What is ESAF Small Finance Bank's ticker symbol and on which exchange(s) does it trade?,F_Simple
+"What is ICICI Bank's cost-to-income ratio, and how does it compare with the average for its segment?",F_CompMore
+"What percentage of Dhanlaxmi Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"What credit ratings has Utkarsh Small Finance Bank received, and from which rating agencies?",F_Simple
+What is the main weakness or vulnerability flagged for Ujjivan Small Finance Bank?,F_LogUnion
+What was Indian Overseas Bank's CASA ratio in the most recently reported quarter?,F_Simple
+"What is Tamilnad Mercantile Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"What percentage of IndusInd Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+What was Ujjivan Small Finance Bank's total advances (loan book) and deposit growth in the latest quarter?,F_Simple
+"Across all 39 listed Indian banks in this dataset, which report the highest gross NPA ratio?",F_QuantMax
+"What customer segment does IndusInd Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+"Compare the return on equity of Ujjivan Small Finance Bank and ESAF Small Finance Bank. Which is stronger, and by how much?",F_QuantCount
+What was RBL Bank's total advances (loan book) and deposit growth in the latest quarter?,F_Simple
+"What credit, market, operational or regulatory risks is Punjab National Bank exposed to?",F_LogUnion
+What is the main weakness or vulnerability flagged for RBL Bank?,F_LogUnion
+What is the main weakness or vulnerability flagged for Federal Bank?,F_LogUnion
+Which banks are named as competitors of HDFC Bank and ICICI Bank in this dataset?,F_Simple
+What is the single primary source cited for Canara Bank's most recent financial metrics in this dataset?,F_Simple
+"Does Canara Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+"What is Indian Overseas Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+"What is Yes Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+What was IDFC First Bank's CASA ratio in the most recently reported quarter?,F_Simple
+Who are Union Bank of India's main named competitors?,F_Simple
+What is the key strength identified for Utkarsh Small Finance Bank in the current analysis?,F_Simple
+"What is Jana Small Finance Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+What was RBL Bank's CASA ratio in the most recently reported quarter?,F_Simple
+"What credit, market, operational or regulatory risks is UCO Bank exposed to?",F_LogUnion
+"What customer segment does Utkarsh Small Finance Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+"What credit, market, operational or regulatory risks is Ujjivan Small Finance Bank exposed to?",F_LogUnion
+What is Bank of India's net interest margin (NIM) for the latest reported period?,F_Simple
+"What is Punjab & Sind Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+"What is State Bank of India's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+What is Bank of Maharashtra's ticker symbol and on which exchange(s) does it trade?,F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of HDFC Bank?",F_Simple
+"What percentage of Bank of Baroda is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"Does Jammu & Kashmir Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+What is the biggest threat facing State Bank of India according to the analysis?,F_Simple
+What are Canara Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+What is the main weakness or vulnerability flagged for Suryoday Small Finance Bank?,F_LogUnion
+"What products and services does Bank of Maharashtra offer, and which customer segments does it serve?",F_Simple
+What is Jana Small Finance Bank's net interest margin (NIM) for the latest reported period?,F_Simple
+What is the biggest threat facing Indian Bank according to the analysis?,F_Simple
+What are RBL Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"How would a rise in the RBI repo rate be expected to affect PSU banks versus Private banks differently, based on the drivers described?",F_CompMore
+"Which banks are exposed to litigation or legal-settlement risk, and what is the nature of that exposure?",F_LogUnion
+"Compare the CASA ratio of IndusInd Bank and Yes Bank. Which is stronger, and by how much?",F_QuantCount
+"What is Equitas Small Finance Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+What is the main weakness or vulnerability flagged for Bandhan Bank?,F_LogUnion
+What was Ujjivan Small Finance Bank's CASA ratio in the most recently reported quarter?,F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Utkarsh Small Finance Bank?",F_Simple
+"Which Small Finance Bank has the highest gross NPA ratio, and is that figure flagged as uncertain in the sourcing?",F_QuantMax
+"What is State Bank of India's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+"What percentage of Bandhan Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+What is the single primary source cited for Federal Bank's most recent financial metrics in this dataset?,F_Simple
+"Roughly how many branches and ATMs does South Indian Bank operate, and as of what date?",F_QuantCount
+What are South Indian Bank's gross NPA and net NPA ratios?,F_Simple
+"What credit ratings has Punjab & Sind Bank received, and from which rating agencies?",F_Simple
+"What customer segment does Punjab National Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+What are Axis Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"Does Indian Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+What is the key strength identified for Union Bank of India in the current analysis?,F_Simple
+"Roughly how many branches and ATMs does UCO Bank operate, and as of what date?",F_QuantCount
+"What credit, market, operational or regulatory risks is Canara Bank exposed to?",F_LogUnion
+Who are Tamilnad Mercantile Bank's main named competitors?,F_Simple
+"Compare the return on equity of Canara Bank and Union Bank of India. Which is stronger, and by how much?",F_QuantCount
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Federal Bank?",F_Simple
+What was Canara Bank's CASA ratio in the most recently reported quarter?,F_Simple
+"What customer segment does Central Bank of India appear to prioritize most, based on its product mix and distribution network?",F_Simple
+What is the biggest threat facing AU Small Finance Bank according to the analysis?,F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of State Bank of India?",F_Simple
+"What is CSB Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+"Compare the net interest margin of IndusInd Bank and Yes Bank. Which is stronger, and by how much?",F_QuantCount
+"What is DCB Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"Does AU Small Finance Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+"What is Punjab National Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+Who are City Union Bank's main named competitors?,F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of IDFC First Bank?",F_Simple
+"What is Central Bank of India's cost-to-income ratio, and how does it compare with the average for its segment?",F_CompMore
+What are Dhanlaxmi Bank's gross NPA and net NPA ratios?,F_Simple
+"What customer segment does AU Small Finance Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+Who are Punjab & Sind Bank's main named competitors?,F_Simple
+"What is State Bank of India's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+Which banks explicitly flag return on equity as being driven by operating leverage or normalization of provisioning?,F_LogUnion
+"What products and services does Tamilnad Mercantile Bank offer, and which customer segments does it serve?",F_Simple
+"Which banks have an AT-1 or Tier-2 bond rating mentioned, and what is it?",F_LogUnion
+What is the key strength identified for Karur Vysya Bank in the current analysis?,F_Simple
+"What technology platform, digital channel, or core banking system is specifically associated with Punjab & Sind Bank?",F_LogUnion
+"Does City Union Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+"What is Karnataka Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+"What is Federal Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+"What products and services does Bank of Baroda offer, and which customer segments does it serve?",F_Simple
+"What credit, market, operational or regulatory risks is Central Bank of India exposed to?",F_LogUnion
+"What is HDFC Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+What is the single primary source cited for Union Bank of India's most recent financial metrics in this dataset?,F_Simple
+"Compare the net interest margin of Karur Vysya Bank and City Union Bank. Which is stronger, and by how much?",F_QuantCount
+"Compare the CASA ratio of Tamilnad Mercantile Bank and CSB Bank. Which is stronger, and by how much?",F_QuantCount
+"Roughly how many branches and ATMs does Bank of Maharashtra operate, and as of what date?",F_QuantCount
+"What technology platform, digital channel, or core banking system is specifically associated with Punjab National Bank?",F_LogUnion
+What was CSB Bank's CASA ratio in the most recently reported quarter?,F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Tamilnad Mercantile Bank?",F_Simple
+What was IDFC First Bank's total advances (loan book) and deposit growth in the latest quarter?,F_Simple
+What is Indian Overseas Bank's ticker symbol and on which exchange(s) does it trade?,F_Simple
+"What is Kotak Mahindra Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+"What customer segment does Yes Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+"What is Punjab & Sind Bank's cost-to-income ratio, and how does it compare with the average for its segment?",F_CompMore
+What are City Union Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"What is IndusInd Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+"Compare the net interest margin of Bank of Baroda and Punjab National Bank. Which is stronger, and by how much?",F_QuantCount
+"Compare the net interest margin of Kotak Mahindra Bank and IndusInd Bank. Which is stronger, and by how much?",F_QuantCount
+"Which banks have flagged rating-outlook divergences between agencies (e.g., one agency Negative while another is Stable)?",F_Simple
+"What credit, market, operational or regulatory risks is Punjab & Sind Bank exposed to?",F_LogUnion
+"What is AU Small Finance Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+What is the key strength identified for Indian Bank in the current analysis?,F_Simple
+"What technology platform, digital channel, or core banking system is specifically associated with Indian Bank?",F_LogUnion
+What is the main weakness or vulnerability flagged for HDFC Bank?,F_LogUnion
+What is DCB Bank's net interest margin (NIM) for the latest reported period?,F_Simple
+What discrepancy is flagged between IDBI Bank's Q1 FY27 profit and its FY24-25 profit figures?,F_Simple
+"Compare the gross NPA ratio of Jana Small Finance Bank and AU Small Finance Bank. Which is stronger, and by how much?",F_QuantCount
+"What customer segment does Jammu & Kashmir Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+What was Utkarsh Small Finance Bank's CASA ratio in the most recently reported quarter?,F_Simple
+What is the main weakness or vulnerability flagged for Jammu & Kashmir Bank?,F_LogUnion
+What is Utkarsh Small Finance Bank's ticker symbol and on which exchange(s) does it trade?,F_Simple
+What was Punjab & Sind Bank's CASA ratio in the most recently reported quarter?,F_Simple
+What is the main weakness or vulnerability flagged for ICICI Bank?,F_LogUnion
+"Compare the net interest margin of Axis Bank and IDFC First Bank. Which is stronger, and by how much?",F_QuantCount
+"What credit, market, operational or regulatory risks is Jammu & Kashmir Bank exposed to?",F_LogUnion
+"What technology platform, digital channel, or core banking system is specifically associated with Bank of Baroda?",F_LogUnion
+What is the key strength identified for State Bank of India in the current analysis?,F_Simple
+"What is UCO Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+"What credit, market, operational or regulatory risks is AU Small Finance Bank exposed to?",F_LogUnion
+What are Suryoday Small Finance Bank's gross NPA and net NPA ratios?,F_Simple
+"What is Axis Bank's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+"Compare the net interest margin of RBL Bank and Bandhan Bank. Which is stronger, and by how much?",F_QuantCount
+"What two regulators are common to every bank in this dataset, and what does each one govern?",F_Simple
+"Roughly how many branches and ATMs does CSB Bank operate, and as of what date?",F_QuantCount
+"What technology platform, digital channel, or core banking system is specifically associated with Indian Overseas Bank?",F_LogUnion
+"What is Karur Vysya Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"What percentage of Jammu & Kashmir Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"What percentage of HDFC Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"What is ICICI Bank's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+"What credit ratings has ESAF Small Finance Bank received, and from which rating agencies?",F_Simple
+"Compare the return on equity of State Bank of India and Bank of Baroda. Which is stronger, and by how much?",F_QuantCount
+"Compare the gross NPA ratio of Bank of Maharashtra and Punjab & Sind Bank. Which is stronger, and by how much?",F_QuantCount
+"What credit ratings has CSB Bank received, and from which rating agencies?",F_Simple
+"Compare the return on equity of Union Bank of India and Bank of India. Which is stronger, and by how much?",F_QuantCount
+Which banks explicitly flag growth as being driven by retail credit demand and digital acquisition?,F_Simple
+"Does Karur Vysya Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+"Does IndusInd Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+"What percentage of Yes Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"Does Utkarsh Small Finance Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+What are ICICI Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"What credit, market, operational or regulatory risks is RBL Bank exposed to?",F_LogUnion
+"Roughly how many branches and ATMs does Jana Small Finance Bank operate, and as of what date?",F_QuantCount
+"What credit ratings has Central Bank of India received, and from which rating agencies?",F_Simple
+"Roughly how many branches and ATMs does Punjab & Sind Bank operate, and as of what date?",F_QuantCount
+"What credit ratings has AU Small Finance Bank received, and from which rating agencies?",F_Simple
+"Compare the CASA ratio of Bank of Baroda and Punjab National Bank. Which is stronger, and by how much?",F_QuantCount
+"What is Karur Vysya Bank's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+"What is RBL Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+What are ICICI Bank's gross NPA and net NPA ratios?,F_Simple
+"Compare the return on equity of RBL Bank and Bandhan Bank. Which is stronger, and by how much?",F_QuantCount
+What was South Indian Bank's CASA ratio in the most recently reported quarter?,F_Simple
+"What is CSB Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+What anomaly is flagged in Jammu & Kashmir Bank's net interest income figure?,F_Simple
+What is Central Bank of India's net interest margin (NIM) for the latest reported period?,F_Simple
+What is the key strength identified for HDFC Bank in the current analysis?,F_Simple
+"Compare the CASA ratio of HDFC Bank and ICICI Bank. Which is stronger, and by how much?",F_QuantCount
+"Compare the return on equity of Bank of Baroda and Canara Bank. Which is stronger, and by how much?",F_QuantCount
+"What is IndusInd Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+"Compare the gross NPA ratio of Karur Vysya Bank and City Union Bank. Which is stronger, and by how much?",F_QuantCount
+"What credit ratings has Kotak Mahindra Bank received, and from which rating agencies?",F_Simple
+"What technology platform, digital channel, or core banking system is specifically associated with Bank of India?",F_LogUnion
+Who are Utkarsh Small Finance Bank's main named competitors?,F_Simple
+What was Utkarsh Small Finance Bank's total advances (loan book) and deposit growth in the latest quarter?,F_Simple
+"What is Tamilnad Mercantile Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+"Does CSB Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+"What is Jana Small Finance Bank's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+"Which Small Finance Bank has converted, or is closest to converting, to a universal bank license?",F_LogUnion
+"What percentage of CSB Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Bank of Baroda?",F_Simple
+Who are IndusInd Bank's main named competitors?,F_Simple
+Which banks are most exposed to currency or overseas-regulatory risk because of their international footprint?,F_LogUnion
+What are Suryoday Small Finance Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+Which Public Sector Bank has the largest branch network?,F_QuantMax
+"What technology platform, digital channel, or core banking system is specifically associated with Union Bank of India?",F_LogUnion
+"What products and services does Equitas Small Finance Bank offer, and which customer segments does it serve?",F_Simple
+"Does State Bank of India have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+"What is Union Bank of India's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+"What is Punjab National Bank's cost-to-income ratio, and how does it compare with the average for its segment?",F_CompMore
+What is the main weakness or vulnerability flagged for Bank of Baroda?,F_LogUnion
+What was Suryoday Small Finance Bank's CASA ratio in the most recently reported quarter?,F_Simple
+"What products and services does Kotak Mahindra Bank offer, and which customer segments does it serve?",F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Bank of India?",F_Simple
+What are Bank of India's gross NPA and net NPA ratios?,F_Simple
+Which Private Sector Bank has the highest CASA ratio?,F_QuantMax
+"Roughly how many branches and ATMs does Axis Bank operate, and as of what date?",F_QuantCount
+"What is Indian Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+What are Yes Bank's gross NPA and net NPA ratios?,F_Simple
+"What credit ratings has City Union Bank received, and from which rating agencies?",F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Jana Small Finance Bank?",F_Simple
+What is the biggest threat facing Bank of India according to the analysis?,F_Simple
+Who are Kotak Mahindra Bank's main named competitors?,F_Simple
+What was Union Bank of India's CASA ratio in the most recently reported quarter?,F_Simple
+What is Federal Bank's ticker symbol and on which exchange(s) does it trade?,F_Simple

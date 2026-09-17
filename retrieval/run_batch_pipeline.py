@@ -44,6 +44,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--offset", type=int, default=0)
     parser.add_argument("--no-summarize", action="store_true", help="Skip Gemini summarization.")
+    parser.add_argument(
+        "--judge",
+        action="store_true",
+        help=(
+            "LLM-as-judge each query/summary pair (Relevant/Somewhat relevant/Not "
+            "relevant + rationale), adding judge_label/judge_rationale columns to "
+            "the same output. Empty summaries are auto-labeled Not relevant "
+            "without an extra LLM call, same as llm_judge.py."
+        ),
+    )
     parser.add_argument("--resume", action="store_true", help="Skip queries already in the output CSV.")
     return parser.parse_args()
 
@@ -74,7 +84,7 @@ def main() -> None:
     done_queries = load_done_queries(csv_path, args.resume)
 
     # Load models, Neo4j connection, and node embeddings once for the whole batch.
-    resources = load_resources(summarize=not args.no_summarize)
+    resources = load_resources(summarize=not args.no_summarize, judge=args.judge)
     write_header = not csv_path.exists() or not args.resume
 
     for _, row in tqdm(input_df.iterrows(), total=len(input_df), desc="Pipeline"):
@@ -86,6 +96,7 @@ def main() -> None:
             gold_label_from_row(row),
             resources,
             summarize=not args.no_summarize,
+            judge=args.judge,
         )
         append_result(result, csv_path, jsonl_path, write_header=write_header)
         write_header = False
