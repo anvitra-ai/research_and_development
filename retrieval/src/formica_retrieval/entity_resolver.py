@@ -21,8 +21,8 @@ from typing import Any
 import pandas as pd
 from sentence_transformers import util
 
-from formica_template_classes import FORMICA_NEEDED_TYPES
-from paths import DATA_DIR
+from .paths import DATA_DIR
+from .template_classes import FORMICA_NEEDED_TYPES
 
 ALIAS_PATH = DATA_DIR / "kg_entity_aliases.json"
 
@@ -104,6 +104,35 @@ def _find_span(query: str, phrase: str) -> tuple[int, int] | None:
     return None
 
 
+# Corporate-suffix/prefix noise that's part of a KG company's full legal name but
+# almost never appears in a colloquial question ("Karnataka Bank", not "Karnataka
+# Bank Limited"). Left unstripped, the full-name substring match never fires, and
+# a shorter unrelated node (e.g. the "Karnataka" Geography) that happens to be a
+# literal substring of the colloquial name wins the span instead -- silently
+# resolving the query to the wrong entity type entirely.
+_CORPORATE_SUFFIX_RE = re.compile(
+    r"\s+(?:limited|ltd\.?|pvt\.?\s*ltd\.?)\s*$", re.IGNORECASE
+)
+_CORPORATE_PREFIX_RE = re.compile(r"^\s*the\s+", re.IGNORECASE)
+
+
+def _name_variants(name: str) -> list[str]:
+    """Full name first, then progressively stripped of legal prefix/suffix noise.
+
+    Only accepted when the stripped form still has >= 2 words: "Karnataka Bank
+    Limited" -> "Karnataka Bank" is a safe, still-distinctive colloquial name, but
+    "HDFC Limited" -> "HDFC" is not -- it collapses to a bare brand prefix that's
+    also a substring of a genuinely different company ("HDFC Bank"), so accepting
+    it would steal that other company's span instead of just filling a real gap.
+    """
+    variants = [name]
+    stripped = _CORPORATE_SUFFIX_RE.sub("", name)
+    stripped = _CORPORATE_PREFIX_RE.sub("", stripped)
+    if stripped != name and len(stripped) >= 3 and len(stripped.split()) >= 2:
+        variants.append(stripped)
+    return variants
+
+
 def gazetteer_extract(query: str, node_df: pd.DataFrame) -> list[dict[str, Any]]:
     """Find KG node names mentioned verbatim in the query (longest match first)."""
     names = (
@@ -116,25 +145,38 @@ def gazetteer_extract(query: str, node_df: pd.DataFrame) -> list[dict[str, Any]]
         name = str(row["node_name"])
         if len(name) < 3:
             continue
-        pattern = re.compile(re.escape(name), flags=re.IGNORECASE)
-        for m in pattern.finditer(query):
-            span = (m.start(), m.end())
-            if any(_overlap(span, (s, e)) for s, e, _ in spans):
-                continue
-            spans.append(
-                (
-                    span[0],
-                    span[1],
-                    {
-                        "entity": m.group(0),
-                        "matched_node_name": name,
-                        "matched_id": row["id"],
-                        "matched_type": row["node_type"],
-                        "similarity": 1.0,
-                        "source": "gazetteer",
-                    },
+        for variant in _name_variants(name):
+            # Word-boundary matching (same as alias_extract already does) --
+            # without it, a short node name is a plain substring search and
+            # matches mid-word: "LIC" (the shareholder entity, 3 chars, over
+            # the len<3 skip threshold) matched inside "licensed"/"license",
+            # hijacking entity resolution for any query using that word
+            # (confirmed: "which banks are licensed as universal banks..."
+            # and "closest to converting to a universal bank license" both
+            # got nnp1/nnp2 wrongly bound to the LIC shareholder node).
+            pattern = re.compile(r"\b" + re.escape(variant) + r"\b", flags=re.IGNORECASE)
+            matched_here = False
+            for m in pattern.finditer(query):
+                span = (m.start(), m.end())
+                if any(_overlap(span, (s, e)) for s, e, _ in spans):
+                    continue
+                matched_here = True
+                spans.append(
+                    (
+                        span[0],
+                        span[1],
+                        {
+                            "entity": m.group(0),
+                            "matched_node_name": name,
+                            "matched_id": row["id"],
+                            "matched_type": row["node_type"],
+                            "similarity": 1.0,
+                            "source": "gazetteer",
+                        },
+                    )
                 )
-            )
+            if matched_here:
+                break
     spans.sort(key=lambda x: x[0])
     return [item for _, _, item in spans]
 
@@ -244,7 +286,14 @@ def _semantic_link(
     if best_row is None:
         return None
 
-    if best_score < 0.55 and len(entity) <= 4:
+    # Very short spans ("CE", "MD", ...) are almost always NER fragmentation noise
+    # (e.g. "CET1" split down to just "CE") rather than genuine short entity
+    # mentions -- real short names (tickers like "NSE"/"BSE") are already covered
+    # by the gazetteer's exact match, so the bar for accepting one *here*, via
+    # fuzzy embedding similarity, needs to be much higher than for a full phrase.
+    # 0.55 let a "CE" -> "NSE" match at 0.65 through, silently substituting an
+    # unrelated stock-exchange entity for what should have been a Metric lookup.
+    if len(entity) <= 4 and best_score < 0.85:
         return None
 
     return {
@@ -329,8 +378,28 @@ def resolve_entities(
             ner_hits.append(linked)
 
     matches_df = merge_matches(gazetteer_hits, alias_hits, ner_hits)
+    matches_df = _drop_generic_indian_banks_false_match(query, matches_df)
     entity_texts = matches_df["entity"].tolist() if not matches_df.empty else []
     return entity_texts, matches_df
+
+
+# "Across all 39 listed Indian banks in this dataset, which report the
+# highest/lowest <metric>?" is this dataset's standard cross-company-ranking
+# phrasing, but "Indian banks" (generic, plural, adjective + noun) keeps
+# getting NER/semantically linked to the one specific COMPANY literally named
+# "Indian Bank" -- confirmed directly: this silently hijacked nnp1/nnp2 for at
+# least 6 F_GlobalRank queries (CET1 ratio, branch network size, ...), which
+# then tried to rank by that one company's own node instead of the intended
+# metric, and always came back empty. Scoped narrowly to this dataset's exact
+# recurring phrase (not a blanket "never match Indian Bank" rule, which would
+# break the many OTHER queries that genuinely ask about that specific bank).
+_GENERIC_INDIAN_BANKS_RE = re.compile(r"\blisted indian banks\b", re.I)
+
+
+def _drop_generic_indian_banks_false_match(query: str, matches_df: pd.DataFrame) -> pd.DataFrame:
+    if matches_df.empty or not _GENERIC_INDIAN_BANKS_RE.search(query):
+        return matches_df
+    return matches_df[matches_df["matched_node_name"].astype(str) != "Indian Bank"].reset_index(drop=True)
 
 
 # ---------------------------------------------------------------------------
@@ -363,7 +432,12 @@ def enrich_for_formica_template(
     ]
     if not to_add:
         return matches_df
-    return merge_matches(matches_df.to_dict(orient="records"), to_add)
+    merged = merge_matches(matches_df.to_dict(orient="records"), to_add)
+    # This sweep runs its own independent gazetteer_extract() call, so it can
+    # re-add a match resolve_entities() already filtered out (e.g. "Indian
+    # Bank" from the generic "listed Indian banks" phrase) -- apply the same
+    # filter again here.
+    return _drop_generic_indian_banks_false_match(query, merged)
 
 
 # Backwards-compatible aliases.

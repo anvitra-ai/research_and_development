@@ -1,4 +1,9 @@
-"""Generate a synthetic dataset for DeBERTa query-template classification (stock impact analysis)."""
+"""Generate a synthetic dataset for DeBERTa query-template classification (stock impact analysis).
+
+LEGACY: predates the Formica template classifier (scripts/train_template_classifier.py
+is its replacement). Not imported by the current batch pipeline or API; kept for
+reference only. Its `from paths import ...` import is stale and won't resolve as-is.
+"""
 
 import argparse
 import json

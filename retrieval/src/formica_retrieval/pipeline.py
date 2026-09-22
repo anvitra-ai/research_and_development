@@ -5,9 +5,11 @@ End-to-end flow for each natural-language question:
   1. Entity resolution (first pass)
      Link query spans to KG nodes via gazetteer, aliases, NER + semantic search.
 
-  2. Template classification
-     Mask resolved entities as <TYPE> tags and predict a Formica template class
-     (F_Simple, F_QuantCount, etc.) using the trained SVM classifier.
+  2. Template routing
+     Pick a Formica template class (F_Simple, F_QuantCount, ...) from the query's
+     keywords. A trained SVM classifier also exists (see synthetic_queries.py) but
+     measured WORSE than the rules on this benchmark and is off the routing path --
+     the reasoning is recorded at the call site in process_query().
 
   3. Entity resolution (second pass)
      Re-link with template-aware type preferences so slots get the right node types.
@@ -23,86 +25,62 @@ End-to-end flow for each natural-language question:
 
   7. Optional summarization
      Format KG rows as hop text and summarize with Gemini.
+
+This module holds only orchestration (process_query) and its query-level helpers.
+Heavy resource loading lives in resources.py, hop-path/summarization in
+summarization.py, and result-record shape/serialization in results.py -- all
+re-exported here so callers can keep importing everything from `pipeline`.
 """
 
 from __future__ import annotations
 
-import json
-import os
 import re
-from dataclasses import dataclass
-from pathlib import Path
-from typing import Any
 
 import pandas as pd
-from dotenv import load_dotenv
-from google import genai
-from neo4j import GraphDatabase
-from sentence_transformers import SentenceTransformer
-from transformers import pipeline
 
-from paths import DATA_DIR, MODELS_DIR, RD_ROOT
-
-from entity_resolver import enrich_for_formica_template, load_aliases, resolve_entities
-from formica_template_classifier import FormicaTemplateClassifier, rule_label_formica
-from formica_template_resolver import execute_formica_template, expand_formica_template
-from llm_judge import judge_pair
-
-# GEMINI_API_KEY lives in a .env file, not the shell environment -- load it the same
-# way the graphiti notebook does. Prefer a .env at the research_and_development root
-# (shared across subprojects); fall back to graphiti/.env, the only place the key
-# currently lives, so it doesn't need to be duplicated. Either load is a no-op if the
-# variable is already set in the actual environment.
-for _env_path in (RD_ROOT / ".env", RD_ROOT / "graphiti" / ".env"):
-    if _env_path.exists():
-        load_dotenv(_env_path)
-        break
-
-TRAIN_CSV = DATA_DIR / "banking_queries/indian_banks_1200_queries.csv"
-LEGACY_TRAIN_CSV = DATA_DIR / "deberta_stock_impact_train.csv"
-DEFAULT_OUTPUT_CSV = DATA_DIR / "formica_pipeline_results.csv"
-DEFAULT_OUTPUT_JSONL = DATA_DIR / "formica_pipeline_results.jsonl"
-FORMICA_MODEL = MODELS_DIR / "formica-template-classifier.joblib"
-DEFAULT_NER_MODEL = "dslim/bert-base-NER"
-EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-NEO4J_URI = os.getenv("NEO4J_URI", "bolt://localhost:7687")
-NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
-NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "admin1234")
-
-RESULT_FIELDS = (
-    "query",
-    "gold_label",
-    "predicted_template",
-    "template_confidence",
-    "template_id",
-    "template_match",
-    "entities",
-    "resolved_entities",
-    "masked_query",
-    "cypher_parameters",
-    "triplet_slots",
-    "cypher_strategy",
-    "kg_row_count",
-    "kg_hop_path",
-    "summary",
-    "judge_label",
-    "judge_rationale",
-    "error",
+from . import config as _cfg
+from .entity_resolver import enrich_for_formica_template, resolve_entities
+from .llm_judge import judge_pair
+from .paths import DATA_DIR
+from .resources import (  # noqa: F401 — re-exported for callers
+    PipelineResources,
+    load_fact_index,
+    load_ner_pipeline,
+    load_node_index,
+    load_resources,
+)
+from .relevance import best_score, merge_rows, rank_rows
+from .retrieval_eval import score_row  # noqa: F401 — re-exported for callers
+from .results import (  # noqa: F401 — re-exported for callers
+    RESULT_FIELDS,
+    append_result,
+    empty_query_result,
+    gold_label_from_row,
+    print_summary_stats,
+    serialize_result_for_csv,
+)
+from .summarization import format_kg_rows_for_summary, summarize_hops  # noqa: F401 — re-exported
+from .template_classifier import rule_label_formica
+from .fact_search import (
+    company_profile_rows,
+    cross_company_search,
+    entity_profile_rows,
+    per_company_top_facts,
+)
+from .template_resolver import (
+    execute_formica_template,
+    expand_formica_template,
+    is_cross_company_query,
+    resolve_segment_ids,
+    semantic_fact_search,
+    semantic_relation_names,
+    text_search_fallback,
 )
 
-
-@dataclass
-class PipelineResources:
-    """Heavy objects loaded once and reused across all queries in a batch run."""
-
-    ner: Any
-    embedder: SentenceTransformer
-    classifier: FormicaTemplateClassifier
-    driver: Any
-    node_df: pd.DataFrame
-    node_emb: Any
-    aliases: dict[str, dict[str, str]]
-    gemini: genai.Client | None = None
+TRAIN_CSV = DATA_DIR / "banking_queries/indian_banks_993_queries.csv"
+LEGACY_TRAIN_CSV = DATA_DIR / "indian_banks_993_queries.csv"
+DEFAULT_OUTPUT_CSV = DATA_DIR / "formica_pipeline_results.csv"
+DEFAULT_OUTPUT_JSONL = DATA_DIR / "formica_pipeline_results.jsonl"
 
 
 def mask_entities_with_types(text: str, entity_types: list[tuple[str, str]]) -> str:
@@ -121,237 +99,135 @@ def entity_types_from_matches(matches_df: pd.DataFrame) -> list[tuple[str, str]]
     return [(row["entity"], row["matched_type"]) for _, row in matches_df.iterrows()]
 
 
-def format_kg_rows_for_summary(rows: list, expanded: dict[str, Any]) -> str:
-    """Turn Neo4j result rows into readable hop/path text for Gemini summarization.
+# Strategies whose rows may be supplemented with semantic search hits. The named
+# special modes are excluded: they return SYNTHESISED rows (a segment average, a
+# single ranked winner) whose meaning comes from the aggregation, and appending
+# loose facts to those actively misleads the summariser about what was computed.
+_SUPPLEMENTABLE = frozenset({"primary", "relaxed_direction", "attribute_lookup", "single_entity"})
 
-    Prefers Graphiti's own stored text over reconstructing a sentence from raw
-    subject/relationship/object triples, since it's already a precise, human-written
-    summary of that specific fact:
-      - attribute_lookup rows (a node's own property, not an edge) -> "X's <attr> is <value>"
-      - a single edge's r.fact -> the fact text verbatim
-      - aggregate/list facts (F_QuantCount's collect(), F_CompMore/Less/Approx's path
-        facts_a/facts_b) -> the count/comparison header plus every underlying fact
-    Falls through to the legacy path/transit formatting, then the generic key=value
-    reconstruction, for rows that carry none of the above (e.g. the still-unfixed
-    legacy :Node-schema special modes, which have no fact/attribute fields at all).
+# Cap on rows handed to the summariser after merging. Matches the existing LIMIT
+# 40 used by the broad Cypher passes.
+_MAX_MERGED_ROWS = _cfg.MAX_MERGED_ROWS
+
+# How many semantic hits may be added on top of the template result, and how
+# similar they must be. The supplement is insurance against the template query
+# missing a fact -- it is not meant to replace the result, and when it dwarfs it
+# the summariser loses the answer in the noise. Measured: an unbounded merge
+# took mean rows/query from 5.6 to 20.3 and, while flipping 28 of 90 failing
+# queries to Relevant, pushed two previously-partial answers to "not covered"
+# by burying the one row that held the answer under ~25 loosely-related facts.
+_MAX_SUPPLEMENT_ROWS = _cfg.MAX_SUPPLEMENT_ROWS
+_SUPPLEMENT_MIN_SIMILARITY = _cfg.SUPPLEMENT_MIN_SIMILARITY
+
+# Enumeration questions ("which banks...") get a bigger row budget than the
+# 40 used elsewhere: answering one correctly requires seeing candidate facts
+# from every company, so the usual anti-dilution cap works against it. Sized
+# to fit ~39 banks x 2 facts plus the similarity-ranked hits.
+_MAX_ENUMERATION_ROWS = _cfg.MAX_ENUMERATION_ROWS
+
+# Below this many retrieved rows, the company's node `summary` profile is
+# appended as fallback context (see company_profile_rows). Kept low on
+# purpose: the profile is ~1500 chars and would otherwise crowd out precise
+# facts in results that already have them. Raised from 12 after finding UCO
+# Bank's profile -- which contains its ground-truth answer verbatim -- gated
+# out at 14 rows.
+_PROFILE_ROW_THRESHOLD = _cfg.PROFILE_ROW_THRESHOLD
+
+# Strategies that answer by returning a node's own properties rather than by
+# traversing edges -- for these the node `summary` is primary evidence.
+_NODE_RETURNING_STRATEGIES = frozenset({"attribute_lookup", "attribute_lookup_direct"})
+
+# Analytical/SWOT-style questions ("primary competitive advantage", "key
+# strength", "main weakness") ask for a synthesis, not a lookup: the graph
+# rarely has one edge literally tagged "competitive advantage" -- the evidence
+# is scattered across several differently-typed facts (Canara Bank's advantage
+# is really "operates in Karnataka" + "serves MSME customers" + "branch density
+# in the south", three separate OPERATES_IN/SERVES facts, none framed as an
+# advantage). Those individual facts routinely rank below unrelated but more
+# literally-worded facts in cosine similarity, so the default supplement size
+# (8 rows) misses them. Widened only for this query shape -- widening it
+# everywhere was already measured to dilute simple lookups (see
+# _MAX_SUPPLEMENT_ROWS above).
+_ANALYTICAL_RE = re.compile(
+    r"\b(competitive advantage|key strength|main (?:weakness|vulnerability)|"
+    r"primary (?:weakness|strength|advantage)|opportunit(?:y|ies)|"
+    r"\bthreats?\b|valuation[- ]relevant|risk driver)\b",
+    re.I,
+)
+_ANALYTICAL_SUPPLEMENT_ROWS = _cfg.ANALYTICAL_SUPPLEMENT_ROWS
+_ANALYTICAL_MIN_SIMILARITY = _cfg.ANALYTICAL_MIN_SIMILARITY
+
+
+def _company_names(matches_df: pd.DataFrame) -> set[str]:
+    """Resolved COMPANY entity names, used to scope semantic search to the right banks."""
+    if matches_df.empty or "matched_type" not in matches_df:
+        return set()
+    companies = matches_df[matches_df["matched_type"] == "COMPANY"]
+    return {str(n) for n in companies["entity"].tolist() if n}
+
+
+def _ensure_fact_index(resources: "PipelineResources"):
+    if resources.fact_index is None:
+        resources.fact_index = load_fact_index(resources.driver, resources.embedder)
+    return resources.fact_index
+
+
+def _hybrid_supplement(
+    query: str,
+    kg_rows: list,
+    strategy: str | None,
+    matches_df: pd.DataFrame,
+    resources: "PipelineResources",
+) -> list:
+    """Merge semantic fact-search hits into a template result and rank the union.
+
+    The template query and the embedding search fail in different, complementary
+    ways: Cypher can only return facts whose r.name happens to be in the
+    hand-maintained keyword map (so a relation the map doesn't know is invisible
+    to it), while embedding search ignores relation names entirely and matches on
+    what the fact SAYS. Running only the first is what produces this benchmark's
+    largest failure bucket -- rows returned that contain part of the answer or
+    none of it -- so both are run and the union is ranked by relevance.
+
+    Scoped to the resolved companies, so this adds missing facts about the right
+    banks rather than well-worded facts about the wrong ones.
     """
-    if not rows:
-        return ""
-    lines = [
-        f"Template: {expanded['template_id']} ({expanded['template_label']})",
-        f"Query intent: {expanded['description']}",
-        "",
-    ]
-    for i, row in enumerate(rows, start=1):
-        data = dict(row)
-        if "attribute" in data and "value" in data:
-            subject = data.get("subject_name", "?")
-            lines.append(f"Row {i}: {subject}'s {data['attribute']} is {data['value']}")
-        elif data.get("fact"):
-            lines.append(f"Row {i}: {data['fact']}")
-        elif data.get("facts"):
-            facts = [f for f in data["facts"] if f]
-            header_parts = [f"{k}={v}" for k, v in data.items() if v is not None and k != "facts"]
-            lines.append(f"Row {i}: " + " | ".join(header_parts) + f" ({len(facts)} facts)")
-            for f in facts:
-                lines.append(f"  - {f}")
-        elif data.get("facts_a") or data.get("facts_b"):
-            header_parts = [
-                f"{k}={v}" for k, v in data.items() if v is not None and k not in ("facts_a", "facts_b")
-            ]
-            lines.append(f"Row {i}: " + " | ".join(header_parts))
-            for label, facts in (("a", data.get("facts_a")), ("b", data.get("facts_b"))):
-                for f in facts or []:
-                    if f:
-                        lines.append(f"  [{label}] {f}")
-        elif "path_names" in data and "rel_types" in data:
-            names = data.get("path_names") or []
-            rels = data.get("rel_types") or []
-            header = (
-                f"Path {i}: {data.get('source_name', names[0] if names else '?')}"
-                f" -> {data.get('target_name', names[-1] if names else '?')}"
-                f" ({data.get('hops', len(rels))} hops)"
-            )
-            lines.append(header)
-            for j, rel in enumerate(rels):
-                left = names[j] if j < len(names) else "?"
-                right = names[j + 1] if j + 1 < len(names) else "?"
-                lines.append(f"  {left} -[{rel}]-> {right}")
-        elif "commodity_name" in data and ("geography_name" in data or "chokepoint" in data):
-            geo = data.get("geography_name") or data.get("chokepoint")
-            share = f" share={data['share']}" if data.get("share") is not None else ""
-            extra = f" [{data['channel']}]" if data.get("channel") else ""
-            lines.append(
-                f"Row {i}: {data['commodity_name']} -[TRANSITS]-> {geo}{share}{extra}"
-            )
-        else:
-            parts = [f"{k}={v}" for k, v in data.items() if v is not None]
-            lines.append(f"Row {i}: " + " | ".join(parts))
-    return "\n".join(lines)
+    if strategy is not None and strategy not in _SUPPLEMENTABLE:
+        return kg_rows
 
+    subject_names = _company_names(matches_df)
+    if not subject_names:
+        # No company resolved: a whole-graph search here would be unscoped and
+        # is already handled by the dedicated no-entities path in process_query.
+        return kg_rows
 
-def summarize_hops(client: genai.Client, hop_path: str) -> str:
-    prompt = f"""
-You are a financial analyst answering a business question using knowledge-graph facts.
-
-Write a plain-language summary of what these facts actually say, in business terms.
-
-Requirements:
-1. Focus only on the business/financial substance -- never describe the graph
-   itself (no "starting entity", "ending entity", "relationship", "path", or any
-   other entity/graph-structure framing, and no numbered or labeled sections).
-2. Write flowing prose, not a list.
-3. Include specific numbers, dates, or ratios only if they appear in the facts
-   below; never invent or estimate them.
-4. Maximum 2 sentences.
-
-Knowledge graph facts:
-
-{hop_path}
-"""
-    response = client.models.generate_content(
-        model="gemini-3.5-flash-lite",
-        contents=prompt,
+    analytical = bool(_ANALYTICAL_RE.search(query))
+    extra = semantic_fact_search(
+        query,
+        _ensure_fact_index(resources),
+        resources.embedder,
+        top_k=_ANALYTICAL_SUPPLEMENT_ROWS if analytical else _MAX_SUPPLEMENT_ROWS,
+        min_similarity=_ANALYTICAL_MIN_SIMILARITY if analytical else _SUPPLEMENT_MIN_SIMILARITY,
+        subject_names=subject_names,
     )
-    return response.text
-
-
-def _load_ner_pipeline(model_name: str):
-    return pipeline(
-        "ner",
-        model=model_name,
-        aggregation_strategy="simple",
-        device=-1,
+    if not extra:
+        return kg_rows
+    merged = merge_rows(kg_rows, extra, cap=_MAX_MERGED_ROWS)
+    return rank_rows(
+        query, merged, resources.embedder, limit=_MAX_MERGED_ROWS, mask_terms=subject_names
     )
-
-
-def load_ner_pipeline(model_name: str | None = None):
-    """Load NER pipeline with optional env override and fallback."""
-    ner_model = model_name or os.getenv("NER_MODEL", DEFAULT_NER_MODEL)
-    try:
-        ner = _load_ner_pipeline(ner_model)
-        if ner_model != DEFAULT_NER_MODEL:
-            print(f"NER model: {ner_model}")
-        return ner
-    except (ValueError, OSError, AttributeError) as exc:
-        if ner_model == DEFAULT_NER_MODEL:
-            raise
-        print(
-            f"Warning: failed to load NER model '{ner_model}' ({exc}). "
-            f"Falling back to {DEFAULT_NER_MODEL}."
-        )
-        return _load_ner_pipeline(DEFAULT_NER_MODEL)
-
-
-# Graphiti entity-type labels (PascalCase, real Neo4j labels) that correspond to a
-# legacy Formica type bucket the existing templates/vocabulary already know about.
-# Anything not listed here falls back to the label itself, upper-cased -- still
-# correctly indexed for gazetteer/alias/semantic matching, just not specially
-# prioritized by the legacy SLOT_SUBJECT_PRIORITY / FORMICA_NEEDED_TYPES sets
-# (which were built for kg/india_theme_kg.cypher's thematic graph, not banking).
-_GRAPHITI_TO_LEGACY_TYPE: dict[str, str] = {
-    "Company": "COMPANY",
-    "Geography": "GEOGRAPHY",
-    "Sector": "SECTOR",
-    "Product": "PRODUCT",
-    "MacroeconomicFactor": "MACRO_VAR",
-}
-
-
-def load_node_index(driver) -> tuple[pd.DataFrame, Any]:
-    """Load all KG nodes from Neo4j and pre-compute embedding vectors for semantic linking.
-
-    Reads Graphiti's actual node schema: id = n.uuid, name = n.name, and node_type is
-    derived from the node's Neo4j labels (every Graphiti node carries a generic
-    "Entity" label plus one specific type label, e.g. ["Entity", "Company"] -- the
-    specific one is used, mapped to a legacy type bucket where one exists (see
-    _GRAPHITI_TO_LEGACY_TYPE), otherwise upper-cased as-is.
-    """
-    embedder = SentenceTransformer(EMBEDDING_MODEL, device="cpu")
-    with driver.session() as session:
-        nodes = session.execute_read(
-            lambda tx: list(
-                tx.run(
-                    """
-                    MATCH (n:Entity)
-                    RETURN n.uuid AS id, n.name AS name, labels(n) AS node_labels
-                    """
-                )
-            )
-        )
-
-    def _resolve_type(node_labels: list[str] | None) -> str | None:
-        specific = [l for l in (node_labels or []) if l != "Entity"]
-        if not specific:
-            return None
-        label = specific[0]
-        return _GRAPHITI_TO_LEGACY_TYPE.get(label, label.upper())
-
-    node_df = (
-        pd.DataFrame(
-            [
-                {"id": r["id"], "node_name": r["name"], "node_type": _resolve_type(r["node_labels"])}
-                for r in nodes
-            ]
-        )
-        .dropna(subset=["node_name"])
-        .drop_duplicates(subset=["node_name"])
-        .reset_index(drop=True)
-    )
-    node_names = node_df["node_name"].astype(str).tolist()
-    node_emb = embedder.encode(node_names, convert_to_tensor=True, normalize_embeddings=True)
-    return embedder, node_df, node_emb
-
-
-def load_resources(summarize: bool = False, judge: bool = False) -> PipelineResources:
-    """Initialize NER, embedder, classifier, Neo4j driver, and optional Gemini client.
-
-    The same Gemini client is reused for both summarization and LLM-as-judge, so
-    it's created whenever either is requested.
-    """
-    ner = load_ner_pipeline()
-    driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
-    embedder, node_df, node_emb = load_node_index(driver)
-    classifier = FormicaTemplateClassifier(model_path=FORMICA_MODEL)
-    classifier.load()
-    aliases = load_aliases()
-    gemini = None
-    if summarize or judge:
-        api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key:
-            raise ValueError("GEMINI_API_KEY is required when summarization or judging is enabled")
-        gemini = genai.Client(api_key=api_key)
-    return PipelineResources(
-        ner=ner,
-        embedder=embedder,
-        classifier=classifier,
-        driver=driver,
-        node_df=node_df,
-        node_emb=node_emb,
-        aliases=aliases,
-        gemini=gemini,
-    )
-
-
-def empty_query_result(query: str, gold_label: str) -> dict[str, Any]:
-    return {field: None for field in RESULT_FIELDS} | {
-        "query": query,
-        "gold_label": gold_label,
-        "kg_row_count": 0,
-    }
-
-
-def gold_label_from_row(row: pd.Series) -> str:
-    if "formica_label" in row and pd.notna(row["formica_label"]):
-        return str(row["formica_label"])
-    domain = str(row.get("label", "")) or None
-    return rule_label_formica(str(row["text"]), domain)
 
 
 def _finish(
-    result: dict[str, Any], query: str, resources: PipelineResources, judge: bool
-) -> dict[str, Any]:
-    """Apply the optional LLM-as-judge step, then return the result.
+    result: dict,
+    query: str,
+    resources: "PipelineResources",
+    judge: bool,
+    ground_truth: str | None = None,
+    judge_votes: int = 1,
+) -> dict:
+    """Apply the optional LLM-as-judge step and the retrieval-recall scoring,
+    then return the result.
 
     Every process_query() return funnels through here, so a query that fails
     entity resolution or Cypher execution (empty summary) still gets auto-labeled
@@ -364,22 +240,38 @@ def _finish(
             result["judge_label"] = "Not relevant"
             result["judge_rationale"] = "No summary was produced for this query (empty assistant output)."
         else:
-            verdict = judge_pair(resources.gemini, query, summary)
+            verdict = judge_pair(
+                resources.gemini, query, summary, ground_truth=ground_truth, votes=judge_votes
+            )
             result["judge_label"] = verdict.label
             result["judge_rationale"] = verdict.rationale
+
+    # Deterministic, LLM-free second axis -- always computed (it costs nothing
+    # and needs no API key), so even an unjudged run can be inspected for
+    # whether retrieval is returning the answer-bearing facts at all.
+    result.update(
+        {k: v for k, v in score_row(result).items() if k in RESULT_FIELDS}
+    )
     return result
 
 
 def process_query(
     query: str,
     gold_label: str,
-    resources: PipelineResources,
+    resources: "PipelineResources",
     *,
     summarize: bool = False,
     judge: bool = False,
-) -> dict[str, Any]:
-    """Run the full pipeline for a single query and return a result dict."""
-    result = empty_query_result(query, gold_label)
+    ground_truth: str | None = None,
+    judge_votes: int = 1,
+    template_override: str | None = None,
+) -> dict:
+    """Run the full pipeline for a single query and return a result dict.
+
+    `template_override` forces the template class instead of classifying, so a
+    router can be A/B'd against another with every other stage held constant.
+    """
+    result = empty_query_result(query, gold_label, ground_truth)
 
     try:
         # --- Step 1: first-pass entity linking (no template context yet) ---
@@ -392,14 +284,64 @@ def process_query(
             aliases=resources.aliases,
         )
         if matches_df.empty:
+            # Nothing linked at all -- typically a cross-company question that
+            # names no company and no gazetteer-resolvable topic. Rather than
+            # bail out with an empty summary, search every company's fact text:
+            # by embedding similarity first (semantic_fact_search), falling back
+            # to the cruder keyword scan only if nothing clears the floor.
             result["error"] = "no_entities_resolved"
-            return _finish(result, query, resources, judge)
+            fallback_rows = semantic_fact_search(
+                query, _ensure_fact_index(resources), resources.embedder
+            )
+            strategy = "semantic_fact_search"
+            if not fallback_rows:
+                # Nothing cleared the similarity floor -- fall back to the older
+                # keyword scan rather than returning nothing at all.
+                fallback_rows = text_search_fallback(resources.driver, query)
+                strategy = "text_search_fallback"
+            if fallback_rows:
+                expanded_stub = {
+                    "template_id": "text_search",
+                    "template_label": "F_Simple",
+                    "description": "Search across all companies' facts (no entity resolved).",
+                }
+                result["cypher_strategy"] = strategy
+                result["kg_row_count"] = len(fallback_rows)
+                kg_hop_path = format_kg_rows_for_summary(fallback_rows, expanded_stub)
+                result["kg_hop_path"] = kg_hop_path or None
+                if summarize and kg_hop_path and resources.gemini is not None:
+                    result["summary"] = summarize_hops(resources.gemini, kg_hop_path, query)
+            return _finish(result, query, resources, judge, ground_truth, judge_votes)
 
         masked_query = mask_entities_with_types(query, entity_types_from_matches(matches_df))
 
-        # --- Step 2: classify masked query into a Formica template ---
-        template_label, confidence = resources.classifier.predict(masked_query)
-
+        # --- Step 2: route the query to a Formica template ---
+        # Rules, not the SVM, and this is a measured choice rather than a default.
+        #
+        # The SVM was retrained on balanced synthetic data whose labels are true by
+        # construction (synthetic_queries.py), fixing both the rare-class shortage
+        # (15 of 24 classes had zero real examples) and the tautology in the old
+        # setup, where it learned rule_label_formica's own output. On held-out
+        # PHRASINGS it reached 0.922. It still lost the head-to-head badly:
+        #
+        #   mean retrieval recall, 150 queries, every other stage identical
+        #     rule router        0.608        classifier router  0.533
+        #     better on 0 queries, worse on 24; on the 58 disagreements 0.651 vs 0.462
+        #
+        # The reason is a genre gap, not a training defect. This benchmark asks
+        # compound disclosure questions ("Roughly how many branches and ATMs does
+        # X operate, and as of what date?"), a shape absent from CSQA and from
+        # every synthetic frame, so the model lands on whatever is nearest in
+        # bigram space -- that example routes to F_LogIntersection on the bare
+        # " and ", and "...promoter or largest shareholder, and as of what date?"
+        # routes to F_CompToGroupAverage. The rules encode real observations about
+        # these specific shapes and win because of it.
+        #
+        # So the classifier is trained and available, but off the routing path.
+        # Putting it back needs hand-labelled gold for a sample of REAL queries --
+        # see gold_label_from_row() -- not more synthetic data.
+        template_label = template_override or rule_label_formica(query)
+        confidence = 1.0
         # --- Step 3: second-pass linking with template-aware type preferences ---
         _, matches_df = resolve_entities(
             query,
@@ -418,11 +360,13 @@ def process_query(
         )
         result["predicted_template"] = template_label
         result["template_confidence"] = float(confidence)
-        result["template_match"] = template_label == gold_label
+        # None when the dataset carries no hand-assigned gold class, so an
+        # unmeasurable quantity is reported as unmeasurable rather than as 100%.
+        result["template_match"] = (template_label == gold_label) if gold_label else None
 
         if matches_df.empty:
             result["error"] = "no_entities_resolved"
-            return _finish(result, query, resources, judge)
+            return _finish(result, query, resources, judge, ground_truth, judge_votes)
 
         # --- Step 4: add missing entities the template expects (gazetteer/alias sweep) ---
         matches_df = enrich_for_formica_template(
@@ -431,16 +375,111 @@ def process_query(
         result["resolved_entities"] = matches_df.to_dict(orient="records")
 
         # --- Step 5: fill triplet slots and build parameterized Cypher ---
-        expanded = expand_formica_template(query, template_label, matches_df)
+        segment_ids = (
+            resolve_segment_ids(query, resources.node_df)
+            if template_label in {"F_GlobalRank", "F_GroupAggregate", "F_CompToGroupAverage"}
+            else None
+        )
+        # Relation names the query semantically touches, unioned into prop1_list
+        # so a relation absent from the hand-maintained keyword map is still
+        # reachable by the template Cypher (24 of the graph's 72 relation names
+        # are currently unmapped).
+        extra_relations = semantic_relation_names(
+            query,
+            _ensure_fact_index(resources),
+            resources.embedder,
+            subject_names=_company_names(matches_df) or None,
+        )
+        expanded = expand_formica_template(
+            query,
+            template_label,
+            matches_df,
+            segment_ids=segment_ids,
+            extra_relations=extra_relations,
+        )
         result["template_id"] = expanded["template_id"]
         result["cypher_parameters"] = expanded.get("parameters")
         result["triplet_slots"] = expanded.get("triplet_slots")
 
-        # --- Step 6: execute Cypher (with retries when primary query returns no rows) ---
-        kg_rows, strategy = execute_formica_template(resources.driver, expanded)
+        # --- Step 6: execute Cypher (retrying, and rejecting off-topic results) ---
+        # Mask the resolved entity names out of the relevance score: every row
+        # for this query repeats them, and unmasked they dominate the similarity
+        # so completely that the gate accepts any fact about the right company.
+        mask_terms = _company_names(matches_df)
+        kg_rows, strategy = execute_formica_template(
+            resources.driver,
+            expanded,
+            scorer=lambda rows: best_score(query, rows, resources.embedder, mask_terms),
+        )
         if not kg_rows and expanded.get("missing_parameters"):
             result["error"] = f"missing_parameters:{expanded['missing_parameters']}"
-            return _finish(result, query, resources, judge)
+            return _finish(result, query, resources, judge, ground_truth, judge_votes)
+
+        # --- Step 6b: supplement template rows with semantic fact search ---
+        kg_rows = _hybrid_supplement(query, kg_rows, strategy, matches_df, resources)
+
+        # --- Step 6c: cross-company enumeration supplement ---
+        # "Which banks have LIC as a shareholder?" resolves LIC (or Kerala, or
+        # Fitch, or nothing at all) but no COMPANY -- so the normal cascade
+        # above treats whatever DID resolve as if it were the query's single
+        # subject, which is the wrong shape for an enumerate-every-matching-
+        # company question. list_companies_by_topic (inside
+        # execute_formica_template) only fires when a linkable topic entity
+        # resolved; this catches the broader set, including queries with no
+        # resolvable entity at all ("standalone vs consolidated", "rating-
+        # outlook divergence"), and unlike semantic_fact_search's flat top-25
+        # ranking, diversifies across companies so the answer set isn't
+        # silently truncated to whichever few banks happen to phrase the fact
+        # most similarly to the query.
+        # Two trigger conditions, not one: the phrasing check (is_cross_company_
+        # query, "which banks...") catches most cases cheaply, but "Across all 39
+        # listed Indian banks in this dataset, which report the highest deposit
+        # growth?" puts "which" nowhere near "bank" and slips past every regex
+        # variant tried. Rather than keep chasing phrasings, also fire this
+        # whenever the ENTIRE cascade above came back empty and no company
+        # resolved -- at that point there is nothing to lose (kg_rows is empty
+        # regardless) and a real chance the query was cross-company all along.
+        cross_company_trigger = is_cross_company_query(query) or not kg_rows
+        if cross_company_trigger and not mask_terms:
+            fact_index = _ensure_fact_index(resources)
+            extra = cross_company_search(query, fact_index, resources.embedder)
+            # For an explicit "which banks..." enumeration, also guarantee every
+            # company is represented (see per_company_top_facts). Similarity
+            # ranking alone silently drops banks whose qualifying fact is worded
+            # unusually -- and a dropped bank cannot be recovered downstream, so
+            # the answer is truncated before the summariser ever sees it.
+            if is_cross_company_query(query):
+                extra = merge_rows(
+                    extra,
+                    per_company_top_facts(query, fact_index, resources.embedder),
+                    cap=_MAX_ENUMERATION_ROWS,
+                )
+            if extra:
+                had_rows_already = bool(kg_rows)
+                # Enumeration needs breadth, so it gets a larger row budget than
+                # a normal lookup -- the usual 40-row cap exists to stop dilution
+                # of single-fact answers, which is the opposite problem here.
+                cap = _MAX_ENUMERATION_ROWS if is_cross_company_query(query) else _MAX_MERGED_ROWS
+                merged = merge_rows(kg_rows, extra, cap=cap)
+                kg_rows = rank_rows(query, merged, resources.embedder, limit=cap)
+                strategy = strategy if had_rows_already else "cross_company_search"
+
+        # --- Step 6d: append the company's node profile as fallback context ---
+        # Only when the retrieved facts are thin. The profile is dense and long,
+        # so adding it to an already-rich result is the dilution pattern measured
+        # earlier this session; adding it to a sparse one supplies figures that
+        # were never extracted as their own edges.
+        if mask_terms and len(kg_rows) < _PROFILE_ROW_THRESHOLD:
+            kg_rows = kg_rows + company_profile_rows(resources.driver, mask_terms)
+        elif strategy in _NODE_RETURNING_STRATEGIES:
+            # These answer by describing a NODE rather than traversing edges, so
+            # the node's own summary is the most on-point evidence available --
+            # and it is exactly what _ATTRIBUTE_LOOKUP_EXCLUDED_KEYS strips out.
+            # Covers any entity type, not just Company: "Who is <person>?" hits
+            # this path and has almost no scalar properties to answer from.
+            kg_rows = kg_rows + entity_profile_rows(
+                resources.driver, (result.get("cypher_parameters") or {}).get("nnp1")
+            )
 
         result["cypher_strategy"] = strategy
         result["kg_row_count"] = len(kg_rows)
@@ -449,55 +488,9 @@ def process_query(
 
         # --- Step 7 (optional): natural-language summary of KG paths ---
         if summarize and kg_hop_path and resources.gemini is not None:
-            result["summary"] = summarize_hops(resources.gemini, kg_hop_path)
+            result["summary"] = summarize_hops(resources.gemini, kg_hop_path, query)
 
     except Exception as exc:
         result["error"] = str(exc)
 
-    return _finish(result, query, resources, judge)
-
-
-def serialize_result_for_csv(result: dict[str, Any]) -> dict[str, Any]:
-    json_fields = ("entities", "resolved_entities", "cypher_parameters", "triplet_slots")
-    row = dict(result)
-    for field in json_fields:
-        if row.get(field) is not None:
-            row[field] = json.dumps(row[field])
-    return row
-
-
-def append_result(
-    result: dict[str, Any],
-    csv_path: Path,
-    jsonl_path: Path,
-    *,
-    write_header: bool,
-) -> None:
-    pd.DataFrame([serialize_result_for_csv(result)]).to_csv(
-        csv_path, mode="a", header=write_header, index=False
-    )
-    with open(jsonl_path, "a") as f:
-        f.write(json.dumps(result, ensure_ascii=False) + "\n")
-
-
-def print_summary_stats(csv_path: Path) -> None:
-    if not csv_path.exists():
-        return
-    final = pd.read_csv(csv_path)
-    acc = None
-    if "template_match" in final:
-        acc = final["template_match"].astype(str).str.lower().eq("true").mean()
-    kg_hit = None
-    if "kg_row_count" in final:
-        kg_hit = (pd.to_numeric(final["kg_row_count"], errors="coerce").fillna(0) > 0).mean()
-    print(f"\nSaved {len(final)} results to {csv_path}")
-    if acc is not None:
-        print(f"Template accuracy: {acc:.3f}")
-    if kg_hit is not None:
-        print(f"KG row hit rate: {kg_hit:.3f}")
-    if "judge_label" in final and final["judge_label"].notna().any():
-        counts = final["judge_label"].value_counts()
-        total = counts.sum()
-        print("\nLLM-judge relevance:")
-        for label, count in counts.items():
-            print(f"  {label}: {count} ({count / total * 100:.0f}%)")
+    return _finish(result, query, resources, judge, ground_truth, judge_votes)

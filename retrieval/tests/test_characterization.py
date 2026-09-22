@@ -1,0 +1,192 @@
+"""Characterization tests: pin current retrieval behaviour before refactoring.
+
+These are not specification tests -- they assert what the pipeline does TODAY, so
+that a structural change (splitting template_resolver, moving slot logic, etc.)
+can be proven behaviour-preserving. A failure here after a refactor means the
+refactor changed something; a failure after an intentional behaviour change
+means the snapshot needs regenerating (scripts/regen_snapshot.py).
+
+Deliberately covers only the deterministic, offline part of the pipeline --
+classification, slot extraction, relation inference, Cypher construction. No
+Neo4j, no Gemini, no network, so it runs in seconds and in CI.
+
+    python3 -m pytest tests/ -q
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import pandas as pd
+import pytest
+
+from formica_retrieval.relevance import RELEVANCE_FLOOR, merge_rows, rank_rows, row_text
+from formica_retrieval.retrieval_eval import (
+    attribute_outcome,
+    extract_names,
+    extract_numbers,
+    material_tokens,
+    retrieval_recall,
+)
+from formica_retrieval.template_classifier import rule_label_formica
+from formica_retrieval.template_resolver import (
+    _screaming_snake,
+    _with_casing_variants,
+    infer_prop1_list,
+)
+
+SNAPSHOT = Path(__file__).parent / "snapshots" / "query_behaviour.json"
+
+
+# --------------------------------------------------------------------------
+# Snapshot: template label + inferred relations for a fixed query set.
+# --------------------------------------------------------------------------
+
+def load_snapshot() -> list[dict]:
+    if not SNAPSHOT.exists():
+        pytest.skip(f"snapshot missing -- run scripts/regen_snapshot.py ({SNAPSHOT})")
+    return json.loads(SNAPSHOT.read_text())
+
+
+@pytest.mark.parametrize("case", load_snapshot() if SNAPSHOT.exists() else [], ids=lambda c: c["id"])
+def test_query_behaviour_unchanged(case):
+    assert rule_label_formica(case["query"]) == case["rule_label"]
+    assert sorted(infer_prop1_list(case["query"])) == sorted(case["prop1_list"])
+
+
+# --------------------------------------------------------------------------
+# Relation-name casing drift (the bug class that broke every Axis Bank compare).
+# --------------------------------------------------------------------------
+
+def test_screaming_snake_converts_pascal_case():
+    assert _screaming_snake("MetricObservation") == "METRIC_OBSERVATION"
+    assert _screaming_snake("SupportedByRelation") == "SUPPORTED_BY_RELATION"
+
+
+def test_screaming_snake_leaves_non_pascal_alone():
+    assert _screaming_snake("HAS_METRIC") is None
+    assert _screaming_snake("CAUSES") is None
+
+
+def test_casing_variants_keep_original_and_add_twin():
+    out = _with_casing_variants(["MetricObservation", "HAS_METRIC"])
+    assert "MetricObservation" in out
+    assert "METRIC_OBSERVATION" in out
+    assert "HAS_METRIC" in out
+
+
+def test_casing_variants_do_not_duplicate():
+    out = _with_casing_variants(["MetricObservation", "METRIC_OBSERVATION"])
+    assert out.count("METRIC_OBSERVATION") == 1
+
+
+# --------------------------------------------------------------------------
+# retrieval_eval: the measurement axis must not drift silently either.
+# --------------------------------------------------------------------------
+
+def test_numbers_normalise_across_formatting():
+    assert extract_numbers("reported 218,399 crore") == extract_numbers("reported 218399 crore")
+
+
+def test_small_bare_integers_are_ignored_but_percentages_are_not():
+    assert extract_numbers("3 items") == set()
+    assert "3" in extract_numbers("3% growth")
+
+
+def test_fiscal_year_labels_do_not_leak_digits():
+    # "FY26" must not contribute a bogus 26 that matches unrelated figures.
+    assert extract_numbers("in FY26") == set()
+
+
+def test_sentence_initial_capital_is_not_a_name():
+    assert "value" not in extract_names("Value was high.")
+    assert "crisil" in extract_names("It was rated by CRISIL.")
+
+
+def test_query_tokens_are_excluded_from_material_tokens():
+    tokens = material_tokens("HDFC Bank's NIM was 3.46%.", "What was HDFC Bank's NIM?")
+    assert "3.46" in tokens["numbers"]
+    assert not any("hdfc" in n for n in tokens["names"])
+
+
+def test_recall_is_none_when_nothing_material_to_check():
+    assert retrieval_recall("It was not disclosed.", "some hop path", "q")["recall"] is None
+
+
+def test_recall_counts_only_found_tokens():
+    stats = retrieval_recall("Profit was 12.5% and 44.2%.", "profit grew 12.5 percent", "q")
+    assert stats["recall"] == 0.5
+
+
+@pytest.mark.parametrize(
+    "label,rows,recall,expected",
+    [
+        ("Relevant", 5, 0.0, "answered"),
+        ("Not relevant", 0, None, "no_retrieval"),
+        ("Not relevant", 5, 0.0, "retrieval_miss"),
+        ("Not relevant", 5, 0.5, "partial_retrieval"),
+        ("Not relevant", 5, 1.0, "generation_miss"),
+        ("Not relevant", 5, None, "unscored"),
+    ],
+)
+def test_outcome_attribution(label, rows, recall, expected):
+    assert attribute_outcome(label, rows, recall) == expected
+
+
+# --------------------------------------------------------------------------
+# relevance: row flattening and merging.
+# --------------------------------------------------------------------------
+
+def test_row_text_prefers_stored_fact():
+    assert row_text({"fact": "X grew 5%", "subject_name": "X"}) == "X grew 5%"
+
+
+def test_row_text_falls_back_to_triple():
+    text = row_text({"subject_name": "X", "relationship": "OPERATES_IN", "object_name": "India"})
+    assert "OPERATES_IN" in text and "India" in text
+
+
+def test_merge_rows_deduplicates():
+    a = [{"subject_name": "X", "fact": "f1"}]
+    b = [{"subject_name": "X", "fact": "f1"}, {"subject_name": "X", "fact": "f2"}]
+    assert len(merge_rows(a, b)) == 2
+
+
+def test_merge_rows_respects_cap():
+    a = [{"subject_name": "X", "fact": "f0"}]
+    b = [{"subject_name": "X", "fact": f"f{i}"} for i in range(1, 20)]
+    assert len(merge_rows(a, b, cap=5)) == 5
+
+
+def test_relevance_floor_is_within_unit_range():
+    assert 0.0 < RELEVANCE_FLOOR < 1.0
+
+
+# --------------------------------------------------------------------------
+# Embedding-dependent behaviour, run only when the model is available locally.
+# --------------------------------------------------------------------------
+
+@pytest.fixture(scope="module")
+def embedder():
+    st = pytest.importorskip("sentence_transformers")
+    try:
+        return st.SentenceTransformer("all-MiniLM-L6-v2", device="cpu")
+    except Exception as exc:  # offline / no cached model
+        pytest.skip(f"embedding model unavailable: {exc}")
+
+
+def test_rank_rows_puts_on_topic_row_first(embedder):
+    rows = [
+        {"fact": "The bank operates 5,000 branches across India."},
+        {"fact": "Net interest margin stood at 3.46% in Q1."},
+    ]
+    ranked = rank_rows("What was the net interest margin?", rows, embedder)
+    assert "3.46" in ranked[0]["fact"]
+
+
+def test_off_topic_rows_score_below_floor(embedder):
+    from formica_retrieval.relevance import best_score
+
+    rows = [{"fact": "The company was incorporated in 1969 under the Companies Act."}]
+    assert best_score("What is the ticker symbol?", rows, embedder) < RELEVANCE_FLOOR

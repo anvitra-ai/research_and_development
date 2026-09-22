@@ -1,0 +1,1154 @@
+[
+  {
+    "id": "F_CompLess-0",
+    "query": "Which banks have metrics sourced from a single secondary source flagged as lower-confidence?",
+    "rule_label": "F_CompLess",
+    "prop1_list": [
+      "SOURCED_FROM",
+      "SUPPORTED_BY",
+      "SUPPORTED_BY_RELATION",
+      "SupportedByRelation"
+    ]
+  },
+  {
+    "id": "F_CompLess-1",
+    "query": "Which growth figures for Union Bank of India are flagged as coming from a single, lower-confidence secondary source?",
+    "rule_label": "F_CompLess",
+    "prop1_list": []
+  },
+  {
+    "id": "F_CompMore-0",
+    "query": "Compare the CASA ratio of AU Small Finance Bank and Equitas Small Finance Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-1",
+    "query": "Compare the CASA ratio of Axis Bank and IDFC First Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-2",
+    "query": "Compare the CASA ratio of Bank of Baroda and Canara Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-3",
+    "query": "Compare the CASA ratio of Bank of Baroda and Punjab National Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-4",
+    "query": "Compare the CASA ratio of HDFC Bank and Axis Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-5",
+    "query": "Compare the CASA ratio of HDFC Bank and ICICI Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-6",
+    "query": "Compare the CASA ratio of HDFC Bank and Kotak Mahindra Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-7",
+    "query": "Compare the CASA ratio of ICICI Bank and Axis Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-8",
+    "query": "Compare the CASA ratio of ICICI Bank and Kotak Mahindra Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-9",
+    "query": "Compare the CASA ratio of IDFC First Bank and Federal Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-10",
+    "query": "Compare the CASA ratio of IndusInd Bank and Yes Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompMore-11",
+    "query": "Compare the CASA ratio of Kotak Mahindra Bank and IndusInd Bank. Which is stronger, and by how much?",
+    "rule_label": "F_CompMore",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-0",
+    "query": "What is Axis Bank's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-1",
+    "query": "What is Bank of India's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-2",
+    "query": "What is Canara Bank's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-3",
+    "query": "What is Central Bank of India's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-4",
+    "query": "What is City Union Bank's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-5",
+    "query": "What is DCB Bank's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-6",
+    "query": "What is Equitas Small Finance Bank's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-7",
+    "query": "What is Federal Bank's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-8",
+    "query": "What is HDFC Bank's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-9",
+    "query": "What is ICICI Bank's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-10",
+    "query": "What is IDFC First Bank's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_CompToGroupAverage-11",
+    "query": "What is Indian Overseas Bank's cost-to-income ratio, and how does it compare with the average for its segment?",
+    "rule_label": "F_CompToGroupAverage",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation",
+      "OPERATES_IN"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-0",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest CASA ratio?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-1",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest CET1 ratio?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-2",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest branch network size?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-3",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest capital adequacy ratio (CRAR)?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-4",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest cost-to-income ratio?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-5",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest gross NPA ratio?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-6",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest net NPA ratio?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-7",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest net interest income?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-8",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest net interest margin?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-9",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest provision coverage ratio?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-10",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest return on assets?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GlobalRank-11",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest return on equity?",
+    "rule_label": "F_GlobalRank",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GroupAggregate-0",
+    "query": "How do Small Finance Banks as a group compare to Private Sector Banks on net interest margin?",
+    "rule_label": "F_GroupAggregate",
+    "prop1_list": [
+      "CONTAINS",
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GroupAggregate-1",
+    "query": "Which segment has the highest average capital adequacy ratio?",
+    "rule_label": "F_GroupAggregate",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GroupAggregate-2",
+    "query": "Which segment has the highest average gross NPA ratio?",
+    "rule_label": "F_GroupAggregate",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GroupAggregate-3",
+    "query": "Which segment has the highest average net interest margin?",
+    "rule_label": "F_GroupAggregate",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_GroupAggregate-4",
+    "query": "Which segment has the highest average return on equity?",
+    "rule_label": "F_GroupAggregate",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_LogUnion-0",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the highest government or promoter shareholding percentage?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "CORPORATE_STRUCTURE_RELATION",
+      "CorporateStructureRelation",
+      "HELD_BY",
+      "OWNERSHIP_STAKE",
+      "OWNS",
+      "OWNS_STAKE_IN",
+      "OwnershipStake",
+      "REGULATED_BY"
+    ]
+  },
+  {
+    "id": "F_LogUnion-1",
+    "query": "Across all 39 listed Indian banks in this dataset, which report the lowest government or promoter shareholding percentage?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "CORPORATE_STRUCTURE_RELATION",
+      "CorporateStructureRelation",
+      "HELD_BY",
+      "OWNERSHIP_STAKE",
+      "OWNS",
+      "OWNS_STAKE_IN",
+      "OwnershipStake",
+      "REGULATED_BY"
+    ]
+  },
+  {
+    "id": "F_LogUnion-2",
+    "query": "Does Bank of Baroda have any overseas branches, representative offices, or joint-venture equity stakes, and where?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "JOINT_VENTURE_WITH",
+      "OPERATES_IN",
+      "OWNS",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_LogUnion-3",
+    "query": "Does Bank of India have any overseas branches, representative offices, or joint-venture equity stakes, and where?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "JOINT_VENTURE_WITH",
+      "OPERATES_IN",
+      "OWNS",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_LogUnion-4",
+    "query": "Does Canara Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "JOINT_VENTURE_WITH",
+      "OPERATES_IN",
+      "OWNS",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_LogUnion-5",
+    "query": "Does Federal Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "JOINT_VENTURE_WITH",
+      "OPERATES_IN",
+      "OWNS",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_LogUnion-6",
+    "query": "Does Indian Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "JOINT_VENTURE_WITH",
+      "OPERATES_IN",
+      "OWNS",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_LogUnion-7",
+    "query": "Does Indian Overseas Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "JOINT_VENTURE_WITH",
+      "OPERATES_IN",
+      "OWNS",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_LogUnion-8",
+    "query": "Does Punjab National Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "JOINT_VENTURE_WITH",
+      "OPERATES_IN",
+      "OWNS",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_LogUnion-9",
+    "query": "Does RBL Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "JOINT_VENTURE_WITH",
+      "OPERATES_IN",
+      "OWNS",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_LogUnion-10",
+    "query": "Does UCO Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "JOINT_VENTURE_WITH",
+      "OPERATES_IN",
+      "OWNS",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_LogUnion-11",
+    "query": "Does Union Bank of India have any overseas branches, representative offices, or joint-venture equity stakes, and where?",
+    "rule_label": "F_LogUnion",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "JOINT_VENTURE_WITH",
+      "OPERATES_IN",
+      "OWNS",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-0",
+    "query": "How many total listed Indian banks does this dataset cover, and how are they split by segment?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": []
+  },
+  {
+    "id": "F_QuantCount-1",
+    "query": "Roughly how many branches and ATMs does AU Small Finance Bank operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-2",
+    "query": "Roughly how many branches and ATMs does Axis Bank operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-3",
+    "query": "Roughly how many branches and ATMs does Bandhan Bank operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-4",
+    "query": "Roughly how many branches and ATMs does Bank of Baroda operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-5",
+    "query": "Roughly how many branches and ATMs does Bank of India operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-6",
+    "query": "Roughly how many branches and ATMs does Bank of Maharashtra operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-7",
+    "query": "Roughly how many branches and ATMs does CSB Bank operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-8",
+    "query": "Roughly how many branches and ATMs does Canara Bank operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-9",
+    "query": "Roughly how many branches and ATMs does Central Bank of India operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-10",
+    "query": "Roughly how many branches and ATMs does City Union Bank operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_QuantCount-11",
+    "query": "Roughly how many branches and ATMs does DCB Bank operate, and as of what date?",
+    "rule_label": "F_QuantCount",
+    "prop1_list": [
+      "DEPENDS_ON",
+      "USES_CHANNEL"
+    ]
+  },
+  {
+    "id": "F_Simple-0",
+    "query": "As of what date is the scope of this dataset defined?",
+    "rule_label": "F_Simple",
+    "prop1_list": []
+  },
+  {
+    "id": "F_Simple-1",
+    "query": "For a bank where a specific figure is marked 'not found,' what should be assumed about that figure?",
+    "rule_label": "F_Simple",
+    "prop1_list": []
+  },
+  {
+    "id": "F_Simple-2",
+    "query": "How does India's GDP growth rate influence loan demand across the banks in this dataset?",
+    "rule_label": "F_Simple",
+    "prop1_list": [
+      "EXPOSURE_RELATION",
+      "ExposureRelation",
+      "HAS_ASSET_EXPOSURE_TO",
+      "HAS_LOAN_EXPOSURE_TO"
+    ]
+  },
+  {
+    "id": "F_Simple-3",
+    "query": "How does the RBI repo rate influence net interest margin across the banks in this dataset?",
+    "rule_label": "F_Simple",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_Simple-4",
+    "query": "How does the dataset treat a figure that appeared internally inconsistent across sources?",
+    "rule_label": "F_Simple",
+    "prop1_list": []
+  },
+  {
+    "id": "F_Simple-5",
+    "query": "How does the dataset treat a figure that could not be verified from a reliable source?",
+    "rule_label": "F_Simple",
+    "prop1_list": []
+  },
+  {
+    "id": "F_Simple-6",
+    "query": "Is Fino Payments Bank included in this dataset's researched company set, and what is its listing status?",
+    "rule_label": "F_Simple",
+    "prop1_list": []
+  },
+  {
+    "id": "F_Simple-7",
+    "query": "What anomaly is flagged in Jammu & Kashmir Bank's net interest income figure?",
+    "rule_label": "F_Simple",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_Simple-8",
+    "query": "What anomaly is flagged in Jana Small Finance Bank's net interest income figure?",
+    "rule_label": "F_Simple",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_Simple-9",
+    "query": "What are AU Small Finance Bank's gross NPA and net NPA ratios?",
+    "rule_label": "F_Simple",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_Simple-10",
+    "query": "What are AU Small Finance Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?",
+    "rule_label": "F_Simple",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  },
+  {
+    "id": "F_Simple-11",
+    "query": "What are Axis Bank's gross NPA and net NPA ratios?",
+    "rule_label": "F_Simple",
+    "prop1_list": [
+      "HAS_GROWTH_DRIVER",
+      "HAS_MARGIN_DRIVER",
+      "HAS_METRIC",
+      "HAS_OPPORTUNITY",
+      "HAS_RISK_DRIVER",
+      "HAS_ROE_DRIVER",
+      "HAS_STRENGTH",
+      "HAS_VALUATION_DRIVER",
+      "HAS_WEAKNESS",
+      "METRIC_OBSERVATION",
+      "MetricObservation"
+    ]
+  }
+]

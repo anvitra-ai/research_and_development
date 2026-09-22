@@ -2,7 +2,7 @@
 
 Loads NER/embedder/classifier/Neo4j driver/Gemini client once at startup (all of
 process_query()'s heavy resources), then answers each request by running the same
-pipeline used by run_batch_pipeline.py: entity resolution -> template
+pipeline used by scripts/run_batch_pipeline.py: entity resolution -> template
 classification -> Cypher execution -> optional summarization -> optional
 LLM-as-judge.
 
@@ -23,25 +23,47 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Any
 
-_RETRIEVAL_ROOT = Path(__file__).resolve().parent
-if str(_RETRIEVAL_ROOT) not in sys.path:
-    sys.path.insert(0, str(_RETRIEVAL_ROOT))
+_SRC_ROOT = Path(__file__).resolve().parent / "src"
+if str(_SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(_SRC_ROOT))
 
+import pandas as pd
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
-from formica_pipeline import PipelineResources, load_resources, process_query
-from formica_template_classifier import rule_label_formica
+from formica_retrieval.pipeline import PipelineResources, TRAIN_CSV, load_resources, process_query
+from formica_retrieval.template_classifier import rule_label_formica
 
 # Populated once at startup by the lifespan handler below; None until then (or if
 # Gemini/Neo4j failed to initialize), which /search and /health both check for.
 _resources: PipelineResources | None = None
 _startup_error: str | None = None
 
+# query text -> ground_truth, loaded once from the same labeled dataset the batch
+# pipeline uses (indian_banks_993_queries.csv). Lets an ad-hoc /search request for
+# a query that happens to be one of the labeled ones get the same grounded judge
+# (compared against a reference answer) that batch runs get, instead of always
+# falling back to the ungrounded rubric -- and surfaces the reference answer
+# itself in the response for the caller to compare against.
+_ground_truth_by_query: dict[str, str] = {}
+
+
+def _load_ground_truth() -> dict[str, str]:
+    if not Path(TRAIN_CSV).exists():
+        return {}
+    df = pd.read_csv(TRAIN_CSV)
+    if "ground_truth" not in df.columns:
+        return {}
+    return {
+        str(row["text"]): str(row["ground_truth"])
+        for _, row in df.iterrows()
+        if pd.notna(row.get("ground_truth"))
+    }
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global _resources, _startup_error
+    global _resources, _startup_error, _ground_truth_by_query
     print("Loading pipeline resources (NER, embedder, classifier, Neo4j driver, Gemini client)...")
     try:
         # Always request both -- creating the Gemini client is cheap (no API call
@@ -54,6 +76,8 @@ async def lifespan(app: FastAPI):
         # /health reports the real problem instead of the process refusing to boot.
         _startup_error = str(exc)
         print(f"WARNING: resource loading failed, /search will 503 until fixed: {exc}")
+    _ground_truth_by_query = _load_ground_truth()
+    print(f"Loaded ground truth for {len(_ground_truth_by_query)} known queries.")
     yield
     if _resources is not None:
         _resources.driver.close()
@@ -74,6 +98,7 @@ class SearchRequest(BaseModel):
 
 class SearchResult(BaseModel):
     query: str
+    ground_truth: str | None = None
     predicted_template: str | None = None
     template_confidence: float | None = None
     entities: list[str] | None = None
@@ -108,5 +133,13 @@ def search(body: SearchRequest) -> SearchResult:
         )
 
     gold_label = rule_label_formica(body.query)
-    result = process_query(body.query, gold_label, _resources, summarize=want_summary, judge=body.judge)
+    ground_truth = _ground_truth_by_query.get(body.query)
+    result = process_query(
+        body.query,
+        gold_label,
+        _resources,
+        summarize=want_summary,
+        judge=body.judge,
+        ground_truth=ground_truth,
+    )
     return SearchResult(**{k: result.get(k) for k in SearchResult.model_fields})

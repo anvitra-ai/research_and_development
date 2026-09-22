@@ -1,7 +1,10 @@
 models/
-retrieval/__pycache__/
+retrieval/**/__pycache__/
 retrieval/retrieval_env
 .claude/
 retrieval/.venv/
 retrieval/.env
 graphiti/.env
+graphiti/pycache/*
+.DS_Store
+.gitignore

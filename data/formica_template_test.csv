@@ -1,301 +1,181 @@
-text,label,formica_label
-How does LNG curtailment affect Tata Power?,T_SupplyDisruption,F_Simple
-Which constraints gate Power & Utilities capex?,T_ConstraintRisk,F_Simple
-What protects Power Grid Corporation margins from naphtha spikes?,T_Hedging,F_Simple
-What equity risk does marine war-risk spike create for State Bank of India?,T_StockImpact,F_Simple
-What infrastructure constraints affect Tata Motors?,T_ConstraintRisk,F_Simple
-How does LNG price affect Larsen & Toubro margins?,T_PriceLinkage,F_Simple
-How does government intervention affect Banks & NBFCs?,T_RegulatoryImpact,F_Simple
-What derivative hedges does Indian Oil run on tanker freight rates?,T_Hedging,F_Simple
-Does Hormuz disruption hurt Oil India investors?,T_StockImpact,F_Simple
-Which constraints gate Aviation capex?,T_ConstraintRisk,F_Simple
-How does USD/INR flow into Metals & Mining valuations?,T_MacroTransmission,F_QuantMin
-"Between Tata Motors and ONGC, who faces more oil supply shock risk?",T_CompareExposure,F_CompMore
-How do fertiliser subsidy bill moves show up in Solar Industries P&L?,T_MacroTransmission,F_Simple
-Which names are net beneficiaries of Strait of Hormuz closure?,T_Beneficiary,F_Simple
-Does a weaker rupee help or hurt Indian Oil?,T_MacroTransmission,F_LogUnion
-How dependent is India on India for ammonia?,T_TransitRisk,F_Simple
-Is GIC Re regulated on ammonia pricing?,T_RegulatoryImpact,F_Simple
-How does Bharat Petroleum manage RBI policy rate sensitivity?,T_Hedging,F_Simple
-Compare refining vs marketing exposure to geopolitical escalation.,T_CompareExposure,F_CompMore
-Which peer has greater Brent crude price exposure: Tata Power or GAIL?,T_CompareExposure,F_LogUnion
-How does LNG curtailment lead to higher tanker freight rates?,T_CausalChain,F_CompMore
-What infrastructure constraints affect ONGC?,T_ConstraintRisk,F_Simple
-What JVs does Indian Oil operate?,T_OwnershipStructure,F_Simple
-Which Insurance stocks should I screen for Qatar risk?,T_SectorExposure,F_Simple
-What is the causal chain from oil supply shock to fertiliser subsidy bill?,T_CausalChain,F_Simple
-Which constraints gate Telecom & Connectivity capex?,T_ConstraintRisk,F_Simple
-What intermediate nodes connect Strait of Hormuz closure and Power Grid Corporation?,T_CausalChain,F_Simple
-What if Oman disruption lasts six months?,T_EventScenario,F_Simple
-How dependent is India on Red Sea for crude oil?,T_TransitRisk,F_Simple
-How does grid evacuation limit GIC Re?,T_ConstraintRisk,F_Simple
-Does Brent crude price weaken Asian Paints fundamentals?,T_MacroTransmission,F_Simple
-Which NBFCs sit in the impact chain for InterGlobe Aviation?,T_SectorExposure,F_Simple
-How does naphtha shortage propagate to Refining?,T_SupplyDisruption,F_Simple
-What land or water constraints affect Chambal Fertilisers?,T_ConstraintRisk,F_LogUnion
-What ownership ties connect refiners and marketing companies?,T_OwnershipStructure,F_Simple
-Which companies are in Power & Utilities?,T_SectorExposure,F_Simple
-What capital flows into IT Services from QIA?,T_InvestmentFlow,F_Simple
-Explain how Oman disruption hits Tata Motors equity.,T_StockImpact,F_Simple
-What is the price linkage between crude oil and Shriram Finance?,T_PriceLinkage,F_Simple
-Link Power Grid Corporation earnings to Singapore GRM.,T_PriceLinkage,F_Simple
-Who owns GIC Re?,T_OwnershipStructure,F_Simple
-Map Defence exposure to fertiliser subsidy bill.,T_SectorExposure,F_Simple
-What is the price linkage between carbon black and Cholamandalam Investment?,T_PriceLinkage,F_Simple
-Which companies have positive exposure to spot LNG price?,T_Beneficiary,F_Simple
-How does disruption at Qatar cascade into IT Services?,T_CausalChain,F_Simple
-How does Bajaj Finance manage spot LNG price sensitivity?,T_Hedging,F_Simple
-What PE capital is entering Indian Fertilisers?,T_InvestmentFlow,F_Simple
-How does Mangalore Refinery hedge against INR depreciation?,T_Hedging,F_Simple
-Explain hedging strategy of Infosys for spot LNG price.,T_Hedging,F_Simple
-What constrains State Bank of India growth in AI infra?,T_ConstraintRisk,F_Simple
-What JVs does Cochin Shipyard operate?,T_OwnershipStructure,F_Simple
-Rank Aviation stocks by marine war-risk premium sensitivity.,T_CompareExposure,F_CompMore
-Who gains when bond yields rises?,T_Beneficiary,F_Simple
-What resource shortages cap Banks & NBFCs expansion?,T_ConstraintRisk,F_Simple
-How does Strait of Hormuz closure disrupt crude oil supply?,T_SupplyDisruption,F_Simple
-Which sovereign funds invest in Indian Fertilisers?,T_InvestmentFlow,F_Simple
-What happens to Adani Ports when Brent crude price rises?,T_MacroTransmission,F_Simple
-Which routes are affected if Red Sea closes?,T_TransitRisk,F_Simple
-Who is the parent of InterGlobe Aviation?,T_OwnershipStructure,F_Simple
-Downside scenario for Insurance from LPG import disruption.,T_EventScenario,F_Simple
-List stocks that gain from Strait of Hormuz rerouting.,T_Beneficiary,F_Simple
-Run a bear case for Bharat Electronics under oil supply shock.,T_EventScenario,F_Simple
-Which group company controls Bharat Electronics?,T_OwnershipStructure,F_Simple
-What procurement risk does tanker freight surge create for Federal Bank?,T_SupplyDisruption,F_Simple
-Who are the major backers of Cholamandalam Investment?,T_InvestmentFlow,F_Simple
-Can Shriram Finance secure PVC resin if Cape of Good Hope closes?,T_SupplyDisruption,F_Simple
-Which Shipping & Logistics name has highest Cape of Good Hope risk?,T_CompareExposure,F_CompMore
-Which companies benefit from refinery outage?,T_Beneficiary,F_Simple
-How does tanker freight rates affect ICICI Lombard?,T_MacroTransmission,F_Simple
-Does tanker freight rates weaken Coal India fundamentals?,T_MacroTransmission,F_Simple
-What natural hedge does Infosys have for marine war-risk spike?,T_Hedging,F_Simple
-Which inputs become scarce after LNG curtailment?,T_SupplyDisruption,F_Simple
-Which group company controls New India Assurance?,T_OwnershipStructure,F_Simple
-What government action caps Cochin Shipyard pricing?,T_RegulatoryImpact,F_Simple
-How does UAE disruption cause changes in tanker freight rates?,T_CausalChain,F_Simple
-How does GAIL source carbon black during disruption?,T_SupplyDisruption,F_Simple
-Which peer has greater tanker freight rates exposure: Netweb Technologies or GAIL?,T_CompareExposure,F_LogUnion
-Who profits from higher India CPI in IT Services?,T_Beneficiary,F_CompMore
-Show all Insurance names with USD/INR linkage.,T_SectorExposure,F_Simple
-Which global funds are buying into Adani Ports?,T_InvestmentFlow,F_Simple
-Does tanker freight rates weaken ICICI Lombard fundamentals?,T_MacroTransmission,F_Simple
-What land or water constraints affect Larsen & Toubro?,T_ConstraintRisk,F_LogUnion
-Is NTPC realization tied to Brent?,T_PriceLinkage,F_Simple
-What equity risk does crude price rally create for NTPC?,T_StockImpact,F_Simple
-What is the Refining peer set for Great Eastern Shipping?,T_SectorExposure,F_CompMore
-Which peer has greater USD/INR exposure: Shriram Finance or GAIL?,T_CompareExposure,F_LogUnion
-How vulnerable is Hindustan Unilever's LNG sourcing to Strait of Hormuz?,T_SupplyDisruption,F_Simple
-Who owns Cochin Shipyard?,T_OwnershipStructure,F_Simple
-How correlated is NTPC with Singapore GRM?,T_PriceLinkage,F_Simple
-Should investors worry about Cholamandalam Investment after LPG import disruption?,T_StockImpact,F_Simple
-How exposed is NTPC to geopolitical escalation?,T_StockImpact,F_Simple
-How dependent is India on India for carbon black?,T_TransitRisk,F_Simple
-How does CPI shock affect Power & Utilities demand?,T_MacroTransmission,F_Simple
-What if Cape of Good Hope closes completely?,T_EventScenario,F_Simple
-Enumerate Banks & NBFCs companies tied to tanker freight surge.,T_SectorExposure,F_Simple
-Which refiners benefit from fertiliser subsidy bill widening?,T_Beneficiary,F_Simple
-Which Paints & Adhesives name has highest Cape of Good Hope risk?,T_CompareExposure,F_CompMore
-How dependent is India on Oman for LPG?,T_TransitRisk,F_Simple
-How does Strait of Hormuz risk transmit to Chambal Fertilisers stock?,T_StockImpact,F_Simple
-Does Bharat Electronics offset India CPI risk via FX hedges?,T_Hedging,F_Simple
-What is the price linkage between PVC resin and Adani Green Energy?,T_PriceLinkage,F_Simple
-Run a bear case for ICICI Lombard under geopolitical escalation.,T_EventScenario,F_Simple
-Who is more hurt by Brent rally: Hindustan Unilever or Tata Motors?,T_CompareExposure,F_LogUnion
-Show all Banks & NBFCs names with spot LNG price linkage.,T_SectorExposure,F_Simple
-What resource shortages cap Paints & Adhesives expansion?,T_ConstraintRisk,F_Simple
-What import share transits Saudi Arabia for crude oil?,T_TransitRisk,F_QuantCount
-What is transit exposure of crude oil via Oman?,T_TransitRisk,F_Simple
-Model base and bull cases for Fertilisers after geopolitical escalation.,T_EventScenario,F_LogIntersection
-How much of India's PVC resin import basket uses Oman?,T_TransitRisk,F_QuantCount
-Show ownership map for State Bank of India.,T_OwnershipStructure,F_Simple
-Which Aviation names are beneficiaries of India CPI?,T_Beneficiary,F_Simple
-Show ownership map for Hindustan Petroleum.,T_OwnershipStructure,F_Simple
-What natural hedge does Oil India have for refinery outage?,T_Hedging,F_Simple
-What is transit exposure of aviation turbine fuel via Red Sea?,T_TransitRisk,F_Simple
-What if Qatar closes completely?,T_EventScenario,F_Simple
-Which peer has greater marine war-risk premium exposure: SpiceJet or GAIL?,T_CompareExposure,F_LogUnion
-What is transit exposure of crude oil via India?,T_TransitRisk,F_Simple
-What is RBI rate impact on Bajaj Finance?,T_MacroTransmission,F_Simple
-What constrains Cholamandalam Investment growth in AI infra?,T_ConstraintRisk,F_Simple
-What earnings line moves first when India CPI shifts?,T_MacroTransmission,F_Simple
-Show all Oil & Gas names with current account deficit linkage.,T_SectorExposure,F_Simple
-Does marine war-risk spike hurt Solar Industries investors?,T_StockImpact,F_Simple
-Which global funds are buying into Larsen & Toubro?,T_InvestmentFlow,F_Simple
-What supply interruptions follow refinery outage?,T_SupplyDisruption,F_Simple
-Stress test Petronet LNG for prolonged Strait of Hormuz closure.,T_EventScenario,F_Simple
-Which inputs become scarce after refinery outage?,T_SupplyDisruption,F_Simple
-Who are the major backers of Coal India?,T_InvestmentFlow,F_Simple
-Should investors worry about Bajaj Finance after tanker freight surge?,T_StockImpact,F_Simple
-Who invests in Cholamandalam Investment?,T_InvestmentFlow,F_Simple
-What regulatory overhang exists for ICICI Lombard?,T_RegulatoryImpact,F_Simple
-Which companies have positive exposure to fertiliser subsidy bill?,T_Beneficiary,F_Simple
-How does Gulf producers disruption cause changes in tanker freight rates?,T_CausalChain,F_Simple
-Which global funds are buying into Chambal Fertilisers?,T_InvestmentFlow,F_Simple
-Which bottlenecks limit Metals & Mining expansion?,T_ConstraintRisk,F_QuantMin
-How closely does Voltamp Transformers follow carbon black prices?,T_PriceLinkage,F_Simple
-Enumerate Banks & NBFCs companies tied to LNG curtailment.,T_SectorExposure,F_Simple
-Downside scenario for Capital Goods from LNG curtailment.,T_EventScenario,F_Simple
-What supply chain risk does Cape of Good Hope pose for Asian Paints?,T_SupplyDisruption,F_Simple
-Which hedges reduce Chambal Fertilisers oil exposure?,T_Hedging,F_Simple
-Model escalation scenario for India.,T_EventScenario,F_Simple
-Who gains when current account deficit rises?,T_Beneficiary,F_Simple
-What is Hormuz transit risk for Indian aviation turbine fuel?,T_TransitRisk,F_Simple
-Who are the major backers of Hindustan Petroleum?,T_InvestmentFlow,F_Simple
-Which routes are affected if Gulf producers closes?,T_TransitRisk,F_Simple
-What risk mitigants does Infosys use for oil supply shock?,T_Hedging,F_Simple
-How does Strait of Hormuz chokepoint impact Indian energy imports?,T_TransitRisk,F_Simple
-Who funds SpiceJet expansion?,T_InvestmentFlow,F_Simple
-Who are the major backers of Tata Motors?,T_InvestmentFlow,F_Simple
-What derivative hedges does Asian Paints run on spot LNG price?,T_Hedging,F_Simple
-Which global funds are buying into Oil India?,T_InvestmentFlow,F_Simple
-Which supply bottlenecks hurt Aviation?,T_ConstraintRisk,F_Simple
-Is Coromandel International pricing indexed to USD/INR?,T_PriceLinkage,F_Simple
-List Indian winners from Cape of Good Hope disruption.,T_Beneficiary,F_Simple
-What is the downside for New India Assurance from LNG curtailment?,T_StockImpact,F_Simple
-How does Reliance Industries manage Brent crude price sensitivity?,T_Hedging,F_Simple
-Show ownership map for Bharat Petroleum.,T_OwnershipStructure,F_Simple
-Which constraints gate Metals & Mining capex?,T_ConstraintRisk,F_QuantMin
-Who wins from refinery outage in Indian markets?,T_Beneficiary,F_Simple
-Give me Banks & NBFCs players affected by oil shock.,T_SectorExposure,F_Simple
-Does Voltamp Transformers track Brent crude price?,T_PriceLinkage,F_Simple
-How does Tata Power manage fertiliser subsidy bill sensitivity?,T_Hedging,F_Simple
-How does current account deficit feed into Shipping & Logistics earnings?,T_CausalChain,F_Simple
-Who invests in Adani Green Energy?,T_InvestmentFlow,F_Simple
-Rank Federal Bank versus sector peers on Oman risk.,T_CompareExposure,F_CompMore
-What FII flows affect CSB Bank?,T_InvestmentFlow,F_Simple
-What infrastructure constraints affect SpiceJet?,T_ConstraintRisk,F_Simple
-What policy response affects NTPC after LPG import disruption?,T_RegulatoryImpact,F_Simple
-What JVs does ICICI Lombard operate?,T_OwnershipStructure,F_Simple
-Which is more exposed: InterGlobe Aviation or Reliance Industries?,T_CompareExposure,F_LogUnion
-Show sector basket for refinery outage impact.,T_SectorExposure,F_Simple
-How is fertiliser subsidy linked to Bharat Electronics?,T_RegulatoryImpact,F_Simple
-How much of Adani Green Energy's tanker freight rates risk is hedged?,T_Hedging,F_QuantCount
-Who is more hurt by Brent rally: Infosys or Tata Motors?,T_CompareExposure,F_LogUnion
-Explain the knock-on effect from Red Sea to India CPI.,T_CausalChain,F_Simple
-What is the mechanism from marine war-risk spike to bank stocks?,T_CausalChain,F_Simple
-Does NTPC track fertiliser subsidy bill?,T_PriceLinkage,F_Simple
-Enumerate Insurance companies tied to LPG import disruption.,T_SectorExposure,F_Simple
-Break down Power & Utilities sensitivity to USD/INR.,T_SectorExposure,F_Simple
-How sensitive is State Bank of India to a marine war-risk premium spike?,T_MacroTransmission,F_Simple
-Does a weaker rupee help or hurt Tata Power?,T_MacroTransmission,F_LogUnion
-How do subsidy revisions change InterGlobe Aviation outlook?,T_RegulatoryImpact,F_Simple
-How does Red Sea disruption cause changes in tanker freight rates?,T_CausalChain,F_Simple
-What protects Shriram Finance margins from urea spikes?,T_Hedging,F_Simple
-Model base and bull cases for Capital Goods after crude price rally.,T_EventScenario,F_LogIntersection
-How sensitive is Coromandel International to a current account deficit spike?,T_MacroTransmission,F_Simple
-Compare Coromandel International and Indian Oil exposure to geopolitical escalation.,T_CompareExposure,F_CompMore
-How does naphtha price affect Coal India margins?,T_PriceLinkage,F_Simple
-What if LNG imports from Qatar are cut?,T_EventScenario,F_Simple
-How does LNG curtailment affect InterGlobe Aviation?,T_SupplyDisruption,F_Simple
-What is transit exposure of LNG via India?,T_TransitRisk,F_Simple
-What drives ICICI Lombard selloff after Qatar tension?,T_StockImpact,F_Simple
-Map Refining exposure to spot LNG price.,T_SectorExposure,F_Simple
-Which regulations constrain Power Grid Corporation margins?,T_RegulatoryImpact,F_Simple
-Downside scenario for IT Services from marine war-risk spike.,T_EventScenario,F_Simple
-How does INR depreciation impact State Bank of India?,T_MacroTransmission,F_Simple
-What supply chain risk does Cape of Good Hope pose for Oil India?,T_SupplyDisruption,F_Simple
-Does marine war-risk spike hurt Petronet LNG investors?,T_StockImpact,F_Simple
-What commodities drive Tata Power cost base?,T_PriceLinkage,F_Simple
-How much of India's LNG import basket uses Oman?,T_TransitRisk,F_QuantCount
-What government action caps Federal Bank pricing?,T_RegulatoryImpact,F_Simple
-How does urea shortage propagate to Defence?,T_SupplyDisruption,F_Simple
-Which policy levers matter for Oil India in Fertilisers?,T_RegulatoryImpact,F_Simple
-Which regulations constrain Adani Green Energy margins?,T_RegulatoryImpact,F_Simple
-What FII flows affect Power Grid Corporation?,T_InvestmentFlow,F_Simple
-Does Coal India hold stakes in other listed entities?,T_OwnershipStructure,F_Simple
-What links India closure to Defence stocks?,T_CausalChain,F_Simple
-How does government intervention affect Refining?,T_RegulatoryImpact,F_Simple
-Who benefits from higher spot LNG price?,T_Beneficiary,F_CompMore
-Model base and bull cases for Capital Goods after Strait of Hormuz closure.,T_EventScenario,F_LogIntersection
-What is the promoter shareholding in Infosys?,T_OwnershipStructure,F_Simple
-How sensitive is Tata Motors to a Singapore GRM spike?,T_MacroTransmission,F_Simple
-Which companies are in Defence?,T_SectorExposure,F_Simple
-How does Gulf producers disruption cause changes in USD/INR?,T_CausalChain,F_Simple
-What supply chain risk does Russia pose for Indian Oil?,T_SupplyDisruption,F_Simple
-How do LPG subsidy rules impact Muthoot Finance?,T_RegulatoryImpact,F_Simple
-Explain the knock-on effect from Saudi Arabia to fertiliser subsidy bill.,T_CausalChain,F_Simple
-How does rerouting via Cape affect SpiceJet?,T_TransitRisk,F_Simple
-Who owns Great Eastern Shipping?,T_OwnershipStructure,F_Simple
-Map IT Services exposure to Singapore GRM.,T_SectorExposure,F_Simple
-Why are Solar Industries stocks impacted by LPG import disruption?,T_StockImpact,F_Simple
-Does Coromandel International hold stakes in other listed entities?,T_OwnershipStructure,F_Simple
-Which stocks rally when bond yields increases?,T_Beneficiary,F_Simple
-What supply bottlenecks hit Oil & Gas from LPG import disruption?,T_SupplyDisruption,F_Simple
-How does sulphur price affect Solar Industries margins?,T_PriceLinkage,F_Simple
-Which NBFC is more sensitive to India CPI?,T_CompareExposure,F_CompMore
-How is ICICI Lombard linked to India CPI?,T_PriceLinkage,F_Simple
-Who wins from crude price rally in Indian markets?,T_Beneficiary,F_Simple
-Which refiners benefit from INR depreciation widening?,T_Beneficiary,F_Simple
-List stocks that gain from Red Sea rerouting.,T_Beneficiary,F_Simple
-What JVs does Shriram Finance operate?,T_OwnershipStructure,F_Simple
-What government action caps Mangalore Refinery pricing?,T_RegulatoryImpact,F_Simple
-How does Singapore GRM feed into IT Services earnings?,T_CausalChain,F_Simple
-How much of India's LPG import basket uses UAE?,T_TransitRisk,F_QuantCount
-How does bond yields affect Bharat Electronics?,T_MacroTransmission,F_Simple
-Who in Oil & Gas is most exposed to Red Sea?,T_SectorExposure,F_QuantMax
-Who funds CSB Bank expansion?,T_InvestmentFlow,F_Simple
-What resource shortages cap Fertilisers expansion?,T_ConstraintRisk,F_Simple
-Is Bharat Electronics regulated on ammonia pricing?,T_RegulatoryImpact,F_Simple
-How much of Muthoot Finance's fertiliser subsidy bill risk is hedged?,T_Hedging,F_QuantCount
-How dependent is India on Strait of Hormuz for urea?,T_TransitRisk,F_Simple
-How does INR depreciation impact Petronet LNG?,T_MacroTransmission,F_Simple
-How does LPG price affect Federal Bank margins?,T_PriceLinkage,F_Simple
-Compare refining vs marketing exposure to LNG curtailment.,T_CompareExposure,F_CompMore
-Which Capital Goods name has highest Red Sea risk?,T_CompareExposure,F_CompMore
-What links UAE closure to Oil & Gas stocks?,T_CausalChain,F_Simple
-What supply bottlenecks hit Paints & Adhesives from marine war-risk spike?,T_SupplyDisruption,F_Simple
-Who funds Power Grid Corporation expansion?,T_InvestmentFlow,F_Simple
-Which policy levers matter for Reliance Industries in Fertilisers?,T_RegulatoryImpact,F_Simple
-Compare ONGC vs Oil India on Brent exposure.,T_CompareExposure,F_CompMore
-Why did Indian Oil fall after Strait of Hormuz headlines?,T_StockImpact,F_Simple
-What is the stock impact of marine war-risk spike on Indian Oil?,T_StockImpact,F_Simple
-Run a bear case for Cochin Shipyard under crude price rally.,T_EventScenario,F_Simple
-Which companies have positive exposure to INR depreciation?,T_Beneficiary,F_Simple
-Downside scenario for Defence from tanker freight surge.,T_EventScenario,F_Simple
-What links Red Sea closure to Shipping & Logistics stocks?,T_CausalChain,F_Simple
-What if Cape of Good Hope disruption lasts six months?,T_EventScenario,F_Simple
-How is Hindustan Petroleum linked to ONGC group?,T_OwnershipStructure,F_Simple
-What resource shortages cap Telecom & Connectivity expansion?,T_ConstraintRisk,F_Simple
-How do freight rates transmit to Chambal Fertilisers costs?,T_MacroTransmission,F_Simple
-Compare ONGC and Indian Oil exposure to Strait of Hormuz closure.,T_CompareExposure,F_CompMore
-What natural hedge does Bharat Petroleum have for tanker freight surge?,T_Hedging,F_Simple
-Which feedstocks are at risk from tanker freight surge?,T_SupplyDisruption,F_Simple
-Stress test New India Assurance for prolonged LNG curtailment.,T_EventScenario,F_Simple
-What capacity bottlenecks slow Larsen & Toubro rollout?,T_ConstraintRisk,F_Simple
-Which stocks rally when USD/INR increases?,T_Beneficiary,F_Simple
-Does Bajaj Finance track tanker freight rates?,T_PriceLinkage,F_Simple
-Which companies are in IT Services?,T_SectorExposure,F_Simple
-What intermediate nodes connect oil supply shock and Oil India?,T_CausalChain,F_Simple
-How does government intervention affect IT Services?,T_RegulatoryImpact,F_Simple
-What supply bottlenecks hit IT Services from marine war-risk spike?,T_SupplyDisruption,F_Simple
-What equity risk does crude price rally create for Adani Green Energy?,T_StockImpact,F_Simple
-How much of GIC Re's tanker freight rates risk is hedged?,T_Hedging,F_QuantCount
-List subsidiaries under Infosys.,T_OwnershipStructure,F_Simple
-What is the downside for Bajaj Finance from refinery outage?,T_StockImpact,F_Simple
-How closely does Adani Ports follow PVC resin prices?,T_PriceLinkage,F_Simple
-How is SpiceJet protected from Russia disruption?,T_Hedging,F_Simple
-Stress test Asian Paints for prolonged oil supply shock.,T_EventScenario,F_Simple
-Who funds Netweb Technologies expansion?,T_InvestmentFlow,F_Simple
-How much of India's LNG import basket uses Cape of Good Hope?,T_TransitRisk,F_QuantCount
-Trace the path from Oman to GIC Re via Singapore GRM.,T_CausalChain,F_Simple
-How does grid evacuation limit Tata Motors?,T_ConstraintRisk,F_Simple
-How is fertiliser subsidy linked to ONGC?,T_RegulatoryImpact,F_Simple
-How does tanker freight rates feed into Oil & Gas earnings?,T_CausalChain,F_Simple
-Map corporate structure of Cochin Shipyard.,T_OwnershipStructure,F_Simple
-Does marine war-risk spike hurt ONGC investors?,T_StockImpact,F_Simple
-How does government intervention affect Capital Goods?,T_RegulatoryImpact,F_Simple
-How is State Bank of India affected by fuel subsidy policy?,T_RegulatoryImpact,F_Simple
-Should investors worry about Cholamandalam Investment after oil supply shock?,T_StockImpact,F_Simple
-What FII flows affect GIC Re?,T_InvestmentFlow,F_Simple
-Who in Refining is most exposed to Saudi Arabia?,T_SectorExposure,F_QuantMax
-Is Cochin Shipyard realization tied to Brent?,T_PriceLinkage,F_Simple
-Map causality from LNG curtailment to insurance stocks.,T_CausalChain,F_Simple
-Simulate de-escalation impact on INR depreciation.,T_EventScenario,F_Simple
-Quantify India's PVC resin dependence on Gulf producers.,T_TransitRisk,F_Simple
-Does Oil India pass through fertiliser subsidy bill changes?,T_PriceLinkage,F_Simple
-What macro channel links LPG import disruption to Hindustan Petroleum?,T_MacroTransmission,F_Simple
-Who profits from higher gross refining margin in Metals & Mining?,T_Beneficiary,F_CompMore
-Which is more exposed: Bajaj Finance or Reliance Industries?,T_CompareExposure,F_LogUnion
-What supply chain risk does Red Sea pose for Bharat Petroleum?,T_SupplyDisruption,F_Simple
-Why is Bajaj Finance moving on current account deficit news?,T_StockImpact,F_Simple
+text,formica_label
+What is the single primary source cited for Indian Overseas Bank's most recent financial metrics in this dataset?,F_Simple
+"What credit ratings has Bandhan Bank received, and from which rating agencies?",F_Simple
+"What is Equitas Small Finance Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+Which banks explicitly flag the key risk driver as asset quality in unsecured or small-ticket lending?,F_LogUnion
+What is the single primary source cited for State Bank of India's most recent financial metrics in this dataset?,F_Simple
+"What is Axis Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+Who are IDBI Bank's main named competitors?,F_Simple
+What are Jana Small Finance Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"What is Kotak Mahindra Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+What is the main weakness or vulnerability flagged for City Union Bank?,F_LogUnion
+"What products and services does Punjab & Sind Bank offer, and which customer segments does it serve?",F_Simple
+"Compare the return on equity of Indian Bank and Central Bank of India. Which is stronger, and by how much?",F_CompMore
+What is the single primary source cited for CSB Bank's most recent financial metrics in this dataset?,F_Simple
+What are IndusInd Bank's gross NPA and net NPA ratios?,F_Simple
+Which banks are most exposed to microfinance or small-ticket unsecured lending?,F_LogUnion
+What was City Union Bank's CASA ratio in the most recently reported quarter?,F_Simple
+What are DCB Bank's gross NPA and net NPA ratios?,F_Simple
+"What is Yes Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+What is Equitas Small Finance Bank's net interest margin (NIM) for the latest reported period?,F_Simple
+"What percentage of Bank of Maharashtra is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"Roughly how many branches and ATMs does IndusInd Bank operate, and as of what date?",F_QuantCount
+"Across all 39 listed Indian banks in this dataset, which report the lowest cost-to-income ratio?",F_GlobalRank
+"What is RBL Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+"What is Jammu & Kashmir Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+What is AU Small Finance Bank's ticker symbol and on which exchange(s) does it trade?,F_Simple
+"Which segment — Public Sector, Private Sector, or Small Finance Banks — has the highest average CASA ratio?",F_LogUnion
+What was IDFC First Bank's CASA ratio in the most recently reported quarter?,F_Simple
+Who are Bandhan Bank's main named competitors?,F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of State Bank of India?",F_Simple
+What is UCO Bank's net interest margin (NIM) for the latest reported period?,F_Simple
+What is the main weakness or vulnerability flagged for Jana Small Finance Bank?,F_LogUnion
+What is the difference in how this dataset presents facts compared to the original structured entity/relationship version it was derived from?,F_CompMore
+"What is Central Bank of India's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"What credit ratings has Utkarsh Small Finance Bank received, and from which rating agencies?",F_Simple
+What is the biggest threat facing AU Small Finance Bank according to the analysis?,F_Simple
+"What technology platform, digital channel, or core banking system is specifically associated with Indian Overseas Bank?",F_LogUnion
+What are Tamilnad Mercantile Bank's gross NPA and net NPA ratios?,F_Simple
+"What is Dhanlaxmi Bank's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+"Compare the net interest margin of HDFC Bank and Axis Bank. Which is stronger, and by how much?",F_CompMore
+What is the single primary source cited for IDFC First Bank's most recent financial metrics in this dataset?,F_Simple
+What is the biggest threat facing Tamilnad Mercantile Bank according to the analysis?,F_Simple
+What is the main weakness or vulnerability flagged for CSB Bank?,F_LogUnion
+"Does Karur Vysya Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+"What is ESAF Small Finance Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"Compare the return on equity of IDBI Bank and Yes Bank. Which is stronger, and by how much?",F_CompMore
+What is the biggest threat facing Jammu & Kashmir Bank according to the analysis?,F_Simple
+"What customer segment does Federal Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+"What credit, market, operational or regulatory risks is Axis Bank exposed to?",F_LogUnion
+What is the biggest threat facing ESAF Small Finance Bank according to the analysis?,F_Simple
+What is the key strength identified for IDFC First Bank in the current analysis?,F_Simple
+What is the main weakness or vulnerability flagged for UCO Bank?,F_LogUnion
+"What is CSB Bank's cost-to-income ratio, and how does it compare with the average for its segment?",F_CompToGroupAverage
+"What is HDFC Bank's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+"Compare the CASA ratio of Union Bank of India and Bank of India. Which is stronger, and by how much?",F_CompMore
+"What is Jana Small Finance Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"What credit, market, operational or regulatory risks is Punjab National Bank exposed to?",F_LogUnion
+"What products and services does Central Bank of India offer, and which customer segments does it serve?",F_Simple
+"What customer segment does CSB Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+Who are Kotak Mahindra Bank's main named competitors?,F_Simple
+"Compare the gross NPA ratio of Canara Bank and Union Bank of India. Which is stronger, and by how much?",F_CompMore
+Which Private Sector Banks are under any regulatory restriction or heightened supervisory scrutiny?,F_LogUnion
+"Which banks have had a rating upgrade mentioned in this dataset, and by which agency?",F_Simple
+"What is Indian Bank's cost-to-income ratio, and how does it compare with the average for its segment?",F_CompToGroupAverage
+"What percentage of Yes Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+What was AU Small Finance Bank's total advances (loan book) and deposit growth in the latest quarter?,F_Simple
+"Compare the gross NPA ratio of IDBI Bank and Yes Bank. Which is stronger, and by how much?",F_CompMore
+Which banks in this dataset have no single promoter holding a majority stake?,F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Equitas Small Finance Bank?",F_Simple
+"Compare the gross NPA ratio of IDFC First Bank and Federal Bank. Which is stronger, and by how much?",F_CompMore
+"What is Bandhan Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"What customer segment does ESAF Small Finance Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+"What is Jammu & Kashmir Bank's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+"What is DCB Bank's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+What is the single primary source cited for Indian Bank's most recent financial metrics in this dataset?,F_Simple
+"Compare the net interest margin of State Bank of India and HDFC Bank. Which is stronger, and by how much?",F_CompMore
+Who are ESAF Small Finance Bank's main named competitors?,F_Simple
+"What percentage of Indian Overseas Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"Compare the CASA ratio of Ujjivan Small Finance Bank and ESAF Small Finance Bank. Which is stronger, and by how much?",F_CompMore
+"Roughly how many branches and ATMs does Equitas Small Finance Bank operate, and as of what date?",F_QuantCount
+"What credit, market, operational or regulatory risks is Bank of India exposed to?",F_LogUnion
+"What is State Bank of India's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"What is DCB Bank's cost-to-income ratio, and how does it compare with the average for its segment?",F_CompToGroupAverage
+Which banks explicitly flag return on equity as being driven by operating leverage or normalization of provisioning?,F_LogUnion
+"Compare the return on equity of Karur Vysya Bank and City Union Bank. Which is stronger, and by how much?",F_CompMore
+What was IndusInd Bank's total advances (loan book) and deposit growth in the latest quarter?,F_Simple
+"What percentage of Punjab & Sind Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"What is Federal Bank's cost-to-income ratio, and how does it compare with the average for its segment?",F_CompToGroupAverage
+What is Canara Bank's net interest margin (NIM) for the latest reported period?,F_Simple
+"What customer segment does DCB Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+"What percentage of Federal Bank is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"What is IDBI Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+What is DCB Bank's ticker symbol and on which exchange(s) does it trade?,F_Simple
+"Roughly how many branches and ATMs does Ujjivan Small Finance Bank operate, and as of what date?",F_QuantCount
+What are AU Small Finance Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"What credit, market, operational or regulatory risks is RBL Bank exposed to?",F_LogUnion
+"What is Kotak Mahindra Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+Who are Jammu & Kashmir Bank's main named competitors?,F_Simple
+"What credit, market, operational or regulatory risks is Indian Overseas Bank exposed to?",F_LogUnion
+What is Bank of India's net interest margin (NIM) for the latest reported period?,F_Simple
+"What percentage of Bank of Baroda is held by its government promoter or largest shareholder, and as of what date?",F_LogUnion
+"What is AU Small Finance Bank's cost-to-income ratio, and how does it compare with the average for its segment?",F_CompToGroupAverage
+"What is Union Bank of India's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+What are IDBI Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+What are Kotak Mahindra Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"Compare the return on equity of IndusInd Bank and Yes Bank. Which is stronger, and by how much?",F_CompMore
+What is IDFC First Bank's ticker symbol and on which exchange(s) does it trade?,F_Simple
+"Compare the return on equity of Jammu & Kashmir Bank and Dhanlaxmi Bank. Which is stronger, and by how much?",F_CompMore
+"What is Bank of India's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+Which banks have data points in this dataset explicitly marked as unresolved or internally inconsistent across sources?,F_LogUnion
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Bandhan Bank?",F_Simple
+"Compare the return on equity of HDFC Bank and Kotak Mahindra Bank. Which is stronger, and by how much?",F_CompMore
+What are DCB Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"What customer segment does City Union Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+"What products and services does Suryoday Small Finance Bank offer, and which customer segments does it serve?",F_Simple
+"Compare the return on equity of Kotak Mahindra Bank and IndusInd Bank. Which is stronger, and by how much?",F_CompMore
+What are Karur Vysya Bank's gross NPA and net NPA ratios?,F_Simple
+"What customer segment does Punjab National Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+"What credit ratings has IndusInd Bank received, and from which rating agencies?",F_Simple
+What are ICICI Bank's gross NPA and net NPA ratios?,F_Simple
+"Compare the net interest margin of State Bank of India and Bank of Baroda. Which is stronger, and by how much?",F_CompMore
+What are Equitas Small Finance Bank's gross NPA and net NPA ratios?,F_Simple
+"Compare the gross NPA ratio of HDFC Bank and ICICI Bank. Which is stronger, and by how much?",F_CompMore
+"What is Federal Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+What is the key strength identified for IndusInd Bank in the current analysis?,F_Simple
+"What customer segment does Bandhan Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+"What customer segment does AU Small Finance Bank appear to prioritize most, based on its product mix and distribution network?",F_Simple
+"What is Equitas Small Finance Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Yes Bank?",F_Simple
+"Roughly how many branches and ATMs does Punjab National Bank operate, and as of what date?",F_QuantCount
+"Compare the return on equity of RBL Bank and Bandhan Bank. Which is stronger, and by how much?",F_CompMore
+"What credit, market, operational or regulatory risks is Indian Bank exposed to?",F_LogUnion
+"Does Ujjivan Small Finance Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+What are Central Bank of India's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"Which banks are exposed to litigation or legal-settlement risk, and what is the nature of that exposure?",F_LogUnion
+"What is IndusInd Bank's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+"Compare the CASA ratio of RBL Bank and Bandhan Bank. Which is stronger, and by how much?",F_CompMore
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of RBL Bank?",F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Bank of Baroda?",F_Simple
+What was Tamilnad Mercantile Bank's CASA ratio in the most recently reported quarter?,F_Simple
+"What is Karur Vysya Bank's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+What was AU Small Finance Bank's CASA ratio in the most recently reported quarter?,F_Simple
+"Roughly how many branches and ATMs does ICICI Bank operate, and as of what date?",F_QuantCount
+"Across all 39 listed Indian banks in this dataset, which report the highest provision coverage ratio?",F_GlobalRank
+What was Bank of Baroda's total advances (loan book) and deposit growth in the latest quarter?,F_Simple
+"What credit, market, operational or regulatory risks is Jammu & Kashmir Bank exposed to?",F_LogUnion
+"Does Bank of India have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+"Across all 39 listed Indian banks in this dataset, which report the lowest return on assets?",F_GlobalRank
+"What credit, market, operational or regulatory risks is Kotak Mahindra Bank exposed to?",F_LogUnion
+"Does South Indian Bank have any overseas branches, representative offices, or joint-venture equity stakes, and where?",F_LogUnion
+What is the main weakness or vulnerability flagged for Utkarsh Small Finance Bank?,F_LogUnion
+What is the single primary source cited for Canara Bank's most recent financial metrics in this dataset?,F_Simple
+"What credit ratings has Kotak Mahindra Bank received, and from which rating agencies?",F_Simple
+What is the single primary source cited for South Indian Bank's most recent financial metrics in this dataset?,F_Simple
+What is the biggest threat facing Jana Small Finance Bank according to the analysis?,F_Simple
+"What is Central Bank of India's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+"What is Punjab & Sind Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"What is Bank of Baroda's primary competitive advantage, and how strong is the evidence behind that claim?",F_Simple
+Which segment has the highest average gross NPA ratio?,F_GroupAggregate
+"Compare the return on equity of Union Bank of India and Bank of India. Which is stronger, and by how much?",F_CompMore
+What is South Indian Bank's ticker symbol and on which exchange(s) does it trade?,F_Simple
+"What credit ratings has Bank of Baroda received, and from which rating agencies?",F_Simple
+What was Jana Small Finance Bank's CASA ratio in the most recently reported quarter?,F_Simple
+What is City Union Bank's ticker symbol and on which exchange(s) does it trade?,F_Simple
+What is the single primary source cited for Bank of Baroda's most recent financial metrics in this dataset?,F_Simple
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of AU Small Finance Bank?",F_Simple
+"Compare the net interest margin of Ujjivan Small Finance Bank and ESAF Small Finance Bank. Which is stronger, and by how much?",F_CompMore
+What are Bandhan Bank's return on assets (ROA) and return on equity (ROE) for the latest quarter?,F_Simple
+"Compare the net interest margin of IDFC First Bank and Federal Bank. Which is stronger, and by how much?",F_CompMore
+"Roughly how many branches and ATMs does Bank of Maharashtra operate, and as of what date?",F_QuantCount
+Which banks have an ADR or GDR listed on a foreign exchange in addition to their NSE/BSE listing?,F_LogUnion
+"What is ICICI Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+What was Central Bank of India's CASA ratio in the most recently reported quarter?,F_Simple
+"What is CSB Bank's capital adequacy ratio (CRAR), and its CET1 ratio if disclosed?",F_Simple
+"Roughly how many branches and ATMs does Jana Small Finance Bank operate, and as of what date?",F_QuantCount
+"Who is the current MD & CEO (or Chairman, where that is the top executive title) of Bank of Maharashtra?",F_Simple
+"What is HDFC Bank's cost-to-income ratio, and how does it compare with the average for its segment?",F_CompToGroupAverage
+"What is DCB Bank's provision coverage ratio, and what does that imply about its NPA cushion?",F_Simple
+"What is RBL Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple
+Which Public Sector Bank has the strongest asset quality (lowest gross NPA)?,F_GlobalRank
+"What is IndusInd Bank's net interest income for the latest reported quarter, and its year-on-year growth rate?",F_Simple

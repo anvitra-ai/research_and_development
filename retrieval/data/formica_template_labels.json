@@ -20,7 +20,10 @@
     "F_QuantEqual",
     "F_QuantMax",
     "F_QuantMin",
-    "F_Simple"
+    "F_Simple",
+    "F_GlobalRank",
+    "F_GroupAggregate",
+    "F_CompToGroupAverage"
   ],
   "descriptions": {
     "F_LogUnion": [
@@ -128,14 +131,12 @@
     "F_QuantMax": [
       "max",
       "maximum",
-      "most",
       "highest",
       "largest"
     ],
     "F_QuantMin": [
       "min",
       "minimum",
-      "least",
       "lowest",
       "smallest"
     ],
@@ -149,6 +150,9 @@
       "name",
       "trace",
       "explain"
-    ]
+    ],
+    "F_GlobalRank": [],
+    "F_GroupAggregate": [],
+    "F_CompToGroupAverage": []
   }
 }

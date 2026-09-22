@@ -18,8 +18,8 @@ Shared datasets, graph configuration, and pipeline outputs for the retrieval sta
 |------|-------------|
 | `formica_template_train.csv` | Formica template classification training set |
 | `formica_template_test.csv` | Formica template classification test set |
-| `deberta_stock_impact_train.csv` | Legacy DeBERTa training set |
-| `deberta_stock_impact_test.csv` | Legacy DeBERTa test set |
+| ~~`deberta_stock_impact_train.csv`~~ | Deleted — consumer script removed; regenerate via `retrieval/legacy/generate_query_template_dataset.py` |
+| ~~`deberta_stock_impact_test.csv`~~ | Deleted — consumer script removed; regenerate via `retrieval/legacy/generate_query_template_dataset.py` |
 
 Each CSV typically has a `text` column (natural-language query) and label columns (`formica_label`, etc.).
 

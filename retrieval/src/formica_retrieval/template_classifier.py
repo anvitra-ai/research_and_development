@@ -21,8 +21,12 @@ from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.preprocessing import FunctionTransformer
 from sklearn.svm import LinearSVC
 
-from formica_template_classes import FORMICA_TEMPLATE_CLASSES, DISCRIMINATIVE_KEYWORDS
-from paths import DATA_DIR, MODELS_DIR
+from .paths import DATA_DIR, MODELS_DIR
+from .template_classes import (
+    FORMICA_TEMPLATE_CLASSES,
+    DISCRIMINATIVE_KEYWORDS,
+    BANKING_SEGMENT_KEYWORDS,
+)
 
 DEFAULT_MODEL_PATH = MODELS_DIR / "formica-template-classifier.joblib"
 DEFAULT_LABELS_PATH = DATA_DIR / "formica_template_labels.json"
@@ -134,6 +138,55 @@ def rule_label_formica(query: str, domain_label: str | None = None) -> str:
     if has("but not", "without", "except", "excluding"):
         return "F_LogDifference"
 
+    # Cross-company / group-aggregation family -- checked BEFORE the generic
+    # "compare"/"highest"/"lowest" keyword checks below, since all three of
+    # these shapes contain those same words but need fundamentally different
+    # Cypher (rank/aggregate across the whole company universe or a
+    # BankingSegment group, not one company or a fixed pair).
+    segments_mentioned = [
+        seg for seg, kws in BANKING_SEGMENT_KEYWORDS.items() if any(kw in q for kw in kws)
+    ]
+    # "X's ratio, and how does it compare with the average for its segment?" --
+    # one specific company (not named here, but this is text-only labeling)
+    # against ITS OWN segment's average. Must come before the plain "compare"
+    # check, which would otherwise route this into the two-named-entity F_CompMore.
+    if has("average for its segment", "segment average", "peer average", "average for its peer"):
+        return "F_CompToGroupAverage"
+    # "How do/does Small Finance Banks as a group compare to Private Sector Banks
+    # on X?" -- two distinct segments named, no single company at all.
+    if len(segments_mentioned) >= 2 or has("as a group compare", "compare... as a group"):
+        return "F_GroupAggregate"
+    # "Which segment has the highest average X?" -- either a named segment
+    # keyword or the bare generic "segment" ("which segment has...", not naming
+    # Public/Private/Small Finance specifically), plus "average" plus a
+    # superlative; ranks segments themselves, not companies.
+    if (segments_mentioned or "segment" in q) and has("average") and has(
+        "highest", "lowest", "max", "min", "maximum", "minimum", "largest", "smallest"
+    ):
+        return "F_GroupAggregate"
+    # "Across all 39 listed Indian banks, which reports the highest/lowest X?" or
+    # "Which Public Sector Bank has the highest X?" -- ranks ONE company across
+    # the whole universe (optionally segment-filtered), no "average" involved.
+    if (has("across all", "all 39", "all listed", "all banks") or segments_mentioned) and has(
+        "which bank", "which company", "which public sector bank", "which private sector bank",
+        "which small finance bank", "report the highest", "report the lowest",
+        "reports the highest", "reports the lowest",
+    ):
+        return "F_GlobalRank"
+
+    # Check comparison intent BEFORE quantity keywords: "Compare X and Y's gross
+    # NPA... by how much?" contains "how much" too, but two-entity comparison is
+    # the far more specific/decisive signal here -- checking quantity keywords
+    # first misroutes the large majority of comparison questions in this dataset
+    # (77% of what would otherwise be tagged F_QuantCount) into the single-entity
+    # count template, which can't answer a two-company comparison at all.
+    if domain_label == "T_CompareExposure" or has("compare", "peer", " vs ", " versus "):
+        if has("less", "lower", "fewer"):
+            return "F_CompLess"
+        if has("approximately", "around", "similar"):
+            return "F_CompApprox"
+        return "F_CompMore"
+
     if has("how many", "how much", "number of", "count of"):
         if has("more than", "greater than", "higher than"):
             return "F_CompCountMore"
@@ -150,13 +203,6 @@ def rule_label_formica(query: str, domain_label: str | None = None) -> str:
         if has("approximately", "around"):
             return "F_QuantCountApprox"
         return "F_QuantCount"
-
-    if domain_label == "T_CompareExposure" or has("compare", "peer", " vs ", " versus "):
-        if has("less", "lower", "fewer"):
-            return "F_CompLess"
-        if has("approximately", "around", "similar"):
-            return "F_CompApprox"
-        return "F_CompMore"
 
     if has("more than", "greater", "higher", "larger"):
         return "F_CompMore"
@@ -237,7 +283,7 @@ class FormicaTemplateClassifier:
         if not self.model_path.exists():
             raise FileNotFoundError(
                 f"Formica classifier not found at {self.model_path}. "
-                "Run generate_formica_training_data.py first."
+                "Run scripts/train_template_classifier.py first."
             )
         payload = joblib.load(self.model_path)
         self.pipeline = payload["pipeline"]

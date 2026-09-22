@@ -23,7 +23,7 @@
         "nn1"
       ],
       "default_relationships": "",
-      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]-(o:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($prop1 IS NULL OR r.name = $prop1)\n  AND ($nnp2 IS NULL OR o.uuid = $nnp2)\nRETURN s.name AS subject_name, r.name AS relationship, o.name AS object_name, [l IN labels(o) WHERE l <> 'Entity'][0] AS object_type, r.fact AS fact\nORDER BY object_name\nLIMIT 50"
+      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]-(o:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND (size($prop1_list) = 0 OR r.name IN $prop1_list)\n  AND (size($target_ids) = 0 OR o.uuid IN $target_ids)\nRETURN s.name AS subject_name, r.name AS relationship, o.name AS object_name, [l IN labels(o) WHERE l <> 'Entity'][0] AS object_type, r.fact AS fact, r.valid_at AS valid_at\nORDER BY object_name\nLIMIT 50"
     },
     "F_LogUnion": {
       "template_id": "logical_union",
@@ -34,7 +34,7 @@
         "nn1"
       ],
       "default_relationships": "",
-      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r1:RELATES_TO]-(o1:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($prop1 IS NULL OR r1.name = $prop1)\n  AND ($nnp2 IS NULL OR o1.uuid = $nnp2)\nRETURN s.name AS subject_name, r1.name AS relationship, o1.name AS object_name, [l IN labels(o1) WHERE l <> 'Entity'][0] AS object_type, r1.fact AS fact\nUNION\nMATCH (s:Entity {uuid: $nnp1})-[r2:RELATES_TO]-(o2:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($nnp2 IS NULL OR o2.uuid = $nnp2)\nRETURN s.name AS subject_name, r2.name AS relationship, o2.name AS object_name, [l IN labels(o2) WHERE l <> 'Entity'][0] AS object_type, r2.fact AS fact\nORDER BY object_name\nLIMIT 50"
+      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r1:RELATES_TO]-(o1:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND (size($prop1_list) = 0 OR r1.name IN $prop1_list)\n  AND (size($target_ids) = 0 OR o1.uuid IN $target_ids)\nRETURN s.name AS subject_name, r1.name AS relationship, o1.name AS object_name, [l IN labels(o1) WHERE l <> 'Entity'][0] AS object_type, r1.fact AS fact, r1.valid_at AS valid_at\nUNION\nMATCH (s:Entity {uuid: $nnp1})-[r2:RELATES_TO]-(o2:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($nnp2 IS NULL OR o2.uuid = $nnp2)\n  AND $nnp2 IS NOT NULL\nRETURN s.name AS subject_name, r2.name AS relationship, o2.name AS object_name, [l IN labels(o2) WHERE l <> 'Entity'][0] AS object_type, r2.fact AS fact, r2.valid_at AS valid_at\nORDER BY object_name\nLIMIT 50"
     },
     "F_LogIntersection": {
       "template_id": "logical_intersection",
@@ -136,7 +136,7 @@
         "nn2"
       ],
       "default_relationships": "",
-      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]-(o:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($nn2 IS NULL OR $nn2 IN [l IN labels(o) | toUpper(l)])\n  AND ($prop1 IS NULL OR r.name = $prop1)\nRETURN s.name AS subject_name, count(o) AS object_count, collect(r.fact) AS facts"
+      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]-(o:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($nn2 IS NULL OR $nn2 IN [l IN labels(o) | toUpper(l)])\n  AND (size($prop1_list) = 0 OR r.name IN $prop1_list)\nRETURN s.name AS subject_name, count(o) AS object_count, collect(r.fact) AS facts, collect(r.valid_at) AS valid_ats"
     },
     "F_QuantCountAtmost": {
       "template_id": "quant_count_atmost",
@@ -239,7 +239,7 @@
         "nn1"
       ],
       "default_relationships": "",
-      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]-(o:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($prop1 IS NULL OR r.name = $prop1)\nWITH s, o, r, coalesce(r.percentage, r.exposure_percentage, r.exposure_amount, r.ownership_percentage, r.value, r.share, r.weight, 1.0) AS val\nORDER BY val DESC\nRETURN s.name AS subject_name, o.name AS object_name, val AS max_value, r.fact AS fact\nLIMIT 1"
+      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]-(o:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($prop1 IS NULL OR r.name = $prop1)\nWITH s, o, r, coalesce(r.percentage, r.exposure_percentage, r.exposure_amount, r.ownership_percentage, r.value, r.share, r.weight, 1.0) AS val\nORDER BY val DESC\nRETURN s.name AS subject_name, o.name AS object_name, val AS max_value, r.fact AS fact, r.valid_at AS valid_at\nLIMIT 1"
     },
     "F_QuantMin": {
       "template_id": "quant_min",
@@ -250,7 +250,36 @@
         "nn1"
       ],
       "default_relationships": "",
-      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]-(o:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($prop1 IS NULL OR r.name = $prop1)\nWITH s, o, r, coalesce(r.percentage, r.exposure_percentage, r.exposure_amount, r.ownership_percentage, r.value, r.share, r.weight, 1.0) AS val\nORDER BY val ASC\nRETURN s.name AS subject_name, o.name AS object_name, val AS min_value, r.fact AS fact\nLIMIT 1"
+      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]-(o:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($prop1 IS NULL OR r.name = $prop1)\nWITH s, o, r, coalesce(r.percentage, r.exposure_percentage, r.exposure_amount, r.ownership_percentage, r.value, r.share, r.weight, 1.0) AS val\nORDER BY val ASC\nRETURN s.name AS subject_name, o.name AS object_name, val AS min_value, r.fact AS fact, r.valid_at AS valid_at\nLIMIT 1"
+    },
+    "F_GlobalRank": {
+      "template_id": "global_rank",
+      "description": "Rank a single named metric across every company (optionally segment-filtered); return the top company.",
+      "parameters": [
+        "nnp2",
+        "nn1"
+      ],
+      "default_relationships": "",
+      "cypher": "MATCH (s:Entity {uuid: $nnp1})-[r:RELATES_TO]-(o:Entity)\nWHERE ($nn1 IS NULL OR $nn1 IN [l IN labels(s) | toUpper(l)])\n  AND ($prop1 IS NULL OR r.name = $prop1)\nWITH s, o, r, coalesce(r.percentage, r.exposure_percentage, r.exposure_amount, r.ownership_percentage, r.value, r.share, r.weight, 1.0) AS val\nORDER BY val DESC\nRETURN s.name AS subject_name, o.name AS object_name, val AS max_value, r.fact AS fact, r.valid_at AS valid_at\nLIMIT 1"
+    },
+    "F_GroupAggregate": {
+      "template_id": "group_aggregate",
+      "description": "Average a named metric across companies grouped by BankingSegment; rank segments or compare two named segments.",
+      "parameters": [
+        "nnp2"
+      ],
+      "default_relationships": "",
+      "cypher": "MATCH (s:Company)-[:RELATES_TO]-(seg:BankingSegment)\nMATCH (s)-[r:RELATES_TO]-(o:Entity {uuid: $nnp2})\nWHERE r.value IS NOT NULL\nWITH seg, avg(r.value) AS avg_value, count(DISTINCT s) AS company_count\nORDER BY avg_value DESC\nRETURN seg.name AS subject_name, avg_value AS max_value, company_count\nLIMIT 1"
+    },
+    "F_CompToGroupAverage": {
+      "template_id": "comp_to_group_average",
+      "description": "One company's named metric alongside the average of that same metric across its BankingSegment peers.",
+      "parameters": [
+        "nnp1",
+        "nnp2"
+      ],
+      "default_relationships": "",
+      "cypher": "MATCH (c:Entity {uuid: $nnp1})-[cr:RELATES_TO]-(o:Entity {uuid: $nnp2})\nWHERE cr.value IS NOT NULL\nRETURN c.name AS subject_name, cr.value AS value, cr.fact AS fact, cr.valid_at AS valid_at\nLIMIT 1"
     }
   }
 }

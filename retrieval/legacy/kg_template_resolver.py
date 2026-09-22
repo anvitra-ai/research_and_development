@@ -1,4 +1,9 @@
-"""Resolve DeBERTa template labels to KG Cypher query specs."""
+"""Resolve DeBERTa template labels to KG Cypher query specs.
+
+LEGACY: superseded by formica_retrieval.template_resolver (src/formica_retrieval/).
+Not imported by the current batch pipeline or API; kept for reference only. Its
+`from paths import ...` import is stale and won't resolve as-is.
+"""
 
 import json
 from pathlib import Path
