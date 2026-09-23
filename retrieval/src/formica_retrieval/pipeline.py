@@ -103,7 +103,7 @@ def entity_types_from_matches(matches_df: pd.DataFrame) -> list[tuple[str, str]]
 # special modes are excluded: they return SYNTHESISED rows (a segment average, a
 # single ranked winner) whose meaning comes from the aggregation, and appending
 # loose facts to those actively misleads the summariser about what was computed.
-_SUPPLEMENTABLE = frozenset({"primary", "relaxed_direction", "attribute_lookup", "single_entity"})
+_SUPPLEMENTABLE = frozenset({"primary", "relaxed_direction", "attribute_lookup"})
 
 # Cap on rows handed to the summariser after merging. Matches the existing LIMIT
 # 40 used by the broad Cypher passes.
@@ -411,9 +411,17 @@ def process_query(
             expanded,
             scorer=lambda rows: best_score(query, rows, resources.embedder, mask_terms),
         )
+        # A template slot the query never filled (F_CompMore's $nnp2/$nnp3 when
+        # only one entity resolved) means the TEMPLATE cannot answer -- it does
+        # not mean the GRAPH cannot. Record it and keep going: steps 6b-6d below
+        # are entity-anchored rather than slot-anchored and routinely answer
+        # these. Returning here instead skipped them, and the only reason that
+        # was survivable was an accident: a fallback rewrote the cypher to a
+        # dead single-slot :Node form, which made the missing_parameters
+        # recomputation come back empty and silently re-enabled the supplements.
+        # Both that fallback and the :Node schema are gone; this is the fix.
         if not kg_rows and expanded.get("missing_parameters"):
             result["error"] = f"missing_parameters:{expanded['missing_parameters']}"
-            return _finish(result, query, resources, judge, ground_truth, judge_votes)
 
         # --- Step 6b: supplement template rows with semantic fact search ---
         kg_rows = _hybrid_supplement(query, kg_rows, strategy, matches_df, resources)

@@ -1,4 +1,4 @@
-"""Heavy pipeline resources: NER/embedder/classifier/Neo4j/Gemini, loaded once.
+"""Heavy pipeline resources: NER/embedder/Neo4j/Gemini, loaded once.
 
 `load_resources()` is the single entry point -- called once per process (a batch
 run, the FastAPI service's startup, a REPL session), returning a `PipelineResources`
@@ -21,7 +21,7 @@ from . import config as _cfg
 from .config import GEMINI_API_KEY, NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER
 from .entity_resolver import load_aliases
 from .paths import MODELS_DIR
-from .template_classifier import FormicaTemplateClassifier
+from .template_classifier import FormicaTemplateClassifier  # noqa: F401 — re-exported for classifier experiments
 
 FORMICA_MODEL = MODELS_DIR / "formica-template-classifier.joblib"
 DEFAULT_NER_MODEL = _cfg.NER_MODEL
@@ -34,7 +34,6 @@ class PipelineResources:
 
     ner: Any
     embedder: SentenceTransformer
-    classifier: FormicaTemplateClassifier
     driver: Any
     node_df: pd.DataFrame
     node_emb: Any
@@ -161,16 +160,23 @@ def load_fact_index(driver, embedder) -> tuple[list[dict[str, Any]], Any]:
 
 
 def load_resources(summarize: bool = False, judge: bool = False) -> PipelineResources:
-    """Initialize NER, embedder, classifier, Neo4j driver, and optional Gemini client.
+    """Initialize NER, embedder, Neo4j driver, and optional Gemini client.
 
     The same Gemini client is reused for both summarization and LLM-as-judge, so
     it's created whenever either is requested.
+
+    The trained FormicaTemplateClassifier is deliberately NOT loaded here. It is
+    off the routing path (the rules beat it -- see process_query for the measured
+    head-to-head), so loading it bought nothing while making startup fail
+    outright with FileNotFoundError whenever the .joblib was absent, e.g. on a
+    fresh checkout that has not run scripts/train_template_classifier.py. To
+    experiment with it, construct it directly:
+
+        FormicaTemplateClassifier(model_path=FORMICA_MODEL).load()
     """
     ner = load_ner_pipeline()
     driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
     embedder, node_df, node_emb = load_node_index(driver)
-    classifier = FormicaTemplateClassifier(model_path=FORMICA_MODEL)
-    classifier.load()
     aliases = load_aliases()
     gemini = None
     if summarize or judge:
@@ -180,7 +186,6 @@ def load_resources(summarize: bool = False, judge: bool = False) -> PipelineReso
     return PipelineResources(
         ner=ner,
         embedder=embedder,
-        classifier=classifier,
         driver=driver,
         node_df=node_df,
         node_emb=node_emb,

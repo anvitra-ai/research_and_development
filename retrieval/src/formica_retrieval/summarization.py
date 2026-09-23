@@ -81,9 +81,14 @@ def format_kg_rows_for_summary(rows: list, expanded: dict[str, Any]) -> str:
       - a single edge's r.fact -> the fact text verbatim
       - aggregate/list facts (F_QuantCount's collect(), F_CompMore/Less/Approx's path
         facts_a/facts_b) -> the count/comparison header plus every underlying fact
-    Falls through to the legacy path/transit formatting, then the generic key=value
-    reconstruction, for rows that carry none of the above (e.g. the still-unfixed
-    legacy :Node-schema special modes, which have no fact/attribute fields at all).
+    Falls through to a generic key=value reconstruction for rows carrying none of
+    the above.
+
+    Branch ORDER matters: a ranked row carries `fact` as well as max_value/
+    min_value, so the generic fact branch would swallow it and present a computed
+    ranking as one isolated datapoint. Any new row shape needs a matching branch
+    in relevance.row_text too, or the relevance gate scores it blank -- see the
+    note there.
     """
     if not rows:
         return ""
@@ -194,26 +199,6 @@ def format_kg_rows_for_summary(rows: list, expanded: dict[str, Any]) -> str:
                 for f in facts or []:
                     if f:
                         lines.append(f"  [{label}] {f}")
-        elif "path_names" in data and "rel_types" in data:
-            names = data.get("path_names") or []
-            rels = data.get("rel_types") or []
-            header = (
-                f"Path {i}: {data.get('source_name', names[0] if names else '?')}"
-                f" -> {data.get('target_name', names[-1] if names else '?')}"
-                f" ({data.get('hops', len(rels))} hops)"
-            )
-            lines.append(header)
-            for j, rel in enumerate(rels):
-                left = names[j] if j < len(names) else "?"
-                right = names[j + 1] if j + 1 < len(names) else "?"
-                lines.append(f"  {left} -[{rel}]-> {right}")
-        elif "commodity_name" in data and ("geography_name" in data or "chokepoint" in data):
-            geo = data.get("geography_name") or data.get("chokepoint")
-            share = f" share={data['share']}" if data.get("share") is not None else ""
-            extra = f" [{data['channel']}]" if data.get("channel") else ""
-            lines.append(
-                f"Row {i}: {data['commodity_name']} -[TRANSITS]-> {geo}{share}{extra}"
-            )
         else:
             parts = [f"{k}={v}" for k, v in data.items() if v is not None]
             lines.append(f"Row {i}: " + " | ".join(parts))

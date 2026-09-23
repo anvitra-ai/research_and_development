@@ -30,84 +30,22 @@ _NUMERIC_COALESCE_RAW = (
 
 
 # Alternative Cypher patterns for query shapes the generic triplet cannot express.
+# Named query modes for shapes the generic triplet Cypher cannot express:
+# cross-company ranking, segment aggregation, peer-average comparison, and
+# topic-based company listing.
+#
+# The 11 legacy modes that used to live here (propagation/path_trace,
+# transit_quant/commodity_transit, the beneficiary and sector families) were
+# removed: they targeted the pre-Graphiti thematic schema -- MATCH (x:Node
+# {id: ...}) over TRANSITS/CAUSES/BENEFITS_FROM edges -- none of which exist
+# in the banking graph (:Node = 0 nodes, and 0 edges of each of those types).
+# They were not merely unused but unrunnable, and could never return a row.
 _SPECIAL_SIMPLE_CYPHER: dict[str, str] = {
-    "sector_beneficiaries": (
-        "MATCH (sector:Node {id: $nnp1})-[:CONTAINS]->(company:Node {type: 'COMPANY'})"
-        "-[:BENEFITS_FROM]->(shock:Node)\n"
-        "WHERE ($nnp2 IS NULL OR shock.id = $nnp2)\n"
-        "RETURN sector.label AS sector_name, company.label AS company_name, "
-        "shock.label AS shock_name, 'BENEFITS_FROM' AS relationship"
-    ),
-    "shock_beneficiaries": (
-        "MATCH (company:Node {type: 'COMPANY'})-[r:BENEFITS_FROM]->(shock:Node {id: $nnp1})\n"
-        "RETURN company.label AS company_name, shock.label AS shock_name, type(r) AS relationship\n"
-        "ORDER BY company_name"
-    ),
-    "product_producers": (
-        "MATCH (company:Node {type: 'COMPANY'})-[r:PRODUCES]->(product:Node {id: $nnp1})\n"
-        "RETURN company.label AS company_name, product.label AS product_name, type(r) AS relationship\n"
-        "ORDER BY company_name"
-    ),
-    "beneficiary_paths": (
-        "MATCH p = (source:Node {id: $nnp1})-[*1..6]-(target:Node {type: 'COMPANY'})\n"
-        "WHERE source.id <> target.id\n"
-        "RETURN source.label AS source_name, target.label AS target_name, "
-        "[n IN nodes(p) | n.label] AS path_names, "
-        "[r IN relationships(p) | type(r)] AS rel_types, length(p) AS hops\n"
-        "ORDER BY length(p)\n"
-        "LIMIT 25"
-    ),
-    "sector_constituents": (
-        "MATCH (sector:Node {id: $nnp1})-[:CONTAINS]->(company:Node {type: 'COMPANY'})\n"
-        "RETURN sector.label AS sector_name, company.label AS company_name, company.type AS node_type"
-    ),
-    "commodity_transit": (
-        "MATCH (commodity:Node {id: $nnp1})-[r:TRANSITS]->(geo:Node)\n"
-        "WHERE ($nnp2 IS NULL OR geo.id = $nnp2)\n"
-        "RETURN commodity.label AS commodity_name, geo.label AS geography_name, "
-        "type(r) AS relationship, r.share AS share, r.channel AS channel"
-    ),
-    "transit_quant": (
-        "MATCH (commodity:Node {id: $nnp1})-[r:TRANSITS]->(geo:Node)\n"
-        "WHERE ($nnp2 IS NULL OR geo.id = $nnp2)\n"
-        "RETURN commodity.label AS commodity_name, geo.label AS geography_name, "
-        "r.share AS share, r.channel AS channel, type(r) AS relationship"
-    ),
-    "path_trace": (
-        "MATCH p = shortestPath((source:Node {id: $nnp1})-[*..8]-(target:Node {id: $nnp2}))\n"
-        "RETURN source.label AS source_name, target.label AS target_name, "
-        "[n IN nodes(p) | n.label] AS path_names, "
-        "[r IN relationships(p) | type(r)] AS rel_types, length(p) AS hops"
-    ),
-    "propagation": (
-        "MATCH p = shortestPath((source:Node {id: $nnp1})-[*..8]-(target:Node {id: $nnp2}))\n"
-        "RETURN source.label AS source_name, target.label AS target_name, "
-        "[n IN nodes(p) | n.label] AS path_names, "
-        "[r IN relationships(p) | type(r)] AS rel_types, length(p) AS hops"
-    ),
-    "propagation_open": (
-        "MATCH p = (source:Node {id: $nnp1})-[*1..8]-(target:Node)\n"
-        "WHERE target.type IN ['COMPANY', 'MACRO_VAR', 'SECTOR', 'EVENT', 'GEOGRAPHY']\n"
-        "  AND source.id <> target.id\n"
-        "RETURN source.label AS source_name, target.label AS target_name, "
-        "[n IN nodes(p) | n.label] AS path_names, "
-        "[r IN relationships(p) | type(r)] AS rel_types, length(p) AS hops\n"
-        "ORDER BY length(p)\n"
-        "LIMIT 25"
-    ),
-    "propagation_all_paths": (
-        "MATCH p = (source:Node {id: $nnp1})-[*1..8]-(target:Node {id: $nnp2})\n"
-        "RETURN source.label AS source_name, target.label AS target_name, "
-        "[n IN nodes(p) | n.label] AS path_names, "
-        "[r IN relationships(p) | type(r)] AS rel_types, length(p) AS hops\n"
-        "ORDER BY length(p)\n"
-        "LIMIT 10"
-    ),
     # "Across all 39 banks, which reports the highest/lowest <metric>?" -- rank
     # every entity of nn1's type (e.g. Company) connected to the specific resolved
     # metric entity (nnp2), unlike the generic F_QuantMax/Min templates which rank
-    # one subject's own neighbors. Graphiti schema (:Entity/:RELATES_TO/r.fact),
-    # not the legacy :Node schema the rest of this dict uses.
+    # one subject's own neighbors. Graphiti schema (:Entity/:RELATES_TO/r.fact) --
+    # as is every mode left in this dict, now that the legacy :Node ones are gone.
     # A company with NONE of the real numeric fields populated would otherwise
     # silently fall through _NUMERIC_COALESCE's trailing ",1.0" default and tie
     # with every other such company at 1.0 -- ORDER BY's tie-break is arbitrary,

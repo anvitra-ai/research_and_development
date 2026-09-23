@@ -29,10 +29,9 @@ from formica_retrieval.retrieval_eval import (
     material_tokens,
     retrieval_recall,
 )
+from formica_retrieval.relation_names import _screaming_snake, _with_casing_variants
 from formica_retrieval.template_classifier import rule_label_formica
 from formica_retrieval.template_resolver import (
-    _screaming_snake,
-    _with_casing_variants,
     infer_prop1_list,
 )
 
@@ -145,6 +144,38 @@ def test_row_text_prefers_stored_fact():
 def test_row_text_falls_back_to_triple():
     text = row_text({"subject_name": "X", "relationship": "OPERATES_IN", "object_name": "India"})
     assert "OPERATES_IN" in text and "India" in text
+
+
+# One representative row per shape format_kg_rows_for_summary can emit. Keep in
+# step with that function's branches: a shape it can print but row_text flattens
+# to nothing is scored blank by the relevance gate, which is how `profile` and
+# `avg_value` rows silently became invisible to ranking.
+_SUMMARY_ROW_SHAPES = {
+    "profile": {"subject_name": "UCO Bank", "profile": "UCO Bank operates 3,200 branches."},
+    "ranked_max": {"subject_name": "BoB", "object_name": "return on assets", "max_value": 0.25},
+    "ranked_min": {"subject_name": "BoB", "object_name": "gross NPA", "min_value": 1.1},
+    "attribute": {"subject_name": "X", "attribute": "ticker", "value": "XBANK"},
+    "segment_avg": {"subject_name": "X", "segment_name": "PSU", "segment_average": 3.4},
+    "aggregate": {"subject_name": "Public Sector Banks", "avg_value": 3.41, "company_count": 12},
+    "fact": {"subject_name": "X", "fact": "X grew 5%"},
+    "fact_list": {"subject_name": "X", "facts": ["a", "b"]},
+    "triple": {"subject_name": "X", "relationship": "OPERATES_IN", "object_name": "India"},
+}
+
+
+@pytest.mark.parametrize("shape", sorted(_SUMMARY_ROW_SHAPES))
+def test_row_text_covers_summary_shapes(shape):
+    """Every formattable row shape must flatten to text the scorer can read.
+
+    Asserts more than non-emptiness: the text must survive masking of the entity
+    name, since best_score() masks resolved company names before scoring and a
+    row whose only content WAS the name then scores against the empty string.
+    """
+    row = _SUMMARY_ROW_SHAPES[shape]
+    text = row_text(row)
+    assert text.strip(), f"{shape} row flattened to empty text"
+    masked = text.replace(str(row.get("subject_name", "")), "").strip()
+    assert masked, f"{shape} row has no content beyond its subject name"
 
 
 def test_merge_rows_deduplicates():

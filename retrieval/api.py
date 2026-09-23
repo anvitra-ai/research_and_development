@@ -1,6 +1,6 @@
 """FastAPI service wrapping the Formica KG query pipeline for ad-hoc search.
 
-Loads NER/embedder/classifier/Neo4j driver/Gemini client once at startup (all of
+Loads NER/embedder/Neo4j driver/Gemini client once at startup (all of
 process_query()'s heavy resources), then answers each request by running the same
 pipeline used by scripts/run_batch_pipeline.py: entity resolution -> template
 classification -> Cypher execution -> optional summarization -> optional
@@ -32,7 +32,6 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 from formica_retrieval.pipeline import PipelineResources, TRAIN_CSV, load_resources, process_query
-from formica_retrieval.template_classifier import rule_label_formica
 
 # Populated once at startup by the lifespan handler below; None until then (or if
 # Gemini/Neo4j failed to initialize), which /search and /health both check for.
@@ -64,7 +63,7 @@ def _load_ground_truth() -> dict[str, str]:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global _resources, _startup_error, _ground_truth_by_query
-    print("Loading pipeline resources (NER, embedder, classifier, Neo4j driver, Gemini client)...")
+    print("Loading pipeline resources (NER, embedder, Neo4j driver, Gemini client)...")
     try:
         # Always request both -- creating the Gemini client is cheap (no API call
         # happens until a request actually asks for summarize/judge); this just
@@ -132,11 +131,15 @@ def search(body: SearchRequest) -> SearchResult:
             detail="summarize/judge requested but GEMINI_API_KEY was not configured at startup",
         )
 
-    gold_label = rule_label_formica(body.query)
+    # No gold label exists for an ad-hoc query: it is a HUMAN-assigned template
+    # class, used only to score the router in batch runs. Passing the router's
+    # own output here made template_match compare the router against itself and
+    # report True unconditionally. Empty means "unknown", which process_query
+    # turns into template_match=None -- the honest answer.
     ground_truth = _ground_truth_by_query.get(body.query)
     result = process_query(
         body.query,
-        gold_label,
+        "",
         _resources,
         summarize=want_summary,
         judge=body.judge,

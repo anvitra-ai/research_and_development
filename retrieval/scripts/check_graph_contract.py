@@ -29,7 +29,7 @@ from neo4j import GraphDatabase  # noqa: E402
 
 from formica_retrieval.config import NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER  # noqa: E402
 from formica_retrieval.template_classes import RELATION_KEYWORDS  # noqa: E402
-from formica_retrieval.template_resolver import _screaming_snake  # noqa: E402
+from formica_retrieval.relation_names import _screaming_snake  # noqa: E402
 
 RELATION_COUNTS = (
     "MATCH ()-[r:RELATES_TO]-() WHERE r.name IS NOT NULL "
@@ -117,7 +117,7 @@ def fix_casing(driver) -> None:
     """Rewrite SCREAMING_SNAKE r.name values to the PascalCase spelling.
 
     Removes the drift at the source rather than compensating for it on every
-    read (which is what template_resolver._with_casing_variants does today).
+    read (which is what relation_names._with_casing_variants does today).
     """
     with driver.session() as session:
         counts = Counter({r["name"]: r["n"] for r in session.run(RELATION_COUNTS)})

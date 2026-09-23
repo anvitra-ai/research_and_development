@@ -35,15 +35,28 @@ def row_text(row: Any) -> str:
 
     Mirrors the branches in summarization.format_kg_rows_for_summary so the
     score is computed over the same content the summariser will actually see,
-    rather than over fields that never reach the model.
+    rather than over fields that never reach the model. Every row kind that
+    module can format needs a branch here; test_row_text_covers_summary_shapes
+    pins that, because the two drifted apart once already (`profile` and
+    `avg_value` rows flattened to nothing but the entity name, which the
+    caller's mask_terms then masked away to the empty string -- a ~1500-char
+    node summary known to contain ground-truth answers scored as blank).
     """
     data = dict(row)
     parts: list[str] = []
 
     if data.get("fact"):
         parts.append(str(data["fact"]))
+    if data.get("profile"):
+        parts.append(str(data["profile"]))
     if data.get("attribute") is not None and data.get("value") is not None:
         parts.append(f"{data.get('subject_name', '')} {data['attribute']} {data['value']}")
+    # Synthesised rows: the number IS the content, and it lives in a mode-specific
+    # key rather than in fact text.
+    for key in ("max_value", "min_value", "avg_value", "segment_average"):
+        if data.get(key) is not None:
+            label = data.get("object_name") or data.get("segment_name") or ""
+            parts.append(f"{data.get('subject_name', '')} {label} {data[key]}".strip())
     # Comparison and count templates carry their evidence in list-valued fields.
     for key in ("facts_a", "facts_b", "facts"):
         value = data.get(key)
