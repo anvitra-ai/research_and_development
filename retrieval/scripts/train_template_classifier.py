@@ -28,8 +28,8 @@ from sklearn.metrics import classification_report  # noqa: E402
 from sklearn.model_selection import train_test_split  # noqa: E402
 
 from formica_retrieval.paths import DATA_DIR  # noqa: E402
-from formica_retrieval.synthetic_queries import class_coverage, generate  # noqa: E402
-from formica_retrieval.template_classifier import (  # noqa: E402
+from formica_retrieval.routing.synthetic_queries import class_coverage, generate  # noqa: E402
+from formica_retrieval.routing.template_classifier import (  # noqa: E402
     FormicaTemplateClassifier,
     build_pipeline,
     extract_pos_sequence,

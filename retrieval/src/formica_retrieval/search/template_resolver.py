@@ -38,7 +38,7 @@ from .template_execution import execute_formica_template  # noqa: F401
 
 # Previously re-exported from here for callers' convenience; kept so imports
 # that reached through this module for them do not break.
-from .entity_resolver import enrich_for_formica_template  # noqa: F401
+from ..linking.entity_resolver import enrich_for_formica_template  # noqa: F401
 from .fact_search import (  # noqa: F401
     semantic_fact_search,
     semantic_relation_names,

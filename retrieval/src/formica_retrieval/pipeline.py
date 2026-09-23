@@ -39,8 +39,8 @@ import re
 import pandas as pd
 
 from . import config as _cfg
-from .entity_resolver import enrich_for_formica_template, resolve_entities
-from .llm_judge import judge_pair
+from .linking.entity_resolver import enrich_for_formica_template, resolve_entities
+from .evaluation.llm_judge import judge_pair
 from .paths import DATA_DIR
 from .resources import (  # noqa: F401 — re-exported for callers
     PipelineResources,
@@ -49,9 +49,9 @@ from .resources import (  # noqa: F401 — re-exported for callers
     load_node_index,
     load_resources,
 )
-from .relevance import best_score, merge_rows, rank_rows
-from .retrieval_eval import score_row  # noqa: F401 — re-exported for callers
-from .results import (  # noqa: F401 — re-exported for callers
+from .search.relevance import best_score, merge_rows, rank_rows
+from .evaluation.retrieval_eval import score_row  # noqa: F401 — re-exported for callers
+from .evaluation.results import (  # noqa: F401 — re-exported for callers
     RESULT_FIELDS,
     append_result,
     empty_query_result,
@@ -59,15 +59,16 @@ from .results import (  # noqa: F401 — re-exported for callers
     print_summary_stats,
     serialize_result_for_csv,
 )
-from .summarization import format_kg_rows_for_summary, summarize_hops  # noqa: F401 — re-exported
-from .template_classifier import rule_label_formica
-from .fact_search import (
+from .generation.summarization import format_kg_rows_for_summary, summarize_hops  # noqa: F401 — re-exported
+from .routing.template_classifier import rule_label_formica
+from .search.fact_search import (
     company_profile_rows,
     cross_company_search,
     entity_profile_rows,
     per_company_top_facts,
 )
-from .template_resolver import (
+from .search.strategies import NODE_RETURNING, SUPPLEMENTABLE
+from .search.template_resolver import (
     execute_formica_template,
     expand_formica_template,
     is_cross_company_query,
@@ -99,11 +100,10 @@ def entity_types_from_matches(matches_df: pd.DataFrame) -> list[tuple[str, str]]
     return [(row["entity"], row["matched_type"]) for _, row in matches_df.iterrows()]
 
 
-# Strategies whose rows may be supplemented with semantic search hits. The named
-# special modes are excluded: they return SYNTHESISED rows (a segment average, a
-# single ranked winner) whose meaning comes from the aggregation, and appending
-# loose facts to those actively misleads the summariser about what was computed.
-_SUPPLEMENTABLE = frozenset({"primary", "relaxed_direction", "attribute_lookup"})
+# Which strategies may be supplemented, and which answer from node properties,
+# are declared once in search/strategies.py alongside the strategies themselves
+# -- see that module for why these sets are derived rather than hand-maintained.
+_SUPPLEMENTABLE = SUPPLEMENTABLE
 
 # Cap on rows handed to the summariser after merging. Matches the existing LIMIT
 # 40 used by the broad Cypher passes.
@@ -133,9 +133,7 @@ _MAX_ENUMERATION_ROWS = _cfg.MAX_ENUMERATION_ROWS
 # out at 14 rows.
 _PROFILE_ROW_THRESHOLD = _cfg.PROFILE_ROW_THRESHOLD
 
-# Strategies that answer by returning a node's own properties rather than by
-# traversing edges -- for these the node `summary` is primary evidence.
-_NODE_RETURNING_STRATEGIES = frozenset({"attribute_lookup", "attribute_lookup_direct"})
+_NODE_RETURNING_STRATEGIES = NODE_RETURNING
 
 # Analytical/SWOT-style questions ("primary competitive advantage", "key
 # strength", "main weakness") ask for a synthesis, not a lookup: the graph

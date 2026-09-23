@@ -13,7 +13,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from .template_classes import COMPANY_SEGMENT_FALLBACK
+from ..routing.template_classes import COMPANY_SEGMENT_FALLBACK
 
 _FACT_NUMBER_RE = re.compile(r"(?<!\d)(-?\d[\d,]*\.?\d*)\s*%")
 

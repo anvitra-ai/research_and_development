@@ -16,19 +16,8 @@ from .fact_search import _run_cypher
 from .relevance import RELEVANCE_FLOOR
 from .row_values import _segment_of, _usable_value
 from .slot_extraction import _WANTS_GROWTH_RE, _fact_is_growth, _params_for_cypher
+from .strategies import GATED as _GATED_STRATEGIES
 from .template_expansion import _apply_compare_fallback, _relaxed_simple_cypher
-
-# Strategies whose rows are gated on relevance before being accepted. The
-# targeted modes (compare_pair, propagation, transit, beneficiary, and every
-# named query_mode) are deliberately excluded: they only fire when the query
-# clearly asked for that shape, so their rows are on-topic by construction.
-#
-# The four gated here are the broad ones that will return SOMETHING for almost
-# any query about a resolved entity, which is exactly how an unrelated fact ends
-# up blocking a later strategy that would have answered correctly --
-# attribute_lookup handing back legal_name/description for a source-citation
-# question, or single_entity dumping an arbitrary neighbourhood.
-_GATED_STRATEGIES = frozenset({"primary", "relaxed_direction", "attribute_lookup"})
 
 
 def execute_formica_template(

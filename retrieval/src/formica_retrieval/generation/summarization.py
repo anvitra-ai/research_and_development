@@ -15,7 +15,7 @@ from typing import Any
 from google import genai
 from google.genai import types
 
-from . import config as _cfg
+from .. import config as _cfg
 
 # "Best reasoning model" per graphiti/run_ingestion.py's own designation, used
 # there for extraction. Swapped in here from gemini-3.5-flash-lite because the

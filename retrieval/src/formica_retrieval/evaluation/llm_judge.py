@@ -30,9 +30,9 @@ from google.genai import types
 from google.genai.errors import ServerError
 from pydantic import BaseModel
 
-from . import config as _cfg
-from .config import GEMINI_API_KEY
-from .paths import DATA_DIR
+from .. import config as _cfg
+from ..config import GEMINI_API_KEY
+from ..paths import DATA_DIR
 
 DEFAULT_INPUT = DATA_DIR / "banking_pipeline_results_with_summary.jsonl"
 DEFAULT_OUTPUT_CSV = DATA_DIR / "llm_judge_results.csv"

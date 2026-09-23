@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from formica_retrieval.retrieval_eval import RETRIEVAL_HIT_THRESHOLD, score_row  # noqa: E402
+from formica_retrieval.evaluation.retrieval_eval import RETRIEVAL_HIT_THRESHOLD, score_row  # noqa: E402
 
 
 def load_rows(path: Path) -> list[dict]:

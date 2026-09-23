@@ -21,17 +21,17 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from formica_retrieval.relevance import RELEVANCE_FLOOR, merge_rows, rank_rows, row_text
-from formica_retrieval.retrieval_eval import (
+from formica_retrieval.search.relevance import RELEVANCE_FLOOR, merge_rows, rank_rows, row_text
+from formica_retrieval.evaluation.retrieval_eval import (
     attribute_outcome,
     extract_names,
     extract_numbers,
     material_tokens,
     retrieval_recall,
 )
-from formica_retrieval.relation_names import _screaming_snake, _with_casing_variants
-from formica_retrieval.template_classifier import rule_label_formica
-from formica_retrieval.template_resolver import (
+from formica_retrieval.linking.relation_names import _screaming_snake, _with_casing_variants
+from formica_retrieval.routing.template_classifier import rule_label_formica
+from formica_retrieval.search.template_resolver import (
     infer_prop1_list,
 )
 
@@ -217,7 +217,78 @@ def test_rank_rows_puts_on_topic_row_first(embedder):
 
 
 def test_off_topic_rows_score_below_floor(embedder):
-    from formica_retrieval.relevance import best_score
+    from formica_retrieval.search.relevance import best_score
 
     rows = [{"fact": "The company was incorporated in 1969 under the Companies Act."}]
     assert best_score("What is the ticker symbol?", rows, embedder) < RELEVANCE_FLOOR
+
+
+# --------------------------------------------------------------------------
+# Strategy registry: the names the pipeline emits must all be declared.
+# --------------------------------------------------------------------------
+
+def _emitted_strategy_names() -> set[str]:
+    """Strategy names assigned anywhere in the package source.
+
+    Deliberately a source scan rather than a curated list: a curated one is the
+    very thing that drifts. Matches the three ways a strategy name is produced --
+    `strategy = "..."`, `accept(rows, "...")`, and a direct write to the result
+    record. The leading \b matters: without it this also matched Hugging Face's
+    unrelated `aggregation_strategy="simple"` kwarg.
+    """
+    import re
+    from pathlib import Path
+
+    pkg = Path(__file__).resolve().parents[1] / "src" / "formica_retrieval"
+    names: set[str] = set()
+    for path in pkg.rglob("*.py"):
+        if path.name == "strategies.py":
+            continue
+        src = path.read_text()
+        names |= set(re.findall(r'\bstrategy\s*=\s*"([a-z_]+)"', src))
+        names |= set(re.findall(r'accept\([^,]+,\s*"([a-z_]+)"\)', src))
+        names |= set(re.findall(r'\["cypher_strategy"\]\s*=\s*"([a-z_]+)"', src))
+        names |= set(re.findall(r'\["query_mode"\]\s*=\s*"([a-z_]+)"', src))
+    return names
+
+
+def test_strategy_registry_is_complete():
+    """Every strategy name the code emits is declared in the registry.
+
+    Guards the failure this registry exists to prevent: adding a strategy and
+    forgetting one of the behavioural sets keyed off its name, so it silently
+    skips the relevance gate or the supplement step.
+    """
+    from formica_retrieval.search import strategies
+
+    unregistered = _emitted_strategy_names() - strategies.NAMES
+    assert not unregistered, (
+        f"strategy names emitted but not declared in search/strategies.py: "
+        f"{sorted(unregistered)}"
+    )
+
+
+def test_named_cypher_modes_are_all_registered():
+    """Every named special mode is a strategy the pipeline can report.
+
+    Checked against _SPECIAL_SIMPLE_CYPHER's keys directly rather than by
+    scanning source: those keys ARE the definitive list of named modes, so this
+    cannot drift the way a regex over call sites can.
+    """
+    from formica_retrieval.search import strategies
+    from formica_retrieval.search.cypher_templates import _SPECIAL_SIMPLE_CYPHER
+
+    unregistered = set(_SPECIAL_SIMPLE_CYPHER) - strategies.NAMES
+    assert not unregistered, f"named Cypher modes missing from the registry: {sorted(unregistered)}"
+
+
+def test_strategy_sets_are_subsets_of_the_registry():
+    from formica_retrieval.search import strategies
+
+    for label, group in (
+        ("GATED", strategies.GATED),
+        ("SUPPLEMENTABLE", strategies.SUPPLEMENTABLE),
+        ("NODE_RETURNING", strategies.NODE_RETURNING),
+    ):
+        assert group <= strategies.NAMES, f"{label} names a strategy that is not registered"
+    assert len(strategies.CASCADE_ORDER) == len(strategies.NAMES), "duplicate strategy name"

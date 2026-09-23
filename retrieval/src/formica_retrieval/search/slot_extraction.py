@@ -15,14 +15,14 @@ from typing import Any
 
 import pandas as pd
 
-from .paths import DATA_DIR
-from .relation_names import _with_casing_variants
-from .template_classes import (
+from ..paths import DATA_DIR
+from ..linking.relation_names import _with_casing_variants
+from ..routing.template_classes import (
     RELATION_KEYWORDS,
     SLOT_SUBJECT_PRIORITY,
     BANKING_SEGMENT_KEYWORDS,
 )
-from .template_classifier import extract_threshold
+from ..routing.template_classifier import extract_threshold
 
 DEFAULT_TEMPLATE_PATH = DATA_DIR / "formica_query_templates.json"
 

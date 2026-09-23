@@ -21,7 +21,7 @@ from sklearn.pipeline import FeatureUnion, Pipeline
 from sklearn.preprocessing import FunctionTransformer
 from sklearn.svm import LinearSVC
 
-from .paths import DATA_DIR, MODELS_DIR
+from ..paths import DATA_DIR, MODELS_DIR
 from .template_classes import (
     FORMICA_TEMPLATE_CLASSES,
     DISCRIMINATIVE_KEYWORDS,

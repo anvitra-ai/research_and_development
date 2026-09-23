@@ -19,9 +19,9 @@ from transformers import pipeline
 
 from . import config as _cfg
 from .config import GEMINI_API_KEY, NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER
-from .entity_resolver import load_aliases
+from .linking.entity_resolver import load_aliases
 from .paths import MODELS_DIR
-from .template_classifier import FormicaTemplateClassifier  # noqa: F401 — re-exported for classifier experiments
+from .routing.template_classifier import FormicaTemplateClassifier  # noqa: F401 — re-exported for classifier experiments
 
 FORMICA_MODEL = MODELS_DIR / "formica-template-classifier.joblib"
 DEFAULT_NER_MODEL = _cfg.NER_MODEL

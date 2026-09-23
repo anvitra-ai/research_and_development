@@ -21,8 +21,8 @@ from typing import Any
 import pandas as pd
 from sentence_transformers import util
 
-from .paths import DATA_DIR
-from .template_classes import FORMICA_NEEDED_TYPES
+from ..paths import DATA_DIR
+from ..routing.template_classes import FORMICA_NEEDED_TYPES
 
 ALIAS_PATH = DATA_DIR / "kg_entity_aliases.json"
 

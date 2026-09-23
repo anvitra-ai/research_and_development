@@ -28,8 +28,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from neo4j import GraphDatabase  # noqa: E402
 
 from formica_retrieval.config import NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER  # noqa: E402
-from formica_retrieval.template_classes import RELATION_KEYWORDS  # noqa: E402
-from formica_retrieval.relation_names import _screaming_snake  # noqa: E402
+from formica_retrieval.routing.template_classes import RELATION_KEYWORDS  # noqa: E402
+from formica_retrieval.linking.relation_names import _screaming_snake  # noqa: E402
 
 RELATION_COUNTS = (
     "MATCH ()-[r:RELATES_TO]-() WHERE r.name IS NOT NULL "

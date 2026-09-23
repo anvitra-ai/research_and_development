@@ -19,7 +19,7 @@ from typing import Any
 from sentence_transformers import util
 
 from .cypher_templates import _TEXT_SEARCH_CYPHER, _TEXT_SEARCH_STOPWORDS
-from .relation_names import _with_casing_variants
+from ..linking.relation_names import _with_casing_variants
 
 
 def _run_cypher(driver, cypher: str, params: dict[str, Any]) -> list:

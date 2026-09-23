@@ -30,7 +30,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from . import config as _cfg
+from .. import config as _cfg
 
 # Number with optional thousands separators and optional decimal part, e.g.
 # "6.9", "218,399", "1,04,500" (Indian grouping), "2024". The leading lookbehind

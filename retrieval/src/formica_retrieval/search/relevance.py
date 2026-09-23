@@ -20,7 +20,7 @@ from typing import Any, Iterable
 
 from sentence_transformers import util
 
-from . import config as _cfg
+from .. import config as _cfg
 
 # A candidate row set whose best row scores below this is treated as "we found
 # something, but not the thing that was asked about" -- the cascade keeps

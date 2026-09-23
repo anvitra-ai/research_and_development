@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from formica_retrieval.paths import DATA_DIR  # noqa: E402
-from formica_retrieval.template_classifier import rule_label_formica  # noqa: E402
-from formica_retrieval.template_resolver import infer_prop1_list  # noqa: E402
+from formica_retrieval.routing.template_classifier import rule_label_formica  # noqa: E402
+from formica_retrieval.search.template_resolver import infer_prop1_list  # noqa: E402
 
 QUERIES_CSV = DATA_DIR / "banking_queries/indian_banks_993_queries.csv"
 OUT = ROOT / "tests" / "snapshots" / "query_behaviour.json"

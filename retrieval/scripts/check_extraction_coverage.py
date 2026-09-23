@@ -30,7 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from neo4j import GraphDatabase  # noqa: E402
 
 from formica_retrieval.config import NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER  # noqa: E402
-from formica_retrieval.retrieval_eval import extract_numbers  # noqa: E402
+from formica_retrieval.evaluation.retrieval_eval import extract_numbers  # noqa: E402
 
 DEFAULT_SOURCE = (
     Path(__file__).resolve().parents[2]
